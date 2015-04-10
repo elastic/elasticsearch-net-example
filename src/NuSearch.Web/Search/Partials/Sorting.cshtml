@@ -1,0 +1,15 @@
+﻿@using System
+@using NuSearch.Web.Search
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<NuSearch.Web.Search.SearchViewModel>
+
+<tr>
+	<td>Sort</td>
+	<td>
+		@{ var sort = Model.Form.Sort;}
+		<select name="sort">
+			<option value="relevance" @(sort == SearchSort.Relevance ? "selected" : "")>Relevance</option>
+			<option value="downloads" @(sort == SearchSort.Downloads ? "selected" : "")>Number of downloads</option>
+			<option value="recent" @(sort == SearchSort.Recent ? "selected" : "")>Recently updated</option>
+		</select>
+	</td>
+</tr>

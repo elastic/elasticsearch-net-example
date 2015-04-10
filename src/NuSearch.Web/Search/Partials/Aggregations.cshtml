@@ -1,0 +1,27 @@
+﻿@using System
+@using NuSearch.Web.Search
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<NuSearch.Web.Search.SearchViewModel>
+
+<div class="panel panel-info aggregation-container">
+	<div class="panel-heading">
+		<h3 class="panel-title">Authors</h3>
+	</div>
+	<div class="panel-body list-group">
+		@foreach (var author in Model.Authors)
+		{
+			var isSelected = Model.Form.Author == author.Key;
+			var url = Model.UrlForFirstPage(f => { f.Author = isSelected ? "" : author.Key; });
+			<a href="@url" class="list-group-item @(isSelected ? "list-group-item-warning" : "")">
+				@if (isSelected)
+				{
+					<span class="glyphicon glyphicon-remove pull-right"></span>
+				}
+				else
+				{
+					<span class="label label-lg label-warning pull-right">@author.Value</span>
+				}
+				@author.Key
+			</a>
+		}
+	</div>
+</div>

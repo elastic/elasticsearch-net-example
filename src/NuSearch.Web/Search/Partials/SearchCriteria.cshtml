@@ -1,0 +1,18 @@
+﻿@using System
+@using NuSearch.Web.Search
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<NuSearch.Web.Search.SearchViewModel>
+<span class="text-success">Found <span class="label label-success">@Model.Total</span> packages</span>
+@if (!string.IsNullOrEmpty(Model.Form.Query))
+{
+	<span class="text-primary">
+		searching for
+		<span class="label label-primary">"@Model.Form.Query" <a class="glyphicon glyphicon-remove" href="@Model.UrlForFirstPage(f=> { f.Query = null; })"></a></span>
+	</span>
+}
+@if (!string.IsNullOrEmpty(Model.Form.Author))
+{
+	<span class="text-warning">
+		having an <span class="label label-info">Author</span> named
+		<a class="label label-warning" href="@Model.UrlForFirstPage(f => { f.Author = null; })">@Model.Form.Author <span class="glyphicon glyphicon-remove"></span></a>
+	</span>
+}

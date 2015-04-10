@@ -1,0 +1,16 @@
+﻿@using System
+@using NuSearch.Web.Search
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<NuSearch.Web.Search.SearchViewModel>
+
+<tr>
+	<td>PageSize</td>
+	<td>
+		@{ var pageSize = Model.Form.PageSize;}
+		<select name="pagesize">
+			<option @(pageSize == 10 ? "selected" : "")>10</option>
+			<option @(pageSize == 25 ? "selected" : "")>25</option>
+			<option @(pageSize == 50 ? "selected" : "")>50</option>
+			<option @(pageSize == 100 ? "selected" : "")>100</option>
+		</select>
+	</td>
+</tr>

@@ -1,0 +1,49 @@
+﻿@using System
+@using NuSearch.Web.Search
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<NuSearch.Web.Search.SearchViewModel>
+@{
+}
+<!doctype html>
+<html>
+<head>
+	<title>NuSearch</title>
+	<link rel="stylesheet" href="/static/bootstrap.min.css">
+	<link rel="stylesheet" href="/static/main.css">
+	<script src="/static/jquery-2.1.3.min.js"></script>
+	<script src="/static/search.js"></script>
+    <script src="/static/typeahead.bundle.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<form action="/" method="GET" id="searchform" class=" container-fluid">
+		@if (!string.IsNullOrEmpty(Model.Form.Author)) {
+			<input name="author" type="hidden" value="@Model.Form.Author" />
+		}
+		<div class="row">
+			<div class="page-header col-lg-2">
+				<h1>
+					NuSearch
+				</h1>
+			</div>
+			<div class="page-header col-lg-10">
+				<div class="input-group input-group-lg" id="query-container">
+                    <input type="text" class="form-control" id="query" name="query"  autocomplete="off" value="@Model.Form.Query" placeholder="Search for...">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="submit">Search</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		@Html.Partial("Partials/Pager", Model)
+		@if (Model.Total > 0)
+		{
+			@Html.Partial("Partials/Results", Model)
+		}
+		else
+		{
+			@Html.Partial("Partials/NoResults", Model)
+		}
+		@Html.Partial("Partials/Pager", Model)
+	</form>
+</body>
+</html>

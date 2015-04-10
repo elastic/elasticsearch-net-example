@@ -1,0 +1,10 @@
+﻿@using System
+@using NuSearch.Web.Search
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<NuSearch.Web.Search.SearchViewModel>
+
+<div class="jumbotron">
+	<h1>No results</h1>
+	<h2 id="search-criteria">
+	@Html.Partial("Partials/SearchCriteria", Model)
+	</h2>
+</div>

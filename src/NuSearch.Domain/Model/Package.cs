@@ -31,6 +31,5 @@ namespace NuSearch.Domain.Model
 		public List<PackageVersion> Versions { get; set; }
 		public string Copyright { get; set; }
 		public int DownloadCount { get; set; }
-		public CompletionField Suggest { get; set; }
 	}
 }

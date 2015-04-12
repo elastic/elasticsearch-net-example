@@ -33,5 +33,27 @@ namespace NuSearch.Domain.Data
 			}
 
 		}
+
+		public IEnumerable<Package> GetPackages()
+		{
+			var packages = new Dictionary<string, Package>();
+
+			foreach (var dump in this.Dumps)
+				foreach (var feedPackage in dump.NugetPackages)
+				{
+					if (packages.ContainsKey(feedPackage.Id))
+					{
+						var version = new PackageVersion(feedPackage);
+						packages[feedPackage.Id].Versions.Add(version);
+					}
+					else
+					{
+						var package = new Package(feedPackage);
+						packages.Add(package.Id, package);
+					}
+				}
+
+			return packages.Values;
+		}
 	}
 }

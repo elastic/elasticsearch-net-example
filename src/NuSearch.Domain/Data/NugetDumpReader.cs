@@ -33,7 +33,8 @@ namespace NuSearch.Domain.Data
 			}
 
 		}
-
+		
+		/*
 		public IEnumerable<Package> GetPackages()
 		{
 			var packages = new Dictionary<string, Package>();
@@ -54,6 +55,6 @@ namespace NuSearch.Domain.Data
 				}
 
 			return packages.Values;
-		}
+		}*/
 	}
 }

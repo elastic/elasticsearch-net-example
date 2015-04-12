@@ -86,7 +86,7 @@
       <HintPath>..\packages\Serilog.1.4.204\lib\net45\Serilog.FullNetFx.dll</HintPath>
     </Reference>
     <Reference Include="Serilog.Sinks.Elasticsearch">
-      <HintPath>..\packages\Serilog.Sinks.Elasticsearch.dll</HintPath>
+      <HintPath>..\packages\Serilog.Sinks.Elasticsearch.2.0.27\lib\net45\Serilog.Sinks.Elasticsearch.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

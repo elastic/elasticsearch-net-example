@@ -293,16 +293,20 @@ The corresponding response from the bulk API will be a collection of results whe
 
 The `201 CREATED` status signifying that each bulk operation completed successfully.
 
-Know that a single failing operatin in the bulk call will not fail the entire request.  For instance, if the `NEST` document above failed to index for some reason, but the other two documents succeeded, the HTTP status code for the entire request would still be a `200 OK`, but the corresponding object in the `items` for `NEST` would indicate a failure through the `status` property, likely to be in the `400` or `500` range.
+Know that a single failing operation in the bulk call will not fail the entire request.  For instance, if the `NEST` document above failed 
+to index for some reason, but the other two documents succeeded, the HTTP status code for the entire request would still be a `200 OK`, 
+but the corresponding object in the `items` for `NEST` would indicate a failure through the `status` property, likely to be in the `400` or `500` range.
 
-Let's go back to our `IndexDumps()` method and revist our bulk code.  We are still only checking the `IsValid` property of the response, which only tells us whether the entire request failed or not.  So how do we check for individual failures at the operation level?
+However in `NEST` the `.IsValid` property will only be true if all the individual items succeeded regardless of the actual HTTP status code.
 
-The `BulkResponse` object exposes an `Errors` property which is a boolean that indicates whether there were any failed operations.  Complimentary to that, `BulkResponse` also exposes an `ItemsWithErrors` collection which will contain any bulk operation that failed.
+Let's go back to our `IndexDumps()` method and revist our bulk code.  
+
+`BulkResponse` exposes an `ItemsWithErrors` collection which will contain any bulk operation that failed.
 
 Let's modify `IndexDumps()` again and check the response for errors by adding the following:
 
 ```csharp
-if (result.Errors)
+if (!result.IsValid)
 {
 	foreach (var item in result.ItemsWithErrors)
 		Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
@@ -334,15 +338,12 @@ static void IndexDumps()
 
 	if (!result.IsValid)
 	{
+		foreach (var item in result.ItemsWithErrors)
+			Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
+
 		Console.WriteLine(result.ConnectionStatus.OriginalException.Message);
 		Console.Read();
 		Environment.Exit(1);
-	}
-
-	if (result.Errors)
-	{
-		foreach (var item in result.ItemsWithErrors)
-			Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
 	}
 
 	Console.WriteLine("Done.");
@@ -365,15 +366,12 @@ static void IndexDumps()
 
 	if (!result.IsValid)
 	{
+		foreach (var item in result.ItemsWithErrors)
+			Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
+
 		Console.WriteLine(result.ConnectionStatus.OriginalException.Message);
 		Console.Read();
 		Environment.Exit(1);
-	}
-
-	if (result.Errors)
-	{
-		foreach (var item in result.ItemsWithErrors)
-			Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
 	}
 
 	Console.WriteLine("Done.");
@@ -394,7 +392,7 @@ Now that we've bulk indexed our packages, let's take a step back and query for a
       "total": 5,
       "successful": 5,
       "failed": 0
-   },
+  },
    "hits": {
       "total": 934,
       "max_score": 1,

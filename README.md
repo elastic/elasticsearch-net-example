@@ -197,6 +197,7 @@ While we're here, let's take this a step further and instead of setting a defaul
 static NuSearchConfiguration()
 {
 	_connectionSettings = new ConnectionSettings(CreateUri(9200))
+		.SetDefaultIndex("nusearch")
 		.MapDefaultTypeNames(m => m
 			.Add(typeof(FeedPackage), "package")
 		)
@@ -489,38 +490,35 @@ Next, `AddMapping()` allows us to define a mapping for our `Package` POCO.  Firs
 
 Still with us?  Alright, now that we have our mapping setup, let's reindex our packages.  But wait, `NugetDumpReader.Dumps` just returns a collection of `FeedPackage`s, how do we go from from `FeedPackage` to our new types?  More importantly, as we iterate through the dump files, we need a way of determining when we've encountered a package for the first time in order to treat all subsequent encounters of the same package as just another version that we can include in the "main" package.
 
-Let's go ahead and add the following method to our `NugetDumpReader` class:
-
-```csharp
-public IEnumerable<Package> GetPackages()
-{
-	var packages = new Dictionary<string, Package>();
-
-	foreach (var dump in this.Dumps)
-	foreach (var feedPackage in dump.NugetPackages)
-	{
-		if (packages.ContainsKey(feedPackage.Id))
-		{
-			var version = new PackageVersion(feedPackage);
-			packages[feedPackage.Id].Versions.Add(version);
-		}
-		else
-		{
-			var package = new Package(feedPackage);
-			packages.Add(package.Id, package);
-		}
-	}
-
-	return packages.Values;
-}
-```
+Now we just need to make a small change to `IndexDumps()` and have it call `GetPackages()` instead of reading from `Dumps` directly by changing line 1 to:
 
 `GetPackages()` creates a dictionary of packages keyed by their ID and iterates through each package in the dump file(s).  When it encounters a new package it simply adds it to the dictionary.  When it encounters a package that already exists in the dictionary, then it simply adds the package to the `Versions` collection of the package that already exists in the dictionary.  At the end, it simply returns all of the packages as a single collection of `Package`s.  Also, take note that all of the property mapping and parsing between `FeedPackage`, `Package`, and `PackageVersion` takes place in the constructors of `Package` and `PackageVersion`.
 
-Now we just need to make a small change to `IndexDumps()` and have it call `GetPackages()` instead of reading from `Dumps` directly by changing line 1 to:
+Also, we don't want to bulk index all of our data in one request, since it's nearly 700mb.  The magic number is usually around 1000 for any data, so let's use the handy `Partition()` extension method to break up our packages into collections of 1000 documents.
+
+Furthermore, since we're going to be reindexing a few more times...let's do another `.Take(1)` and only index a 1000 documents for now.
 
 ```csharp
-var packages = DumpReader.GetPackages();
+static void IndexDumps()
+{
+	var packages = DumpReader.GetPackages();
+	var partitions = packages.Partition(1000).Take(1);
+
+	foreach (var partition in partitions)
+	{
+		var result = Client.IndexMany(partition);
+
+		if (!result.IsValid)
+		{
+			foreach (var item in result.ItemsWithErrors)
+				Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
+			Console.WriteLine(result.ConnectionStatus.OriginalException.Message);
+			Console.Read();
+			Environment.Exit(1);
+		}
+	}
+	Console.WriteLine("Done.");
+}
 ```
 
 Also by doing this, we've removed the `Take(1)` that we had in earlier.  We are now going to index **all** of our dump files.
@@ -582,32 +580,26 @@ OK, now let's actually implement some code to handle our alias swapping:
 ```csharp
 private static void SwapAlias()
 {
-	Client.Alias(alias => alias
-		.Remove(r => r
-			.Index("nusearch-*")
-			.Alias(NuSearchConfiguration.LiveIndexAlias)
-		)
-		.Add(a => a
-			.Index("nusearch-*")
-			.Alias(NuSearchConfiguration.OldIndexAlias)
-		)
-		.Add(a => a
-			.Index(IndexName)
-			.Alias(NuSearchConfiguration.LiveIndexAlias)
-		)
-	);
+	var indexExists = Client.IndexExists(NuSearchConfiguration.LiveIndexAlias).Exists;
 
-	Client.Alias(alias => alias
-		.Remove(r => r
-			.Index(IndexName)
-			.Alias(NuSearchConfiguration.OldIndexAlias)
-		)
-	);
+	Client.Alias(aliases =>
+	{
+		if (indexExists)
+			aliases.Add(a => a.Alias(NuSearchConfiguration.OldIndexAlias).Index(NuSearchConfiguration.LiveIndexAlias));
+
+		return aliases
+		.Remove(a => a.Alias(NuSearchConfiguration.LiveIndexAlias).Index("*"))
+		.Add(a => a.Alias(NuSearchConfiguration.LiveIndexAlias).Index(IndexName));
+	});
+
+	var oldIndices = Client.GetIndicesPointingToAlias(NuSearchConfiguration.OldIndexAlias)
+	.OrderByDescending(name => name)
+	.Skip(2);
+
+	foreach (var oldIndex in oldIndices)
+		Client.DeleteIndex(oldIndex);
 }
 ```
-
-So here we are first removing the `nusearch` alias from any existing indices, including the new one we just reindexed to.  Then we are adding the `nusearch-old` alias to all indices, again including the new index.  Next, we add the live `nusearch` alias to our new index.  And lastly, we clean up and remove the `nusearch-old` alias from our new index.
-
 A few more things we need to tidy up before running our indexer again...
 
 We need to edit `CreateIndex()` to use our new `IndexName`:
@@ -628,44 +620,7 @@ var result = Client.IndexMany(partition, IndexName);
 
 We can also now get rid of that `DeleteIndexIfExists()` method since we wont be needing it anymore.
 
-Alright, now we're all set!  We can now reindex as many times as we'd like without affecting our web application.
-
-### Cleaning up old indices
-
-As we reindex over and over, with our current aliasing solution- we might quickly end up with lots of old indices that we don't care for.  For instance, after indexing a few times, here's what our alias situation might look like:
-
-**GET _cat/aliases?v**
-```
-alias        index                        filter routing.index routing.search 
-nusearch     nusearch-10-04-2015-19-54-53 -      -             -              
-nusearch-old nusearch-10-04-2015-19-53-42 -      -             -              
-nusearch-old nusearch-10-04-2015-19-52-57 -      -             -              
-nusearch-old nusearch-10-04-2015-19-50-19 -      -             -              
-```
-
-To fix this, let's extend `SwapAlias()` and add some clean up code to only keep around the most recent 2 old indices:
-
-```csharp
-var oldIndices = Client.GetIndicesPointingToAlias(NuSearchConfiguration.OldIndexAlias)
-	.OrderByDescending(name => name)
-	.Skip(2);
-
-	foreach (var oldIndex in oldIndices)
-		Client.DeleteIndex(oldIndex);
-```
-
-Now, let's run the indexer again see what we've got:
-
-**GET _cat/aliases?v**
-```
-alias        index                        filter routing.index routing.search 
-nusearch-old nusearch-10-04-2015-19-54-53 -      -             -              
-nusearch-old nusearch-10-04-2015-19-53-42 -      -             -              
-nusearch     nusearch-10-04-2015-20-23-34 -      -             -              
-
-```
-
-Sweet!  Now enough of this indexing stuff...let's get to searching!
+Alright, now we're all set!  We can now reindex as many times as we'd like without affecting our live web application.
 
 # Part 3: Searching
 

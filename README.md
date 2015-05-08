@@ -1,5 +1,7 @@
 ﻿# NuSearch
 
+A tutorial repository for Elasticsearch and NEST that you can check out and by following the README.md build out into a feature packed search interface for nuget packages 
+
 ## NOTE !
 
 If you are reading this on a fork note that it may be out of sync with: https://github.com/elastic/elasticsearch-net-example
@@ -12,9 +14,15 @@ The idea is to release this tutorial in a more official format once we release N
 
 
 # Part 1: Installing
+
  - Downloading Elasticsearch and configure
+
  - Install marvel and head
+
  - Extract NuGet feed data
+You can obtain a [data dump of nuget here in zip format](http://esdotnet.blob.core.windows.net/nusearch/nuget-data.zip)
+
+Extract it to a folder on disk
 
 # Part 2: Indexing
 
@@ -41,6 +49,8 @@ static void Main(string[] args)
 	Console.Read();
 }
 ```
+
+Make sure you change `c:\NugetData` to where you extracted the [nuget data dump](http://esdotnet.blob.core.windows.net/nusearch/nuget-data.zip)
 
 Before we start, there are a few classes in the above snippet that we need to gain an understanding of.  `ElasticClient` is the entry point into NEST and is the class that is responsible for making requests to all of the Elasticsearch APIs such as indexing and searching, as well as administrative APIs like snapshot/restore, cluster and node stats, etc.  `ElasticClient` is thread-safe; you can create a singleton instance and keep it around in your application, or you can instantiate a new instance for every request.
 

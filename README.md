@@ -1,4 +1,15 @@
-# NuSearch
+﻿# NuSearch
+
+## NOTE !
+
+If you are reading this on a fork note that it may be out of sync with: https://github.com/elastic/elasticsearch-net-example
+
+We are still working on the final section and part 1 needs more explaining but you can follow this example along now if you wish!
+
+The solution works in both visual studio and xamarin studio so feel free to play around with either. 
+
+The idea is to release this tutorial in a more official format once we release NEST 2.0 and we might squash and rebase all our branches in the future.
+
 
 # Part 1: Installing
  - Downloading Elasticsearch and configure

@@ -1,17 +1,20 @@
 ﻿# NuSearch
 
-A tutorial repository for Elasticsearch and NEST that you can check out and by following the README.md build out into a feature packed search interface for nuget packages 
+A tutorial repository for Elasticsearch and NEST.  
+
+Simply clone the repository and follow the README.md to build out a feature-packed search interface for NuGet packages!
 
 ## NOTE !
 
-If you are reading this on a fork note that it may be out of sync with: https://github.com/elastic/elasticsearch-net-example
+If you are reading this on a fork, note that it may be out of sync with: https://github.com/elastic/elasticsearch-net-example
 
-We are still working on the final section and part 1 needs more explaining but you can follow this example along now if you wish!
+We are still working on the final section (part 6) and part 1 needs more explaining, but you can follow this example along now if you wish!
 
-The solution works in both visual studio and xamarin studio so feel free to play around with either. 
+The solution works in both Visual Studio and Xamarin Studio, so feel free to play around with either. 
 
 The idea is to release this tutorial in a more official format once we release NEST 2.0 and we might squash and rebase all our branches in the future.
 
+Oh, and if you find any bugs along the way, send us a PR!
 
 # Part 1: Installing
 
@@ -1848,4 +1851,4 @@ Nice!  Now how about that for speed?
 
 # Part 6: Paging & Sorting
 
-TODO
+Coming soon...

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
+# Visual Studio 2012
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuSearch.Indexer", "NuSearch.Indexer\NuSearch.Indexer.csproj", "{24FD19B5-F2FE-41AE-AB47-99F141171C1E}"
@@ -26,6 +26,10 @@ Global
 		{24FD19B5-F2FE-41AE-AB47-99F141171C1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24FD19B5-F2FE-41AE-AB47-99F141171C1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24FD19B5-F2FE-41AE-AB47-99F141171C1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4516F89C-2E03-425A-A2C2-7EB7AABCFE3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4516F89C-2E03-425A-A2C2-7EB7AABCFE3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4516F89C-2E03-425A-A2C2-7EB7AABCFE3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4516F89C-2E03-425A-A2C2-7EB7AABCFE3A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D3848D9B-E8ED-497C-8FFC-3BE63DD34ACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D3848D9B-E8ED-497C-8FFC-3BE63DD34ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3848D9B-E8ED-497C-8FFC-3BE63DD34ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -34,10 +38,8 @@ Global
 		{E20CDDAB-A919-4A64-B5D8-1950348AF0E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E20CDDAB-A919-4A64-B5D8-1950348AF0E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E20CDDAB-A919-4A64-B5D8-1950348AF0E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4516F89C-2E03-425A-A2C2-7EB7AABCFE3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4516F89C-2E03-425A-A2C2-7EB7AABCFE3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4516F89C-2E03-425A-A2C2-7EB7AABCFE3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4516F89C-2E03-425A-A2C2-7EB7AABCFE3A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

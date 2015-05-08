@@ -36,8 +36,9 @@ namespace NuSearch.Web.Plumbing
 		static MyRootPathProvider()
 		{
 			var root = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+			var pathSep = Path.DirectorySeparatorChar;
 			if (System.Diagnostics.Debugger.IsAttached)
-				root = Path.GetFullPath(Path.Combine(root, "..\\.."));
+				root = Path.GetFullPath(Path.Combine(root, ".."+ pathSep +".."));
 			RootPath = root;
 		}
 

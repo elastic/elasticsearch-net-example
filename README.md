@@ -23,7 +23,7 @@ Oh, and if you find any bugs along the way, send us a PR!
  - Install marvel and head
 
  - Extract NuGet feed data
-You can obtain a [data dump of nuget here in zip format](http://esdotnet.blob.core.windows.net/nusearch/nuget-data.zip)
+You can obtain a [data dump of nuget here in zip format](https://nusearch.blob.core.windows.net/dump/nuget-data.zip)
 
 Extract it to a folder on disk
 

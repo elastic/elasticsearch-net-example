@@ -25,7 +25,6 @@ namespace NuSearch.Web.Search
 
 				return View[model];
 			};
-
 		}
 	}
 }

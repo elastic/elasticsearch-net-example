@@ -41,7 +41,7 @@ namespace NuSearch.Indexer
 
 				if (!result.IsValid)
 				{
-					Console.WriteLine(result.ConnectionStatus.OriginalException.Message);
+					Console.WriteLine(result.CallDetails.OriginalException.Message);
 					Console.Read();
 					Environment.Exit(1);
 				}

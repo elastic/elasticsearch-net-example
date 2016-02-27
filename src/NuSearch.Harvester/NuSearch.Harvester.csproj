@@ -45,8 +45,9 @@
     <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
     </Reference>
-    <Reference Include="ShellProgressBar">
-      <HintPath>..\packages\ShellProgressBar.1.1.0.0\lib\NET4\ShellProgressBar.dll</HintPath>
+    <Reference Include="ShellProgressBar, Version=1.2.0.0, Culture=neutral, PublicKeyToken=9bdeb49e926d68fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ShellProgressBar.1.2.0.0\lib\NET4\ShellProgressBar.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Simple.OData.Client.Core">
       <HintPath>..\packages\Simple.OData.V3.Client.4.3.0\lib\portable-net45+win+win8+wp8+wpa81\Simple.OData.Client.Core.dll</HintPath>

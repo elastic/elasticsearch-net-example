@@ -1,6 +1,6 @@
 ﻿# NuSearch
 
-A tutorial repository for Elasticsearch and NEST.  
+A tutorial repository for Elasticsearch and NEST.
 
 Simply clone the repository and follow the README.md to build out a feature-packed search interface for NuGet packages!
 
@@ -10,7 +10,7 @@ If you are reading this on a fork, note that it may be out of sync with: https:/
 
 We are still working on the final section (part 6) and part 1 needs more explaining, but you can follow this example along now if you wish!
 
-The solution works in both Visual Studio and Xamarin Studio, so feel free to play around with either. 
+The solution works in both Visual Studio and Xamarin Studio, so feel free to play around with either.
 
 The idea is to release this tutorial in a more official format once we release NEST 2.0 and we might squash and rebase all our branches in the future.
 
@@ -18,12 +18,11 @@ Oh, and if you find any bugs along the way, send us a PR!
 
 # Part 1: Installing
 
- - Downloading Elasticsearch and configure
+ - Downloading [Elasticsearch 2.0 or up](https://www.elastic.co/downloads/elasticsearch)
 
- - Install marvel and head
+ - Install [kibana](https://www.elastic.co/downloads/kibana) and the [sense kibana app](https://www.elastic.co/guide/en/sense/current/installing.html)
 
- - Extract NuGet feed data
-You can obtain a [data dump of nuget here in zip format](https://nusearch.blob.core.windows.net/dump/nuget-data.zip)
+ - Download and extract NuGet feed data. You can obtain a [data dump of nuget here in zip format](https://nusearch.blob.core.windows.net/dump/nuget-data.zip)
 
 Extract it to a folder on disk
 
@@ -109,7 +108,18 @@ The `Index()` method accepts two parameters, (1) the required object (document) 
 
 Let's run the application and see what we get...
 
-You should have gotten an `ArgumentNullException`: `Value cannot be null. Parameter name: index`
+<hr />
+
+You should have gotten an `ElasticsearchClientException`:
+
+```
+Dispatching Index() from NEST into to Elasticsearch.NET failed
+Received a request marked as PUT
+This endpoint accepts POST,PUT
+The request might not have enough information provided to make any of these endpoints:
+  - /{index}/{type}
+  - /{index}/{type}/{id}
+```
 
 What happened here?  Notice in our application, we never specified which index to index our packages into, which the API requires.  We can specify the index in several ways using NEST, but for now let's just set a default index for the entire client using our connection settings:
 
@@ -117,11 +127,13 @@ What happened here?  Notice in our application, we never specified which index t
 static NuSearchConfiguration()
 {
 	_connectionSettings = new ConnectionSettings(CreateUri(9200))
-		.SetDefaultIndex("nusearch");
+		.DefaultIndex("nusearch");
 }
 ```
 
 If we run our indexer again, after a few seconds, only `Done.` should be written to the console meaning all of our index requests were successful.
+
+<hr />
 
 We can check the results using Sense by executing a simple match all query against our `nusearch` index (i.e. the SQL equivalent of `SELECT TOP 10 * FROM nusearch` and see what we have:
 
@@ -181,9 +193,11 @@ You should get back a response similar to the following:
                "lastEdited": "0001-01-01T00:00:00",
                "licenseUrl": "http://www.shidengyun.com/"
             }
-         },
-         {
-         	...
+         }
+      ...
+    ]
+  }
+}
 ```
 
 W00t!  We have documents.
@@ -209,24 +223,22 @@ static NuSearchConfiguration()
 {
 	_connectionSettings = new ConnectionSettings(CreateUri(9200))
 		.SetDefaultIndex("nusearch")
-		.MapDefaultTypeNames(m => m
-			.Add(typeof(FeedPackage), "package")
+		.InferMappingFor<FeedPackage>(i=>i
+			.TypeName("package")
 		);
 }
 ```
 
-While we're here, let's take this a step further and instead of setting a default index, let's tell NEST to always route requests to the `nusearch` index when dealing with a `FeedPackage`:
+While we're here, let's take this a step further and instead of relying on a default index, let's tell NEST to always route requests to the `nusearch` index when dealing with a `FeedPackage`:
 
 ```csharp
 static NuSearchConfiguration()
 {
 	_connectionSettings = new ConnectionSettings(CreateUri(9200))
 		.SetDefaultIndex("nusearch")
-		.MapDefaultTypeNames(m => m
-			.Add(typeof(FeedPackage), "package")
-		)
-		.MapDefaultTypeIndices(m => m
-			.Add(typeof(FeedPackage), "nusearch")
+		.InferMappingFor<FeedPackage>(i=>i
+			.TypeName("package")
+			.IndexName("nusearch")
 		);
 }
 ```
@@ -251,6 +263,8 @@ static void Main(string[] args)
 	Console.Read();
 }
 ```
+
+<hr />
 
 Checking our results in Sense again, our hits meta data should now look like this:
 
@@ -293,6 +307,8 @@ static void IndexDumps()
 }
 ```
 
+<hr />
+
 Here we are using a multi-line lambda within the `Bulk()` call to iterate over our `packages` collection, and passing each object to the bulk `Index()` method.  Notice here, different from the regular `Client.Index()` method, we had to explicitly state the type of the object we are indexing.  This is because `Bulk()` can deal with more than one different type in the same request.  We could easily have a `b.Index<Foo>(i => i.Document(myFoo))` in the same `foreach` loop.  In fact, the bulk API also supports different operations (delete and update) in the same bulk call as well.  So we could also have a `b.Delete<FeedPackage>(d => d.Id(123))` in our call too.
 
 Let's take a look at the request that `Bulk()` generates.  It is going to build up a JSON payload that the bulk API expects, that is the operation to perform (in our case all `index`) followed by the document to index on the next line:
@@ -318,13 +334,13 @@ The corresponding response from the bulk API will be a collection of results whe
 
 The `201 CREATED` status signifying that each bulk operation completed successfully.
 
-Know that a single failing operation in the bulk call will not fail the entire request.  For instance, if the `NEST` document above failed 
-to index for some reason, but the other two documents succeeded, the HTTP status code for the entire request would still be a `200 OK`, 
+Know that a single failing operation in the bulk call will not fail the entire request.  For instance, if the `NEST` document above failed
+to index for some reason, but the other two documents succeeded, the HTTP status code for the entire request would still be a `200 OK`,
 but the corresponding object in the `items` for `NEST` would indicate a failure through the `status` property, likely to be in the `400` or `500` range.
 
 However in `NEST` the `.IsValid` property will only be true if all the individual items succeeded regardless of the actual HTTP status code.
 
-Let's go back to our `IndexDumps()` method and revist our bulk code.  
+Let's go back to our `IndexDumps()` method and revist our bulk code.
 
 `BulkResponse` exposes an `ItemsWithErrors` collection which will contain any bulk operation that failed.
 
@@ -339,6 +355,8 @@ if (!result.IsValid)
 ```
 
 Let's go ahead and run our indexer again.
+
+<hr />
 
 All should be well and once again, only `Done.` should be written in the console.  We've just bulk indexed our packages!
 
@@ -479,26 +497,29 @@ Let's add a `CreateIndex()` with the following implementation:
 ```csharp
 static void CreateIndex()
 {
-
-	Client.CreateIndex("nusearch", i=>i
-		.NumberOfShards(2)
-		.NumberOfReplicas(0)
-		.AddMapping<Package>(m => m
-			.MapFromAttributes()
-			.Properties(ps => ps
-				.NestedObject<PackageVersion>(n => n
-					.Name(p => p.Versions.First())
-					.MapFromAttributes()
-					.Properties(pps => pps
-						.NestedObject<PackageDependency>(nn => nn
-							.Name(pv => pv.Dependencies.First())
-							.MapFromAttributes()
+	Client.CreateIndex("nusearch", i => i
+		.Settings(s => s
+			.NumberOfShards(2)
+			.NumberOfReplicas(0)
+		)
+		.Mappings(m=>m
+			.Map<Package>(map => map
+				.AutoMap()
+				.Properties(ps => ps
+					.Nested<PackageVersion>(n => n
+						.Name(p => p.Versions.First())
+						.AutoMap()
+						.Properties(pps => pps
+							.Nested<PackageDependency>(nn => nn
+								.Name(pv => pv.Dependencies.First())
+								.AutoMap()
+							)
 						)
 					)
-				)
-				.NestedObject<PackageAuthor>(n => n
-					.Name(p => p.Authors.First())
-					.MapFromAttributes()
+					.Nested<PackageAuthor>(n => n
+						.Name(p => p.Authors.First())
+						.AutoMap()
+					)
 				)
 			)
 		)
@@ -508,9 +529,9 @@ static void CreateIndex()
 
 So let's break down what we're doing here in the `CreateIndex()` call.  First, we're telling Elasticsearch to create an index named `nusearch` with 2 primary shards and no replicas.  Before this, when we weren't creating the index explicitly and just indexing documents, Elasticsearch automatically created the `nusearch` index with 5 primary shards and 1 replica, by default.
 
-Next, `AddMapping()` allows us to define a mapping for our `Package` POCO.  First we call `MapFromAttributes()` which tells NEST to automatically map all of the public properties found in `Package` and figure out their ES type based on their C# type.  Also, if we had defined an `ElasticType` attribute (something we don't discuss in this workshop) on any of the properties, they would get picked up here.  But instead of using attributes, we are going to define our properties fluently using `Properties()`.
+Next, `Mapping()` allows us to define a mapping for our `Package` POCO.  First we call `AutoMap()` which tells NEST to automatically map all of the public properties found in `Package` and figure out their ES type based on their C# type.  Also, if we had defined an `ElasticType` attribute (something we don't discuss in this workshop) on any of the properties, they would get picked up here.  But instead of using attributes, we are going to define our properties fluently using `Properties()`.
 
-`Properties()` allows us to override the defaults set by `MapFromAttributes()`.  For instance, our `PackageVersion` collection by default would just be treated as an `object`, but instead we want it to be `nested` so we call `NestedObject<T>()` with `T` being `PackageVersion`.  We then supply a name, and map its properties as well by making another call to `MapFromPropertis()`.  This process is also repeated for `PackageDependency` which is nested within `PackageVersion`...two levels of nested objects!  And lastly, `PackageAuthor`.
+`Properties()` allows us to override the defaults set by `AutoMap()`.  For instance, our `PackageVersion` collection by default would just be treated as an `object`, but instead we want it to be `nested` so we call `Nested<T>()` with `T` being `PackageVersion`.  We then supply a name, and map its properties as well by making another call to `AutoMap()`.  This process is also repeated for `PackageDependency` which is nested within `PackageVersion`...two levels of nested objects!  And lastly, `PackageAuthor`.
 
 Still with us?  Alright, now that we have our mapping setup, let's reindex our packages.  But wait, `NugetDumpReader.Dumps` just returns a collection of `FeedPackage`s, how do we go from from `FeedPackage` to our new types?  More importantly, as we iterate through the dump files, we need a way of determining when we've encountered a package for the first time in order to treat all subsequent encounters of the same package as just another version that we can include in the "main" package.
 
@@ -586,13 +607,13 @@ This may be better understood through the following illustration:
 So let's go ahead and implement something close to the above diagram.  First let's create a new property to hold our *actual* index name:
 
 ```csharp
-private static string IndexName { get; set; }
+private static string CurrentIndexName { get; set; }
 ```
 
 We've already got a handy `CreateIndexName()` method in our `NuSearchConfiguration` class that will create us a `nusearch-` index with the current date and time appended to it.
 
 ```csharp
-IndexName = NuSearchConfiguration.CreateIndexName();
+CurrentIndexName = NuSearchConfiguration.CreateIndexName();
 ```
 
 Next, we're going to introduce 2 aliases: `nusearch`, which will point to our *live* index, and `nusearch-old` which will point to our old indices.
@@ -612,13 +633,13 @@ private static void SwapAlias()
 			aliases.Add(a => a.Alias(NuSearchConfiguration.OldIndexAlias).Index(NuSearchConfiguration.LiveIndexAlias));
 
 		return aliases
-		.Remove(a => a.Alias(NuSearchConfiguration.LiveIndexAlias).Index("*"))
-		.Add(a => a.Alias(NuSearchConfiguration.LiveIndexAlias).Index(IndexName));
+		  .Remove(a => a.Alias(NuSearchConfiguration.LiveIndexAlias).Index("*"))
+		  .Add(a => a.Alias(NuSearchConfiguration.LiveIndexAlias).Index(CurrentIndexName));
 	});
 
 	var oldIndices = Client.GetIndicesPointingToAlias(NuSearchConfiguration.OldIndexAlias)
-	.OrderByDescending(name => name)
-	.Skip(2);
+    .OrderByDescending(name => name)
+	  .Skip(2);
 
 	foreach (var oldIndex in oldIndices)
 		Client.DeleteIndex(oldIndex);
@@ -629,46 +650,47 @@ A few more things we need to tidy up before running our indexer again...
 We need to edit `CreateIndex()` to use our new `IndexName`:
 
 ```csharp
-Client.CreateIndex(IndexName, i => i
+Client.CreateIndex(CurrentIndexName, i => i
 	// ...
 )
 ```
 
 Easy enough.
 
-Lastly, we need to change our bulk indexing call to explictly index to `IndexName`, otherwise it will infer `nusearch` from our connection settings- and that's now our alias!
+Lastly, we need to change our bulk indexing call to explictly index to `CurrentIndexName`, otherwise it will infer `nusearch` from our connection settings- and that's now our alias!
 
 ```csharp
-var result = Client.IndexMany(partition, IndexName);
+var result = Client.IndexMany(partition, CurrentIndexName);
 ```
 
 We can also now get rid of that `DeleteIndexIfExists()` method since we wont be needing it anymore.
 
 Alright, now we're all set!  We can now reindex as many times as we'd like without affecting our live web application.
 
+<hr />
+
 # Part 3: Searching
 
 ### Web architecture
 
 The NuSearch solution ships with a ready made `NuSearch.Web` application which is in fact a console application
-that does the actual hosting of the website that we are going to be building. 
+that does the actual hosting of the website that we are going to be building.
 
 This might be a strange construct, but it allows you to focus on building the web site without having to configure IIS
-or figure out how to run this on other OS's. 
+or figure out how to run this on other OS's.
 
-The web project utilizes [OWIN]() using the excellent [NOWIN]() cross platform website and it hooks up 
+The web project utilizes [OWIN]() using the excellent [NOWIN]() cross platform webserver and it hooks up
 [Nancy Web Framwork](), and we've gotten all the plumbing out of the way.
 
-You are free of course to use whatever architecture in your own application. Just know that at the time 
-of writing this, `NEST 1.x` does not yet work on the `.NET Core Framework` 
-which at time of writing has not been released yet. Please note that support for the 
-`.NET Core Framework` is a blocker for the `NEST 2.0` release.
+You are free of course to use whatever architecture in your own application. `NEST 2.x` runs on `aspnet5 rc1` and we actively track `rc2`
 
 Also please note that prior knowledge of any of these is not required to follow along!
 
 You can start the web application simply by setting the project as start up application and pressing `F5`
 
 You can then [goto the nusearch web application](http://localhost:8080)
+
+<hr />
 
 If all is well you should now see this:
 
@@ -723,13 +745,13 @@ In order to search we first need to get a hold of a client in our `GET` handler 
 
 We then issue a search for all our packages using our `client`
 
-```csharp 
+```csharp
 	var result = client.Search<Package>(s => s);
 ```
 
-NEST uses a fluent lambda syntax which you can see in use here (`s => s`). 
+NEST uses a fluent lambda syntax which you can see in use here (`s => s`).
 What's going on here? You are describing a function here that recieves a `SearchDescriptor<Package>()`
-named `s` which you can then modify to alter its state in a fluent fashion. 
+named `s` which you can then modify to alter its state in a fluent fashion.
 
 This begs the question: **Why??**. Well this fluent lambda syntax takes out the cognitive overload of instantation
 deeply nested generic classes and makes the DSL really terse. This is the preferred way of using the DSL but please
@@ -744,7 +766,7 @@ we will be using the `Fluent Lambda Syntax` exclusively.
 
 Ok, so back to our search code so far:
 
-```csharp 
+```csharp
 	var result = client.Search<Package>(s => s);
 ```
 
@@ -755,8 +777,8 @@ This will do a `POST` on `/nusearch/package/_search` with the following JSON:
 ```
 
 What this allows us to do is to pass the documents we've received from elasticsearch to our viewmodel.
-We'll also inform our viewmodel how many total results `Elasticsearch` found. We didn't actually specify how many 
-items we wanted to be returned in our search so `Elasticsearch` will return `10` by default. However 
+We'll also inform our viewmodel how many total results `Elasticsearch` found. We didn't actually specify how many
+items we wanted to be returned in our search so `Elasticsearch` will return `10` by default. However
 `result.Total` will actually return how many documents matched our search. In this case all of our packages.
 
 ```csharp
@@ -785,12 +807,12 @@ else
 {
 	@Html.Partial("Partials/NoResults", Model)
 }
-	
+
 ```
 
 Later on we'll spend more time inside the `Results.cshtml` partial. As a final exercise instead of relying on the default `10` items.
 
-Lets explicitly ask for `25` items. 
+Lets explicitly ask for `25` items.
 
 ```csharp
 	var result = client.Search<Package>(s => s
@@ -811,7 +833,7 @@ This causes the entered query to be part of the url we go to after the post.
 
 ![query string](readme-images/3-show-query-string.png)
 
-In our `SearchModule` this line of code is responsible to model bind whatever is passed on the query string 
+In our `SearchModule` this line of code is responsible to model bind whatever is passed on the query string
 to an instance `SearchForm` class.
 
 ```csharp
@@ -833,7 +855,7 @@ var result = client.Search<Package>(s => s
 );
 ```
 
-*wowzers*, the complexity of this method increased rapidly.  Whats going on here? 
+*wowzers*, the complexity of this method increased rapidly.  Whats going on here?
 
 NEST is a one-to-one mapping to the Elasticsearch API, to do a [query_string_query]() in `Elasticsearch` you have to send the following `JSON`
 
@@ -865,7 +887,7 @@ All the values of all the fields are **also** aggregated into the index under th
 
 If you do not specify a field name explicitly, then queries that allow you to not specify a field name will default to that `_all` field.
 
-Another thing to note about the [query_string_query]() we've used is that it exposes the Lucene query syntax to the user. 
+Another thing to note about the [query_string_query]() we've used is that it exposes the Lucene query syntax to the user.
 
 Try some of the following queries in NuSearch:
 
@@ -895,10 +917,10 @@ then we get no results. This makes sense, but Elasticsearch is actually throwing
 
 If you remember my fiddler tip earlier, if you run it you can whitness this for yourself.
 
-Elasticsearch has a *better* `query_string_query` called 
+Elasticsearch has a *better* `query_string_query` called
 [simple_query_string_query](http://www.elastic.co/guide/en/elasticsearch/reference/master/query-dsl-simple-query-string-query.html) which will never throw an exception and ignores invalid parts.
 
-Yet the question remains, do you want to expose this power to the end user? Quite often the answer is NO. 
+Yet the question remains, do you want to expose this power to the end user? Quite often the answer is NO.
 
 ### The (multi)_match query
 
@@ -909,7 +931,7 @@ Let's use the [multi_match]() query to apply our search term(s) to several field
 ```csharp
 .Query(q => q
 	.MultiMatch(m => m
-		.OnFields(p => p.Id, p => p.Summary)
+		.Fields(f=>f.Fields(p => p.Id, p => p.Summary))
 		.Query(form.Query)
 	)
 )
@@ -927,17 +949,17 @@ TF(t) = (Number of times term t appears in a document) / (Total number of terms 
 
 IDF(t) = log_e(Total number of documents / Number of documents with term t in it).
 
-This scoring mechanism favors hits on rarer terms in the index, and hits in shorter fields outweigh hits in longer fields. 
+This scoring mechanism favors hits on rarer terms in the index, and hits in shorter fields outweigh hits in longer fields.
 
 More concretely a hit for `elasticsearch` in `id` is usually scored higher then a hit in `summary` since in most cases `id` is a field with less terms over all.
 
-If we had searched `elasticsearch client` the `elasticsearch` keyword would be higher because its IDF is higher than `client` because the 
+If we had searched `elasticsearch client` the `elasticsearch` keyword would be higher because its IDF is higher than `client` because the
 entire index contains the term `client` more than it does `elasticsearch`.
 
 This explains why the highlighted packages `Nest.Connection.Thrift` and `Terradue.ElasticCas` score higher than some of the other packages with `elasticsearch` in the id.They have very short `summary` fields. `Nest` and `Nest.Signed` both mention `elasticsearch` in the `summary` and therefore score higher than `Glimpse.Elasticsearch`
 
 **NOTE:**
-In closing I have to note that relevancy scoring is a complex and well researched problem in the information retrieval space. Our explanation of how Elasticsearch handles relevancy is a tad simplified.  If you are interested in learning more of [the theory behing scoring](http://www.elastic.co/guide/en/elasticsearch/guide/master/scoring-theory.html) and how 
+In closing I have to note that relevancy scoring is a complex and well researched problem in the information retrieval space. Our explanation of how Elasticsearch handles relevancy is a tad simplified.  If you are interested in learning more of [the theory behing scoring](http://www.elastic.co/guide/en/elasticsearch/guide/master/scoring-theory.html) and how
 [Lucene takes a practical approach TD/IDF and the vector space model](http://www.elastic.co/guide/en/elasticsearch/guide/master/scoring-theory.html), the Elasticsearch guide has got you covered!.  Also know that Elasticsearch allows you to (plug in custom similarity scorers)[http://www.elastic.co/guide/en/elasticsearch/reference/1.4/index-modules-similarity.html].
 
 ### Analysis
@@ -951,7 +973,7 @@ I hear you say, "*OH NOES!*" but don't worry, this is by design. Lets zoom out a
 Lets index these two ficticiuous documents:
 
 ```json
-{ 
+{
    "id":1,
    "name": "Elasticsearch-Azure-PAAS",
    "author": {
@@ -962,7 +984,7 @@ Lets index these two ficticiuous documents:
 ```
 
 ```json
-{ 
+{
    "id":2,
    "name": "Elasticsearch.Net",
    "author": {
@@ -981,24 +1003,24 @@ Elasticsearch will actually represent this document as an inverted index:
 |        | elasticsearch.net    | 2
 |author.name      | team     | 1,2
 | `....`
- 
-JSON property values are fed through the index analysis pipeline, its purpose is to extract the correct terms. 
+
+JSON property values are fed through the index analysis pipeline, its purpose is to extract the correct terms.
 
 Fields can have different analyzers, but out of the box all string properties use the [standard analyzer]().
 
-The standard analyzer tokenizes the text based on the Unicode Text Segmentation algorithm, as specified 
-[in Unicode Standard Annex #29.](http://unicode.org/reports/tr29/). 
+The standard analyzer tokenizes the text based on the Unicode Text Segmentation algorithm, as specified
+[in Unicode Standard Annex #29.](http://unicode.org/reports/tr29/).
 
 This suprisingly dictates not to split words conjoint by a dot.
 
-The standard analyzer furthermore lowercases tokens and removes English stop words (highly common words such as `the`, `and`). 
+The standard analyzer furthermore lowercases tokens and removes English stop words (highly common words such as `the`, `and`).
 
 The resulting tokens that come out of the index analysis pipeline are stored as `terms` in the inverted index.
 
 You can easily see how the standard analyzer acts on a stream of text by calling the [Analyzer API]() in Elasticsearch:
 
 ```
-http://localhost:9200/_analyze?pretty=true&analyzer=default&text=Elasticsearch.NET
+GET /_analyze?pretty=true&analyzer=default&text=Elasticsearch.NET
 ```
 
 ```json
@@ -1014,7 +1036,7 @@ http://localhost:9200/_analyze?pretty=true&analyzer=default&text=Elasticsearch.N
 ```
 
 ```
-http://localhost:9200/_analyze?pretty=true&text=Elasticsearch-Azure-PAAS
+GET /_analyze?pretty=true&text=Elasticsearch-Azure-PAAS
 ```
 
 
@@ -1050,7 +1072,7 @@ We've now shown you how Elasticsearch creates terms from your JSON property valu
 
 The [multi_match]() we are using right now is one of those constructs that analyzes the query it receives.
 
-If we search for `Elasticsearch-Azure-PAAS` the [standard]() analyzer again kicks in and Elasticsearch will actually use 
+If we search for `Elasticsearch-Azure-PAAS` the [standard]() analyzer again kicks in and Elasticsearch will actually use
 `elasticsearch`, `azure` and `paas` to locate documents in its inverted index that contain any of these terms.
 
 The [match family of queries]() default to using `OR` on the terms.  Being inclusive or exclusive in your search results is another hot topic with no right answer. I personally find being exclusive a whole lot more useful.  For instance, when I search for `Elasticsearch-Azure-SAAS` I do not want any results that only have the terms `azure` and `saas`.
@@ -1060,7 +1082,7 @@ Lets update our search to use `AND` on the resulting terms we provide
 ```
 .Query(q => q
 	.MultiMatch(m => m
-		.OnFields(p => p.Id, p => p.Summary)
+		.Fields(f=>f.Fields(p => p.Id, p => p.Summary))
 		.Operator(Operator.And)
 		.Query(form.Query)
 	)
@@ -1081,13 +1103,11 @@ Knowing how the analysis chain works both an index and at query time, can you an
 }
 ```
 
-Yes! You are right it **WON'T!**
-
 Obviously the `standard` analyzer is not cutting it for our data.
 
 ### Defining analyzers
 
-Quite often the `standard` analyzer works great for regular plain English corpus's. But as we've shown it won't always work for your domain metadata. 
+Quite often the `standard` analyzer works great for regular plain English corpuses. But as we've shown it won't always work for your domain metadata.
 
 Ideally we would want to search on NuGet packages as followed, in order of importance
 
@@ -1097,7 +1117,7 @@ Ideally we would want to search on NuGet packages as followed, in order of impor
 
 ### The analysis process
 
-Elasticsearch allows you to build your own analysis chain to find the right terms to represent a body of text. 
+Elasticsearch allows you to build your own analysis chain to find the right terms to represent a body of text.
 
 * [character filters] Preprocess the text before its handed of to the tokenizer, handy for e.g stripping out html prior to tokenizing.
 * [tokenizer] an analysis chain can have only 1 tokenizer to cut the provided string up in to terms.
@@ -1108,72 +1128,69 @@ So knowing the defaults don't cut it for our nuget id's lets set up some analysi
 ```csharp
 .Analysis(analysis=>analysis
 	.Tokenizers(tokenizers=>tokenizers
-		.Add("nuget-id-tokenizer", new PatternTokenizer { Pattern = @"\W+" })
+		.Pattern("nuget-id-tokenizer", p=>p.Pattern(@"\W+"))
 	)
 	.TokenFilters(tokenfilters=>tokenfilters
-		.Add("nuget-id-words", new WordDelimiterTokenFilter
-		{
-			SplitOnCaseChange = true,
-			PreserveOriginal = true,
-			SplitOnNumerics = true,
-			GenerateNumberParts = false,
-			GenerateWordParts = true,
-		})
+		.WordDelimiter("nuget-id-words", w=> w
+			.SplitOnCaseChange()
+			.PreserveOriginal()
+			.SplitOnNumerics()
+			.GenerateNumberParts(false)
+			.GenerateWordParts()
+		)
 	)
 	.Analyzers(analyzers=>analyzers
-		.Add("nuget-id-analyzer", new CustomAnalyzer
-		{
-			Tokenizer = "nuget-id-tokenizer",
-			Filter = new [] { "nuget-id-words", "lowercase" }
-		})
-		.Add("nuget-id-keyword", new CustomAnalyzer
-		{
-			Tokenizer = "keyword",
-			Filter = new [] { "lowercase" }
-		})
+		.Custom("nuget-id-analyzer", c=>c
+			.Tokenizer("nuget-id-tokenizer")
+			.Filters("nuget-id-words", "lowercase")
+		)
+		.Custom("nuget-id-keyword", c=>c
+			.Tokenizer("keyword")
+			.Filters("lowercase")
+		)
 	)
 )
 ```
+
 Quite a lot is going on here so let's break it down a tad.
 
 
 ```csharp
 .Analysis(analysis=>analysis
 	.Tokenizers(tokenizers=>tokenizers
-		.Add("nuget-id-tokenizer", new PatternTokenizer { Pattern = @"\W+" })
+		.Pattern("nuget-id-tokenizer", p=>p.Pattern(@"\W+"))
 	)
 ```
 
-Since the default tokenizer does not split `Elasticsearch.Net` into two terms as previously shown we'll register a [PatternTokenizer]() 
+Since the default tokenizer does not split `Elasticsearch.Net` into two terms as previously shown we'll register a [PatternTokenizer]()
 that splits on any non word character. We call this instance of the `PatternTokenizer` `nuget-id-tokenizer` so we can reference it later.
 
 ```csharp
 .TokenFilters(tokenfilters=>tokenfilters
-	.Add("nuget-id-words", new WordDelimiterTokenFilter
-	{
-		SplitOnCaseChange = true,
-		PreserveOriginal = true,
-		SplitOnNumerics = true,
-		GenerateNumberParts = false,
-		GenerateWordParts = true,
-	})
+	.WordDelimiter("nuget-id-words", w=> w
+		.SplitOnCaseChange()
+		.PreserveOriginal()
+		.SplitOnNumerics()
+		.GenerateNumberParts(false)
+		.GenerateWordParts()
+	)
 )
 ```
 
 Here we set up a [WordDelimiterTokenFilter]() which will furter cut terms if they look like two words that are conjoined.
+
 e.g `ShebangModule` will be cut up in `Shebang` and `Module` and because we tell it to preserve the original token `ShebangModule` as a whole
-is kept as well. 
+is kept as well.
 
 
 Now that we've registered our custom [Tokenizer]() and [TokenFilter]() we can create a custom analyzer that will utilize these
 
 ```csharp
 .Analyzers(analyzers=>analyzers
-	.Add("nuget-id-analyzer", new CustomAnalyzer
-	{
-		Tokenizer = "nuget-id-tokenizer",
-		Filter = new [] { "nuget-id-words", "lowercase" }
-	})
+	.Custom("nuget-id-analyzer", c=>c
+		.Tokenizer("nuget-id-tokenizer")
+		.Filters("nuget-id-words", "lowercase")
+	)
 ```
 
 Here we create an analyzer named `nuget-id-analyzer` which will split the input using our `nuget-id-tokenizer` and then filters the resulting terms
@@ -1181,17 +1198,16 @@ using our `nuget-id-words` filter (which will actually inject more terms) and th
 terms with their lowercase counterparts.
 
 ```csharp
-	.Add("nuget-id-keyword", new CustomAnalyzer
-	{
-		Tokenizer = "keyword",
-		Filter = new [] { "lowercase" }
-	})
+	.Custom("nuget-id-keyword", c=>c
+		.Tokenizer("keyword")
+		.Filters("lowercase")
+	)
 )
 ```
 
 Here we create a special `nuget-id-keyword` analyzer. The built in [Keyword Tokenizer]() simply emits the text as provided as a single token. We
 then use the `lowercase` filter to lowercase the nuget id as a whole. This will allow us to boost exact matches higher without the user having
-to know the correct casing of the nuget id. 
+to know the correct casing of the nuget id.
 
 Now that we have registered our custum analyzers we need to update our mapping so that the Id property uses them.
 
@@ -1201,19 +1217,19 @@ Now that we have registered our custum analyzers we need to update our mapping s
 	.Analyzer("nuget-id-analyzer")
 	.Fields(f=>f
 		.String(p=>p.Name("keyword").Analyzer("nuget-id-keyword"))
-		.String(p=>p.Name("raw").Index(FieldIndexOption.NotAnalyzed))
+		.String(p=>p.Name("raw").NotAnalyzed())
 	)
 )
 ```
 
-Here we setup our `Id` property as a [Multifield mapping](). This allows you to index a field once but elasticsearch will create additional fields in 
+Here we setup our `Id` property as a [Multifield mapping](). This allows you to index a field once but elasticsearch will create additional fields in
 the inverted index that we can target during search later on.
 
 At index time `id` will use our `nuget-id-analyzer` to split the id into the proper terms, but also when we do a `match` query on the `id` field
 elasticsearch will also use our `nuget-id-analyzer` to generate the correct terms from the provided query.
 
 
-When we query `id.keyword` using the `match` query elasticsearch will simply use the whole query and lowercase it and use that as the term to look 
+When we query `id.keyword` using the `match` query elasticsearch will simply use the whole query and lowercase it and use that as the term to look
 for inside the inverted index for `id.keyword`
 
 We also create a field in the inverted index called `id.raw` which is simply **not** analyzed and stored **as is**. This makes this field very well suited
@@ -1229,26 +1245,26 @@ Furthermore we can make sure a match in our `Summary` field has a lower weight i
 
 ```csharp
 .MultiMatch(m => m
-	.OnFieldsWithBoost(fields=>fields
-		.Add(p=>p.Id.Suffix("keyword"), 1.5)
-		.Add(p=>p.Id, 1.5)
-		.Add(p=>p.Summary, 0.8)
+	.Fields(f=>f
+		.Field(p=>p.Id.Suffix("keyword"), 1.5)
+		.Field(p=>p.Id, 1.5)
+		.Field(p=>p.Summary, 0.8)
 	)
 	.Operator(Operator.And)
 	.Query(form.Query)
 )
 ```
 
-Note: the `.Suffix("")` notation is a great way to reference the fields defined using a multifield mapping without fully giving up on strongly typed 
+Note: the `.Suffix("")` notation is a great way to reference the fields defined using a multifield mapping without fully giving up on strongly typed
 property references.
 
-If we now search for `elasticsearch` we'll see all the packages we missed earlier, such as the afformentioned 
+If we now search for `elasticsearch` we'll see all the packages we missed earlier, such as the afformentioned
 `Microsoft.Experimental.Azure.ElasticSearch` because of the faulty tokenization are now included!
 
 ![moar results](readme-images/7-more-search-results.png)
 
-Looking at results however we see an adverse effect in that strong boost on id will push down popular packages. In this case `NEST` is the official 
-.NET client for `Elasticsearch` but because it has a clever name and only mentions elasticsearch in its summary, its penalized by being at the bottom of the search results. With well over a 100k downloads, its the most downloaded package in our results set. 
+Looking at results however we see an adverse effect in that strong boost on id will push down popular packages. In this case `NEST` is the official
+.NET client for `Elasticsearch` but because it has a clever name and only mentions elasticsearch in its summary, its penalized by being at the bottom of the search results. With well over a 100k downloads, its the most downloaded package in our results set.
 
 What we want to do is given a search take a given document's downloadCount into account.
 
@@ -1264,10 +1280,10 @@ What we want to do is given a search take a given document's downloadCount into 
 		)
 		.Query(query => query
 			.MultiMatch(m => m
-				.OnFieldsWithBoost(fields => fields
-					.Add(p => p.Id.Suffix("keyword"), 1.5)
-					.Add(p => p.Id, 1.2)
-					.Add(p => p.Summary, 0.8)
+				.Fields(f=>f
+					.Field(p=>p.Id.Suffix("keyword"), 1.5)
+					.Field(p=>p.Id, 1.5)
+					.Field(p=>p.Summary, 0.8)
 				)
 				.Operator(Operator.And)
 				.Query(form.Query)
@@ -1289,7 +1305,7 @@ When we now look at our results:
 ![popularity elasticsearch](readme-images/8-popularity-results-elasticsearch.png)
 
 `NEST` and `Elasticsearch.Net` have succesfully surfaced to the top we can also see that this is not simply a sort on downloadcount because
-`Elasticsearch.Net` is the number one result despite the fact it has less downloads then `NEST`. 
+`Elasticsearch.Net` is the number one result despite the fact it has less downloads then `NEST`.
 
 ##Combining multiple queries
 
@@ -1301,13 +1317,13 @@ Having fixed surfacing popular packages for keywords, we've broken exact matches
 ![antlr4 second](readme-images/9-antlr4-second.png)
 
 ```csharp
-.Query(q => 
-	q.Match(m=>m.OnField(p=>p.Id.Suffix("keyword")).Boost(1000).Query(form.Query))
+.Query(q =>
+	q.Match(m=>m.Field(p=>p.Id.Suffix("keyword")).Boost(1000).Query(form.Query))
 	|| q.FunctionScore(fs => fs
 		.Functions(ff => ff
 			.FieldValueFactor(fvf => fvf
 				.Field(p => p.DownloadCount)
-	//snipp				
+	//snipp
 ```
 
 Here we use the `OR` operator `||` to create a boolean query to match either on our keyword multifield and if it does give it a ridiculous boost
@@ -1320,8 +1336,8 @@ or otherwise it will have to match with our functionscore query. Note that you c
 The `Fluent lambda syntax` has a feature turned on by default called **conditionless queries** which will rewrite incomplete queries out of the actual query that is sent to Elasticsearch. Given that our query now looks like this:
 
 ```csharp
-.Query(q => 
-	q.Match(m=>m.OnField(p=>p.Id.Suffix("keyword")).Boost(1000).Query(form.Query))
+.Query(q =>
+	q.Match(m=>m.Field(p=>p.Id.Suffix("keyword")).Boost(1000).Query(form.Query))
 	|| q.FunctionScore(fs => fs
 		.Functions(ff => ff
 			.FieldValueFactor(fvf => fvf
@@ -1343,7 +1359,7 @@ The `Fluent lambda syntax` has a feature turned on by default called **condition
 )
 ```
 
-What happens if `form.Query` is actually `null` or `empty`? Well in that case 
+What happens if `form.Query` is actually `null` or `empty`? Well in that case
 
 1. The first match query on the left side of the `||` operator will mark itself as `conditionless`
 2. The `function_score` on the right side of the operator will mark its `query` property as conditionless but because it has functions it won't actually mark itself.
@@ -1402,7 +1418,7 @@ First, let's take a look at the aggregation DSL in Elasticsearch for a terms agg
 ```json
 {
 	"query": {
-		"match_all": {}	
+		"match_all": {}
 	},
     "aggs" : {
         "author-names" : {
@@ -1422,7 +1438,7 @@ Inside of `author-names` is the Elasticsearch reserved `terms` token which tells
 
 Now notice the `match_all` query that we are executing along with this aggregation.  **Aggregations always execute over the document set that the query returns**.  So in this case, our terms aggregation is going to run over **all** the documents in our index since we're doing a `match_all` (this is sort of a contrived example because we could have simply left out the query portion altogether in this case- which would also act as a `match_all`).  We could have instead, only ran our aggregations over, say, packages that have a download count of over 1000 by substituing a [range filter](http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-range-filter.html) on our `downloadCount` field rather than a `match_all`.
 
-Wait a second here though, there's something wrong.  And if you've tried running the above example you should have gotten an exception back from Elasticsearch.
+Wait a second here though, there's something wrong.
 
 What's the problem?
 
@@ -1430,7 +1446,7 @@ Remember, our `author` type (`PackageAuthor`) is nested!  We need to treat it as
 
 {
 	"query": {
-		"match_all": {}	
+		"match_all": {}
 	},
 	"aggs": {
 	  "authors": {
@@ -1544,7 +1560,7 @@ Now let's retrieve the results from the aggregation and populate our `SearchView
 ```csharp
 var authors = result.Aggs.Nested("authors")
 	.Terms("author-names")
-	.Items
+	.Buckets
 	.ToDictionary(k => k.Key, v => v.DocCount);
 
 model.Authors = authors;
@@ -1598,7 +1614,12 @@ And that's it!  If we run our application again you can see the author names are
 
 ### Filtering on facet selections
 
-TODO
+```csharp
+q.Nested(n=>n
+  .Path(p=>p.Authors)
+  .Query(nq=>+nq.Term(p=>p.Authors.First().Name.Suffix("raw"), form.Author))
+)
+```
 
 That's all we're going to cover on aggregations in this workshop, but we've only scratched the surface.  We encourage you to experiment with all of the different aggregation types available in Elasticsearch and see what you can come up with to further extend our faceted search!
 
@@ -1622,26 +1643,10 @@ The first thing we need to do is introduce a special `completion` field to our e
 2) A single output that we want to use as the suggestion
 3) An optional payload (object) to return with the suggestion, and 4) an optional weight/boost to apply to the suggestion.  This will become a bit clearer once we actually get to implementing it.
 
-So, let's go ahead and create that object:
+ as a property on our `Package` POCO:
 
 ```csharp
-namespace NuSearch.Domain.Model
-{
-	public class SuggestField
-	{
-		public IEnumerable<string> Input { get; set; }
-		public string Output { get; set; }
-		public object Payload { get; set; }
-		public int? Weight { get; set; }
-	}
-}
-
-```
-
-Then add it as a property on our `Package` POCO:
-
-```csharp
-public SuggestField Suggest { get; set; }
+public CompletionField<object> Suggest { get; set; }
 ```
 
 Next, we need to map our `Suggest` field as a `completion` type.  So let's add the following to our existing mapping:
@@ -1688,7 +1693,7 @@ In our case, let's store the package ID, download count, and package summary in 
 Now that we have a plan in place for building our completion fields, let's put it to action by modifying the constructor of our `Package` class and adding:
 
 ```csharp
-this.Suggest = new CompletionField
+this.Suggest = new CompletionField<object>
 {
 	Input = new List<string>(feed.Id.Split('.')) { feed.Id },
 	Output = feed.Id,
@@ -1786,7 +1791,7 @@ Hopefully you got back a response similar to:
 
 ## Tying to the web app
 
-So we have our suggestions all setup in Elasticsearch.  Let's bring them to life now.  
+So we have our suggestions all setup in Elasticsearch.  Let's bring them to life now.
 
 For the actual textbox and front-endy stuff, we're going to use Twitter's awesome [typeahead.js](https://twitter.github.io/typeahead.js/) library.  For the sake of time, we've actually gone ahead and implemented it for you already.  We just need to un-comment the following line in `NuSearch.Web\Static\search.js`:
 
@@ -1826,14 +1831,14 @@ Post["/suggest"] = x =>
 		.Index<Package>()
 		.Completion("package-suggestions", c => c
 			.Text(form.Query)
-			.OnField(p => p.Suggest)
+			.Field(p => p.Suggest)
 		)
 	);
 
 	var suggestions = result.Suggestions["package-suggestions"]
 		.FirstOrDefault()
 		.Options
-		.Select(suggest => suggest.Payload);
+		.Select(suggest => suggest.Payload<object>());
 
 	return Response.AsJson(suggestions);
 };

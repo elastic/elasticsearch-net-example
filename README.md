@@ -89,7 +89,7 @@ foreach (var package in packages)
 
 	if (!result.IsValid)
 	{
-		Console.WriteLine(result.ConnectionStatus.OriginalException.Message);
+		Console.WriteLine(result.CallDetails.OriginalException.Message);
 		Console.Read();
 		Environment.Exit(1);
 	}
@@ -104,7 +104,7 @@ The `Index()` method accepts two parameters, (1) the required object (document) 
 
 `Index()` returns an `IIndexResponse` (assigned to `result`) which holds all of the relevant response information returned by Elasticsearch.  `IIndexResponse` as well as all response objects in NEST implement `IResponse`, and `IResponse` contains a boolean `IsValid` property that tells us whether or not the request succeeded.
 
-`IResponse` also contains a `ConnectionStatus` object which holds all of the details of the request such as the original raw JSON that was sent, the request URL, the exception from ES (if the request failed), as well as other metrics.  We'll touch more on this later in the workshop.
+`IResponse` also contains a `CallDetails` object which holds all of the details of the request such as the original raw JSON that was sent, the request URL, the exception from ES (if the request failed), as well as other metrics.  We'll touch more on this later in the workshop.
 
 Let's run the application and see what we get...
 
@@ -298,7 +298,7 @@ static void IndexDumps()
 
 	if (!result.IsValid)
 	{
-		Console.WriteLine(result.ConnectionStatus.OriginalException.Message);
+		Console.WriteLine(result.CallDetails.OriginalException.Message);
 		Console.Read();
 		Environment.Exit(1);
 	}
@@ -384,7 +384,7 @@ static void IndexDumps()
 		foreach (var item in result.ItemsWithErrors)
 			Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
 
-		Console.WriteLine(result.ConnectionStatus.OriginalException.Message);
+		Console.WriteLine(result.CallDetails.OriginalException.Message);
 		Console.Read();
 		Environment.Exit(1);
 	}
@@ -412,7 +412,7 @@ static void IndexDumps()
 		foreach (var item in result.ItemsWithErrors)
 			Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
 
-		Console.WriteLine(result.ConnectionStatus.OriginalException.Message);
+		Console.WriteLine(result.CallDetails.OriginalException.Message);
 		Console.Read();
 		Environment.Exit(1);
 	}
@@ -557,7 +557,7 @@ static void IndexDumps()
 		{
 			foreach (var item in result.ItemsWithErrors)
 				Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
-			Console.WriteLine(result.ConnectionStatus.OriginalException.Message);
+			Console.WriteLine(result.CallDetails.OriginalException.Message);
 			Console.Read();
 			Environment.Exit(1);
 		}

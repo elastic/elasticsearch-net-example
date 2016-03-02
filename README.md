@@ -452,7 +452,7 @@ This is probably useful for many use cases, but for ours, we may want to be able
 
 As mentioned earlier, our current `FeedPackage` class is an unmodified representation of a package from the NuGet feed.  Instead, let's create our own models that our structured more appropriately for our search application.
 
-What we want instead is a nested structure, where we have a single top-level package that contains the common/shared information and within it a collection of versions.  We also want to be able to query for a specific version and still return the top-level package.  Elasticsearch will gladly deal with complex object graphs, and has a special [nested type](http://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-nested-type.html) specifically for dealing with such relationships.
+What we want instead is a nested structure, where we have a single top-level package that contains the common/shared information and within it a collection of versions.  We also want to be able to query for a specific version and still return the top-level package.  Elasticsearch will gladly deal with complex object graphs, and has a special [nested type](https://www.elastic.co/guide/en/elasticsearch/reference/current/nested.html) specifically for dealing with such relationships.
 
 Before we set this up in Elasticsearch, let's first restructure our `FeedPackage`.
 

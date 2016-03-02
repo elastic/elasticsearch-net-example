@@ -235,7 +235,7 @@ While we're here, let's take this a step further and instead of relying on a def
 static NuSearchConfiguration()
 {
 	_connectionSettings = new ConnectionSettings(CreateUri(9200))
-		.SetDefaultIndex("nusearch")
+		.DefaultIndex("nusearch")
 		.InferMappingFor<FeedPackage>(i=>i
 			.TypeName("package")
 			.IndexName("nusearch")

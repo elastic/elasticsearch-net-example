@@ -61,3 +61,7 @@ YamlCache
 *.DS_Store
 *.sln.ide
 *.sublime-workspace
+
+/src/data
+packages
+.paket

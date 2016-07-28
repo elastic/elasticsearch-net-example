@@ -1,4 +1,4 @@
-﻿# NuSearch
+# NuSearch
 
 A tutorial repository for Elasticsearch and NEST.
 
@@ -10,7 +10,7 @@ If you are reading this on a fork, note that it may be out of sync with: https:/
 
 The solution works in both Visual Studio and Xamarin Studio, so feel free to play around with either.
 
-Oh, and if you find any bugs along the way, send us a PR! Or feel free to ask questions on this repositories github issues.
+Oh, and if you find any bugs along the way, send us a PR! Or feel free to ask questions on this repository's github issues.
 
 # Part 1: Installing and getting up and running
 
@@ -48,9 +48,9 @@ NuSearch Solution
    - The nancyfx powered package search site we'll be building
 ```
 
-The goal off this tutorial is to build these out into a full fledged nuget package search website.
+The goal of this tutorial is to build these out into a full fledged nuget package search website.
 
-The projects are in compilable state upon checking out though
+The projects are in compilable state upon checking out though.
 
 # Part 2: Indexing
 
@@ -58,7 +58,7 @@ The projects are in compilable state upon checking out though
 
 Before we can begin searching for packages we need to index them into Elasticsearch.
 
-Let's take a look at `NuSearch.Indexer`, this is the console application that will be responsible for reading in the package data from the NuGet feed files and indexing them into ES.
+Let's take a look at `NuSearch.Indexer`; this is the console application that will be responsible for reading in the package data from the NuGet feed files and indexing them into ES.
 
 In `Main()` we have the following code:
 
@@ -100,7 +100,7 @@ public static ElasticClient GetClient()
 
 We're not doing anything special here (yet).  Just simply returning a new instance of `ElasticClient` that takes a `ConnectionSettings` object with all of the default values.
 
-**NOTE** The client can be a singleton and should be threadsafe or you can create a new instance each time. Most of our caches are bound to `ConnectionSettings` instance so be sure to reuse instances of that. If you are using an IOC make sure `ConnectionSettings` is registered as singleton so instances of client share the same cache.
+**NOTE** The client can be a singleton and is thread-safe, or you can create a new instance each time. Most of our caches are bound to `ConnectionSettings` instance so be sure to reuse instances of that. If you are using an IOC make sure `ConnectionSettings` is registered as a singleton so instances of client share the same cache.
 
 Lastly, `NugetDumpReader` is another workshop specific class that we put together for your convenience that simply reads each the NuGet feed file into a `NugetDump` POCO.  `NugetDump` contains a single `IEnumerable<FeedPackage>` property `Dumps` which holds a collection of packages, each represented as a `FeedPackage`, an unmodified representation of a package directly from the NuGet API.  We create a new instance of `NugetDumpReader` and tell it where the nuget dump files live by passing the path to the files in the constructor.
 
@@ -134,7 +134,7 @@ The `Index()` method accepts two parameters, (1) the required object (document) 
 
 `IResponse` also contains a `ApiCall` property which holds all of the details of the request such as the original raw JSON that was sent, the request URL, the exception from ES (if the request failed), as well as other metrics.  We'll touch more on this later in the workshop.
 
-`DebugInformation` is an extremely useful lazy propery that attempts to describe the state of the request and response and where it went wrong as precisely as we can.
+`DebugInformation` is an extremely useful lazily constructed property that attempts to describe the state of the request and response, with details around where it went wrong as accurately as the client can ascertain.
 
 Let's run the application and see what we get...
 
@@ -153,12 +153,12 @@ The request might not have enough information provided to make any of these endp
 
 What happened here? 
 
-We try to index a document into elasticsearch but the client does not have enough information to infer all the required parts that make up an elasticsearch document id. 
+We tried to index a document into Elasticsearch but the client does not have enough information to infer all the required parts that make up the URI path in Elasticsearch as to where the document should be indexed. 
 
-Both `type` and `id` have a value set but index resolved to `NULL` why is that?
+Both `type` and `id` have a value set but index resolved to `NULL`; Why is that?
 
 Notice in our application, we never specified which index to index our packages into, which the API requires.  
-We can specify the index in several ways using NEST, but for now let's just set a default index for the entire client using our connection settings:
+We can specify the index in several ways with NEST, but for now let's just set a default index for the entire client using our connection settings:
 
 ```csharp
 static NuSearchConfiguration()
@@ -168,7 +168,7 @@ static NuSearchConfiguration()
 }
 ```
 
-If we run our indexer again, after a few seconds, only `Done.` should be written to the console meaning all of our index requests were successful.
+If we run our indexer again, after a few seconds, only `Done.` should be written to the console, meaning all of our index requests were successful.
 
 *NOTE* waiting for `Done` can take a while we'll explain why its slow and will fix that later!
 
@@ -263,7 +263,7 @@ static NuSearchConfiguration()
 }
 ```
 
-While we're here, let's take this a step further and instead of relying on a default index, let's tell NEST to always route requests to the `nusearch` index when dealing with a `FeedPackage`:
+While we're here, let's take this a step further and instead of relying on a default index, let's tell NEST to always route requests to the `nusearch` index when dealing with a `FeedPackage` type:
 
 ```csharp
 static NuSearchConfiguration()
@@ -374,7 +374,7 @@ but the corresponding object in the `items` for `NEST` would indicate a failure 
 
 However in `NEST` the `.IsValid` property will only be true if all the individual items succeeded regardless of the actual HTTP status code.
 
-Let's go back to our `IndexDumps()` method and revist our bulk code.
+Let's go back to our `IndexDumps()` method and revisit our bulk code.
 
 `BulkResponse` exposes an `ItemsWithErrors` collection which will contain any bulk operation that failed.
 
@@ -518,9 +518,9 @@ static NuSearchConfiguration()
 }
 ```
 
-Next, we need to create a mapping in Elasticsearch for our `package` type in order to tell Elasticsearch to treat our version, author, and dependecny types as nested.
+Next, we need to create a mapping in Elasticsearch for our `package` type in order to tell Elasticsearch to treat our version, author, and dependency types as nested.
 
-Prior to this, we didn't have to setup a mapping.  In fact, we didn't even have to create the index beforehand.  We were able to use the "schema-less" nature of Elasticsearch by just indexing documents and letting Elasticsearch create our `nusearch` index on the fly and determine the types of our properties automagically.  This is known as a `dynamic mapping` and is very convenient for getting off the ground but almost never suitable when you to start searching your data in specific ways.
+Prior to this, we didn't have to setup a mapping.  In fact, we didn't even have to create the index beforehand.  We were able to use the "schema-less" nature of Elasticsearch by just indexing documents and letting Elasticsearch create our `nusearch` index on the fly and determine the types of our properties auto-magically.  This is known as a `dynamic mapping` and is very convenient for getting off the ground but almost never suitable when you to start indexing and searching your data in specific ways.
 
 Let's change up our indexing code a bit and create our index upfront before we actually start indexing.  We can also setup our mapping at the time we create our index.
 
@@ -858,7 +858,7 @@ This will do a `POST` on `/nusearch/package/_search` with the following JSON:
 {}
 ```
 
-What this allows us to do is to pass the documents we've received from elasticsearch to our viewmodel.
+What this allows us to do is to pass the documents we've received from Elasticsearch to our viewmodel.
 We'll also inform our viewmodel how many total results `Elasticsearch` found. We didn't actually specify how many
 items we wanted to be returned in our search so `Elasticsearch` will return `10` by default. However
 `result.Total` will actually return how many documents matched our search. In this case all of our packages.
@@ -942,7 +942,7 @@ var result = client.Search<Package>(s => s
 
 *wowzers*, the complexity of this method increased rapidly.  Whats going on here?
 
-NEST is a one-to-one mapping to the Elasticsearch API, to do a [query_string_query]() in `Elasticsearch` you have to send the following `JSON`
+NEST is a one-to-one mapping to the Elasticsearch API, to do a [query_string_query](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-query-string-query.html) in `Elasticsearch` you have to send the following `JSON`
 
 ```json
 {
@@ -956,7 +956,7 @@ NEST is a one-to-one mapping to the Elasticsearch API, to do a [query_string_que
 
 As you can see the `NEST` DSL follows this verbatim. Its important to keep in mind that NEST is not in the business of abstracting the Elasticsearch API.  In the cases where a shortcut exists, its never at the cost of **not** exposing the longer notation.
 
-At this point I would like to clue you in on a handy trick if you are following this tutorial on a Windows machine. If [fiddler]() is
+At this point I would like to clue you in on a handy trick if you are following this tutorial on a Windows machine. If [fiddler](http://www.telerik.com/fiddler) is
 installed and running, the plumbing of this application automatically uses it as proxy. **NOTE** fiddler has to be running before you start `NuSearch.Web`.
 
 ![fiddler](readme-images/4-fiddler.png)
@@ -966,20 +966,20 @@ to the `ConnectionSettings()`
 
 ### Exploring querying further
 
-So right now we have a fully working search, but how does elasticsearch know what fields to search?  Well by default, Elasticsearch cheats a little.
+So right now we have a fully working search, but how does Elasticsearch know what fields to search?  Well by default, Elasticsearch cheats a little.
 
-All the values of all the fields are **also** aggregated into the index under the special [_all]() field.
+All the values of all the fields are **also** aggregated into the index under the special [_all](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/mapping-all-field.html) field.
 
 If you do not specify a field name explicitly, then queries that allow you to not specify a field name will default to that `_all` field.
 
-Another thing to note about the [query_string_query]() we've used is that it exposes the Lucene query syntax to the user.
+Another thing to note about the [query_string_query](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-query-string-query.html) we've used is that it exposes the Lucene query syntax to the user.
 
 Try some of the following queries in NuSearch:
 
 * `id:hello*`
 * `id:hello* OR id:autofac^1000`
 
-Whats going on here?  Well in the first dquery we explicitly search for only those `Package`'s who's `id` start with `hello`.  In the second example we extend this query to also include `autofac` but boost it with a factor `1000` so that its first in the result set.
+Whats going on here?  Well in the first query we explicitly search for only those `Package`'s who's `id` start with `hello`.  In the second example we extend this query to also include `autofac` but boost it with a factor `1000` so that its first in the result set.
 
 Do you want to expose this to the end user? Consider the following:
 
@@ -1000,7 +1000,7 @@ then we get no results. This makes sense, but Elasticsearch is actually throwing
 }
 ```
 
-If you remember my fiddler tip earlier, if you run it you can whitness this for yourself.
+If you remember my fiddler tip earlier, if you run it you can witness this for yourself.
 
 Elasticsearch has a *better* `query_string_query` called
 [simple_query_string_query](http://www.elastic.co/guide/en/elasticsearch/reference/master/query-dsl-simple-query-string-query.html) which will never throw an exception and ignores invalid parts.
@@ -1011,7 +1011,7 @@ Yet the question remains, do you want to expose this power to the end user? Quit
 
 The match query family is a very powerful one. It will *do the right thing* TM based on what field its targeting.
 
-Let's use the [multi_match]() query to apply our search term(s) to several fields we actually want to participate in the search:
+Let's use the [multi_match](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-multi-match-query.html) query to apply our search term(s) to several fields we actually want to participate in the search:
 
 ```csharp
 .Query(q => q
@@ -1044,7 +1044,7 @@ entire index contains the term `client` more than it does `elasticsearch`.
 This explains why the highlighted packages `Nest.Connection.Thrift` and `Terradue.ElasticCas` score higher than some of the other packages with `elasticsearch` in the id.They have very short `summary` fields. `Nest` and `Nest.Signed` both mention `elasticsearch` in the `summary` and therefore score higher than `Glimpse.Elasticsearch`
 
 **NOTE:**
-In closing I have to note that relevancy scoring is a complex and well researched problem in the information retrieval space. Our explanation of how Elasticsearch handles relevancy is a tad simplified.  If you are interested in learning more of [the theory behing scoring](http://www.elastic.co/guide/en/elasticsearch/guide/master/scoring-theory.html) and how
+In closing I have to note that relevancy scoring is a complex and well researched problem in the information retrieval space. Our explanation of how Elasticsearch handles relevancy is a tad simplified.  If you are interested in learning more of [the theory behind scoring](http://www.elastic.co/guide/en/elasticsearch/guide/master/scoring-theory.html) and how
 [Lucene takes a practical approach TD/IDF and the vector space model](http://www.elastic.co/guide/en/elasticsearch/guide/master/scoring-theory.html), the Elasticsearch guide has got you covered!.  Also know that Elasticsearch allows you to (plug in custom similarity scorers)[http://www.elastic.co/guide/en/elasticsearch/reference/1.4/index-modules-similarity.html].
 
 ### Analysis
@@ -1091,7 +1091,7 @@ Elasticsearch will actually represent this document as an inverted index:
 
 JSON property values are fed through the index analysis pipeline, its purpose is to extract the correct terms.
 
-Fields can have different analyzers, but out of the box all string properties use the [standard analyzer]().
+Fields can have different analyzers, but out of the box all string properties use the [standard analyzer](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/analysis-standard-analyzer.html).
 
 The standard analyzer tokenizes the text based on the Unicode Text Segmentation algorithm, as specified
 [in Unicode Standard Annex #29.](http://unicode.org/reports/tr29/).
@@ -1102,7 +1102,7 @@ The standard analyzer furthermore lowercases tokens and removes English stop wor
 
 The resulting tokens that come out of the index analysis pipeline are stored as `terms` in the inverted index.
 
-You can easily see how the standard analyzer acts on a stream of text by calling the [Analyzer API]() in Elasticsearch:
+You can easily see how the standard analyzer acts on a stream of text by calling the [Analyze API](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/indices-analyze.html) in Elasticsearch:
 
 ```
 GET /_analyze?pretty=true&analyzer=default&text=Elasticsearch.NET
@@ -1157,10 +1157,10 @@ We've now shown you how Elasticsearch creates terms from your JSON property valu
 
 The [multi_match]() we are using right now is one of those constructs that analyzes the query it receives.
 
-If we search for `Elasticsearch-Azure-PAAS` the [standard]() analyzer again kicks in and Elasticsearch will actually use
+If we search for `Elasticsearch-Azure-PAAS` the [standard analyzer](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/analysis-standard-analyzer.html) again kicks in and Elasticsearch will actually use
 `elasticsearch`, `azure` and `paas` to locate documents in its inverted index that contain any of these terms.
 
-The [match family of queries]() default to using `OR` on the terms.  Being inclusive or exclusive in your search results is another hot topic with no right answer. I personally find being exclusive a whole lot more useful.  For instance, when I search for `Elasticsearch-Azure-SAAS` I do not want any results that only have the terms `azure` and `saas`.
+The [`match` family of queries](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-match-query.html) default to using `OR` on the terms.  Being inclusive or exclusive in your search results is another hot topic with no right answer. I personally find being exclusive a whole lot more useful.  For instance, when I search for `Elasticsearch-Azure-SAAS` I do not want any results that only have the terms `azure` and `saas`.
 
 Lets update our search to use `AND` on the resulting terms we provide
 
@@ -1206,7 +1206,7 @@ Elasticsearch allows you to build your own analysis chain to find the right term
 
 * [character filters] Preprocess the text before its handed of to the tokenizer, handy for e.g stripping out html prior to tokenizing.
 * [tokenizer] an analysis chain can have only 1 tokenizer to cut the provided string up in to terms.
-* [token filters] operate on each indivual token and unlike the name might imply these `filter` are not just able to remove terms but also replace or inject more terms.
+* [token filters] operate on each individual token and unlike the name might imply these `filter` are not just able to remove terms but also replace or inject more terms.
 
 So knowing the defaults don't cut it for our nuget id's lets set up some analysis chains when we create the index:
 
@@ -1249,7 +1249,7 @@ Quite a lot is going on here so let's break it down a tad.
 	)
 ```
 
-Since the default tokenizer does not split `Elasticsearch.Net` into two terms as previously shown we'll register a [PatternTokenizer]()
+Since the default tokenizer does not split `Elasticsearch.Net` into two terms as previously shown we'll register a [PatternTokenizer](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/analysis-pattern-tokenizer.html)
 that splits on any non word character. We call this instance of the `PatternTokenizer` `nuget-id-tokenizer` so we can reference it later.
 
 ```csharp
@@ -1264,7 +1264,7 @@ that splits on any non word character. We call this instance of the `PatternToke
 )
 ```
 
-Here we set up a [WordDelimiterTokenFilter]() which will furter cut terms if they look like two words that are conjoined.
+Here we set up a [WordDelimiterTokenFilter](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/analysis-word-delimiter-tokenfilter.html) which will further cut terms if they look like two words that are conjoined.
 
 e.g `ShebangModule` will be cut up in `Shebang` and `Module` and because we tell it to preserve the original token `ShebangModule` as a whole
 is kept as well.
@@ -1281,7 +1281,7 @@ Now that we've registered our custom [Tokenizer]() and [TokenFilter]() we can cr
 ```
 
 Here we create an analyzer named `nuget-id-analyzer` which will split the input using our `nuget-id-tokenizer` and then filters the resulting terms
-using our `nuget-id-words` filter (which will actually inject more terms) and then we use the build in `lowercase` tokenfilter which replaces all the
+using our `nuget-id-words` filter (which will actually inject more terms) and then we use the build in `lowercase` token filter which replaces all the
 terms with their lowercase counterparts.
 
 ```csharp
@@ -1292,11 +1292,11 @@ terms with their lowercase counterparts.
 )
 ```
 
-Here we create a special `nuget-id-keyword` analyzer. The built in [Keyword Tokenizer]() simply emits the text as provided as a single token. We
+Here we create a special `nuget-id-keyword` analyzer. The built in [Keyword Tokenizer](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/analysis-keyword-tokenizer.html) simply emits the text as provided as a single token. We
 then use the `lowercase` filter to lowercase the nuget id as a whole. This will allow us to boost exact matches higher without the user having
 to know the correct casing of the nuget id.
 
-Now that we have registered our custum analyzers we need to update our mapping so that the Id property uses them.
+Now that we have registered our custom analyzers we need to update our mapping so that the Id property uses them.
 
 ```csharp
 .String(s=>s
@@ -1309,14 +1309,14 @@ Now that we have registered our custum analyzers we need to update our mapping s
 )
 ```
 
-Here we setup our `Id` property as a [Multifield mapping](). This allows you to index a field once but elasticsearch will create additional fields in
+Here we setup our `Id` property as a [multi_field mapping](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/multi-fields.html). This allows you to index a field once but Elasticsearch will create additional fields in
 the inverted index that we can target during search later on.
 
 At index time `id` will use our `nuget-id-analyzer` to split the id into the proper terms, but also when we do a `match` query on the `id` field
-elasticsearch will also use our `nuget-id-analyzer` to generate the correct terms from the provided query.
+Elasticsearch will also use our `nuget-id-analyzer` to generate the correct terms from the provided query.
 
 
-When we query `id.keyword` using the `match` query elasticsearch will simply use the whole query and lowercase it and use that as the term to look
+When we query `id.keyword` using the `match` query Elasticsearch will simply use the whole query and lowercase it and use that as the term to look
 for inside the inverted index for `id.keyword`
 
 We also create a field in the inverted index called `id.raw` which is simply **not** analyzed and stored **as is**. This makes this field very well suited
@@ -1327,7 +1327,7 @@ Now that we have our new mapping in place make sure you reindex so that we can t
 
 ##Updating our search
 
-Since we now have a [Multifield mapping]() set up for our `Id` property we differentiate between an exact lowercase match and a match in our analyzed field.
+Since we now have a [multi_field mapping](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/multi-fields.html) set up for our `Id` property we differentiate between an exact lowercase match and a match in our analyzed field.
 Furthermore we can make sure a match in our `Summary` field has a lower weight in the overall score of our matching document.
 
 ```csharp
@@ -1345,13 +1345,13 @@ Furthermore we can make sure a match in our `Summary` field has a lower weight i
 Note: the `.Suffix("")` notation is a great way to reference the fields defined using a multifield mapping without fully giving up on strongly typed
 property references.
 
-If we now search for `elasticsearch` we'll see all the packages we missed earlier, such as the afformentioned
+If we now search for `elasticsearch` we'll see all the packages we missed earlier, such as the aforementioned
 `Microsoft.Experimental.Azure.ElasticSearch` because of the faulty tokenization are now included!
 
 ![moar results](readme-images/7-more-search-results.png)
 
 Looking at results however we see an adverse effect in that strong boost on id will push down popular packages. In this case `NEST` is the official
-.NET client for `Elasticsearch` but because it has a clever name and only mentions elasticsearch in its summary, its penalized by being at the bottom of the search results. With well over a 100k downloads, its the most downloaded package in our results set.
+.NET client for `Elasticsearch` but because it has a clever name and only mentions Elasticsearch in its summary, its penalized by being at the bottom of the search results. With well over a 100k downloads, its the most downloaded package in our results set.
 
 What we want to do is given a search take a given document's downloadCount into account.
 
@@ -1385,8 +1385,8 @@ The [function score] query is the one stop query if you want to influence score 
 Here we use `field value factor` with a factor of `0.0001` over each documents downloadCount combined with its query score
 
 This equates to: `(0.0001 * downloadCount) * score of query` . Meaning that for packages with low download counts the actual relevance score
-is a major differentatior while still acting as a high signal booster for packages with high download counts. 
-MaxBoost caps the boostfactor to `10` so that packages of over 100k downloads do not differentiate on downloadCount either.
+is a major differentiator while still acting as a high signal booster for packages with high download counts. 
+MaxBoost caps the boost factor to `10` so that packages of over 100k downloads do not differentiate on downloadCount either.
 
 *NOTE* This is a very very rude function score query, have a [read through the documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-function-score-query.html) and see if you can come up with something more clever!
 
@@ -1394,7 +1394,7 @@ When we now look at our results:
 
 ![popularity elasticsearch](readme-images/8-popularity-results-elasticsearch.png)
 
-`NEST` and `Elasticsearch.Net` have succesfully surfaced to the top we can also see that this is not simply a sort on downloadcount because
+`NEST` and `Elasticsearch.Net` have successfully surfaced to the top we can also see that this is not simply a sort on downloadcount because
 `Elasticsearch.Net` is the number one result despite the fact it has less downloads then `NEST`.
 
 ##Combining multiple queries
@@ -1416,8 +1416,8 @@ Having fixed surfacing popular packages for keywords, we've broken exact matches
 	//snipp
 ```
 
-Here we use the `OR` operator `||` to create a boolean query to match either on our keyword multifield and if it does give it a ridiculous boost
-or otherwise it will have to match with our functionscore query. Note that you can remove the `p.Id.Suffix` from your `MultiMatch` query now.
+Here we use the `OR` operator `||` to create a `bool` query to match either on our keyword multifield and if it does give it a ridiculous boost
+or otherwise it will have to match with our `function_score` query. Note that you can remove the `p.Id.Suffix` from your `MultiMatch` query now.
 
 ![antlr4 first](readme-images/10-antlr4-first.png)
 
@@ -1581,7 +1581,7 @@ and add the following to our search to change to sort order:
 })
 ```
 
-if the sort order is downloads we do a descending sort on our downloadcount field.
+if the sort order is downloads we do a descending sort on our downloadCount field.
 
 If the sort order is most recently updated we need to a descending `nested sort` on `p.Versions.First().LastUpdated` because we mapped `Versions` as a nested object array in the previous module.
 
@@ -1642,13 +1642,13 @@ First, let's take a look at the aggregation DSL in Elasticsearch for a terms agg
 
 Aggregations are just another search tool, so just likes queries, they are executed against the `_search` endpoint.
 
-So as part of our search request, adjacent to the query portion we now have an `aggs` portion where we can define N number of aggregations.  In this case we are only definining a single terms aggregation.
+So as part of our search request, adjacent to the query portion we now have an `aggs` portion where we can define N number of aggregations.  In this case we are only defining a single terms aggregation.
 
 `author-names` here is our user-defined name that we are assigning to this particular terms aggregation which we will use later to pull out the results from the response.
 
 Inside of `author-names` is the Elasticsearch reserved `terms` token which tells Elasticsearch to execute a terms aggregation, and inside the terms aggregation body we specify the field we want to the aggregation to run over, which in this case is the `authors.name` field.
 
-Now notice the `match_all` query that we are executing along with this aggregation.  **Aggregations always execute over the document set that the query returns**.  So in this case, our terms aggregation is going to run over **all** the documents in our index since we're doing a `match_all` (this is sort of a contrived example because we could have simply left out the query portion altogether in this case- which would also act as a `match_all`).  We could have instead, only ran our aggregations over, say, packages that have a download count of over 1000 by substituing a [range filter](http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-range-filter.html) on our `downloadCount` field rather than a `match_all`.
+Now notice the `match_all` query that we are executing along with this aggregation.  **Aggregations always execute over the document set that the query returns**.  So in this case, our terms aggregation is going to run over **all** the documents in our index since we're doing a `match_all` (this is sort of a contrived example because we could have simply left out the query portion altogether in this case- which would also act as a `match_all`).  We could have instead, only ran our aggregations over, say, packages that have a download count of over 1000 by substituting a [range filter](http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-range-filter.html) on our `downloadCount` field rather than a `match_all`.
 
 Wait a second here though, there's something wrong.
 
@@ -1794,7 +1794,7 @@ Let's pause for a second and think about why this could be...
 
 Our author name field is being analyzed with the standard analyzer!  That means an author name like `Elasticsearch, Inc.` is being tokenized and normalized into two separate tokens: `elasticsearch` and `inc`.  Instead, we want `Elasticsearch, Inc.` as one single token in our index that we can match on exactly.  We can achieve this by changing our mapping and telling Elasticsearch to not analyze this field, however that will affect our search.  We still want the text `elasticsearch` on the author name field to return results for `Elasticsearch, Inc.`, right?
 
-To solve this, we can introduce a multi field on `authors.name` and have an analyzed version that we can search on, and a non-analyzed version that we can aggregate on.
+To solve this, we can introduce a multi_field on `authors.name` and have an analyzed version that we can search on, and a non-analyzed version that we can aggregate on.
 
 Sound simple enough?  Alright then, let's change up our mapping of `PackageAuthor`:
 
@@ -1865,7 +1865,7 @@ We can add the author facet selection to our query as followed
 
 Now we are search for either `exact term match on id.keyword boosted with 1000` *OR* `function scored query on our selected fields` *AND* `nested search on authors name.raw`. 
 
-A keen observer will have spotted a `+` before `q.Nested` this automatically wraps the query in a filter to hint to elasticsearch we do not care about the score. 
+A keen observer will have spotted a `+` before `q.Nested` this automatically wraps the query in a filter to hint to Elasticsearch we do not care about the score. 
 
 Similarly `!` can be used to easily negate a query.
 

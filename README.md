@@ -24,7 +24,7 @@ Oh, and if you find any bugs along the way, send us a PR! Or feel free to ask qu
 
  - Make sure you have a recent [version of JAVA installed](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 
- - The application we're building is set up to [run traffic through fiddler](https://www.telerik.com/download/fiddler) if it notices its running which is supper helpful seeing the request we fire off to Elasticsearch.
+ - The application we're building is set up to [run traffic through fiddler](https://www.telerik.com/download/fiddler) if it notices it's running, which is super helpful in seeing the requests to and responses from Elasticsearch.
 
 
 Clone this repository and open the solution using Visual Studio or Xamarin Studio. 

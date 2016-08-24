@@ -70,7 +70,7 @@ private static NugetDumpReader DumpReader { get; set; }
 static void Main(string[] args)
 {
 	Client = NuSearchConfiguration.GetClient();
-	DumpReader = new NugetDumpReader(@"C:\NugetData");
+	DumpReader = new NugetDumpReader(@"C:\nuget-data");
 
 	IndexDumps();
 
@@ -78,7 +78,7 @@ static void Main(string[] args)
 }
 ```
 
-Make sure you change `c:\NugetData` to where you extracted the [nuget data dump](http://esdotnet.blob.core.windows.net/nusearch/nuget-data.zip)
+Make sure you change `c:\nuget-data` to where you extracted the [nuget data dump](http://esdotnet.blob.core.windows.net/nusearch/nuget-data.zip)
 
 Before we start, there are a few classes in the above snippet that we need to gain an understanding of.  `ElasticClient` is the entry point into NEST and is the class that is responsible for making requests to all of the Elasticsearch APIs such as indexing and searching, as well as administrative APIs like snapshot/restore, cluster and node stats, etc.  `ElasticClient` is thread-safe; you can create a singleton instance and keep it around in your application, or you can instantiate a new instance for every request.
 

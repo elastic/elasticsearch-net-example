@@ -1,9 +1,11 @@
 using System;
+using System.Configuration;
 using System.IO;
 using Nancy;
 using Nancy.Conventions;
 using Nancy.Responses;
 using Nancy.TinyIoc;
+using NuSearch.Domain;
 
 namespace NuSearch.Web.Plumbing
 {
@@ -11,8 +13,6 @@ namespace NuSearch.Web.Plumbing
 	{
 		protected override void ApplicationStartup(TinyIoCContainer container, Nancy.Bootstrapper.IPipelines pipelines)
 		{
-			StaticConfiguration.Caching.EnableRuntimeViewUpdates = true;
-
 			this.Conventions.ViewLocationConventions.Add((viewName, model, context) =>
 			{
 				//default is to just cut Model of razor view model type name
@@ -26,25 +26,17 @@ namespace NuSearch.Web.Plumbing
 			this.Conventions.StaticContentsConventions.Add(
 				StaticContentConventionBuilder.AddDirectory("static", @"static")
 			);
-
-		}
-	}
-
-	public class MyRootPathProvider : IRootPathProvider
-	{
-		public static readonly string RootPath;
-		static MyRootPathProvider()
-		{
-			var root = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-			var pathSep = Path.DirectorySeparatorChar;
-			if (System.Diagnostics.Debugger.IsAttached)
-				root = Path.GetFullPath(Path.Combine(root, ".."+ pathSep +".."));
-			RootPath = root;
 		}
 
-		public string GetRootPath()
+		protected override void ConfigureApplicationContainer(TinyIoCContainer container)
 		{
-			return RootPath;
+			base.ConfigureApplicationContainer(container);
+			container.Register(
+				NuSearchConfiguration.Create(
+					ConfigurationManager.AppSettings["ElasticClient:Host"],
+					int.Parse(ConfigurationManager.AppSettings["ElasticClient:Port"]),
+					ConfigurationManager.AppSettings["ElasticClient:Username"],
+					ConfigurationManager.AppSettings["ElasticClient:Password"]));
 		}
 	}
 }

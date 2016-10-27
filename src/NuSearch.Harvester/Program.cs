@@ -34,7 +34,7 @@ namespace NuSearch.Harvester
 
 			var startTime = DateTime.Now;
 			var take = Math.Min(100, numberOfPackages);
-			var numberOfPages = (int)Math.Ceiling((double)numberOfPackages / (double)take);
+			var numberOfPages = (int)Math.Ceiling((double)numberOfPackages / take);
 
 			var sync = new object();
 			var packages = new List<FeedPackage>();
@@ -52,7 +52,7 @@ namespace NuSearch.Harvester
 					lock (sync)
 					{
 						packages.AddRange(foundPackages);
-						if (packages.Count() >= partitionSize)
+						if (packages.Count >= partitionSize)
 						{
 							WritePackages(packages, dumpPath, partition);
 							partition++;
@@ -60,7 +60,7 @@ namespace NuSearch.Harvester
 						}
 					}
 					Interlocked.Increment(ref page);
-					pbar.Tick(string.Format("Downloaded {0}/{1} pages, written {2} files", page, numberOfPages, partition));
+					pbar.Tick($"Downloaded {page}/{numberOfPages} pages, written {partition} files");
 				});
 			}
 
@@ -76,7 +76,7 @@ namespace NuSearch.Harvester
 				Directory.CreateDirectory(dumpPath);
 
 			var dump = new NugetDump { NugetPackages = packages };
-			var dumpFile = Path.Combine(dumpPath, string.Format("nugetdump-{0}.xml", partition));
+			var dumpFile = Path.Combine(dumpPath, $"nugetdump-{partition}.xml");
 
 			var serializer = new XmlSerializer(typeof(NugetDump));
 			using (var writer = XmlWriter.Create(dumpFile, new XmlWriterSettings { Indent = true }))

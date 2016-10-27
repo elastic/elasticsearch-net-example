@@ -17,7 +17,7 @@ namespace NuSearch.Web.Plumbing
 				where !string.IsNullOrEmpty(value)
 				select p.Name.ToLowerInvariant() + "=" + value;
 
-			return "?" + String.Join("&", properties.ToArray());
+			return "?" + string.Join("&", properties.ToArray());
 		}
 	}
 }

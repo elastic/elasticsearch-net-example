@@ -9,25 +9,25 @@ using NuSearch.Domain.Model;
 
 namespace NuSearch.Domain
 {
-	public static class NuSearchConfiguration
+	public class NuSearchConfiguration
 	{
-		private static readonly ConnectionSettings _connectionSettings;
+		private readonly ConnectionSettings _connectionSettings;
 
-		public static string LiveIndexAlias { get { return "nusearch"; } }
-		public static string OldIndexAlias { get { return "nusearch-old"; } }
+		public static string LiveIndexAlias => "nusearch";
 
-		public static Uri CreateUri(int port)
+		public static string OldIndexAlias => "nusearch-old";
+
+		public static Uri CreateUri(string host, int port)
 		{
-			var host = "localhost";
 			if (Process.GetProcessesByName("fiddler").Any())
 				host = "ipv4.fiddler";
 
 			return new Uri("http://" + host + ":" + port);
 		}
 
-		static NuSearchConfiguration()
+		private NuSearchConfiguration(string host, int port, string userName, string password)
 		{
-			_connectionSettings = new ConnectionSettings(CreateUri(9200))
+			_connectionSettings = new ConnectionSettings(CreateUri(host, port))
 				.DefaultIndex("nusearch")
 				.InferMappingFor<Package>(i => i
 					.TypeName("package")
@@ -37,17 +37,26 @@ namespace NuSearch.Domain
 					.TypeName("package")
 					.IndexName("nusearch")
 				);
+
+			if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password))
+			{
+				_connectionSettings.BasicAuthentication(userName, password);
+			}
 		}
 
-		public static ElasticClient GetClient()
+		public static NuSearchConfiguration Create(string host = "localhost", int port = 9200, string userName = "", string password = "")
+		{
+			return new NuSearchConfiguration(host, port, userName, password);
+		}
+
+		public ElasticClient GetClient()
 		{
 			return new ElasticClient(_connectionSettings);
 		}
 
-		public static string CreateIndexName()
+		public string CreateIndexName()
 		{
-			return string.Format("{0}-{1:dd-MM-yyyy-HH-mm-ss}", LiveIndexAlias, DateTime.UtcNow);
+			return $"{LiveIndexAlias}-{DateTime.UtcNow:dd-MM-yyyy-HH-mm-ss}";
 		}
-
 	}
 }

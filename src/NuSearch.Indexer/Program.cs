@@ -24,9 +24,11 @@ namespace NuSearch.Indexer
 
 		static void Main(string[] args)
 		{
-			Client = NuSearchConfiguration.GetClient();
+			var configuration = NuSearchConfiguration.Create();
+
+			Client = configuration.GetClient();
 			DumpReader = new NugetDumpReader(@"C:\nuget-data");
-			CurrentIndexName = NuSearchConfiguration.CreateIndexName();
+			CurrentIndexName = configuration.CreateIndexName();
 
 			CreateIndex();
 			IndexDumps();

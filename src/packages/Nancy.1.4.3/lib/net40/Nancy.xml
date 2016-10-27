@@ -290,7 +290,7 @@
             Gets all types implementing a particular interface/base class
             </summary>
             <param name="type">Type to search for</param>
-            <param name="mode">A <see cref="T:Nancy.Bootstrapper.ScanMode"/> value to determin which type set to scan in.</param>
+            <param name="mode">A <see cref="T:Nancy.Bootstrapper.ScanMode"/> value to determine which type set to scan in.</param>
             <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of types.</returns>
         </member>
         <member name="M:Nancy.Bootstrapper.AppDomainAssemblyTypeScanner.TypesOf``1">
@@ -306,7 +306,7 @@
             Gets all types implementing a particular interface/base class
             </summary>
             <typeparam name="TType">Type to search for</typeparam>
-            <param name="mode">A <see cref="T:Nancy.Bootstrapper.ScanMode"/> value to determin which type set to scan in.</param>
+            <param name="mode">A <see cref="T:Nancy.Bootstrapper.ScanMode"/> value to determine which type set to scan in.</param>
             <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of types.</returns>
         </member>
         <member name="M:Nancy.Bootstrapper.AppDomainAssemblyTypeScanner.GetAssemblyDirectories">
@@ -557,7 +557,7 @@
             <summary>
             Application startup task that attempts to locate a favicon. The startup will first scan all
             folders in the path defined by the provided <see cref="T:Nancy.IRootPathProvider"/> and if it cannot
-            fine one, it will fall back and use the default favicon that is embedded in the Nancy.dll file.
+            find one, it will fall back and use the default favicon that is embedded in the Nancy.dll file.
             </summary>
         </member>
         <member name="T:Nancy.Bootstrapper.IApplicationStartup">
@@ -748,7 +748,7 @@
             <summary>
             Returns the configuration types as a TypeRegistration collection
             </summary>
-            <returns>TypeRegistration collection representing the configurationt types</returns>
+            <returns>TypeRegistration collection representing the configuration types</returns>
         </member>
         <member name="M:Nancy.Bootstrapper.NancyInternalConfiguration.GetCollectionTypeRegistrations">
             <summary>
@@ -818,7 +818,7 @@
         </member>
         <member name="T:Nancy.Bootstrapper.ScanMode">
             <summary>
-            Determins which set of types that the <see cref="T:Nancy.Bootstrapper.AppDomainAssemblyTypeScanner"/> should scan in.
+            Determines which set of types that the <see cref="T:Nancy.Bootstrapper.AppDomainAssemblyTypeScanner"/> should scan in.
             </summary>
         </member>
         <member name="F:Nancy.Bootstrapper.ScanMode.All">
@@ -1608,7 +1608,7 @@
             <summary>
             Gets the HTTP verb of the request.
             </summary>
-            <value>A <see cref="T:System.String"/> containg the HTTP verb.</value>
+            <value>A <see cref="T:System.String"/> containing the HTTP verb.</value>
         </member>
         <member name="P:Nancy.Diagnostics.RequestData.Url">
             <summary>
@@ -1629,7 +1629,7 @@
         </member>
         <member name="P:Nancy.Diagnostics.ResponseData.ContentType">
             <summary>
-            Gets or sets the contetn type of the response.
+            Gets or sets the content type of the response.
             </summary>
             <value>A <see cref="T:System.String"/> containing the content type.</value>
         </member>
@@ -1823,7 +1823,7 @@
         </member>
         <member name="M:Nancy.Diagnostics.IRequestTracing.IsValidSessionId(System.Guid)">
             <summary>
-            Checkes if the provided <paramref name="sessionId"/> is valid or not.
+            Checks if the provided <paramref name="sessionId"/> is valid or not.
             </summary>
             <param name="sessionId">A <see cref="T:System.Guid"/> representing the session to check.</param>
             <returns><see langword="true"/> if the session is valid, otherwise <see langword="false"/>.</returns>
@@ -1854,7 +1854,7 @@
         </member>
         <member name="M:Nancy.Diagnostics.DefaultRequestTracing.IsValidSessionId(System.Guid)">
             <summary>
-            Checkes if the provided <paramref name="sessionId"/> is valid or not.
+            Checks if the provided <paramref name="sessionId"/> is valid or not.
             </summary>
             <param name="sessionId">A <see cref="T:System.Guid"/> representing the session to check.</param>
             <returns><see langword="true"/> if the session is valid, otherwise <see langword="false"/>.</returns>
@@ -1950,11 +1950,11 @@
             <summary>
             Renders a view from inside a route handler.
             </summary>
-            <value>A <see cref="T:Nancy.ViewRenderer"/> instance that is used to determin which view that should be rendered.</value>
+            <value>A <see cref="T:Nancy.ViewRenderer"/> instance that is used to determine which view that should be rendered.</value>
         </member>
         <member name="P:Nancy.INancyModule.Negotiate">
             <summary>
-            Used to negotiate the content returned based on Accepts header. 
+            Used to negotiate the content returned based on Accepts header.
             </summary>
             <value>A <see cref="T:Nancy.Responses.Negotiation.Negotiator"/> instance that is used to negotiate the content returned.</value>
         </member>
@@ -1985,7 +1985,12 @@
             Gets <see cref="T:Nancy.NancyModule.RouteBuilder"/> for declaring actions for GET requests.
             </summary>
             <value>A <see cref="T:Nancy.NancyModule.RouteBuilder"/> instance.</value>
-            <remarks>These actions will also be used when a HEAD request is recieved.</remarks>
+        </member>
+        <member name="P:Nancy.NancyModule.Head">
+            <summary>
+            Gets <see cref="T:Nancy.NancyModule.RouteBuilder"/> for declaring actions for HEAD requests.
+            </summary>
+            <value>A <see cref="T:Nancy.NancyModule.RouteBuilder"/> instance.</value>
         </member>
         <member name="P:Nancy.NancyModule.Options">
             <summary>
@@ -2036,11 +2041,11 @@
             <summary>
             Renders a view from inside a route handler.
             </summary>
-            <value>A <see cref="T:Nancy.ViewRenderer"/> instance that is used to determin which view that should be rendered.</value>
+            <value>A <see cref="T:Nancy.ViewRenderer"/> instance that is used to determine which view that should be rendered.</value>
         </member>
         <member name="P:Nancy.NancyModule.Negotiate">
             <summary>
-            Used to negotiate the content returned based on Accepts header. 
+            Used to negotiate the content returned based on Accepts header.
             </summary>
             <value>A <see cref="T:Nancy.Responses.Negotiation.Negotiator"/> instance that is used to negotiate the content returned.</value>
         </member>
@@ -2187,7 +2192,7 @@
             <summary>
             Builds a fully configured <see cref="T:Nancy.INancyModule"/> instance, based upon the provided <paramref name="module"/>.
             </summary>
-            <param name="module">The <see cref="T:Nancy.INancyModule"/> that shoule be configured.</param>
+            <param name="module">The <see cref="T:Nancy.INancyModule"/> that should be configured.</param>
             <param name="context">The current request context.</param>
             <returns>A fully configured <see cref="T:Nancy.INancyModule"/> instance.</returns>
         </member>
@@ -2195,7 +2200,7 @@
             <summary>
             Builds a fully configured <see cref="T:Nancy.INancyModule"/> instance, based upon the provided <paramref name="module"/>.
             </summary>
-            <param name="module">The <see cref="T:Nancy.INancyModule"/> that shoule be configured.</param>
+            <param name="module">The <see cref="T:Nancy.INancyModule"/> that should be configured.</param>
             <param name="context">The current request context.</param>
             <returns>A fully configured <see cref="T:Nancy.INancyModule"/> instance.</returns>
         </member>
@@ -2338,6 +2343,16 @@
             <param name="context">Current nancy context</param>
             <returns>True if not modified should be sent, false otherwise</returns>
         </member>
+        <member name="T:Nancy.IncludeInNancyAssemblyScanningAttribute">
+            <summary>
+            Add this attribute to an assembly to make sure
+            it is included in Nancy's assembly scanning.
+            </summary>
+            <example>
+            Apply the attribute, typically in AssemblyInfo.(cs|fs|vb), as follows:
+            <code>[assembly: IncludeInNancyAssemblyScanning]</code>
+            </example>
+        </member>
         <member name="T:Nancy.Localization.TextResourceFinder">
             <summary>
             Returns text from an implemented ITextResource
@@ -2382,7 +2397,7 @@
         </member>
         <member name="F:Nancy.ModelBinding.BindingConfig.NoOverwrite">
             <summary>
-            Binding configuration that permitts that the binder overwrites non-default values.
+            Binding configuration that permits that the binder overwrites non-default values.
             </summary>
         </member>
         <member name="F:Nancy.ModelBinding.BindingConfig.Default">
@@ -2560,7 +2575,7 @@
             <summary>
             Retrieves the member that an expression is defined for.
             </summary>
-            <param name="expression">The expression to retreive the member from.</param>
+            <param name="expression">The expression to retrieve the member from.</param>
             <returns>A <see cref="T:System.Reflection.MemberInfo"/> instance if the member could be found; otherwise <see langword="null"/>.</returns>
         </member>
         <member name="M:Nancy.ModelBinding.PropertyBindingException.#ctor(System.String,System.String,System.Exception)">
@@ -2606,7 +2621,7 @@
             <param name="request">An <see cref="T:Nancy.Request"/> instance, containing the information about the current request.</param>
             <param name="preRequest">Delegate to call before the request is processed</param>
             <param name="onComplete">Delegate to call when the request is complete</param>
-            <param name="onError">Deletate to call when any errors occur</param>
+            <param name="onError">Delegate to call when any errors occur</param>
             <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         </member>
         <member name="M:Nancy.NancyEngineExtensions.HandleRequest(Nancy.INancyEngine,Nancy.Request,System.Action{Nancy.NancyContext},System.Action{System.Exception})">
@@ -2616,7 +2631,7 @@
             <param name="nancyEngine">The <see cref="T:Nancy.INancyEngine"/> instance.</param>
             <param name="request">An <see cref="T:Nancy.Request"/> instance, containing the information about the current request.</param>
             <param name="onComplete">Delegate to call when the request is complete</param>
-            <param name="onError">Deletate to call when any errors occur</param>
+            <param name="onError">Delegate to call when any errors occur</param>
         </member>
         <member name="M:Nancy.NegotiatorExtensions.WithCookie(Nancy.Responses.Negotiation.Negotiator,Nancy.Cookies.INancyCookie)">
             <summary>
@@ -3007,7 +3022,7 @@
             <summary>
             Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
             </summary>
-            <remarks>This method can be overriden in sub-classes to dispose of response specific resources.</remarks>
+            <remarks>This method can be overridden in sub-classes to dispose of response specific resources.</remarks>
         </member>
         <member name="P:Nancy.Response.ContentType">
             <summary>
@@ -3027,7 +3042,7 @@
             <summary>
             Gets the collection of HTTP response headers that should be sent back to the client.
             </summary>
-            <value>An <see cref="T:System.Collections.Generic.IDictionary`2"/> instance, contaning the key/value pair of headers.</value>
+            <value>An <see cref="T:System.Collections.Generic.IDictionary`2"/> instance, containing the key/value pair of headers.</value>
         </member>
         <member name="P:Nancy.Response.StatusCode">
             <summary>
@@ -3119,7 +3134,7 @@
         </member>
         <member name="T:Nancy.RequestExecutionException">
             <summary>
-            Exception that is thrown when an unhandled exception occured during
+            Exception that is thrown when an unhandled exception occurred during
             the execution of the current request.
             </summary>
         </member>
@@ -3304,7 +3319,7 @@
         </member>
         <member name="M:Nancy.Responses.Negotiation.IResponseProcessor.CanProcess(Nancy.Responses.Negotiation.MediaRange,System.Object,Nancy.NancyContext)">
             <summary>
-            Determines whether the the processor can handle a given content type and model.
+            Determines whether the processor can handle a given content type and model.
             </summary>
             <param name="requestedMediaRange">Content type requested by the client.</param>
             <param name="model">The model for the given media range.</param>
@@ -3340,7 +3355,7 @@
         </member>
         <member name="M:Nancy.Responses.Negotiation.JsonProcessor.CanProcess(Nancy.Responses.Negotiation.MediaRange,System.Object,Nancy.NancyContext)">
             <summary>
-            Determines whether the the processor can handle a given content type and model
+            Determines whether the processor can handle a given content type and model
             </summary>
             <param name="requestedMediaRange">Content type requested by the client</param>
             <param name="model">The model for the given media range</param>
@@ -3647,7 +3662,7 @@
         </member>
         <member name="M:Nancy.Responses.Negotiation.ResponseProcessor.CanProcess(Nancy.Responses.Negotiation.MediaRange,System.Object,Nancy.NancyContext)">
             <summary>
-            Determines whether the the processor can handle a given content type and model.
+            Determines whether the processor can handle a given content type and model.
             </summary>
             <param name="requestedMediaRange">Content type requested by the client.</param>
             <param name="model">The model for the given media range.</param>
@@ -3683,7 +3698,7 @@
         </member>
         <member name="M:Nancy.Responses.Negotiation.ViewProcessor.CanProcess(Nancy.Responses.Negotiation.MediaRange,System.Object,Nancy.NancyContext)">
             <summary>
-            Determines whether the the processor can handle a given content type and model.
+            Determines whether the processor can handle a given content type and model.
             </summary>
             <param name="requestedMediaRange">Content type requested by the client.</param>
             <param name="model">The model for the given media range.</param>
@@ -3719,7 +3734,7 @@
         </member>
         <member name="M:Nancy.Responses.Negotiation.XmlProcessor.CanProcess(Nancy.Responses.Negotiation.MediaRange,System.Object,Nancy.NancyContext)">
             <summary>
-            Determines whether the the processor can handle a given content type and model.
+            Determines whether the processor can handle a given content type and model.
             </summary>
             <param name="requestedMediaRange">Content type requested by the client.</param>
             <param name="model">The model for the given media range.</param>
@@ -3951,19 +3966,19 @@
         </member>
         <member name="P:Nancy.IO.UnclosableStreamWrapper.ReadTimeout">
             <summary>
-            Gets or sets a value, in miliseconds, that determines how long the stream will attempt to read before timing out. 
+            Gets or sets a value, in milliseconds, that determines how long the stream will attempt to read before timing out. 
             </summary>
             <returns>
-            A value, in miliseconds, that determines how long the stream will attempt to read before timing out.
+            A value, in milliseconds, that determines how long the stream will attempt to read before timing out.
             </returns>
             <exception cref="T:System.InvalidOperationException">The <see cref="P:System.IO.Stream.ReadTimeout"/> method always throws an <see cref="T:System.InvalidOperationException"/>. </exception><filterpriority>2</filterpriority>
         </member>
         <member name="P:Nancy.IO.UnclosableStreamWrapper.WriteTimeout">
             <summary>
-            Gets or sets a value, in miliseconds, that determines how long the stream will attempt to write before timing out. 
+            Gets or sets a value, in milliseconds, that determines how long the stream will attempt to write before timing out. 
             </summary>
             <returns>
-            A value, in miliseconds, that determines how long the stream will attempt to write before timing out.
+            A value, in milliseconds, that determines how long the stream will attempt to write before timing out.
             </returns>
             <exception cref="T:System.InvalidOperationException">The <see cref="P:System.IO.Stream.WriteTimeout"/> method always throws an <see cref="T:System.InvalidOperationException"/>. </exception><filterpriority>2</filterpriority>
         </member>
@@ -3991,12 +4006,12 @@
         </member>
         <member name="T:Nancy.Json.JsonSettings">
             <summary>
-            Json serializer settings
+            JSON serializer settings
             </summary>
         </member>
         <member name="P:Nancy.Json.JsonSettings.MaxJsonLength">
             <summary>
-            Max length of json output
+            Max length of JSON output
             </summary>
         </member>
         <member name="P:Nancy.Json.JsonSettings.MaxRecursions">
@@ -4006,8 +4021,16 @@
         </member>
         <member name="P:Nancy.Json.JsonSettings.DefaultCharset">
             <summary>
-            Default charset for json responses.
+            Default charset for JSON responses.
             </summary>
+        </member>
+        <member name="P:Nancy.Json.JsonSettings.DefaultEncoding">
+            <summary>
+            Gets the default encoding for JSON responses.
+            </summary>
+            <remarks>
+            The default value is <see langword="Encoding.UTF8" />
+            </remarks>
         </member>
         <member name="P:Nancy.Json.JsonSettings.RetainCasing">
             <summary>
@@ -4065,7 +4088,7 @@
         <member name="P:Nancy.Responses.DefaultJsonSerializer.ISO8601DateFormat">
             <summary>
             Set to true to use the ISO8601 format for datetimes in produced JSON.
-            Set to false to use the WCF \/Date()\/ format in the the produced JSON.
+            Set to false to use the WCF \/Date()\/ format in the produced JSON.
             True by default.
             </summary>
         </member>
@@ -4249,6 +4272,11 @@
             Constraint for <see cref="T:System.Int32"/> route segments with value within a specified range.
             </summary>
         </member>
+        <member name="T:Nancy.Routing.Constraints.VersionRouteSegmentConstraint">
+            <summary>
+            Constraint for version route segments.
+            </summary>
+        </member>
         <member name="T:Nancy.Routing.DefaultRequestDispatcher">
             <summary>
             Default implementation of a request dispatcher.
@@ -4266,7 +4294,7 @@
             <param name="context">The <see cref="T:Nancy.NancyContext"/> for the current request.</param>
             <param name="cancellationToken">Cancellation token</param>
         </member>
-        <member name="M:Nancy.Routing.DefaultRequestDispatcher.#ctor(Nancy.Routing.IRouteResolver,System.Collections.Generic.IEnumerable{Nancy.Responses.Negotiation.IResponseProcessor},Nancy.Routing.IRouteInvoker)">
+        <member name="M:Nancy.Routing.DefaultRequestDispatcher.#ctor(Nancy.Routing.IRouteResolver,System.Collections.Generic.IEnumerable{Nancy.Responses.Negotiation.IResponseProcessor},Nancy.Routing.IRouteInvoker,Nancy.Responses.Negotiation.IResponseNegotiator)">
             <summary>
             Initializes a new instance of the <see cref="T:Nancy.Routing.DefaultRequestDispatcher"/> class, with
             the provided <paramref name="routeResolver"/>, <paramref name="responseProcessors"/> and <paramref name="routeInvoker"/>.
@@ -4274,6 +4302,7 @@
             <param name="routeResolver"></param>
             <param name="responseProcessors"></param>
             <param name="routeInvoker"></param>
+            <param name="negotiator"></param>
         </member>
         <member name="M:Nancy.Routing.DefaultRequestDispatcher.Dispatch(Nancy.NancyContext,System.Threading.CancellationToken)">
             <summary>
@@ -4290,7 +4319,7 @@
         </member>
         <member name="T:Nancy.Routing.IRouteDescriptionProvider">
             <summary>
-            Defines the functionality for retriving a description for a specific route.
+            Defines the functionality for retrieving a description for a specific route.
             </summary>
         </member>
         <member name="M:Nancy.Routing.IRouteDescriptionProvider.GetDescription(Nancy.INancyModule,System.String)">
@@ -4327,7 +4356,7 @@
             <param name="cancellationToken">Cancellation token</param>
             <param name="parameters">The parameters that the route should be invoked with.</param>
             <param name="context">The context of the route that is being invoked.</param>
-            <returns>A <see cref="T:Nancy.Response"/> intance that represents the result of the invoked route.</returns>
+            <returns>A <see cref="T:Nancy.Response"/> instance that represents the result of the invoked route.</returns>
         </member>
         <member name="M:Nancy.Routing.DefaultRouteInvoker.#ctor(Nancy.Responses.Negotiation.IResponseNegotiator)">
             <summary>
@@ -4343,7 +4372,7 @@
             <param name="cancellationToken">Cancellation token</param>
             <param name="parameters">The parameters that the route should be invoked with.</param>
             <param name="context">The context of the route that is being invoked.</param>
-            <returns>A <see cref="T:Nancy.Response"/> intance that represents the result of the invoked route.</returns>
+            <returns>A <see cref="T:Nancy.Response"/> instance that represents the result of the invoked route.</returns>
         </member>
         <member name="T:Nancy.Routing.DefaultRouteSegmentExtractor">
             <summary>
@@ -4416,7 +4445,7 @@
         </member>
         <member name="P:Nancy.Routing.ParameterSegmentInformation.IsOptional">
             <summary>
-            Gets wether or not the parameter is optional.
+            Gets whether or not the parameter is optional.
             </summary>
             <value><see langword="true"/> if the parameter is optional, otherwise <see langword="false" />.</value>
         </member>
@@ -4479,7 +4508,7 @@
             <param name="name">Route name</param>
             <param name="method">The HTTP method that the route is declared for.</param>
             <param name="path">The path that the route is declared for.</param>
-            <param name="condition">A condition that needs to be satisfied inorder for the route to be eligiable for invocation.</param>
+            <param name="condition">A condition that needs to be satisfied inorder for the route to be eligible for invocation.</param>
             <param name="action">The action that should take place when the route is invoked.</param>
         </member>
         <member name="M:Nancy.Routing.Route.#ctor(System.String,System.String,System.Func{Nancy.NancyContext,System.Boolean},System.Func{System.Object,System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Object}})">
@@ -4524,7 +4553,7 @@
             <param name="name">Route name</param>
             <param name="method">The HTTP method that the route is declared for.</param>
             <param name="path">The path that the route is declared for.</param>
-            <param name="condition">A condition that needs to be satisfied inorder for the route to be eligiable for invocation.</param>
+            <param name="condition">A condition that needs to be satisfied inorder for the route to be eligible for invocation.</param>
             <param name="syncFunc">The action that should take place when the route is invoked.</param>
             <returns>A Route instance</returns>
         </member>
@@ -4637,7 +4666,7 @@
             Get all matches for the given method and path
             </summary>
             <param name="method">HTTP method</param>
-            <param name="path">Reqeusted path</param>
+            <param name="path">Requested path</param>
             <param name="context">Current Nancy context</param>
             <returns>An array of <see cref="T:Nancy.Routing.Trie.MatchResult"/> elements</returns>
         </member>
@@ -4645,7 +4674,7 @@
             <summary>
             Get all method options for the given path
             </summary>
-            <param name="path">Reqeusted path</param>
+            <param name="path">Requested path</param>
             <param name="context">Current Nancy context</param>
             <returns>A collection of strings, each representing an allowed method</returns>
         </member>
@@ -4691,7 +4720,7 @@
         </member>
         <member name="P:Nancy.Routing.Trie.NodeData.RouteLength">
             <summary>
-            Gets or sets the numer of segments in the route
+            Gets or sets the number of segments in the route
             </summary>
         </member>
         <member name="P:Nancy.Routing.Trie.NodeData.Score">
@@ -4948,7 +4977,7 @@
             A node multiple standard captures combined with a literal e.g. {id}.png.{thing}.{otherthing}
             </summary>
         </member>
-        <member name="M:Nancy.Routing.Trie.Nodes.CaptureNodeWithMultipleParameters.#ctor(Nancy.Routing.Trie.Nodes.TrieNode,System.String,Nancy.Routing.Trie.ITrieNodeFactory)">
+        <member name="M:Nancy.Routing.Trie.Nodes.CaptureNodeWithMultipleParameters.#ctor(Nancy.Routing.Trie.Nodes.TrieNode,System.String,Nancy.Routing.Trie.ITrieNodeFactory,System.Collections.Generic.IEnumerable{Nancy.Routing.Constraints.IRouteSegmentConstraint})">
             <summary>
             Captures parameters within segments that contain literals.
                 i.e:
@@ -4959,10 +4988,11 @@
             <param name="parent">The parent node</param>
             <param name="segment">The segment to match upon</param>
             <param name="nodeFactory">The factory</param>
+            <param name="routeSegmentConstraints"></param>
         </member>
         <member name="M:Nancy.Routing.Trie.Nodes.CaptureNodeWithMultipleParameters.IsMatch(System.String)">
             <summary>
-            Determines wheter this TrieNode should be used for the given segment.
+            Determines whether this TrieNode should be used for the given segment.
             </summary>
             <param name="segment">The route segment</param>
             <returns>a boolean</returns>
@@ -5158,7 +5188,7 @@
             Get all matches for the given method and path
             </summary>
             <param name="method">HTTP method</param>
-            <param name="path">Reqeusted path</param>
+            <param name="path">Requested path</param>
             <param name="context">Current Nancy context</param>
             <returns>An array of <see cref="T:Nancy.Routing.Trie.MatchResult"/> elements</returns>
         </member>
@@ -5166,7 +5196,7 @@
             <summary>
             Get all method options for the given path
             </summary>
-            <param name="path">Reqeusted path</param>
+            <param name="path">Requested path</param>
             <param name="context">Current Nancy context</param>
             <returns>A collection of strings, each representing an allowed method</returns>
         </member>
@@ -5186,7 +5216,7 @@
         </member>
         <member name="P:Nancy.Routing.Trie.SegmentMatch.Matches">
             <summary>
-            Gets a value indicating whether the match was sucessful or not
+            Gets a value indicating whether the match was successful or not
             </summary>
         </member>
         <member name="P:Nancy.Routing.Trie.SegmentMatch.NoMatch">
@@ -5196,7 +5226,7 @@
         </member>
         <member name="P:Nancy.Routing.Trie.SegmentMatch.CapturedParameters">
             <summary>
-            Gets the captured parameters from the match, if the match was sucessful
+            Gets the captured parameters from the match, if the match was successful
             </summary>
         </member>
         <member name="T:Nancy.Routing.Trie.TrieNodeFactory">
@@ -5446,7 +5476,7 @@
             <summary>
             Encrypt and base64 encode the string
             </summary>
-            <param name="data">Data to encrypyt</param>
+            <param name="data">Data to encrypt</param>
             <returns>Encrypted string</returns>
         </member>
         <member name="M:Nancy.Cryptography.IEncryptionProvider.Decrypt(System.String)">
@@ -5458,9 +5488,9 @@
         </member>
         <member name="M:Nancy.Cryptography.NoEncryptionProvider.Encrypt(System.String)">
             <summary>
-            Encyrypt data
+            Encrypt data
             </summary>
-            <param name="data">Data to encrypyt</param>
+            <param name="data">Data to encrypt</param>
             <returns>Encrypted string</returns>
         </member>
         <member name="M:Nancy.Cryptography.NoEncryptionProvider.Decrypt(System.String)">
@@ -5484,7 +5514,7 @@
             the provided <paramref name="passphrase"/>, <paramref name="salt"/> and optional
             number of <paramref name="iterations"/>
             </summary>
-            <param name="passphrase">The passphrade that should be used.</param>
+            <param name="passphrase">The passphrase that should be used.</param>
             <param name="salt">The salt</param>
             <param name="iterations">The number of iterations. The default value is 10000.</param>
         </member>
@@ -5806,14 +5836,15 @@
             <param name="statusCode">Status code</param>
             <param name="context">Current context</param>
         </member>
-        <member name="M:Nancy.ErrorHandling.DefaultStatusCodeHandler.#ctor">
+        <member name="M:Nancy.ErrorHandling.DefaultStatusCodeHandler.#ctor(Nancy.Responses.Negotiation.IResponseNegotiator)">
             <summary>
             Initializes a new instance of the <see cref="T:Nancy.ErrorHandling.DefaultStatusCodeHandler"/> type.
             </summary>
+            <param name="responseNegotiator">The response negotiator.</param>
         </member>
         <member name="M:Nancy.ErrorHandling.DefaultStatusCodeHandler.HandlesStatusCode(Nancy.HttpStatusCode,Nancy.NancyContext)">
             <summary>
-            Whether then
+            Whether the status code is handled
             </summary>
             <param name="statusCode">Status code</param>
             <param name="context">The <see cref="T:Nancy.NancyContext"/> instance of the current request.</param>
@@ -5948,7 +5979,7 @@
         <member name="M:Nancy.ErrorPipeline.Invoke(Nancy.NancyContext,System.Exception)">
             <summary>
             Invoke the pipeline. Each item will be invoked in turn until either an
-            item returns a Response, or all items have beene invoked.
+            item returns a Response, or all items have been invoked.
             </summary>
             <param name="context">
             The current context to pass to the items.
@@ -5970,7 +6001,7 @@
             Gets exported types from an assembly and catches common errors
             that occur when running under test runners.
             </summary>
-            <param name="assembly">Assembly to retreive from</param>
+            <param name="assembly">Assembly to retrieve from</param>
             <returns>An array of types</returns>
         </member>
         <member name="T:Nancy.Bootstrapper.INancyBootstrapper">
@@ -6213,7 +6244,7 @@
             Gets any additional instance registrations that need to
             be registered into the container
             </summary>
-            <returns>Collection of InstanceRegistation types</returns>
+            <returns>Collection of InstanceRegistration types</returns>
         </member>
         <member name="M:Nancy.Bootstrapper.NancyBootstrapperBase`1.GetApplicationCollections">
             <summary>
@@ -6321,12 +6352,12 @@
             </summary>
         </member>
         <member name="T:Nancy.Bootstrapper.NancyBootstrapperLocator">
-            <summary>
-            Class for locating an INancyBootstrapper implementation.
+             <summary>
+             Class for locating an INancyBootstrapper implementation.
             
-            Will search the app domain for a non-abstract one, and if it can't find one
-            it will use the default nancy one that uses TinyIoC.
-            </summary>
+             Will search the app domain for a non-abstract one, and if it can't find one
+             it will use the default nancy one that uses TinyIoC.
+             </summary>
         </member>
         <member name="P:Nancy.Bootstrapper.NancyBootstrapperLocator.Bootstrapper">
             <summary>
@@ -6587,7 +6618,7 @@
         </member>
         <member name="M:Nancy.Bootstrapper.NancyBootstrapperWithRequestContainerBase`1.GetModule(`0,System.Type)">
             <summary>
-            Retreive a specific module instance from the container
+            Retrieve a specific module instance from the container
             </summary>
             <param name="container">Container to use</param>
             <param name="moduleType">Type of the module</param>
@@ -6595,12 +6626,12 @@
         </member>
         <member name="P:Nancy.Bootstrapper.NancyBootstrapperWithRequestContainerBase`1.RequestScopedTypes">
             <summary>
-            Stores the per-request type registations
+            Stores the per-request type registrations
             </summary>
         </member>
         <member name="P:Nancy.Bootstrapper.NancyBootstrapperWithRequestContainerBase`1.RequestScopedCollectionTypes">
             <summary>
-            Stores the per-request collection registations
+            Stores the per-request collection registrations
             </summary>
         </member>
         <member name="P:Nancy.Bootstrapper.NancyBootstrapperWithRequestContainerBase`1.ContextKey">
@@ -6653,7 +6684,7 @@
             by IEnumerable{Type} constructor dependencies.
             </summary>
             <param name="container">Container to register into</param>
-            <param name="collectionTypeRegistrationsn">Collection type registrations to register</param>
+            <param name="collectionTypeRegistrations">Collection type registrations to register</param>
         </member>
         <member name="M:Nancy.DefaultNancyBootstrapper.RegisterRequestContainerModules(Nancy.TinyIoc.TinyIoCContainer,System.Collections.Generic.IEnumerable{Nancy.Bootstrapper.ModuleRegistration})">
             <summary>
@@ -6709,7 +6740,7 @@
         </member>
         <member name="M:Nancy.DefaultNancyBootstrapper.GetModule(Nancy.TinyIoc.TinyIoCContainer,System.Type)">
             <summary>
-            Retreive a specific module instance from the container
+            Retrieve a specific module instance from the container
             </summary>
             <param name="container">Container to use</param>
             <param name="moduleType">Type of the module</param>
@@ -6724,8 +6755,8 @@
         <member name="P:Nancy.DefaultNancyBootstrapper.AutoRegisterIgnoredAssemblies">
             <summary>
             Gets the assemblies to ignore when autoregistering the application container
-            Return true from the delegate to ignore that particular assembly, returning true
-            does not mean the assembly *will* be included, a false from another delegate will
+            Return true from the delegate to ignore that particular assembly, returning false
+            does not mean the assembly *will* be included, a true from another delegate will
             take precedence.
             </summary>
         </member>
@@ -6856,7 +6887,7 @@
         </member>
         <member name="M:Nancy.Extensions.RequestExtensions.IsAjaxRequest(Nancy.Request)">
             <summary>
-            An extension method making it easy to check if the reqeuest was done using ajax
+            An extension method making it easy to check if the request was done using ajax
             </summary>
             <param name="request">The request made by client</param>
             <returns><see langword="true" /> if the request was done using ajax, otherwise <see langword="false"/>.</returns>
@@ -6888,7 +6919,7 @@
         </member>
         <member name="M:Nancy.Extensions.StringExtensions.IsParameterized(System.String)">
             <summary>
-            Checks if a segement contains any parameters.
+            Checks if a segment contains any parameters.
             </summary>
             <param name="segment">The segment to check for parameters.</param>
             <returns>true if the segment contains a parameter; otherwise false.</returns>
@@ -6991,7 +7022,7 @@
             <summary>
             The length of the request body in octets (8-bit bytes).
             </summary>
-            <value>The lenght of the contents if it is available; otherwise 0.</value>
+            <value>The length of the contents if it is available; otherwise 0.</value>
         </member>
         <member name="P:Nancy.RequestHeaders.ContentType">
             <summary>
@@ -7118,6 +7149,13 @@
             <param name="module">Nancy module</param>
             <returns></returns>
         </member>
+        <member name="M:Nancy.Security.Csrf.GenerateTokenString(Nancy.Cryptography.CryptographyConfiguration)">
+            <summary>
+            Creates a new csrf token with an optional salt.
+            Does not store the token in context.
+            </summary>
+            <returns>The generated token</returns>
+        </member>
         <member name="M:Nancy.Security.Csrf.ValidateCsrfToken(Nancy.INancyModule,System.Nullable{System.TimeSpan})">
             <summary>
             Validate that the incoming request has valid CSRF tokens.
@@ -7129,7 +7167,7 @@
         </member>
         <member name="T:Nancy.Security.CsrfApplicationStartup">
             <summary>
-            Wires up the CSRF (anti-forgety token) support at application startup.
+            Wires up the CSRF (anti-forgery token) support at application startup.
             </summary>
         </member>
         <member name="M:Nancy.Security.CsrfApplicationStartup.#ctor(Nancy.Cryptography.CryptographyConfiguration,Nancy.IObjectSerializer,Nancy.Security.ICsrfTokenValidator)">
@@ -7137,7 +7175,7 @@
             Initializes a new instance of the <see cref="T:Nancy.Security.CsrfApplicationStartup"/> class, using the
             provided <paramref name="cryptographyConfiguration"/>, <paramref name="objectSerializer"/> and <paramref name="tokenValidator"/>.
             </summary>
-            <param name="cryptographyConfiguration">The cryptograpic configuration to use.</param>
+            <param name="cryptographyConfiguration">The cryptographic configuration to use.</param>
             <param name="objectSerializer">The serializer that should be used.</param>
             <param name="tokenValidator">The token validator that should be used.</param>
         </member>
@@ -7318,7 +7356,7 @@
             <param name="response">Response object</param>
             <param name="fileName">Filename for the download</param>
             <param name="contentType">Optional content type</param>
-            <returns>Mopdified Response object</returns>
+            <returns>Modified Response object</returns>
         </member>
         <member name="M:Nancy.ResponseExtensions.WithCookie(Nancy.Response,System.String,System.String)">
             <summary>
@@ -7463,6 +7501,11 @@
             Gets or sets a value indicating whether or not to enable case sensitivity in query, parameters (DynamicDictionary) and model binding. Enable this to conform with RFC3986.
             </summary>
         </member>
+        <member name="P:Nancy.StaticConfiguration.EnableHeadRouting">
+            <summary>
+            Gets or sets a value indicating whether or not to route HEAD requests explicitly.
+            </summary>
+        </member>
         <member name="P:Nancy.StaticConfiguration.IsRunningDebug">
             <summary>
             Gets a value indicating whether we are running in debug mode or not.
@@ -7480,6 +7523,18 @@
             <summary>
             Gets or sets a value indicating whether or not to enable request tracing
             </summary>
+        </member>
+        <member name="P:Nancy.StaticConfiguration.DisableRequestStreamSwitching">
+            <summary>
+            Gets or sets a value indicating whether or not to disable request stream switching
+            </summary>
+        </member>
+        <member name="P:Nancy.StaticConfiguration.AllowFileStreamUploadAsync">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Nancy.StaticConfiguration"/> allow file stream
+            upload async due to mono issues before v4.  Uploads of over 80mb would result in extra padded chars to the filestream corrupting the file.
+            </summary>
+            <value><c>true</c> if allow file stream upload async; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:Nancy.StaticConfiguration.Caching.EnableRuntimeViewDiscovery">
             <summary>
@@ -7948,7 +8003,7 @@
         </member>
         <member name="M:Nancy.Validation.ModelValidationError.op_Implicit(Nancy.Validation.ModelValidationError)~System.String">
             <summary>
-            Implictly cast a validation error to a string.
+            Implicitly cast a validation error to a string.
             </summary>
             <param name="error">The <see cref="T:Nancy.Validation.ModelValidationError"/> that should be cast.</param>
             <returns>A <see cref="T:System.String"/> containing the validation error description.</returns>
@@ -7998,6 +8053,12 @@
             </summary>
             <value>An <see cref="T:System.Collections.Generic.IDictionary`2"/> instance that contains <see cref="T:Nancy.Validation.ModelValidationError"/> instances grouped by property name.</value>
         </member>
+        <member name="P:Nancy.Validation.ModelValidationResult.FormattedErrors">
+            <summary>
+            Gets a clean representation of the errors.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Nancy.Validation.ModelValidationResult.IsValid">
             <summary>
             Gets a value indicating whether the validated instance is valid or not.
@@ -8006,12 +8067,12 @@
         </member>
         <member name="T:Nancy.ViewEngines.DefaultFileSystemReader">
             <summary>
-            Default implementation for retrieving informationa about views that are stored on the file system.
+            Default implementation for retrieving information about views that are stored on the file system.
             </summary>
         </member>
         <member name="T:Nancy.ViewEngines.IFileSystemReader">
             <summary>
-            Defines the functionality for retriving information about views that are stored on the file system.
+            Defines the functionality for retrieving information about views that are stored on the file system.
             </summary>
         </member>
         <member name="M:Nancy.ViewEngines.IFileSystemReader.GetViewsWithSupportedExtensions(System.String,System.Collections.Generic.IEnumerable{System.String})">
@@ -8078,7 +8139,7 @@
             base directory etc.
             </summary>
             <param name="input">Input url such as ~/styles/main.css</param>
-            <returns>Parsed absolut url path</returns>
+            <returns>Parsed absolute url path</returns>
         </member>
         <member name="M:Nancy.ViewEngines.IRenderContext.HtmlEncode(System.String)">
             <summary>
@@ -8140,7 +8201,7 @@
             base directory etc.
             </summary>
             <param name="input">Input url such as ~/styles/main.css</param>
-            <returns>Parsed absolut url path</returns>
+            <returns>Parsed absolute url path</returns>
         </member>
         <member name="M:Nancy.ViewEngines.DefaultRenderContext.HtmlEncode(System.String)">
             <summary>
@@ -8209,7 +8270,7 @@
             Initializes a new instance of the <see cref="T:Nancy.ViewEngines.DefaultRenderContextFactory"/> class.
             </summary>
             <param name="viewCache">The view cache that should be used by the created render context.</param>
-            <param name="viewResolver">The view resolver that should be sused by the created render context.</param>
+            <param name="viewResolver">The view resolver that should be used by the created render context.</param>
             <param name="textResource">The <see cref="T:Nancy.Localization.ITextResource"/> that should be used by the engine.</param>
         </member>
         <member name="M:Nancy.ViewEngines.DefaultRenderContextFactory.GetRenderContext(Nancy.ViewEngines.ViewLocationContext)">
@@ -8376,7 +8437,7 @@
         </member>
         <member name="T:Nancy.ViewEngines.IViewLocationProvider">
             <summary>
-            Definies the functiinality used by Nancy to located a view.
+            Defines the functionality used by Nancy to located a view.
             </summary>
         </member>
         <member name="M:Nancy.ViewEngines.IViewLocationProvider.GetLocatedViews(System.Collections.Generic.IEnumerable{System.String})">
@@ -8465,7 +8526,7 @@
             Merges a collection of <see cref="T:System.Collections.Generic.IDictionary`2"/> instances into a single one.
             </summary>
             <param name="dictionaries">The list of <see cref="T:System.Collections.Generic.IDictionary`2"/> instances to merge.</param>
-            <returns>An <see cref="T:System.Collections.Generic.IDictionary`2"/> instance containg the keys and values from the other instances.</returns>
+            <returns>An <see cref="T:System.Collections.Generic.IDictionary`2"/> instance containing the keys and values from the other instances.</returns>
         </member>
         <member name="M:Nancy.Extensions.CollectionExtensions.DistinctBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>
@@ -8536,7 +8597,7 @@
             <summary>
             Gets or sets the form element name of this file.
             </summary>
-            <value>A <see cref="T:System.String"/> containg the key.</value>
+            <value>A <see cref="T:System.String"/> containing the key.</value>
         </member>
         <member name="P:Nancy.HttpFile.Value">
             <summary>
@@ -8595,7 +8656,7 @@
         </member>
         <member name="P:Nancy.HttpMultipartBoundary.Value">
             <summary>
-            A stream containig the value of the boundary.
+            A stream containing the value of the boundary.
             </summary>
             <remarks>This is the RFC2047 decoded value of the Content-Type header.</remarks>
         </member>
@@ -8638,9 +8699,9 @@
         </member>
         <member name="P:Nancy.HttpMultipartBuffer.Length">
             <summary>
-            Gets the the number of bytes that can be stored in the buffer.
+            Gets the number of bytes that can be stored in the buffer.
             </summary>
-            <value>The number of butes that can be stored in the buffer.</value>
+            <value>The number of bytes that can be stored in the buffer.</value>
         </member>
         <member name="T:Nancy.HttpStatusCode">
             <summary>
@@ -8973,7 +9034,7 @@
             <summary>
             Gets the context for which the response is being formatted.
             </summary>
-            <value>A <see cref="T:Nancy.NancyContext"/> intance.</value>
+            <value>A <see cref="T:Nancy.NancyContext"/> instance.</value>
         </member>
         <member name="P:Nancy.IResponseFormatter.RootPath">
             <summary>
@@ -8987,8 +9048,8 @@
             Supports:
               application/json
               text/json
-              application/vnd[something]+json
-            Matches are case insentitive to try and be as "accepting" as possible.
+              [something]+json
+            Matches are case insensitive to try and be as "accepting" as possible.
             </summary>
             <param name="contentType">Request content type</param>
             <returns>True if content type is JSON, false otherwise</returns>
@@ -9074,7 +9135,7 @@
         </member>
         <member name="P:Nancy.ModelBinding.BindingContext.GenericType">
             <summary>
-            The generic type of a collection is only used when DestinationType is a enumerble.
+            The generic type of a collection is only used when DestinationType is a enumerable.
             </summary>
         </member>
         <member name="P:Nancy.ModelBinding.BindingContext.Model">
@@ -9161,7 +9222,7 @@
               IntProperty_7
               StringProperty_8
               You'll end up with a list of 3 matches: 5,7,8
-             
+            
              </summary>
              <param name="context">Current Context </param>
              <returns>An int containing the number of elements</returns>
@@ -9388,13 +9449,21 @@
             Represents an exception when attempting to bind to a model
             </summary>
         </member>
-        <member name="M:Nancy.ModelBinding.ModelBindingException.#ctor(System.Type,System.Collections.Generic.IEnumerable{Nancy.ModelBinding.PropertyBindingException})">
+        <member name="M:Nancy.ModelBinding.ModelBindingException.#ctor(System.Type,System.Collections.Generic.IEnumerable{Nancy.ModelBinding.PropertyBindingException},System.Exception)">
             <summary>
             Initializes a new instance of the ModelBindingException class with a specified model type,
             property name and the original exception, which caused the problem
             </summary>
             <param name="boundType">the model type to bind to</param>
             <param name="propertyBindingExceptions">the original exceptions, thrown while binding the property</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="M:Nancy.ModelBinding.ModelBindingException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Nancy.ModelBinding.ModelBindingException"/> class with serialized data.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
         </member>
         <member name="P:Nancy.ModelBinding.ModelBindingException.PropertyBindingExceptions">
             <summary>
@@ -9754,7 +9823,7 @@
         </member>
         <member name="P:Nancy.NancyContext.NegotiationContext">
             <summary>
-            Context of content negotiation (if relevent)
+            Context of content negotiation (if relevant)
             </summary>
         </member>
         <member name="P:Nancy.NancyContext.Text">
@@ -9797,7 +9866,7 @@
             <summary>
             Gets the context for which the response is being formatted.
             </summary>
-            <value>A <see cref="T:Nancy.NancyContext"/> intance.</value>
+            <value>A <see cref="T:Nancy.NancyContext"/> instance.</value>
         </member>
         <member name="P:Nancy.DefaultResponseFormatter.RootPath">
             <summary>
@@ -9913,7 +9982,7 @@
             </summary>
             <param name="value">The desired length of the current stream in bytes. </param>
             <exception cref="T:System.NotSupportedException">The stream does not support having it's length set.</exception>
-            <remarks>This functionalitry is not supported by the <see cref="T:Nancy.IO.RequestStream"/> type and will always throw <see cref="T:System.NotSupportedException"/>.</remarks>
+            <remarks>This functionality is not supported by the <see cref="T:Nancy.IO.RequestStream"/> type and will always throw <see cref="T:System.NotSupportedException"/>.</remarks>
         </member>
         <member name="M:Nancy.IO.RequestStream.Write(System.Byte[],System.Int32,System.Int32)">
             <summary>
@@ -10069,7 +10138,7 @@
             <summary>
             Builds a fully configured <see cref="T:Nancy.INancyModule"/> instance, based upon the provided <paramref name="module"/>.
             </summary>
-            <param name="module">The <see cref="T:Nancy.INancyModule"/> that shoule be configured.</param>
+            <param name="module">The <see cref="T:Nancy.INancyModule"/> that should be configured.</param>
             <param name="context">The current request context.</param>
             <returns>A fully configured <see cref="T:Nancy.INancyModule"/> instance.</returns>
         </member>
@@ -10192,7 +10261,7 @@
         </member>
         <member name="T:Nancy.Routing.IRoutePatternMatchResult">
             <summary>
-            Defines the functionality that is requred by a route pattern match result.
+            Defines the functionality that is required by a route pattern match result.
             </summary>
         </member>
         <member name="P:Nancy.Routing.IRoutePatternMatchResult.Context">
@@ -10203,7 +10272,7 @@
         </member>
         <member name="P:Nancy.Routing.IRoutePatternMatchResult.IsMatch">
             <summary>
-            Gets a value idicating wether or not a match was made.
+            Gets a value indicating whether or not a match was made.
             </summary>
             <value><see langword="true"/> if a match was made; otherwise <see langword="false"/>.</value>
         </member>
@@ -10223,7 +10292,7 @@
         <member name="M:Nancy.Routing.MethodNotAllowedRoute.#ctor(System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
             <summary>
             Initializes a new instance of the <see cref="T:Nancy.Routing.MethodNotAllowedRoute"/> type, for the
-            specifed <paramref name="path"/>, <paramref name="method"/> and <paramref name="allowedMethods"/>.
+            specified <paramref name="path"/>, <paramref name="method"/> and <paramref name="allowedMethods"/>.
             </summary>
             <param name="path">The path of the route.</param>
             <param name="method">The HTTP method of the route.</param>
@@ -10305,7 +10374,7 @@
         </member>
         <member name="P:Nancy.Routing.RoutePatternMatchResult.IsMatch">
             <summary>
-            Gets a value idicating wether or not a match was made.
+            Gets a value indicating whether or not a match was made.
             </summary>
             <value><see langword="true"/> if a match was made; otherwise <see langword="false"/>.</value>
         </member>
@@ -10334,7 +10403,21 @@
             <param name="module">Module to enable</param>
             <param name="requiredClaims">Claim(s) required</param>
         </member>
+        <member name="M:Nancy.Security.ModuleSecurity.RequiresClaims(Nancy.INancyModule,System.String[])">
+            <summary>
+            This module requires authentication and certain claims to be present.
+            </summary>
+            <param name="module">Module to enable</param>
+            <param name="requiredClaims">Claim(s) required</param>
+        </member>
         <member name="M:Nancy.Security.ModuleSecurity.RequiresAnyClaim(Nancy.INancyModule,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            This module requires authentication and any one of certain claims to be present.
+            </summary>
+            <param name="module">Module to enable</param>
+            <param name="requiredClaims">Claim(s) required</param>
+        </member>
+        <member name="M:Nancy.Security.ModuleSecurity.RequiresAnyClaim(Nancy.INancyModule,System.String[])">
             <summary>
             This module requires authentication and any one of certain claims to be present.
             </summary>
@@ -10537,7 +10620,7 @@
         </member>
         <member name="M:Nancy.Session.CookieBasedSessions.Enable(Nancy.Bootstrapper.IPipelines,Nancy.Session.CookieBasedSessionsConfiguration)">
             <summary>
-            Initialise and add cookie based session hooks to the application pipeine
+            Initialise and add cookie based session hooks to the application pipeline
             </summary>
             <param name="pipelines">Application pipelines</param>
             <param name="configuration">Cookie based sessions configuration.</param>
@@ -10545,7 +10628,7 @@
         </member>
         <member name="M:Nancy.Session.CookieBasedSessions.Enable(Nancy.Bootstrapper.IPipelines,Nancy.Cryptography.CryptographyConfiguration)">
             <summary>
-            Initialise and add cookie based session hooks to the application pipeine
+            Initialise and add cookie based session hooks to the application pipeline
             </summary>
             <param name="pipelines">Application pipelines</param>
             <param name="cryptographyConfiguration">Cryptography configuration</param>
@@ -10553,7 +10636,7 @@
         </member>
         <member name="M:Nancy.Session.CookieBasedSessions.Enable(Nancy.Bootstrapper.IPipelines)">
             <summary>
-            Initialise and add cookie based session hooks to the application pipeine with the default encryption provider.
+            Initialise and add cookie based session hooks to the application pipeline with the default encryption provider.
             </summary>
             <param name="pipelines">Application pipelines</param>
             <returns>Formatter selector for choosing a non-default serializer</returns>
@@ -10612,9 +10695,9 @@
         </member>
         <member name="M:Nancy.Cryptography.RijndaelEncryptionProvider.Encrypt(System.String)">
             <summary>
-            Encyrypt data
+            Encrypt data
             </summary>
-            <param name="data">Data to encrypyt</param>
+            <param name="data">Data to encrypt</param>
             <returns>Encrypted string</returns>
         </member>
         <member name="M:Nancy.Cryptography.RijndaelEncryptionProvider.Decrypt(System.String)">
@@ -11401,7 +11484,7 @@
              <summary>
              Attempts to predict whether a given type can be resolved with the specified options.
             
-             Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+             Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
              </summary>
              <param name="resolveType">Type to resolve</param>
              <param name="name">Name of registration</param>
@@ -11412,7 +11495,7 @@
              <summary>
              Attempts to predict whether a given named type can be resolved with the specified options.
             
-             Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+             Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
              </summary>
              <param name="resolveType">Type to resolve</param>
              <param name="name">Name of registration</param>
@@ -11550,7 +11633,7 @@
              Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
              All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
              
-             Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+             Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
              </summary>
              <typeparam name="ResolveType">Type to resolve</typeparam>
              <param name="parameters">User supplied named parameter overloads</param>
@@ -11596,7 +11679,7 @@
             <param name="ResolveType">Type to resolve</param>
             <param name="name">Name of registration</param>
             <param name="resolvedType">Resolved type or default if resolve fails</param>
-            <returns>True if resolved sucessfully, false otherwise</returns>
+            <returns>True if resolved successfully, false otherwise</returns>
         </member>
         <member name="M:Nancy.TinyIoc.TinyIoCContainer.TryResolve(System.Type,System.String,Nancy.TinyIoc.ResolveOptions,System.Object@)">
             <summary>
@@ -11625,7 +11708,7 @@
             <param name="name">Name of registration</param>
             <param name="parameters">User specified constructor parameters</param>
             <param name="resolvedType">Resolved type or default if resolve fails</param>
-            <returns>True if resolved sucessfully, false otherwise</returns>
+            <returns>True if resolved successfully, false otherwise</returns>
         </member>
         <member name="M:Nancy.TinyIoc.TinyIoCContainer.TryResolve(System.Type,Nancy.TinyIoc.NamedParameterOverloads,Nancy.TinyIoc.ResolveOptions,System.Object@)">
             <summary>
@@ -11636,7 +11719,7 @@
             <param name="parameters">User specified constructor parameters</param>
             <param name="options">Resolution options</param>
             <param name="resolvedType">Resolved type or default if resolve fails</param>
-            <returns>True if resolved sucessfully, false otherwise</returns>
+            <returns>True if resolved successfully, false otherwise</returns>
         </member>
         <member name="M:Nancy.TinyIoc.TinyIoCContainer.TryResolve(System.Type,System.String,Nancy.TinyIoc.NamedParameterOverloads,Nancy.TinyIoc.ResolveOptions,System.Object@)">
             <summary>
@@ -11647,7 +11730,7 @@
             <param name="parameters">User specified constructor parameters</param>
             <param name="options">Resolution options</param>
             <param name="resolvedType">Resolved type or default if resolve fails</param>
-            <returns>True if resolved sucessfully, false otherwise</returns>
+            <returns>True if resolved successfully, false otherwise</returns>
         </member>
         <member name="M:Nancy.TinyIoc.TinyIoCContainer.TryResolve``1(``0@)">
             <summary>
@@ -11655,7 +11738,7 @@
             </summary>
             <typeparam name="ResolveType">Type to resolve</typeparam>
             <param name="resolvedType">Resolved type or default if resolve fails</param>
-            <returns>True if resolved sucessfully, false otherwise</returns>
+            <returns>True if resolved successfully, false otherwise</returns>
         </member>
         <member name="M:Nancy.TinyIoc.TinyIoCContainer.TryResolve``1(Nancy.TinyIoc.ResolveOptions,``0@)">
             <summary>
@@ -11664,7 +11747,7 @@
             <typeparam name="ResolveType">Type to resolve</typeparam>
             <param name="options">Resolution options</param>
             <param name="resolvedType">Resolved type or default if resolve fails</param>
-            <returns>True if resolved sucessfully, false otherwise</returns>
+            <returns>True if resolved successfully, false otherwise</returns>
         </member>
         <member name="M:Nancy.TinyIoc.TinyIoCContainer.TryResolve``1(System.String,``0@)">
             <summary>
@@ -11673,7 +11756,7 @@
             <typeparam name="ResolveType">Type to resolve</typeparam>
             <param name="name">Name of registration</param>
             <param name="resolvedType">Resolved type or default if resolve fails</param>
-            <returns>True if resolved sucessfully, false otherwise</returns>
+            <returns>True if resolved successfully, false otherwise</returns>
         </member>
         <member name="M:Nancy.TinyIoc.TinyIoCContainer.TryResolve``1(System.String,Nancy.TinyIoc.ResolveOptions,``0@)">
             <summary>
@@ -11683,7 +11766,7 @@
             <param name="name">Name of registration</param>
             <param name="options">Resolution options</param>
             <param name="resolvedType">Resolved type or default if resolve fails</param>
-            <returns>True if resolved sucessfully, false otherwise</returns>
+            <returns>True if resolved successfully, false otherwise</returns>
         </member>
         <member name="M:Nancy.TinyIoc.TinyIoCContainer.TryResolve``1(Nancy.TinyIoc.NamedParameterOverloads,``0@)">
             <summary>
@@ -11692,7 +11775,7 @@
             <typeparam name="ResolveType">Type to resolve</typeparam>
             <param name="parameters">User specified constructor parameters</param>
             <param name="resolvedType">Resolved type or default if resolve fails</param>
-            <returns>True if resolved sucessfully, false otherwise</returns>
+            <returns>True if resolved successfully, false otherwise</returns>
         </member>
         <member name="M:Nancy.TinyIoc.TinyIoCContainer.TryResolve``1(System.String,Nancy.TinyIoc.NamedParameterOverloads,``0@)">
             <summary>
@@ -11702,7 +11785,7 @@
             <param name="name">Name of registration</param>
             <param name="parameters">User specified constructor parameters</param>
             <param name="resolvedType">Resolved type or default if resolve fails</param>
-            <returns>True if resolved sucessfully, false otherwise</returns>
+            <returns>True if resolved successfully, false otherwise</returns>
         </member>
         <member name="M:Nancy.TinyIoc.TinyIoCContainer.TryResolve``1(Nancy.TinyIoc.NamedParameterOverloads,Nancy.TinyIoc.ResolveOptions,``0@)">
             <summary>
@@ -11713,7 +11796,7 @@
             <param name="parameters">User specified constructor parameters</param>
             <param name="options">Resolution options</param>
             <param name="resolvedType">Resolved type or default if resolve fails</param>
-            <returns>True if resolved sucessfully, false otherwise</returns>
+            <returns>True if resolved successfully, false otherwise</returns>
         </member>
         <member name="M:Nancy.TinyIoc.TinyIoCContainer.TryResolve``1(System.String,Nancy.TinyIoc.NamedParameterOverloads,Nancy.TinyIoc.ResolveOptions,``0@)">
             <summary>
@@ -11724,7 +11807,7 @@
             <param name="parameters">User specified constructor parameters</param>
             <param name="options">Resolution options</param>
             <param name="resolvedType">Resolved type or default if resolve fails</param>
-            <returns>True if resolved sucessfully, false otherwise</returns>
+            <returns>True if resolved successfully, false otherwise</returns>
         </member>
         <member name="M:Nancy.TinyIoc.TinyIoCContainer.ResolveAll(System.Type,System.Boolean)">
             <summary>
@@ -11889,7 +11972,7 @@
         </member>
         <member name="P:Nancy.TinyIoc.TinyIoCContainer.ObjectFactoryBase.AssumeConstruction">
             <summary>
-            Whether to assume this factory sucessfully constructs its objects
+            Whether to assume this factory successfully constructs its objects
             
             Generally set to true for delegate style factories as CanResolve cannot delve
             into the delegates they contain.
@@ -11973,19 +12056,20 @@
             Initializes a new instance of the <see cref="T:Nancy.Request"/> class.
             </summary>
             <param name="method">The HTTP data transfer method used by the client.</param>
-            <param name="path">The path of the requested resource, relative to the "Nancy root". This shold not not include the scheme, host name, or query portion of the URI.</param>
+            <param name="path">The path of the requested resource, relative to the "Nancy root". This should not include the scheme, host name, or query portion of the URI.</param>
             <param name="scheme">The HTTP protocol that was used by the client.</param>
         </member>
-        <member name="M:Nancy.Request.#ctor(System.String,Nancy.Url,Nancy.IO.RequestStream,System.Collections.Generic.IDictionary{System.String,System.Collections.Generic.IEnumerable{System.String}},System.String,System.Byte[])">
+        <member name="M:Nancy.Request.#ctor(System.String,Nancy.Url,Nancy.IO.RequestStream,System.Collections.Generic.IDictionary{System.String,System.Collections.Generic.IEnumerable{System.String}},System.String,System.Byte[],System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Nancy.Request"/> class.
             </summary>
             <param name="method">The HTTP data transfer method used by the client.</param>
-            <param name="url">The <see cref="P:Nancy.Request.Url"/>url of the requested resource</param>
+            <param name="url">The <see cref="P:Nancy.Request.Url"/> of the requested resource</param>
             <param name="headers">The headers that was passed in by the client.</param>
             <param name="body">The <see cref="T:System.IO.Stream"/> that represents the incoming HTTP body.</param>
             <param name="ip">The client's IP address</param>
             <param name="certificate">The client's certificate when present.</param>
+            <param name="protocolVersion">The HTTP protocol version.</param>
         </member>
         <member name="M:Nancy.Request.GetCookieData">
             <summary>
@@ -11996,6 +12080,11 @@
         <member name="P:Nancy.Request.ClientCertificate">
             <summary>
             Gets the certificate sent by the client.
+            </summary>
+        </member>
+        <member name="P:Nancy.Request.ProtocolVersion">
+            <summary>
+            Gets the HTTP protocol version.
             </summary>
         </member>
         <member name="P:Nancy.Request.UserHostAddress">
@@ -12022,9 +12111,9 @@
         </member>
         <member name="P:Nancy.Request.Query">
             <summary>
-            Gets the querystring data of the requested resource.
+            Gets the query string data of the requested resource.
             </summary>
-            <value>A <see cref="T:Nancy.DynamicDictionary"/>instance, containing the key/value pairs of querystring data.</value>
+            <value>A <see cref="T:Nancy.DynamicDictionary"/>instance, containing the key/value pairs of query string data.</value>
         </member>
         <member name="P:Nancy.Request.Body">
             <summary>
@@ -12067,7 +12156,7 @@
             Default engine for handling Nancy <see cref="T:Nancy.Request"/>s.
             </summary>
         </member>
-        <member name="M:Nancy.NancyEngine.#ctor(Nancy.Routing.IRequestDispatcher,Nancy.INancyContextFactory,System.Collections.Generic.IEnumerable{Nancy.ErrorHandling.IStatusCodeHandler},Nancy.Diagnostics.IRequestTracing,Nancy.Diagnostics.DiagnosticsConfiguration,Nancy.IStaticContentProvider)">
+        <member name="M:Nancy.NancyEngine.#ctor(Nancy.Routing.IRequestDispatcher,Nancy.INancyContextFactory,System.Collections.Generic.IEnumerable{Nancy.ErrorHandling.IStatusCodeHandler},Nancy.Diagnostics.IRequestTracing,Nancy.IStaticContentProvider,Nancy.Responses.Negotiation.IResponseNegotiator)">
             <summary>
             Initializes a new instance of the <see cref="T:Nancy.NancyEngine"/> class.
             </summary>
@@ -12075,8 +12164,13 @@
             <param name="contextFactory">A factory for creating contexts</param>
             <param name="statusCodeHandlers">Error handlers</param>
             <param name="requestTracing">The request tracing instance.</param>
-            <param name="diagnosticsConfiguration"></param>
             <param name="staticContentProvider">The provider to use for serving static content</param>
+            <param name="negotiator">The response negotiator.</param>
+        </member>
+        <member name="M:Nancy.NancyEngine.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
         </member>
         <member name="P:Nancy.NancyEngine.RequestPipelinesFactory">
             <summary>
@@ -12600,7 +12694,7 @@
         </member>
         <member name="T:Nancy.ViewEngines.SuperSimpleViewEngine.ISuperSimpleViewEngineMatcher">
             <summary>
-            Matches and modifes the content of a rendered SuperSimpleViewEngine view.
+            Matches and modifies the content of a rendered SuperSimpleViewEngine view.
             </summary>
         </member>
         <member name="M:Nancy.ViewEngines.SuperSimpleViewEngine.ISuperSimpleViewEngineMatcher.Invoke(System.String,System.Object,Nancy.ViewEngines.SuperSimpleViewEngine.IViewEngineHost)">
@@ -12627,7 +12721,7 @@
         </member>
         <member name="M:Nancy.ViewEngines.SuperSimpleViewEngine.IViewEngineHost.GetTemplate(System.String,System.Object)">
             <summary>
-            Get the contenst of a template
+            Get the contents of a template
             </summary>
             <param name="templateName">Name/location of the template</param>
             <param name="model">Model to use to locate the template via conventions</param>
@@ -12652,7 +12746,7 @@
             <summary>
             Get the anti forgery token form element
             </summary>
-            <returns>String containin the form element</returns>
+            <returns>String containing the form element</returns>
         </member>
         <member name="P:Nancy.ViewEngines.SuperSimpleViewEngine.IViewEngineHost.Context">
             <summary>
@@ -12677,7 +12771,7 @@
         </member>
         <member name="M:Nancy.ViewEngines.SuperSimpleViewEngine.NancyViewEngineHost.GetTemplate(System.String,System.Object)">
             <summary>
-            Get the contenst of a template
+            Get the contents of a template
             </summary>
             <param name="templateName">Name/location of the template</param>
             <param name="model">Model to use to locate the template via conventions</param>
@@ -12702,7 +12796,7 @@
             <summary>
             Get the anti forgery token form element
             </summary>
-            <returns>String containin the form element</returns>
+            <returns>String containing the form element</returns>
         </member>
         <member name="P:Nancy.ViewEngines.SuperSimpleViewEngine.NancyViewEngineHost.Context">
             <summary>
@@ -12770,6 +12864,11 @@
             Compiled RegEx for path expansion
             </summary>
         </member>
+        <member name="F:Nancy.ViewEngines.SuperSimpleViewEngine.SuperSimpleViewEngine.AttributeValuePathExpansionRegEx">
+            <summary>
+            Compiled RegEx for path expansion in attribute values
+            </summary>
+        </member>
         <member name="F:Nancy.ViewEngines.SuperSimpleViewEngine.SuperSimpleViewEngine.AntiForgeryTokenRegEx">
             <summary>
             Compiled RegEx for the CSRF anti forgery token
@@ -12813,13 +12912,13 @@
             </para>
             <para>
             Anonymous types, standard types and ExpandoObject are supported.
-            Arbitrary dynamics (implementing IDynamicMetaObjectProvicer) are not, unless
+            Arbitrary dynamics (implementing IDynamicMetaObjectProvider) are not, unless
             they also implement IDictionary string, object for accessing properties.
             </para>
             </summary>
             <param name="model">The model.</param>
             <param name="propertyName">The property name to evaluate.</param>
-            <returns>Tuple - Item1 being a bool for whether the evaluation was sucessful, Item2 being the value.</returns>
+            <returns>Tuple - Item1 being a bool for whether the evaluation was successful, Item2 being the value.</returns>
             <exception cref="T:System.ArgumentException">Model type is not supported.</exception>
         </member>
         <member name="M:Nancy.ViewEngines.SuperSimpleViewEngine.SuperSimpleViewEngine.StandardTypePropertyEvaluator(System.Object,System.String)">
@@ -12828,7 +12927,7 @@
             </summary>
             <param name="model">The model.</param>
             <param name="propertyName">The property name.</param>
-            <returns>Tuple - Item1 being a bool for whether the evaluation was sucessful, Item2 being the value.</returns>
+            <returns>Tuple - Item1 being a bool for whether the evaluation was successful, Item2 being the value.</returns>
         </member>
         <member name="M:Nancy.ViewEngines.SuperSimpleViewEngine.SuperSimpleViewEngine.DynamicDictionaryPropertyEvaluator(System.Object,System.String)">
             <summary>
@@ -12838,7 +12937,7 @@
             </summary>
             <param name="model">The model.</param>
             <param name="propertyName">The property name.</param>
-            <returns>Tuple - Item1 being a bool for whether the evaluation was sucessful, Item2 being the value.</returns>
+            <returns>Tuple - Item1 being a bool for whether the evaluation was successful, Item2 being the value.</returns>
         </member>
         <member name="M:Nancy.ViewEngines.SuperSimpleViewEngine.SuperSimpleViewEngine.GetCaptureGroupValues(System.Text.RegularExpressions.Match,System.String)">
             <summary>
@@ -12854,7 +12953,7 @@
             </summary>
             <param name="model">The model containing properties.</param>
             <param name="parameters">A collection of nested parameters (e.g. User, Name</param>
-            <returns>Tuple - Item1 being a bool for whether the evaluation was sucessful, Item2 being the value.</returns>
+            <returns>Tuple - Item1 being a bool for whether the evaluation was successful, Item2 being the value.</returns>
         </member>
         <member name="M:Nancy.ViewEngines.SuperSimpleViewEngine.SuperSimpleViewEngine.GetPredicateResult(System.Object,System.Collections.Generic.IEnumerable{System.String},System.Boolean)">
             <summary>
@@ -12900,7 +12999,7 @@
         </member>
         <member name="M:Nancy.ViewEngines.SuperSimpleViewEngine.SuperSimpleViewEngine.PerformContextSubstitutions(System.String,System.Object,Nancy.ViewEngines.SuperSimpleViewEngine.IViewEngineHost)">
             <summary>
-            Peforms single @Context.PropertyName substitutions.
+            Performs single @Context.PropertyName substitutions.
             </summary>
             <param name="template">The template.</param>
             <param name="model">The model.</param>
@@ -12989,7 +13088,7 @@
         </member>
         <member name="T:Nancy.ViewEngines.SuperSimpleViewEngine.SuperSimpleViewEngineRegistrations">
             <summary>
-            Performs application registations for the SuperSimpleViewEngine.
+            Performs application registrations for the SuperSimpleViewEngine.
             </summary>
         </member>
         <member name="P:Nancy.ViewEngines.SuperSimpleViewEngine.SuperSimpleViewEngineRegistrations.TypeRegistrations">
@@ -13122,6 +13221,13 @@
             <param name="availableViewEngineExtensions">List of available view extensions that can be rendered by the available view engines.</param>
             <param name="inspectedLocations">The locations that were inspected for the view.</param>
             <param name="rootPathProvider">An <see cref="T:Nancy.IRootPathProvider"/> instance.</param>
+        </member>
+        <member name="M:Nancy.ViewEngines.ViewNotFoundException.#ctor(System.String,System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Nancy.ViewEngines.ViewNotFoundException"/>.
+            </summary>
+            <param name="viewName">The name of the view that was being located.</param>
+            <param name="availableViewEngineExtensions">List of available view extensions that can be rendered by the available view engines.</param>
         </member>
         <member name="M:Nancy.ViewEngines.ViewNotFoundException.#ctor(System.String)">
             <summary>

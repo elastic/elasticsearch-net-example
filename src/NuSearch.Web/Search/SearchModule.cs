@@ -17,13 +17,17 @@ namespace NuSearch.Web.Search
 {
 	public class SearchModule : NancyModule
 	{
-		public SearchModule()
+		private readonly NuSearchConfiguration _configuration;
+
+		public SearchModule(NuSearchConfiguration configuration)
 		{
+			_configuration = configuration;
+
 			Get["/"] = x =>
 			{
 				var form = this.Bind<SearchForm>();
 				var model = new SearchViewModel();
-				var client = NuSearchConfiguration.GetClient();
+				var client = _configuration.GetClient();
 
 				var result = client.Search<Package>(s => s
 					.From(form.Page * form.PageSize)

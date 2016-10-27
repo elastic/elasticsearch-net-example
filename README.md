@@ -561,7 +561,7 @@ static void CreateIndex()
 
 So let's break down what we're doing here in the `CreateIndex()` call.  First, we're telling Elasticsearch to create an index named `nusearch` with 2 primary shards and no replicas.  Before this, when we weren't creating the index explicitly and just indexing documents, Elasticsearch automatically created the `nusearch` index with 5 primary shards and 1 replica, by default.
 
-Next, `Mapping()` allows us to define a mapping for our `Package` POCO.  First we call `AutoMap()` which tells NEST to automatically map all of the public properties found in `Package` and figure out their ES type based on their C# type.  Also, if we had defined an `ElasticType` attribute (something we don't discuss in this workshop) on any of the properties, they would get picked up here.  But instead of using attributes, we are going to define our properties fluently using `Properties()`.
+Next, `Mapping()` allows us to define a mapping for our `Package` POCO.  First we call `AutoMap()` which tells NEST to automatically map all of the public properties found in `Package` and figure out their ES type based on their C# type.  Also, if we had defined an `ElasticsearchType` attribute (something we don't discuss in this workshop) on any of the properties, they would get picked up here.  But instead of using attributes, we are going to define our properties fluently using `Properties()`.
 
 `Properties()` allows us to override the defaults set by `AutoMap()`.  For instance, our `PackageVersion` collection by default would just be treated as an `object`, but instead we want it to be `nested` so we call `Nested<T>()` with `T` being `PackageVersion`.  We then supply a name, and map its properties as well by making another call to `AutoMap()`.  This process is also repeated for `PackageDependency` which is nested within `PackageVersion`...two levels of nested objects!  And lastly, `PackageAuthor`.
 
@@ -646,7 +646,7 @@ Since we are going to run the indexer multiple times in the next section make su
 ### Aliases
 
 
-Up until this point, you might have noticed that everytime we made a change to our index that required us to reindex our packages, we had to delete the existing index.  That doesn't sound ideal in a production environment.  Certainly deleting an index on a live application is not going to fly...
+Up until this point, you might have noticed that every time we made a change to our index that required us to reindex our packages, we had to delete the existing index.  That doesn't sound ideal in a production environment.  Certainly deleting an index on a live application is not going to fly...
 
 Elasticsearch has an awesome, and very important feature that can be leveraged to deal with situations like this: [index aliases](http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-aliases.html).
 
@@ -761,10 +761,10 @@ that does the actual hosting of the website that we are going to be building.
 This might be a strange construct, but it allows you to focus on building the web site without having to configure IIS
 or figure out how to run this on other OS's.
 
-The web project utilizes [OWIN]() using the excellent [NOWIN]() cross platform webserver and it hooks up
-[Nancy Web Framwork](), and we've gotten all the plumbing out of the way.
+The web project utilizes [OWIN](http://owin.org/) using the excellent [NOWIN](https://github.com/Bobris/Nowin) cross platform webserver and it hooks up
+[Nancy Web Framwork](http://nancyfx.org/), and we've gotten all the plumbing out of the way.
 
-You are free of course to use whatever architecture in your own application. `NEST 2.x` runs on `aspnet5 core RTM` and `dot net core RTM`
+You are free of course to use whatever architecture in your own application. `NEST 5.x` runs on `aspnet5 core RTM` and `dot net core RTM`
 
 Also please note that prior knowledge of any of these is not required to follow along!
 
@@ -961,8 +961,7 @@ installed and running, the plumbing of this application automatically uses it as
 
 ![fiddler](readme-images/4-fiddler.png)
 
-If you want to always see pretty responses from Elasticsearch, update `NuSearchConfiguration.cs` and add `.UsePrettyResponses()`
-to the `ConnectionSettings()`
+If you want to always see pretty responses from Elasticsearch, update `NuSearchConfiguration.cs` and add `.PrettyJson()` to the `ConnectionSettings()`
 
 ### Exploring querying further
 
@@ -1007,7 +1006,7 @@ Elasticsearch has a *better* `query_string_query` called
 
 Yet the question remains, do you want to expose this power to the end user? Quite often the answer is NO.
 
-### The (multi)_match query
+### The (multi_)match query
 
 The match query family is a very powerful one. It will *do the right thing* TM based on what field its targeting.
 
@@ -1160,7 +1159,7 @@ The [multi_match]() we are using right now is one of those constructs that analy
 If we search for `Elasticsearch-Azure-PAAS` the [standard analyzer](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/analysis-standard-analyzer.html) again kicks in and Elasticsearch will actually use
 `elasticsearch`, `azure` and `paas` to locate documents in its inverted index that contain any of these terms.
 
-The [`match` family of queries](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-match-query.html) default to using `OR` on the terms.  Being inclusive or exclusive in your search results is another hot topic with no right answer. I personally find being exclusive a whole lot more useful.  For instance, when I search for `Elasticsearch-Azure-SAAS` I do not want any results that only have the terms `azure` and `saas`.
+The [`match` family of queries](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-match-query.html) default to using `OR` on the terms.  Being inclusive or exclusive in your search results is another hot topic with no right answer. I personally find being exclusive a whole lot more useful.  For instance, when I search for `Elasticsearch-Azure-SAAS` I do not want any results that only have the terms `azure` **and** `saas`.
 
 Lets update our search to use `AND` on the resulting terms we provide
 
@@ -1299,12 +1298,12 @@ to know the correct casing of the nuget id.
 Now that we have registered our custom analyzers we need to update our mapping so that the Id property uses them.
 
 ```csharp
-.String(s=>s
+.Text(s=>s
 	.Name(p=>p.Id)
 	.Analyzer("nuget-id-analyzer")
 	.Fields(f=>f
-		.String(p=>p.Name("keyword").Analyzer("nuget-id-keyword"))
-		.String(p=>p.Name("raw").NotAnalyzed())
+		.Text(p=>p.Name("keyword").Analyzer("nuget-id-keyword"))
+		.Keyword(p=>p.Name("raw"))
 	)
 )
 ```
@@ -1320,7 +1319,7 @@ When we query `id.keyword` using the `match` query Elasticsearch will simply use
 for inside the inverted index for `id.keyword`
 
 We also create a field in the inverted index called `id.raw` which is simply **not** analyzed and stored **as is**. This makes this field very well suited
-to sort (remember lowercasing might change sort order in some locales) and aggregations.
+to sorting (remember lowercasing might change sort order in some locales) and aggregations.
 
 Now that we have our new mapping in place make sure you reindex so that we can take advantage of our new analysis.
 
@@ -1388,7 +1387,7 @@ This equates to: `(0.0001 * downloadCount) * score of query` . Meaning that for 
 is a major differentiator while still acting as a high signal booster for packages with high download counts. 
 MaxBoost caps the boost factor to `10` so that packages of over 100k downloads do not differentiate on downloadCount either.
 
-*NOTE* This is a very very rude function score query, have a [read through the documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-function-score-query.html) and see if you can come up with something more clever!
+*NOTE* This is a very very rudimentary function score query, have a [read through the documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-function-score-query.html) and see if you can come up with something more clever!
 
 When we now look at our results:
 
@@ -1800,19 +1799,18 @@ Sound simple enough?  Alright then, let's change up our mapping of `PackageAutho
 
 ```csharp
 .Properties(pps => pps
-	.String(s => s
+	.Text(s => s
 		.Name(a => a.Name)
 		.Fields(fs => fs
-			.String(ss => ss
-				.Name(aa => aa.Name.Suffix("raw"))
-				.Index(FieldIndexOption.NotAnalyzed)
+			.Keyword(ss => ss
+				.Name("raw")
 			)
 		)
 	)
 )
 ```
 
-So here we are defining a second field using `Fields()` and we're using the `.Suffix()` convenience extension in NEST to append `raw` to our not-analyzed version of the field.
+So here we are defining a second field using `Fields()` and naming it `raw` as it is a not analyzed version of the field.
 
 Now when we search we reference the main `authors.name` field, but in our terms aggregation we reference the `authors.name.raw` field.
 
@@ -1820,7 +1818,7 @@ Let's reindex our data once again for the new mapping to take affect.
 
 <hr />
 
-Now let's change our aggregation to refer to the `raw` not-analyzed field:
+Now let's change our aggregation to refer to the `raw` keyword field:
 
 ```csharp
 .Field(p => p.Authors.First().Name.Suffix("raw"))
@@ -1865,9 +1863,9 @@ We can add the author facet selection to our query as followed
 
 Now we are search for either `exact term match on id.keyword boosted with 1000` *OR* `function scored query on our selected fields` *AND* `nested search on authors name.raw`. 
 
-A keen observer will have spotted a `+` before `q.Nested` this automatically wraps the query in a filter to hint to Elasticsearch we do not care about the score. 
+A keen observer will have spotted a `+` before `q.Nested`; this automatically wraps the query in a filter to tell Elasticsearch not to calculate a score for the query. 
 
-Similarly `!` can be used to easily negate a query.
+Similarly, `!` can be used to easily negate a query.
 
 That's all we're going to cover on aggregations in this workshop, but we've only scratched the surface.  We encourage you to experiment with all of the different aggregation types available in Elasticsearch and see what you can come up with to further extend our faceted search!
 
@@ -1887,16 +1885,15 @@ A question you might ask yourself is, if Elasticsearch provides queries like the
 
 The completion suggester requires a bit of setup in order to use.
 
-The first thing we need to do is introduce a special `completion` field to our existing mapping for the `package` type.  This field needs to contain a few things:
+The first thing we need to do is introduce a special `completion` field to our existing mapping for the `package` type.  This field needs to contain a couple of things:
 
 1) A list of inputs that we want to suggest on
-2) A single output that we want to use as the suggestion
-3) An optional payload (object) to return with the suggestion, and 4) an optional weight/boost to apply to the suggestion.  This will become a bit clearer once we actually get to implementing it.
+2) an optional weight/boost to apply to the suggestion.  This will become a bit clearer once we actually get to implementing it.
 
  as a property on our `Package` POCO:
 
 ```csharp
-public CompletionField<object> Suggest { get; set; }
+public CompletionField Suggest { get; set; }
 ```
 
 Next, we need to map our `Suggest` field as a `completion` type.  So let's add the following to our existing mapping:
@@ -1904,7 +1901,6 @@ Next, we need to map our `Suggest` field as a `completion` type.  So let's add t
 ```csharp
 .Completion(c => c
 	.Name(p => p.Suggest)
-	.Payloads()
 )
 ```
 
@@ -1916,15 +1912,13 @@ Let's think about the `input` for our suggestions first.  Consider the package `
 
 Now, `Newtonsoft.Json.Net` being such a popular .NET library, wouldn't it also be useful to also suggest this package if a user simply typed `json` only?
 
-If you take a look at a lot of the NuGet package names/ids, you'll notice that many of them are dot-delimited, so perhaps it makes sense to split on dots and provide each term as an input, and the output being the package name itself.
+If you take a look at a lot of the NuGet package names/ids, you'll notice that many of them are dot-delimited, so perhaps it makes sense to split on dots and provide each term as an input
 
 So in that case we'd have:
 
 **Input**: `Newtonsoft`, `Json`, `Net`
 
-**Output**: `Newtonsoft.Json.Net`
-
-If a user starts typing any of those input terms, we are going to suggest the output term.  Make sense so far?
+If a user starts typing any of those input terms, we are going to output the _source for that package.  Make sense so far?
 
 Now imagine there's a very unpopular package out there named `Unpopular.Json.Library`.  It too will have the input term `json`.  However, it wouldn't be very useful to suggest this package since, most likely, it's not what the user is looking for.  So how can we prevent `Unpopular.Json.Library` from being suggested before `Newtonsoft.Json.Net`?
 
@@ -1932,13 +1926,7 @@ What's that you say?  `Weight`?  Correct!
 
 We can use the `Weight` property of the completion object as a way to boost more popular packages in our suggestions.  The higher the weight, the higher it's boosted.
 
-Okay, that's great, but how do we determine the popularity of a package?  Well, remember we have the download count? :)  I think that's a pretty good indicator of populatiry, so let's use that for our weight value.
-
-That leaves us with the payload object.  It's important to know that completion suggestions are not tied to an index or a type.  Therefore there's no way to return an actual document along with a suggestion.  Think of the completion suggester as simply just an API around the FST, and only that.
-
-However, often times you want to be able to tie a suggestion to a particular document.  For instance, when the user types 'newt', and selects the `Newtonsoft.Json.Net` suggestion, we'd like to retrieve the actual `Newtonsoft.Json.Net` document.  This is where they payload comes in handy.  It allows you to store arbitrary data along with the suggestion, such as the associated document ID which can then be fetched using the [get API]() after a suggestion is selected.
-
-In our case, let's store the package ID, download count, and package summary in our payload.  **NOTE**:  It's important to keep payloads relatively small in size.  Remember that we're building an auto complete and are going to be firing requests on every single key stroke of the user.  We don't want to be constantly be sending large amounts of data over the network.
+Okay, that's great, but how do we determine the popularity of a package?  Well, remember we have the download count? :)  I think that's a pretty good indicator of popularity, so let's use that for our weight value.
 
 Now that we have a plan in place for building our completion fields, let's put it to action by modifying the constructor of our `Package` class and adding:
 
@@ -1946,13 +1934,6 @@ Now that we have a plan in place for building our completion fields, let's put i
 this.Suggest = new CompletionField<object>
 {
 	Input = new List<string>(feed.Id.Split('.')) { feed.Id },
-	Output = feed.Id,
-	Payload = new
-	{
-		id = feed.Id,
-		downloadCount = feed.DownloadCount,
-		summary = !string.IsNullOrEmpty(feed.Summary) ? string.Concat(feed.Summary.Take(200)) : string.Empty,
-	},
 	Weight = feed.DownloadCount
 };
 ```
@@ -1961,17 +1942,26 @@ Now that we have all the plumbing in place for our completion suggestions, let's
 
 <hr />
 
-Once indexing is complete, we can test our suggestions by using Sense by hitting `_suggest` endpoint.
+Once indexing is complete, we can test our suggestions by using Sense by using suggest on the `_search` endpoint. We use [source filtering](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-source-filtering.html) to include only the fields we are interested in from the package source, in this case, `id`, `downloadCount` and `summary`
 
-**GET nusearch/_suggest**
+**GET nusearch/package/_search**
 ```json
 {
-  "package-suggest": {
-    "text": "newt",
+  "suggest": {
+    "package-suggestions": {
+      "prefix": "newt",
     "completion": {
       "field": "suggest"
     }
   }
+  },
+  "_source": {
+    "includes": [
+      "id",
+      "downloadCount",
+      "summary"
+    ]
+}
 }
 ```
 
@@ -1979,62 +1969,87 @@ Hopefully you got back a response similar to:
 
 ```json
 {
-  "_shards": {
-    "total": 2,
-    "successful": 2,
-    "failed": 0
+  "took" : 5,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 2,
+    "successful" : 2,
+    "failed" : 0
   },
-  "package-suggest": [
+  "hits" : {
+    "total" : 0,
+    "max_score" : 0.0,
+    "hits" : [ ]
+  },
+  "suggest" : {
+    "package-suggestions" : [
   {
-    "text": "newt",
-    "offset": 0,
-    "length": 4,
-    "options": [
-    {
-      "text": "Newtonsoft.Json",
-      "score": 12430751,
-      "payload": {
-        "id": "Newtonsoft.Json",
-        "downloadCount": 12430751,
-        "summary": "Json.NET is a popular high-performance JSON framework for .NET"
+        "text" : "newt",
+        "offset" : 0,
+        "length" : 4,
+        "options" : [
+    	  {
+            "text" : "Newtonsoft",
+            "_index" : "nusearch-26-10-2016-23-36-19",
+            "_type" : "package",
+            "_id" : "Newtonsoft.Json",
+            "_score" : 1.2430751E7,
+            "_source" : {
+              "summary" : "Json.NET is a popular high-performance JSON framework for .NET",
+              "id" : "Newtonsoft.Json",
+              "downloadCount" : 12430751
+		    }
+		  },
+		  {
+            "text" : "Newtonsoft",
+            "_index" : "nusearch-26-10-2016-23-36-19",
+            "_type" : "package",
+            "_id" : "Newtonsoft.Json.Glimpse",
+            "_score" : 10706.0,
+            "_source" : {
+              "id" : "Newtonsoft.Json.Glimpse",
+              "downloadCount" : 10706
+	        }
+	      },
+	      {
+            "text" : "NewtonsoftJson",
+            "_index" : "nusearch-26-10-2016-23-36-19",
+            "_type" : "package",
+            "_id" : "Rebus.NewtonsoftJson",
+            "_score" : 5787.0,
+            "_source" : {
+              "id" : "Rebus.NewtonsoftJson",
+              "downloadCount" : 5787
+	        }
+	      },
+	      {
+            "text" : "Newtonsoft",
+            "_index" : "nusearch-26-10-2016-23-36-19",
+            "_type" : "package",
+            "_id" : "Newtonsoft.JsonResult",
+            "_score" : 4266.0,
+            "_source" : {
+              "id" : "Newtonsoft.JsonResult",
+              "downloadCount" : 4266
+	        }
+	      },
+	      {
+            "text" : "Newtonsoft",
+            "_index" : "nusearch-26-10-2016-23-36-19",
+            "_type" : "package",
+            "_id" : "Newtonsoft.Msgpack",
+            "_score" : 1649.0,
+            "_source" : {
+              "id" : "Newtonsoft.Msgpack",
+              "downloadCount" : 1649
+            }
+          }
+        ]
       }
-    },
-    {
-      "text": "Newtonsoft.Json.Glimpse",
-      "score": 10706,
-      "payload": {
-        "id": "Newtonsoft.Json.Glimpse",
-        "downloadCount": 10706,
-        "summary": ""
-      }
-    },
-    {
-      "text": "Newtonsoft.JsonResult",
-      "score": 4266,
-      "payload": {
-        "summary": ""
-      }
-    },
-    {
-      "text": "Newtonsoft.Msgpack",
-      "score": 1649,
-      "payload": {
-        "id": "Newtonsoft.Msgpack",
-        "downloadCount": 1649,
-        "summary": ""
-      }
-    },
-    {
-      "text": "Newtonsoft.Json.NoBrowser",
-      "score": 1622,
-      "payload": {
-        "id": "Newtonsoft.Json.NoBrowser",
-        "downloadCount": 1622,
-        "summary": ""
-      }
-    }]
-  }]
+    ]
+  }
 }
+
 ```
 
 ## Tying to the web app
@@ -2061,40 +2076,56 @@ namespace NuSearch.Web.Search
 
 			Post["/suggest"] = x =>
 			{
-				// TODO
+				// TODO: implement
 			};
 		}
 	}
 }
 ```
 
-Next, let's use NEST to actually call the `_suggest` endpoint in Elasticsearch:
+Next, let's use NEST to actually call the suggest on the `_search` endpoint in Elasticsearch:
 
 ```csharp
 Post["/suggest"] = x =>
 {
 	var form = this.Bind<SearchForm>();
 	var client = NuSearchConfiguration.GetClient();
-	var result = client.Suggest<Package>(s => s
+	var result = client.Search<Package>(s => s
 		.Index<Package>()
-		.Completion("package-suggestions", c => c
-			.Text(form.Query)
-			.Field(p => p.Suggest)
+		.Source(sf => sf
+			.Includes(f => f
+				.Field(ff => ff.Id)
+				.Field(ff => ff.DownloadCount)
+				.Field(ff => ff.Summary)
+			)
+		)
+		.Suggest(su => su
+			.Completion("package-suggestions", c => c
+				.Prefix(form.Query)
+				.Field(p => p.Suggest)
+			)
 		)
 	);
 
-	var suggestions = result.Suggestions["package-suggestions"]
+	var suggestions = result.Suggest["package-suggestions"]
 		.FirstOrDefault()
 		.Options
-		.Select(suggest => suggest.Payload<object>());
+		.Select(suggest => new
+		{
+			id = suggest.Source.Id,
+			downloadCount = suggest.Source.DownloadCount,
+			summary = !string.IsNullOrEmpty(suggest.Source.Summary)
+				? string.Concat(suggest.Source.Summary.Take(200))
+				: string.Empty
+		});
 
 	return Response.AsJson(suggestions);
 };
 ```
 
-So here we're calling `Suggest()` which maps directly to Elasticsearch's `_suggest`.  We then specify the index of where our suggestions live (in this case inferring it from our `Package` type), and then call Completion()` indicating that we're executing a completion suggestion in which we further describe by specifying the input text from the user (`.Text(form.Query)`) and the path to our suggestion field (`.OnField(p => p.Suggest)`).
+So here we're calling `Suggest()` inside of `Search<T>()` which maps to Elasticsearch's suggest on `_search`.  We then specify the index of where our suggestions live (in this case inferring it from our `Package` type), and then call `Completion()` indicating that we're executing a completion suggestion in which we further describe by specifying the input text from the user, `.Prefix(form.Query)`, and the path to our suggestion field, `.Field(p => p.Suggest)`.
 
-Notice we've assigned the name `package-suggestions` when we made the request, so we'll use that same name to retrieve it from the response.  Lastly, we return an array of payload objects from the result as JSON to our `typeahead` control, and that's it!
+Notice we've assigned the name `package-suggestions` when we made the request, so we'll use that same name to retrieve it from the response.  Lastly, we return an array of objects projected from the source in the result and return this as JSON to our `typeahead` control, and that's it!
 
 Let's test this out by typing in our search text box:
 

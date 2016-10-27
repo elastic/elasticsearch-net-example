@@ -24,16 +24,9 @@ namespace NuSearch.Domain.Model
 			this.Authors = feed.Authors.Split('|').Select(author => new PackageAuthor { Name = author }).ToList();
 			this.Versions = new List<PackageVersion> { new PackageVersion(feed) };
 
-			this.Suggest = new CompletionField<object>
+			this.Suggest = new CompletionField
 			{
 				Input = new List<string>(feed.Id.Split('.')) { feed.Id },
-				Output = feed.Id,
-				Payload = new
-				{
-					id = feed.Id,
-					downloadCount = feed.DownloadCount,
-					summary = !string.IsNullOrEmpty(feed.Summary) ? string.Concat(feed.Summary.Take(200)) : string.Empty,
-				},
 				Weight = feed.DownloadCount
 			};
 		}
@@ -45,6 +38,6 @@ namespace NuSearch.Domain.Model
 		public List<PackageVersion> Versions { get; set; }
 		public string Copyright { get; set; }
 		public int DownloadCount { get; set; }
-		public CompletionField<object> Suggest { get; set; }
+		public CompletionField Suggest { get; set; }
 	}
 }

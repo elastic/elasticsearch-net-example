@@ -19,18 +19,35 @@ namespace NuSearch.Web.Search
 			{
 				var form = this.Bind<SearchForm>();
 				var client = NuSearchConfiguration.GetClient();
-				var result = client.Suggest<Package>(s => s
+				var result = client.Search<Package>(s => s
 					.Index<Package>()
-					.Completion("package-suggestions", c => c
-						.Text(form.Query)
-						.Field(p => p.Suggest)
+					.Source(sf => sf
+						.Includes(f => f
+							.Field(ff => ff.Id)
+							.Field(ff => ff.DownloadCount)
+							.Field(ff => ff.Summary)
+						)
 					)
+					.Suggest(su => su
+						.Completion("package-suggestions", c => c
+							.Prefix(form.Query)
+							.Field(p => p.Suggest)
+						)
+					)
+	
 				);
 
-				var suggestions = result.Suggestions["package-suggestions"]
+				var suggestions = result.Suggest["package-suggestions"]
 					.FirstOrDefault()
 					.Options
-					.Select(suggest => suggest.Payload<object>());
+					.Select(suggest => new 
+					{
+						id = suggest.Source.Id,
+						downloadCount = suggest.Source.DownloadCount,
+						summary = !string.IsNullOrEmpty(suggest.Source.Summary) 
+							? string.Concat(suggest.Source.Summary.Take(200)) 
+							: string.Empty
+					});
 
 				return Response.AsJson(suggestions);
 			};

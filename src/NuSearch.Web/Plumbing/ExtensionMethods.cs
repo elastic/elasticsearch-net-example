@@ -7,7 +7,7 @@ namespace NuSearch.Web.Plumbing
 	public static class ExtensionMethods
 	{
 		/// <summary>
-		/// Not best practice but during workshop allows us to not worry about how folks model there search form
+		/// Not best practice but during workshop allows us to not worry about how folks model their search form
 		/// </summary>
 		public static string ToQueryString(this object obj)
 		{
@@ -17,7 +17,7 @@ namespace NuSearch.Web.Plumbing
 				where !string.IsNullOrEmpty(value)
 				select p.Name.ToLowerInvariant() + "=" + value;
 
-			return "?" + String.Join("&", properties.ToArray());
+			return "?" + string.Join("&", properties.ToArray());
 		}
 	}
 }

@@ -21,9 +21,6 @@ namespace NuSearch.Web.Plumbing
 			yield return "NuSearch.Web";
 		}
 
-		public bool AutoIncludeModelNamespace
-		{
-			get { return true; }
-		}
+		public bool AutoIncludeModelNamespace => true;
 	}
 }

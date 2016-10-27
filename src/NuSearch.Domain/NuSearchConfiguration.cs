@@ -13,8 +13,9 @@ namespace NuSearch.Domain
 	{
 		private static readonly ConnectionSettings _connectionSettings;
 
-		public static string LiveIndexAlias { get { return "nusearch"; } }
-		public static string OldIndexAlias { get { return "nusearch-old"; } }
+		public static string LiveIndexAlias => "nusearch";
+
+		public static string OldIndexAlias => "nusearch-old";
 
 		public static Uri CreateUri(int port)
 		{
@@ -46,7 +47,7 @@ namespace NuSearch.Domain
 
 		public static string CreateIndexName()
 		{
-			return string.Format("{0}-{1:dd-MM-yyyy-HH-mm-ss}", LiveIndexAlias, DateTime.UtcNow);
+			return $"{LiveIndexAlias}-{DateTime.UtcNow:dd-MM-yyyy-HH-mm-ss}";
 		}
 
 	}

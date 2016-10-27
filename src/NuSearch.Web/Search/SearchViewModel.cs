@@ -67,7 +67,7 @@ namespace NuSearch.Web.Search
 
 		public string UrlFor(Package package)
 		{
-			return string.Format("https://www.nuget.org/packages/{0}", package.Id);
+			return $"https://www.nuget.org/packages/{package.Id}";
 		}
 	}
 }

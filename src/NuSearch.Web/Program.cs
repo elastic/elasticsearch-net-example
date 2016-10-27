@@ -23,8 +23,6 @@ namespace NuSearch.Web
 				Console.WriteLine("Press enter to exit");
 				Console.ReadLine();
 			}
-
-
 		}
 	}
 }

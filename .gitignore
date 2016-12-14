@@ -62,3 +62,4 @@ YamlCache
 *.sln.ide
 *.sublime-workspace
 .vs
+.idea

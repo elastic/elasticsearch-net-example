@@ -34,7 +34,7 @@ namespace NuSearch.Domain.Data
 		public NugetDump EagerlyReadDump(string f)
 		{
 			using (var file = File.Open(f, FileMode.Open))
-				return (NugetDump)this._serializer.Deserialize(file);
+				return (NugetDump)this._dumpSerializer.Deserialize(file);
 		}
 		
 		public IEnumerable<FeedPackage> Packages => this._files.SelectMany(this.LazilyReadDumps);

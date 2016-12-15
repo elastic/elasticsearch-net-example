@@ -14,20 +14,17 @@ Oh, and if you find any bugs along the way, send us a PR! Or feel free to ask qu
 
 # Part 1: Installing and getting up and running
 
- - Downloading [Elasticsearch 2.0 or up, preferably latest](https://www.elastic.co/downloads/elasticsearch)
+ - Downloading [Elasticsearch 5.0 or up, preferably latest](https://www.elastic.co/downloads/elasticsearch)
 
- - Install [kibana](https://www.elastic.co/downloads/kibana) and the [sense kibana app](https://www.elastic.co/guide/en/sense/current/installing.html)
-   Please refer to the [product compatibility matrix](https://www.elastic.co/support/matrix#show_compatibility) to find which Kibana is right for the elasticsearch
-   version you are running.
-
- - Download and extract NuGet feed data. You can obtain a [data dump of nuget here in zip format](https://nusearch.blob.core.windows.net/dump/nuget-data.zip)
+ - Download and extract NuGet feed data. You can obtain a [data dump of nuget here in zip format](https://nusearch.blob.core.windows.net/dump/nuget-data-dec-2016.zip)
+ 
+ - Install [kibana 5.0](https://www.elastic.co/downloads/kibana).
 
  - Make sure you have a recent [version of JAVA installed](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 
  - The application we're building is set up to [run traffic through fiddler](https://www.telerik.com/download/fiddler) if it notices it's running, which is super helpful in seeing the requests to and responses from Elasticsearch.
 
-
-Clone this repository and open the solution using Visual Studio or Xamarin Studio. 
+Clone this repository and open the solution using Visual Studio (Mac) or jetBrains Rider. 
 
 The solution consists of 4 projects
 

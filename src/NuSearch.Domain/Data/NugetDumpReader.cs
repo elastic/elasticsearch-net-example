@@ -28,8 +28,15 @@ namespace NuSearch.Domain.Data
 			this._dumpSerializer = new XmlSerializer(typeof(NugetDump));
 		}
 
-		public IEnumerable<NugetDump> Dumps => this._files.SelectMany(this.EagerlyReadDumps);
+		public IEnumerable<NugetDump> Dumps => this._files.Select(this.EagerlyReadDump);
 
+
+		public NugetDump EagerlyReadDump(string f)
+		{
+			using (var file = File.Open(f, FileMode.Open))
+				return (NugetDump)this._serializer.Deserialize(file);
+		}
+		
 		public IEnumerable<FeedPackage> Packages => this._files.SelectMany(this.LazilyReadDumps);
 
 		public IEnumerable<FeedPackage> LazilyReadDumps(string file)
@@ -41,22 +48,12 @@ namespace NuSearch.Domain.Data
 				yield return (FeedPackage)this._serializer.Deserialize(dumpReader);
 			}
 		}
-		public IEnumerable<NugetDump> EagerlyReadDumps(string file)
-		{
-			var reader = XmlReader.Create(file);
-			while (reader.ReadToFollowing("FeedPackage"))
-			{
-				var dumpReader = reader.ReadSubtree();
-				yield return (NugetDump)this._serializer.Deserialize(dumpReader);
-			}
-		}
-		
 		/*
 		public IEnumerable<Package> GetPackages()
 		{
 			var currentId = string.Empty;
 			var versions = new List<FeedPackage>();
-			foreach (var packageVersion in this.Dumps)
+			foreach (var packageVersion in this.Packages)
 			{
 				if (packageVersion.Id != currentId && currentId != string.Empty)
 				{

@@ -1,5 +1,7 @@
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using Nancy;
 using Nancy.Conventions;
 using Nancy.Responses;
@@ -24,7 +26,7 @@ namespace NuSearch.Web.Plumbing
 			});
 
 			this.Conventions.StaticContentsConventions.Add(
-				StaticContentConventionBuilder.AddDirectory("static", @"static")
+				StaticContentConventionBuilder.AddDirectory("static", @"Static")
 			);
 
 		}
@@ -35,9 +37,9 @@ namespace NuSearch.Web.Plumbing
 		public static readonly string RootPath;
 		static MyRootPathProvider()
 		{
-			var root = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+			var root = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 			var pathSep = Path.DirectorySeparatorChar;
-			if (System.Diagnostics.Debugger.IsAttached)
+			if (Debugger.IsAttached || (root.Contains("bin") && root.Contains("Debug")))
 				root = Path.GetFullPath(Path.Combine(root, ".."+ pathSep +".."));
 			RootPath = root;
 		}

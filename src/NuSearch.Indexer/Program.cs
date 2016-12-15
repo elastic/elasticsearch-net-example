@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -25,7 +26,7 @@ namespace NuSearch.Indexer
 		static void Main(string[] args)
 		{
 			Client = NuSearchConfiguration.GetClient();
-			DumpReader = new NugetDumpReader(@"C:\nuget-data");
+			DumpReader = new NugetDumpReader(@"C:\nuget-data2");
 			CurrentIndexName = NuSearchConfiguration.CreateIndexName();
 
 			CreateIndex();
@@ -126,20 +127,23 @@ namespace NuSearch.Indexer
 			var packages = DumpReader.GetPackages();
 
 			Console.WriteLine("Indexing documents into elasticsearch...");
-			var partitions = packages.Partition(1000);
-			foreach (var partition in partitions)
-			{
-				var result = Client.IndexMany(partition, CurrentIndexName);
+			var waitHandle = new CountdownEvent(1);
 
-				if (!result.IsValid)
-				{
-					foreach (var item in result.ItemsWithErrors)
-						Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
-					Console.WriteLine(result.DebugInformation);
-					Console.Read();
-					Environment.Exit(1);
-				}
-			}
+			var bulkAll = Client.BulkAll(packages, b => b
+				.Index(CurrentIndexName)
+				.BackOffRetries(2)
+				.BackOffTime("30s")
+				.RefreshOnCompleted(true)
+				.MaxDegreeOfParallelism(4)
+				.Size(1000)
+			);
+
+			bulkAll.Subscribe(new BulkAllObserver(
+				onNext: (b) => { Console.Write("."); },
+				onError: (e) => { throw e; },
+				onCompleted: () => waitHandle.Signal()
+			));
+			waitHandle.Wait();
 			Console.WriteLine("Done.");
 		}
 

@@ -3,8 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace NuSearch.Domain.Data
@@ -20,41 +23,38 @@ namespace NuSearch.Domain.Data
 		{
 			this._files = Directory.GetFiles(dumpDirectory, "nugetdump-*.xml");
 			this.Count = this._files.Count();
-			this._serializer = new XmlSerializer(typeof(NugetDump));
+			this._serializer = new XmlSerializer(typeof(FeedPackage));
 		}
 
-		public IEnumerable<NugetDump> Dumps
-		{
-			get
-			{
-				foreach (var f in this._files)
-					using (var file = File.OpenText(f))
-						yield return (NugetDump)this._serializer.Deserialize(file);
-			}
+		public IEnumerable<FeedPackage> Dumps => this._files.SelectMany(this.LazilyReadDumps);
 
+		public IEnumerable<FeedPackage> LazilyReadDumps(string file)
+		{
+			var reader = XmlReader.Create(file);
+			while (reader.ReadToFollowing("FeedPackage"))
+			{
+				var dumpReader = reader.ReadSubtree();
+				yield return (FeedPackage)this._serializer.Deserialize(dumpReader);
+			}
 		}
 		
 		
 		public IEnumerable<Package> GetPackages()
 		{
-			var packages = new Dictionary<string, Package>();
-
-			foreach (var dump in this.Dumps)
-				foreach (var feedPackage in dump.NugetPackages)
+			var currentId = string.Empty;
+			var versions = new List<FeedPackage>();
+			foreach (var packageVersion in this.Dumps)
+			{
+				if (packageVersion.Id != currentId && currentId != string.Empty)
 				{
-					if (packages.ContainsKey(feedPackage.Id))
-					{
-						var version = new PackageVersion(feedPackage);
-						packages[feedPackage.Id].Versions.Add(version);
-					}
-					else
-					{
-						var package = new Package(feedPackage);
-						packages.Add(package.Id, package);
-					}
-				}
+					yield return new Package(versions);
+					versions = new List<FeedPackage>();
 
-			return packages.Values;
+				}
+				currentId = packageVersion.Id;
+				versions.Add(packageVersion);
+
+			}
 		}
 	}
 }

@@ -137,20 +137,23 @@ Let's run the application and see what we get...
 
 <hr />
 
-You should have gotten an `ElasticsearchClientException`:
+You should have gotten an `System.ArgumentException`:
 
 ```
-Dispatching Index() from NEST into to Elasticsearch.NET failed
-Received a request marked as PUT
-This endpoint accepts POST,PUT
-The request might not have enough information provided to make any of these endpoints:
-  - /{index=<NULL>}/{type=feedpackage}
-  - /{index=<NULL>}/{type=feedpackage}/{id=_Atrico.Lib.CommonAssemblyInfo}
+Index name is null for the given type and no default index is set. 
+Map an index name using ConnectionSettings.MapDefaultTypeIndices() or set a default index using ConnectionSettings.DefaultIndex().'
 ```
 
 What happened here? 
 
-We tried to index a document into Elasticsearch but the client does not have enough information to infer all the required parts that make up the URI path in Elasticsearch as to where the document should be indexed. 
+We tried to index a document into Elasticsearch, a document is uniquely identified in Elasticsearch with the following three components
+
+```
+/indexname/typename/id
+```
+
+
+but the client does not have enough information to infer all the required parts that make up the URI path in Elasticsearch as to where the document should be indexed. 
 
 Both `type` and `id` have a value set but index resolved to `NULL`; Why is that?
 
@@ -556,48 +559,57 @@ static void CreateIndex()
 }
 ```
 
-So let's break down what we're doing here in the `CreateIndex()` call.  First, we're telling Elasticsearch to create an index named `nusearch` with 2 primary shards and no replicas.  Before this, when we weren't creating the index explicitly and just indexing documents, Elasticsearch automatically created the `nusearch` index with 5 primary shards and 1 replica, by default.
+So let's break down what we're doing here in the `CreateIndex()` call.  First, we're telling Elasticsearch to create an index named `nusearch` with 2 primary shards and no replicas.  
+Before this, when we weren't creating the index explicitly and just indexing documents, Elasticsearch automatically created the `nusearch` index with 5 primary shards and 1 replica, by default.
 
-Next, `Mapping()` allows us to define a mapping for our `Package` POCO.  First we call `AutoMap()` which tells NEST to automatically map all of the public properties found in `Package` and figure out their ES type based on their C# type.  Also, if we had defined an `ElasticsearchType` attribute (something we don't discuss in this workshop) on any of the properties, they would get picked up here.  But instead of using attributes, we are going to define our properties fluently using `Properties()`.
+Next, `Mapping()` allows us to define a mapping for our `Package` POCO.  First we call `AutoMap()` which tells NEST to automatically map all of the public properties 
+found in `Package` and figure out their ES type based on their C# type.  Also, if we had defined an `ElasticsearchType` attribute (something we don't discuss in this workshop) on any of the properties, 
+they would get picked up here.  But instead of using attributes, we are going to define our properties fluently using `Properties()`.
 
-`Properties()` allows us to override the defaults set by `AutoMap()`.  For instance, our `PackageVersion` collection by default would just be treated as an `object`, but instead we want it to be `nested` so we call `Nested<T>()` with `T` being `PackageVersion`.  We then supply a name, and map its properties as well by making another call to `AutoMap()`.  This process is also repeated for `PackageDependency` which is nested within `PackageVersion`...two levels of nested objects!  And lastly, `PackageAuthor`.
+`Properties()` allows us to override the defaults set by `AutoMap()`.  For instance, our `PackageVersion` collection by default would just be treated as an `object`, 
+but instead we want it to be `nested` so we call `Nested<T>()` with `T` being `PackageVersion`.  We then supply a name, and map its properties as well by making another 
+call to `AutoMap()`.  This process is also repeated for `PackageDependency` which is nested within `PackageVersion`...two levels of nested objects!  And lastly, `PackageAuthor`.
 
-Still with us?  Alright, now that we have our mapping setup, let's reindex our packages.  But wait, `NugetDumpReader.Dumps` just returns a collection of `FeedPackage`s, how do we go from from `FeedPackage` to our new types?  More importantly, as we iterate through the dump files, we need a way of determining when we've encountered a package for the first time in order to treat all subsequent encounters of the same package as just another version that we can include in the "main" package.
+Still with us?  Alright, now that we have our mapping setup, let's reindex our packages.  But wait, `NugetDumpReader.Dumps` just returns a collection of `FeedPackage`s, 
+how do we go from from `FeedPackage` to our new types?  More importantly, as we iterate through the dump files, we need a way of determining when we've encountered a package 
+for the first time in order to treat all subsequent encounters of the same package as just another version that we can include in the "main" package.
+
 
 Now we just need to make a small change to `IndexDumps()` and have it call `GetPackages()` instead of reading from `Dumps` directly by changing line 1 to:
 
-`GetPackages()` creates a dictionary of packages keyed by their ID and iterates through each package in the dump file(s).  When it encounters a new package it simply adds it to the dictionary.  When it encounters a package that already exists in the dictionary, then it simply adds the package to the `Versions` collection of the package that already exists in the dictionary.  At the end, it simply returns all of the packages as a single collection of `Package`s.  Also, take note that all of the property mapping and parsing between `FeedPackage`, `Package`, and `PackageVersion` takes place in the constructors of `Package` and `PackageVersion`.
+Because the `FeedPackage`'s in the xml source are order by id `GetPackages()` reads the files lazily and yields `Package` with all of the `FeedPackages` as `Versions`
 
-Also, we don't want to bulk index all of our data in one request, since it's nearly 700mb.  The magic number is usually around 1000 for any data, so let's use the handy `Partition()` extension method to break up our packages into collections of 1000 documents.
+Also, we don't want to bulk index all of our data in one request, since it's nearly 700mb.  The magic number is usually around 1000 for any data, 
+since NEST 2.5 and up there is a special bulk helper that partitions any lazy `IEnumerable<T>` to `IEnumerable<IList<T>>` efficiently and can send the bulks concurrently
+to elasticsearch out of box. This `BulkAll()` method returns an `IObservable` we can subscribe to to kick off the indexation process.
 
 
 ```csharp
 static void IndexDumps()
 {
-
-	Console.WriteLine("Reading all the packages into memory...");
+	Console.WriteLine("Setting up a lazy xml files reader that yields packages...");
 	var packages = DumpReader.GetPackages();
 
 	Console.WriteLine("Indexing documents into elasticsearch...");
-	var partitions = packages.Partition(1000);
-	foreach (var partition in partitions)
-	{
-		var result = Client.IndexMany(partition);
+	var waitHandle = new CountdownEvent(1);
 
-		if (!result.IsValid)
-		{
-			foreach (var item in result.ItemsWithErrors)
-				Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
-			Console.WriteLine(result.DebugInformation);
-			Console.Read();
-			Environment.Exit(1);
-		}
-	}
+	var bulkAll = Client.BulkAll(packages, b => b
+		.BackOffRetries(2)
+		.BackOffTime("30s")
+		.RefreshOnCompleted(true)
+		.MaxDegreeOfParallelism(4)
+		.Size(1000)
+	);
+
+	bulkAll.Subscribe(new BulkAllObserver(
+		onNext: (b) => { Console.Write("."); },
+		onError: (e) => { throw e; },
+		onCompleted: () => waitHandle.Signal()
+	));
+	waitHandle.Wait();
 	Console.WriteLine("Done.");
 }
 ```
-
-`GetPackages()` is still a heavy routine, it needs to load all the files data into memory before we can index. 
 
 Finally, let's add a call to `CreateIndex()` before `IndexDumps()`.
 
@@ -634,10 +646,10 @@ We now should see heaps more packages in our `nusearch` index:
     "total": 40740,
 ```
 
-Since we are going to run the indexer multiple times in the next section make sure IndexDumps() only indexes one partition:
+Since we are going to run the indexer multiple times in the next section make sure IndexDumps() only a 1000 packages:
 
 ```csharp
-	var partitions = packages.Partition(1000).Take(1);
+	var packages = DumpReader.GetPackages().Take(1000);
 ```
 
 ### Aliases
@@ -713,8 +725,10 @@ Easy enough.
 
 Lastly, we need to change our bulk indexing call to explictly index to `CurrentIndexName`, otherwise it will infer `nusearch` from our connection settings- and that's now our alias!
 
+Add the following to the `BulkAll` call.
+
 ```csharp
-var result = Client.IndexMany(partition, CurrentIndexName);
+		.Index(CurrentIndexName)
 ```
 
 We can also now get rid of that `DeleteIndexIfExists()` method since we wont be needing it anymore.
@@ -732,7 +746,7 @@ Alright, now we're all set!  We can now reindex as many times as we'd like witho
 
 <hr />
 
-Remember we put that `Take(1)` in place earlier, run the application a couple of times and observe the output of:
+Remember we put that `Take(1000)` in place earlier, run the application a couple of times and observe the output of:
 
 **GET /_cat/aliases?v**
 ```
@@ -746,7 +760,7 @@ You should see our swapping routing keeps a maximum of two older version around 
 
 <hr />
 
-Now lets remove that `.Take(1)` in `IndexDumps()` and index one final time so we can see all the packages in the next section.
+Now lets remove that `.Take(1000)` in `IndexDumps()` and index one final time so we can see all the packages in the next section.
 
 # Part 3: Searching
 

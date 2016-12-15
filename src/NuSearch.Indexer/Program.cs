@@ -123,7 +123,7 @@ namespace NuSearch.Indexer
 
 		static void IndexDumps()
 		{
-			Console.WriteLine("Reading all the packages into memory...");
+			Console.WriteLine("Setting up a lazy xml files reader that yields packages...");
 			var packages = DumpReader.GetPackages();
 
 			Console.WriteLine("Indexing documents into elasticsearch...");

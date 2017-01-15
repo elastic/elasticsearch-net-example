@@ -26,6 +26,9 @@ namespace NuSearch.Web.Plumbing
 			this.Conventions.StaticContentsConventions.Add(
 				StaticContentConventionBuilder.AddDirectory("static", @"static")
 			);
+
+			// enable error traces
+			StaticConfiguration.DisableErrorTraces = false;
 		}
 
 		protected override void ConfigureApplicationContainer(TinyIoCContainer container)

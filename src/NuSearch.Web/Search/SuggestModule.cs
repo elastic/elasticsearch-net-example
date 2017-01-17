@@ -12,13 +12,16 @@ namespace NuSearch.Web.Search
 {
 	public class SuggestModule : NancyModule
 	{
-		public SuggestModule()
+		private readonly NuSearchConfiguration _configuration;
+
+		public SuggestModule(NuSearchConfiguration configuration)
 		{
+			_configuration = configuration;
 
 			Post["/suggest"] = x =>
 			{
 				var form = this.Bind<SearchForm>();
-				var client = NuSearchConfiguration.GetClient();
+				var client = this._configuration.GetClient();
 				var result = client.Search<Package>(s => s
 					.Index<Package>()
 					.Source(sf => sf
@@ -29,10 +32,10 @@ namespace NuSearch.Web.Search
 						)
 					)
 					.Suggest(su => su
-						.Completion("package-suggestions", c => c
-							.Prefix(form.Query)
-							.Field(p => p.Suggest)
-						)
+					.Completion("package-suggestions", c => c
+						.Prefix(form.Query)
+						.Field(p => p.Suggest)
+					)
 					)
 	
 				);

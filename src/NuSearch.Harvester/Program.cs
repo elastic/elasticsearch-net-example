@@ -34,7 +34,7 @@ namespace NuSearch.Harvester
 
 			var startTime = DateTime.Now;
 			var take = Math.Min(100, numberOfPackages);
-			var numberOfPages = (int)Math.Ceiling((double)numberOfPackages / (double)take);
+			var numberOfPages = (int)Math.Ceiling((double)numberOfPackages / take);
 
 			var sync = new object();
 			var packages = new List<FeedPackage>();
@@ -52,7 +52,7 @@ namespace NuSearch.Harvester
 					lock (sync)
 					{
 						packages.AddRange(foundPackages);
-						if (packages.Count() >= partitionSize)
+						if (packages.Count >= partitionSize)
 						{
 							WritePackages(packages, dumpPath, partition);
 							partition++;

@@ -6,9 +6,112 @@
     <members>
         <member name="T:Nancy.ViewEngines.Razor.AttributeValue">
             <summary>
-            Class to represent attribute values and, more imporantly, 
-            decypher them from tuple madness slightly.
+            Class to represent attribute values and, more importantly, 
+            decipher them from tuple madness slightly.
             </summary>
+        </member>
+        <member name="T:Nancy.ViewEngines.Razor.ClrTypeResolver`2">
+            <summary>
+            Converts language-specific type name into CRL Type
+            </summary>
+            <typeparam name="TSymbolType">Symbol type enum</typeparam>
+            <typeparam name="TSymbol">Symbol class</typeparam>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.ClrTypeResolver`2.#ctor(`0,`0,`0,`0,`0,`0)">
+            <summary>
+            Initializes new instance of ClrTypeResolver class. 
+            Provided parameters are used to recognized specific symbols in particular language
+            </summary>
+            <param name="identifier">Symbol type for identifier</param>
+            <param name="keyword">Symbol type for keyword</param>
+            <param name="dot">Symbol type for dot ('.')</param>
+            <param name="whiteSpace">Symbol type for whitespace</param>
+            <param name="arrayBegin">Type of symbol that begins array</param>
+            <param name="arrayEnd">Type of symbol that ends array</param>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.ClrTypeResolver`2.Resolve(System.Collections.Generic.List{`1})">
+            <summary>
+            Parses given list of symbols in order to get CLR type
+            </summary>
+            <param name="symbols">List of symbols</param>
+            <returns>CLR type</returns>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.ClrTypeResolver`2.MoveToGenericArguments">
+            <summary>
+            Dequeues symbols until first symbol of first generic argument
+            </summary>
+            <returns>Returns true if move was successful</returns>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.ClrTypeResolver`2.MoveToNextGenericArgument">
+            <summary>
+            Dequeues symbols representing separator between generic arguments
+            </summary>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.ClrTypeResolver`2.MoveOutOfGenericArguments">
+            <summary>
+            Dequeues symbols representing end of generic arguments
+            </summary>
+            <returns>Returns true if move was successful</returns>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.ClrTypeResolver`2.ResolvePrimitiveType(System.String)">
+            <summary>
+            Gets CLR from name (keyword) used by specific language 
+            </summary>
+            <param name="typeName">Type name to resolve</param>
+            <returns>CLR type</returns>
+        </member>
+        <member name="P:Nancy.ViewEngines.Razor.ClrTypeResolver`2.Symbols">
+            <summary>
+            Gets remaining symbols that need to be parsed
+            </summary>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.ClrTypeResolver`2.TypeNameParserStep.Resolve(System.Func{System.String,System.Type})">
+            <summary>
+            Resolves CLR type that is represented by this instance
+            </summary>
+            <param name="resolveType">Function that allows resolving any simple (like int or MyNamespace.SuperClass) type name to CLR type</param>
+            <returns>Resolved CLR type</returns>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.CodeParserHelper.ThrowTypeNotFound(System.String)">
+            <summary>
+            Throws exception says that given type was not found in any accessible assembly
+            </summary>
+            <param name="type">Type that was not found</param>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.CodeParserHelper.GetAssemblyDirectories">
+            <summary>
+            Returns the directories containing dll files. It uses the default convention as stated by microsoft.
+            </summary>
+            <see cref="!:http://msdn.microsoft.com/en-us/library/system.appdomainsetup.privatebinpathprobe.aspx"/>
+        </member>
+        <member name="T:Nancy.ViewEngines.Razor.CSharp.CSharpClrTypeResolver">
+            <summary>
+            Resolves C# type name to CLR type
+            </summary>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.CSharp.CSharpClrTypeResolver.MoveOutOfGenericArguments">
+            <summary>
+            Dequeues symbols '>' representing end of generic arguments
+            </summary>
+            <returns>Returns true if move was successful</returns>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.CSharp.CSharpClrTypeResolver.MoveToNextGenericArgument">
+            <summary>
+            Dequeues symbol ',' and whitespace representing separator between generic arguments
+            </summary>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.CSharp.CSharpClrTypeResolver.MoveToGenericArguments">
+            <summary>
+            equeues symbol '&lt;' representing begin of generic arguments
+            </summary>
+            <returns>Returns true if move was successful</returns>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.CSharp.CSharpClrTypeResolver.ResolvePrimitiveType(System.String)">
+            <summary>
+            Gets CLR from name (keyword) used by C#
+            </summary>
+            <param name="typeName">Type name to resolve</param>
+            <returns>CLR type</returns>
         </member>
         <member name="T:Nancy.ViewEngines.Razor.CSharp.CSharpRazorViewRenderer">
             <summary>
@@ -106,7 +209,7 @@
             Gets a value indicating whether to automatically include the model's namespace in the generated code.
             </summary>
             <value>
-            	<c>true</c> if the model's namespace should be automatically included in the generated code; otherwise, <c>false</c>.
+                <c>true</c> if the model's namespace should be automatically included in the generated code; otherwise, <c>false</c>.
             </value>
         </member>
         <member name="M:Nancy.ViewEngines.Razor.DefaultRazorConfiguration.#ctor">
@@ -145,7 +248,7 @@
         </member>
         <member name="M:Nancy.ViewEngines.Razor.HelperResult.#ctor(System.Action{System.IO.TextWriter})">
             <summary>
-            Initializes a new instanc of the <see cref="T:Nancy.ViewEngines.Razor.HelperResult"/> class,
+            Initializes a new instance of the <see cref="T:Nancy.ViewEngines.Razor.HelperResult"/> class,
             with the provided <paramref name="action"/>.
             </summary>
             <param name="action">The action that should be used to produce the result.</param>
@@ -174,6 +277,73 @@
             </summary>
             <typeparam name="TModel">The type of the model.</typeparam>
         </member>
+        <member name="T:Nancy.ViewEngines.Razor.HtmlHelpers">
+            <summary>
+            Base helpers to generate html content.
+            </summary>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.HtmlHelpers.#ctor(Nancy.ViewEngines.Razor.RazorViewEngine,Nancy.ViewEngines.IRenderContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Nancy.ViewEngines.Razor.HtmlHelpers"/> class.
+            </summary>
+            <param name="engine">The razor view engine instance that the helpers are being used by.</param>
+            <param name="renderContext">The <see cref="T:Nancy.ViewEngines.IRenderContext"/> that the helper are being used by.</param>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.HtmlHelpers.Partial(System.String)">
+            <summary>
+            Renders a partial with the given view name.
+            </summary>
+            <param name="viewName">Name of the view.</param>
+            <returns>An <see cref="T:Nancy.ViewEngines.Razor.IHtmlString"/> representation of the partial.</returns>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.HtmlHelpers.Partial(System.String,System.Object)">
+            <summary>
+            Renders a partial with the given view name.
+            </summary>
+            <param name="viewName">Name of the partial view.</param>
+            <param name="modelForPartial">The model that is passed to the partial.</param>
+            <returns>An <see cref="T:Nancy.ViewEngines.Razor.IHtmlString"/> representation of the partial.</returns>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.HtmlHelpers.Raw(System.String)">
+            <summary>
+            Returns an html string composed of raw, non-encoded text.
+            </summary>
+            <param name="text">The text.</param>
+            <returns>An <see cref="T:Nancy.ViewEngines.Razor.IHtmlString"/> representation of the raw text.</returns>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.HtmlHelpers.AntiForgeryToken">
+            <summary>
+            Creates an anti-forgery token.
+            </summary>
+            <returns>An <see cref="T:Nancy.ViewEngines.Razor.IHtmlString"/> representation of the anti forgery token.</returns>
+        </member>
+        <member name="P:Nancy.ViewEngines.Razor.HtmlHelpers.Engine">
+            <summary>
+            The engine that is currently rendering the view.
+            </summary>
+            <value>A <see cref="T:Nancy.ViewEngines.Razor.RazorViewEngine"/> instance.</value>
+        </member>
+        <member name="P:Nancy.ViewEngines.Razor.HtmlHelpers.RenderContext">
+            <summary>
+            The context of the current render operation.
+            </summary>
+            <value>An <see cref="T:Nancy.ViewEngines.IRenderContext"/> instance.</value>
+        </member>
+        <member name="P:Nancy.ViewEngines.Razor.HtmlHelpers.CurrentLocale">
+            <summary>
+            Returns current culture name
+            </summary>
+        </member>
+        <member name="P:Nancy.ViewEngines.Razor.HtmlHelpers.CurrentUser">
+            <summary>
+            Returns current authenticated user name
+            </summary>
+        </member>
+        <member name="P:Nancy.ViewEngines.Razor.HtmlHelpers.IsAuthenticated">
+            <summary>
+            Determines if current user is authenticated
+            </summary>
+        </member>
         <member name="M:Nancy.ViewEngines.Razor.HtmlHelpers`1.#ctor(Nancy.ViewEngines.Razor.RazorViewEngine,Nancy.ViewEngines.IRenderContext,`0)">
             <summary>
             Initializes a new instance of the <see cref="T:Nancy.ViewEngines.Razor.HtmlHelpers`1"/> class.
@@ -182,66 +352,11 @@
             <param name="renderContext">The <see cref="T:Nancy.ViewEngines.IRenderContext"/> that the helper are being used by.</param>
             <param name="model">The model that is used by the page where the helpers are invoked.</param>
         </member>
-        <member name="M:Nancy.ViewEngines.Razor.HtmlHelpers`1.Partial(System.String)">
-            <summary>
-            Renders a partial with the given view name.
-            </summary>
-            <param name="viewName">Name of the view.</param>
-            <returns>An <see cref="T:Nancy.ViewEngines.Razor.IHtmlString"/> representation of the partial.</returns>
-        </member>
-        <member name="M:Nancy.ViewEngines.Razor.HtmlHelpers`1.Partial(System.String,System.Object)">
-            <summary>
-            Renders a partial with the given view name.
-            </summary>
-            <param name="viewName">Name of the partial view.</param>
-            <param name="modelForPartial">The model that is passed to the partial.</param>
-            <returns>An <see cref="T:Nancy.ViewEngines.Razor.IHtmlString"/> representation of the partial.</returns>
-        </member>
-        <member name="M:Nancy.ViewEngines.Razor.HtmlHelpers`1.Raw(System.String)">
-            <summary>
-            Returns an html string composed of raw, non-encoded text.
-            </summary>
-            <param name="text">The text.</param>
-            <returns>An <see cref="T:Nancy.ViewEngines.Razor.IHtmlString"/> representation of the raw text.</returns>
-        </member>
-        <member name="M:Nancy.ViewEngines.Razor.HtmlHelpers`1.AntiForgeryToken">
-            <summary>
-            Creates an anti-forgery token.
-            </summary>
-            <returns>An <see cref="T:Nancy.ViewEngines.Razor.IHtmlString"/> representation of the anti forgery token.</returns>
-        </member>
         <member name="P:Nancy.ViewEngines.Razor.HtmlHelpers`1.Model">
             <summary>
             The model that is being used by the current view.
             </summary>
             <value>An instance of the view model.</value>
-        </member>
-        <member name="P:Nancy.ViewEngines.Razor.HtmlHelpers`1.Engine">
-            <summary>
-            The engine that is currently rendering the view.
-            </summary>
-            <value>A <see cref="T:Nancy.ViewEngines.Razor.RazorViewEngine"/> instance.</value>
-        </member>
-        <member name="P:Nancy.ViewEngines.Razor.HtmlHelpers`1.RenderContext">
-            <summary>
-            The context of the current render operation.
-            </summary>
-            <value>An <see cref="T:Nancy.ViewEngines.IRenderContext"/> intance.</value>
-        </member>
-        <member name="P:Nancy.ViewEngines.Razor.HtmlHelpers`1.CurrentLocale">
-            <summary>
-            Returns current culture name
-            </summary>
-        </member>
-        <member name="P:Nancy.ViewEngines.Razor.HtmlHelpers`1.CurrentUser">
-            <summary>
-            Returns current authenticated user name
-            </summary>
-        </member>
-        <member name="P:Nancy.ViewEngines.Razor.HtmlHelpers`1.IsAuthenticated">
-            <summary>
-            Determines if current user is authenticated
-            </summary>
         </member>
         <member name="T:Nancy.ViewEngines.Razor.HtmlHelpersExtensions">
             <summary>
@@ -265,6 +380,11 @@
         <member name="M:Nancy.ViewEngines.Razor.CSharp.NancyCSharpRazorCodeParser.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Nancy.ViewEngines.Razor.CSharp.NancyCSharpRazorCodeParser"/> class.
+            </summary>
+        </member>
+        <member name="T:Nancy.ViewEngines.Razor.ModelCodeGenerator">
+            <summary>
+            Adds base type with model type as generic argument for Razor view class
             </summary>
         </member>
         <member name="T:Nancy.ViewEngines.Razor.NancyRazorEngineHost">
@@ -480,7 +600,7 @@
         </member>
         <member name="P:Nancy.ViewEngines.Razor.NancyRazorViewBase`1.Text">
             <summary>
-            Used to retun text resources
+            Used to return text resources
             </summary>
         </member>
         <member name="P:Nancy.ViewEngines.Razor.NancyRazorViewBase`1.Context">
@@ -508,7 +628,7 @@
         </member>
         <member name="P:Nancy.ViewEngines.Razor.NancyRazorErrorView.Template">
             <summary>
-            Gets or sets the template for rendinger errors.
+            Gets or sets the template for rendering errors.
             The token "[DETAILS]" will be replaced by the HTML for
             the actual error.
             </summary>
@@ -576,22 +696,6 @@
             <param name="isPartial">Used by HtmlHelpers to declare a view as partial</param>
             <returns>A response.</returns>
         </member>
-        <member name="M:Nancy.ViewEngines.Razor.RazorViewEngine.FindModelType(System.Web.Razor.Parser.SyntaxTree.Block,System.Type,System.Type)">
-            <summary>
-            Tries to find the model type from the document
-            So documents using @model will actually be able to reference the model type
-            </summary>
-            <param name="block">The document</param>
-            <param name="passedModelType">The model type from the base class</param>
-            <param name="modelCodeGenerator">The model code generator</param>
-            <returns>The model type, if discovered, or the passedModelType if not</returns>
-        </member>
-        <member name="M:Nancy.ViewEngines.Razor.RazorViewEngine.GetAssemblyDirectories">
-            <summary>
-            Returns the directories containing dll files. It uses the default convention as stated by microsoft.
-            </summary>
-            <see cref="!:http://msdn.microsoft.com/en-us/library/system.appdomainsetup.privatebinpathprobe.aspx"/>
-        </member>
         <member name="M:Nancy.ViewEngines.Razor.RazorViewEngine.Dispose">
             <summary>
             Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -638,7 +742,7 @@
             <summary>
             The context of the current render operation.
             </summary>
-            <value>An <see cref="T:Nancy.ViewEngines.IRenderContext"/> intance.</value>
+            <value>An <see cref="T:Nancy.ViewEngines.IRenderContext"/> instance.</value>
         </member>
         <member name="T:Nancy.ViewEngines.Razor.VisualBasic.NancyVisualBasicRazorCodeParser">
             <summary>
@@ -649,6 +753,35 @@
             <summary>
             Initializes a new instance of the <see cref="T:Nancy.ViewEngines.Razor.VisualBasic.NancyVisualBasicRazorCodeParser"/> class.
             </summary>
+        </member>
+        <member name="T:Nancy.ViewEngines.Razor.VisualBasic.VisualBasicClrTypeResolver">
+            <summary>
+            Resolves VB.NET type name to CLR type
+            </summary>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.VisualBasic.VisualBasicClrTypeResolver.MoveOutOfGenericArguments">
+            <summary>
+            Dequeues symbol ')' representing end of generic arguments
+            </summary>
+            <returns>Returns true if move was successful</returns>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.VisualBasic.VisualBasicClrTypeResolver.MoveToNextGenericArgument">
+            <summary>
+            Dequeues symbol ',' and whitespace representing separator between generic arguments
+            </summary>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.VisualBasic.VisualBasicClrTypeResolver.MoveToGenericArguments">
+            <summary>
+            Dequeues symbols '(Of' representing begin of generic arguments
+            </summary>
+            <returns>Returns true if move was successful</returns>
+        </member>
+        <member name="M:Nancy.ViewEngines.Razor.VisualBasic.VisualBasicClrTypeResolver.ResolvePrimitiveType(System.String)">
+            <summary>
+            Gets CLR from name (keyword) used by VB.NET
+            </summary>
+            <param name="typeName">Type name to resolve</param>
+            <returns>CLR type</returns>
         </member>
         <member name="T:Nancy.ViewEngines.Razor.VisualBasic.VisualBasicRazorViewRenderer">
             <summary>

@@ -27,8 +27,8 @@ namespace NuSearch.Web.Plumbing
 				StaticContentConventionBuilder.AddDirectory("static", @"static")
 			);
 
-			// enable error traces
-			StaticConfiguration.DisableErrorTraces = false;
+			StaticConfiguration.DisableErrorTraces = 
+				bool.Parse(ConfigurationManager.AppSettings["Nancy:DisableErrorTraces"]);
 		}
 
 		protected override void ConfigureApplicationContainer(TinyIoCContainer container)

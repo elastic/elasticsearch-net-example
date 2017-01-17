@@ -146,7 +146,9 @@
     <Content Include="Search\Partials\Sorting.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="web.config" />
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="web.release.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

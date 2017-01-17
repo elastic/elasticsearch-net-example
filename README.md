@@ -256,7 +256,7 @@ Which could be useful, but we'd have to remember to always specify the type when
 static NuSearchConfiguration()
 {
 	_connectionSettings = new ConnectionSettings(CreateUri(9200))
-		.SetDefaultIndex("nusearch")
+		.DefaultIndex("nusearch")
 		.InferMappingFor<FeedPackage>(i=>i
 			.TypeName("package")
 		);

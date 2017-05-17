@@ -574,10 +574,15 @@ Still with us?  Alright, now that we have our mapping setup, let's reindex our p
 how do we go from from `FeedPackage` to our new types?  More importantly, as we iterate through the dump files, we need a way of determining when we've encountered a package 
 for the first time in order to treat all subsequent encounters of the same package as just another version that we can include in the "main" package.
 
+We add each `Version` to a parent `Package` with a call to `GetPackages()`. Go ahead and uncomment this method in the `NugetDumpReader` class.
 
-Now we just need to make a small change to `IndexDumps()` and have it call `GetPackages()` instead of reading from `Dumps` directly by changing line 1 to:
+Lastly, we just need to make a small change to `IndexDumps()` and have it call `GetPackages()` instead of reading from `Dumps` directly by changing line 1 to:
 
-Because the `FeedPackage`'s in the xml source are order by id `GetPackages()` reads the files lazily and yields `Package` with all of the `FeedPackages` as `Versions`
+```csharp
+var packages = DumpReader.GetPackages();
+```
+
+Because the `FeedPackage`'s in the xml source are ordered by id, `GetPackages()` reads the files lazily and yields `Package` with all of the `FeedPackages` as `Versions`
 
 Also, we don't want to bulk index all of our data in one request, since it's nearly 700mb.  The magic number is usually around 1000 for any data, 
 since NEST 2.5 and up there is a special bulk helper that partitions any lazy `IEnumerable<T>` to `IEnumerable<IList<T>>` efficiently and can send the bulks concurrently

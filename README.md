@@ -1452,10 +1452,10 @@ or otherwise it will have to match with our `function_score` query. Note that yo
 		)
 		.Query(query => query
 			.MultiMatch(m => m
-				.OnFieldsWithBoost(fields => fields
-					.Add(p => p.Id, 1.2)
-					.Add(p => p.Summary, 0.8)
-				)
+				.Fields(f => f
+				      .Field(p => p.Id, 1.2)
+				      .Field(p => p.Summary, 0.8)
+                                )
 				.Operator(Operator.And)
 				.Query(form.Query)
 			)

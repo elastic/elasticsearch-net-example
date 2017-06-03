@@ -26,7 +26,7 @@ namespace NuSearch.Web.Search
 				var client = NuSearchConfiguration.GetClient();
 
 				var result = client.Search<Package>(s => s
-					.From(form.Page * form.PageSize)
+					.From((form.Page - 1) * form.PageSize)
 					.Size(form.PageSize)
 					.Sort(sort =>
 					{

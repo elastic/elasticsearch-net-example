@@ -54,7 +54,7 @@ namespace NuSearch.Web.Search
 			return this.UrlFor((form) =>
 			{
 				alter(form);
-				form.Page = 0;
+				form.Page = 1;
 			});
 		}
 

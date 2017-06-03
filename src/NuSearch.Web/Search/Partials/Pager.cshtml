@@ -4,12 +4,12 @@
 {
 	<nav>
 		<ul class="pager">
-			<li class="previous @(Model.Form.Page == 0 ? "disabled" : "")">
-				<a href="@Model.UrlFor(f => { f.Page = Math.Max(0, f.Page - 1); })">Previous</a>
+			<li class="previous @(Model.Form.Page == 1 ? "disabled" : "")">
+				<a href="@Model.UrlFor(f => { f.Page = Math.Max(1, f.Page - 1); })">Previous</a>
 			</li>
-			<li>Showing page @(Model.Form.Page + 1) of @Model.TotalPages</li>
-			<li class="next @(Model.Form.Page >= Model.TotalPages - 1 ? "disabled" : "")">
-				<a href="@Model.UrlFor(f => { f.Page = Math.Min(Model.TotalPages - 1, f.Page + 1); })">Next</a>
+			<li>Showing page @(Model.Form.Page) of @Model.TotalPages</li>
+			<li class="next @(Model.Form.Page >= Model.TotalPages ? "disabled" : "")">
+				<a href="@Model.UrlFor(f => { f.Page = Math.Min(Model.TotalPages, f.Page + 1); })">Next</a>
 			</li>
 		</ul>
 	</nav>

@@ -24,6 +24,7 @@ namespace NuSearch.Web.Search
 		public SearchForm()
 		{
 			this.PageSize = 25;
+			this.Page = 1;
 		}
 
 		public SearchForm Clone()

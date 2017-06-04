@@ -163,7 +163,7 @@ We tried to index a document into Elasticsearch but the client does not have eno
 
 Both `type` and `id` have a value set but `index` resolved to `NULL`. Why is that?
 
-Notice in our application, we never specified which index to index our packages into, which the API requires.
+Notice in our application, we never specified which index to index our packages into, which the API requires.  
 We can specify the index in several ways using NEST, but for now let's just set a default index for the entire client using our `ConnectionSettings`
 
 ```csharp
@@ -1190,7 +1190,7 @@ The [multi_match query](https://www.elastic.co/guide/en/elasticsearch/reference/
 If we search for `Elasticsearch-Azure-PAAS` the [standard analyzer](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-standard-analyzer.html) again kicks in and Elasticsearch will actually use
 `elasticsearch`, `azure` and `paas` to locate documents in its inverted index that contain any of these terms.
 
-The [match family of queries](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html) default to using `OR` on the terms.  Being inclusive or exclusive in your search results is another hot topic with no right answer. I personally find being exclusive a whole lot more useful. For instance, when I search for `Elasticsearch-Azure-SAAS` I do not want any results that only have the terms `azure` **and** `saas`.
+The [`match` family of queries](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html) default to using `OR` on the terms.  Being inclusive or exclusive in your search results is another hot topic with no right answer. I personally find being exclusive a whole lot more useful. For instance, when I search for `Elasticsearch-Azure-PAAS` I do not want any results that only have the terms `azure` **and** `paas`.
 
 Lets update our search to use `AND` on the resulting terms we provide
 
@@ -2146,12 +2146,12 @@ Post["/suggest"] = x =>
 	var suggestions = result.Suggest["package-suggestions"]
 		.FirstOrDefault()
 		.Options
-		.Select(suggest => new 
+		.Select(suggest => new
 		{
 			id = suggest.Source.Id,
 			downloadCount = suggest.Source.DownloadCount,
-			summary = !string.IsNullOrEmpty(suggest.Source.Summary) 
-				? string.Concat(suggest.Source.Summary.Take(200)) 
+			summary = !string.IsNullOrEmpty(suggest.Source.Summary)
+				? string.Concat(suggest.Source.Summary.Take(200))
 				: string.Empty
 		});
 

@@ -48,7 +48,7 @@ namespace NuSearch.Domain.Data
 				yield return (FeedPackage)this._serializer.Deserialize(dumpReader);
 			}
 		}
-		/*
+		
 		public IEnumerable<Package> GetPackages()
 		{
 			var currentId = string.Empty;
@@ -65,6 +65,6 @@ namespace NuSearch.Domain.Data
 				versions.Add(packageVersion);
 
 			}
-		}*/
+		}
 	}
 }

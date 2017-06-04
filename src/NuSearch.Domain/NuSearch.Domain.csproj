@@ -53,6 +53,10 @@
     <Compile Include="Data\NugetDumpReader.cs" />
     <Compile Include="Extensions\PartitionExtension.cs" />
     <Compile Include="Model\FeedPackage.cs" />
+    <Compile Include="Model\Package.cs" />
+    <Compile Include="Model\PackageAuthor.cs" />
+    <Compile Include="Model\PackageDependency.cs" />
+    <Compile Include="Model\PackageVersion.cs" />
     <Compile Include="NuSearchConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1525,8 +1525,8 @@ If you are following along with fiddler you can see that in case of an empty `fo
 }
 ```
 
-If this is not intended behavior you can control that through either IsVerbatim, meaning we will write the query verbatim as it was specified. 
-Empty strings and all, or IsStrict which would cause an error to be thrown if a query ends up conditionless.
+If this is not intended behavior you can control that through either `IsVerbatim`, meaning we will write the query verbatim as it was specified. 
+Empty strings and all, or `IsStrict` which would cause an error to be thrown if a query ends up conditionless.
 
 
 ```csharp

@@ -925,7 +925,7 @@ Here we start to see the `Fluent Lambda Syntax` in action.
 
 ### Implementing a query
 
-So at this point we are effectively doing `match_all` query and selecting the top 10 results.
+So at this point we are effectively doing `match_all` query and selecting the top 25 results.
 Searching for something in the search box does not do anything.
 
 If you type a search notice how you are submitting a form but instead of using `POST` this form uses `GET`.
@@ -992,7 +992,7 @@ Another thing to note about the [query_string_query](https://www.elastic.co/guid
 Try some of the following queries in NuSearch:
 
 * `id:hello*`
-* `id:hello* OR id:autofac^1000`
+* `id:hello* OR id:autofac.keyword^1000`
 
 Whats going on here?  Well in the first query we explicitly search for only those `Package`'s who's `id` start with `hello`.  In the second example we extend this query to also include `autofac` but boost it with a factor `1000` so that its first in the result set.
 
@@ -1175,7 +1175,7 @@ The [multi_match]() we are using right now is one of those constructs that analy
 If we search for `Elasticsearch-Azure-PAAS` the [standard analyzer](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/analysis-standard-analyzer.html) again kicks in and Elasticsearch will actually use
 `elasticsearch`, `azure` and `paas` to locate documents in its inverted index that contain any of these terms.
 
-The [`match` family of queries](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-match-query.html) default to using `OR` on the terms.  Being inclusive or exclusive in your search results is another hot topic with no right answer. I personally find being exclusive a whole lot more useful.  For instance, when I search for `Elasticsearch-Azure-SAAS` I do not want any results that only have the terms `azure` **and** `saas`.
+The [`match` family of queries](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-match-query.html) default to using `OR` on the terms.  Being inclusive or exclusive in your search results is another hot topic with no right answer. I personally find being exclusive a whole lot more useful.  For instance, when I search for `Elasticsearch-Azure-PAAS` I do not want any results that only have the terms `azure` **and** `saas`.
 
 Lets update our search to use `AND` on the resulting terms we provide
 
@@ -1189,7 +1189,7 @@ Lets update our search to use `AND` on the resulting terms we provide
 )
 ```
 
-*Whoohoo!* Now when we search for `Elasticsearch-Azure-SAAS` we only get one result minus all the noise of Azure packages that have nothing
+*Whoohoo!* Now when we search for `Elasticsearch-Azure-PAAS` we only get one result minus all the noise of Azure packages that have nothing
 do with Elasticsearch.
 
 Knowing how the analysis chain works both an index and at query time, can you answer the following question?:
@@ -1340,7 +1340,7 @@ to sorting (remember lowercasing might change sort order in some locales) and ag
 Now that we have our new mapping in place make sure you reindex so that we can take advantage of our new analysis.
 
 
-##Updating our search
+## Updating our search
 
 Since we now have a [multi_field mapping](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/multi-fields.html) set up for our `Id` property we differentiate between an exact lowercase match and a match in our analyzed field.
 Furthermore we can make sure a match in our `Summary` field has a lower weight in the overall score of our matching document.

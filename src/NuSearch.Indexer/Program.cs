@@ -51,17 +51,6 @@ namespace NuSearch.Indexer
 		private static TypeMappingDescriptor<Package> MapPackage(TypeMappingDescriptor<Package> map) => map
 			.AutoMap()
 			.Properties(ps => ps
-				.Text(t => t
-					.Name(p => p.Id)
-					.Analyzer("nuget-id-analyzer")
-					.Fields(f => f
-						.Text(p => p.Name("keyword").Analyzer("nuget-id-keyword"))
-						.Keyword(p => p.Name("raw"))
-					)
-				)
-				.Completion(c => c
-					.Name(p => p.Suggest)
-				)
 				.Nested<PackageVersion>(n => n
 					.Name(p => p.Versions.First())
 					.AutoMap()

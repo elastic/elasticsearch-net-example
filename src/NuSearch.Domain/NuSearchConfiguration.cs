@@ -27,7 +27,17 @@ namespace NuSearch.Domain
 
 		static NuSearchConfiguration()
 		{
-			_connectionSettings = new ConnectionSettings(CreateUri(9200));
+			_connectionSettings = new ConnectionSettings(CreateUri(9200))
+				.DefaultIndex("nusearch")
+				.InferMappingFor<Package>(i => i
+					.TypeName("package")
+					.IndexName("nusearch")
+				)
+				.InferMappingFor<FeedPackage>(i => i
+					.TypeName("package")
+					.IndexName("nusearch")
+				);
+			
 		}
 
 		public static ElasticClient GetClient()

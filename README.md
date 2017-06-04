@@ -1046,32 +1046,37 @@ Let's use the [multi_match](https://www.elastic.co/guide/en/elasticsearch/refere
 )
 ```
 
-Now we are searching through `id` and `summary` fields only, instead of the special `_all` field.  Lets look at results:
+Now we are searching through `id` and `summary` fields only, instead of the special `_all` field.  Let's look at results:
 
 ![tdidf](readme-images/5-tfidf.png)
 
 It almost looks as if matches on `id` are more important then those on `summary`, but as the highlighted result demonstrates, something else is actually going on...
 
+### Relevancy scoring
+
 By default `Elasticsearch` uses [BM25](https://en.wikipedia.org/wiki/Okapi_BM25), a probabilistic approach to relevancy scoring
 
 ![BM25 equation](readme-images/bm25_equation.png)
 
-Compared to the previous default relevancy scoring algorithm, [TF/IDF](http://tfidf.com/), used in versions of Elasticsearch prior to 5, where 
+Compared to the previous default relevancy scoring algorithm, [TF/IDF](http://tfidf.com/), used in versions of Elasticsearch prior to 5.0, where 
 
 - **TF(t)** = (Number of times term t appears in a document) / (Total number of terms in the document).
 
 - **IDF(t)** = log_e(Total number of documents / Number of documents with term t in it).
 
-BM25 degrades the IDF score of a term more rapidly as it appears more frequently in the document, and can in fact give a negative IDF score for a highly frequent term (although there are usually controls in place to prevent this from being a negative value)
+BM25 is supposed to work better for short fields such as those that contains names and allows finer grain control over how TF and IDF affect overall relevancy scores. 
+
+BM25 degrades the IDF score of a term more rapidly as it appears more frequently within the document corpus, and can in fact give a negative IDF score for a highly frequent term across documents (although in practice it is often useful to have a lower score bound of 0,).
 
 ![BM25 vs. TF/IDF document frequency](readme-images/bm25_document_freq.png)
 
-BM25 also limits the influence of the term frequency, using the **k** parameter
+BM25 also limits the influence of the term frequency, using the **k** parameter (referred to as `k1` within the Elasticsearch documentation)
 
 ![BM25 vs. TF/IDF term frequency](readme-images/bm25_term_freq.png)
 
+With TF/IDF, the more frequent the term appears within an individual document, the higher the weight score given to that term. With BM25, the `k` parameter can control this influence.
 
-and allows finer grain control over the document length than TF/IDF, with the **b** parameter
+Similarly, BM25 allows finer grain control over the document length than TF/IDF, using the **b** parameter
 
 ![BM25 vs. TF/IDF document length](readme-images/bm25_document_length.png)
 

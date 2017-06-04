@@ -11,6 +11,8 @@ namespace NuSearch.Domain.Model
 	{
 		private static DateTime SpecialUnlistedDate = new DateTime(1901, 01, 01);
 
+		public Package() { }
+
 		public Package(List<FeedPackage> feeds)
 		{
 			var latestVersion = feeds.Last();
@@ -34,16 +36,16 @@ namespace NuSearch.Domain.Model
 			};
 		}
 
-		public string Id { get; }
-		public bool AllVersionsUnlisted { get; }
-		public DateTime Created { get; }
-		public DateTime LastUpdate { get; }
-		public string Copyright { get; }
-		public string IconUrl { get; }
-		public string Summary { get; }
-		public List<PackageAuthor> Authors { get; }
-		public List<PackageVersion> Versions { get; }
-		public int DownloadCount { get; }
-		public CompletionField Suggest { get; }
+		public string Id { get; set; }
+		public bool AllVersionsUnlisted { get; set; }
+		public DateTime Created { get; set; }
+		public DateTime LastUpdate { get; set; }
+		public string Copyright { get; set; }
+		public string IconUrl { get; set; }
+		public string Summary { get; set; }
+		public List<PackageAuthor> Authors { get; set; }
+		public List<PackageVersion> Versions { get; set; }
+		public int DownloadCount { get; set; }
+		public CompletionField Suggest { get; set; }
 	}
 }

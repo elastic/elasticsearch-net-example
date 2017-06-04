@@ -22,7 +22,13 @@ namespace NuSearch.Web.Search
 			{
 				var form = this.Bind<SearchForm>();
 				var model = new SearchViewModel();
+				var client = NuSearchConfiguration.GetClient();
 
+				var result = client.Search<Package>(s=>s);
+
+				model.Packages = result.Documents;
+				model.Total = result.Total;
+				model.Form = form;
 				return View[model];
 			};
 

@@ -1447,7 +1447,7 @@ When we now look at our results:
 `NEST` and `Elasticsearch.Net` have successfully surfaced to the top we can also see that this is not simply a sort on downloadcount because
 `Elasticsearch.Net` is the number one result despite the fact it has less downloads then `NEST`.
 
-##Combining multiple queries
+## Combining multiple queries
 
 Elasticsearch exposes [bool queries and filters](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html), but these do not quite equate to the boolean logic you are use to in C#. NEST allows you
 to [use the operators `&&` `||`, `!` and `+`](https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/bool-queries.html) to combine queries into Elasticsearch boolean queries but NEST will combine them in such a way that they do follow the exact same boolean logic you are use to in C#.

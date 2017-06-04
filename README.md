@@ -1209,7 +1209,7 @@ The [multi_match query](https://www.elastic.co/guide/en/elasticsearch/reference/
 If we search for `Elasticsearch-Azure-PAAS` the [standard analyzer](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-standard-analyzer.html) again kicks in and Elasticsearch will actually use
 `elasticsearch`, `azure` and `paas` to locate documents in its inverted index that contain any of these terms.
 
-The [match family of queries](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html) default to using `OR` on the terms.  Being inclusive or exclusive in your search results is another hot topic with no right answer. I personally find being exclusive a whole lot more useful. For instance, when I search for `Elasticsearch-Azure-SAAS` I do not want any results that only have the terms `azure` **and** `saas`.
+The [`match` family of queries](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html) default to using `OR` on the terms.  Being inclusive or exclusive in your search results is another hot topic with no right answer. I personally find being exclusive a whole lot more useful. For instance, when I search for `Elasticsearch-Azure-PAAS` I do not want any results that only have the terms `azure` **and** `paas`.
 
 Lets update our search to use `AND` on the resulting terms we provide
 

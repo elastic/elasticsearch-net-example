@@ -1702,7 +1702,7 @@ Remember, our `author` type (`PackageAuthor`) is nested!  We need to treat it as
       },
       "aggs": {
         "author_names": {
-          "terms": { "field": "authors.name" }
+          "terms": { "field": "authors.name.raw" }
         }
       }
     }
@@ -1794,7 +1794,7 @@ In our `SearchModule`, let's extend our query and add the terms aggregation:
 		.Path("authors")
 		.Aggregations(aa => aa
 			.Terms("author-names", ts => ts
-				.Field(p => p.Authors.First().Name)
+				.Field(p => p.Authors.First().Name.Suffix("raw"))
 			)
 		)
 	)

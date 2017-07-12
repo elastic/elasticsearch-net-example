@@ -1,0 +1,502 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Mvc.ApiExplorer</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Extensions.Internal.ClosedGenericMatcher">
+            <summary>
+            Helper related to generic interface definitions and implementing classes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.ClosedGenericMatcher.ExtractGenericInterface(System.Type,System.Type)">
+            <summary>
+            Determine whether <paramref name="queryType"/> is or implements a closed generic <see cref="T:System.Type"/>
+            created from <paramref name="interfaceType"/>.
+            </summary>
+            <param name="queryType">The <see cref="T:System.Type"/> of interest.</param>
+            <param name="interfaceType">The open generic <see cref="T:System.Type"/> to match. Usually an interface.</param>
+            <returns>
+            The closed generic <see cref="T:System.Type"/> created from <paramref name="interfaceType"/> that
+            <paramref name="queryType"/> is or implements. <c>null</c> if the two <see cref="T:System.Type"/>s have no such
+            relationship.
+            </returns>
+            <remarks>
+            This method will return <paramref name="queryType"/> if <paramref name="interfaceType"/> is
+            <c>typeof(KeyValuePair{,})</c>, and <paramref name="queryType"/> is
+            <c>typeof(KeyValuePair{string, object})</c>.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.#ctor(System.Reflection.PropertyInfo)">
+            <summary>
+            Initializes a fast <see cref="T:Microsoft.Extensions.Internal.PropertyHelper"/>.
+            This constructor does not cache the helper. For caching, use <see cref="M:Microsoft.Extensions.Internal.PropertyHelper.GetProperties(System.Object)"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Internal.PropertyHelper.Property">
+            <summary>
+            Gets the backing <see cref="T:System.Reflection.PropertyInfo"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Internal.PropertyHelper.Name">
+            <summary>
+            Gets (or sets in derived types) the property name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Internal.PropertyHelper.ValueGetter">
+            <summary>
+            Gets the property value getter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Internal.PropertyHelper.ValueSetter">
+            <summary>
+            Gets the property value setter.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.GetValue(System.Object)">
+            <summary>
+            Returns the property value for the specified <paramref name="instance"/>.
+            </summary>
+            <param name="instance">The object whose property value will be returned.</param>
+            <returns>The property value.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.SetValue(System.Object,System.Object)">
+            <summary>
+            Sets the property value for the specified <paramref name="instance" />.
+            </summary>
+            <param name="instance">The object whose property value will be set.</param>
+            <param name="value">The property value.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.GetProperties(System.Object)">
+            <summary>
+            Creates and caches fast property helpers that expose getters for every public get property on the
+            underlying type.
+            </summary>
+            <param name="instance">the instance to extract property accessors for.</param>
+            <returns>a cached array of all public property getters from the underlying type of target instance.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.GetProperties(System.Type)">
+            <summary>
+            Creates and caches fast property helpers that expose getters for every public get property on the
+            specified type.
+            </summary>
+            <param name="type">the type to extract property accessors for.</param>
+            <returns>a cached array of all public property getters from the type of target instance.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.GetVisibleProperties(System.Object)">
+            <summary>
+            <para>
+            Creates and caches fast property helpers that expose getters for every non-hidden get property
+            on the specified type.
+            </para>
+            <para>
+            <see cref="M:GetVisibleProperties"/> excludes properties defined on base types that have been
+            hidden by definitions using the <c>new</c> keyword.
+            </para>
+            </summary>
+            <param name="instance">The instance to extract property accessors for.</param>
+            <returns>
+            A cached array of all public property getters from the instance's type.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.GetVisibleProperties(System.Type)">
+            <summary>
+            <para>
+            Creates and caches fast property helpers that expose getters for every non-hidden get property
+            on the specified type.
+            </para>
+            <para>
+            <see cref="M:GetVisibleProperties"/> excludes properties defined on base types that have been
+            hidden by definitions using the <c>new</c> keyword.
+            </para>
+            </summary>
+            <param name="type">The type to extract property accessors for.</param>
+            <returns>
+            A cached array of all public property getters from the type.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.MakeFastPropertyGetter(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates a single fast property getter. The result is not cached.
+            </summary>
+            <param name="propertyInfo">propertyInfo to extract the getter for.</param>
+            <returns>a fast getter.</returns>
+            <remarks>
+            This method is more memory efficient than a dynamically compiled lambda, and about the
+            same speed.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.MakeNullSafeFastPropertyGetter(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates a single fast property getter which is safe for a null input object. The result is not cached.
+            </summary>
+            <param name="propertyInfo">propertyInfo to extract the getter for.</param>
+            <returns>a fast getter.</returns>
+            <remarks>
+            This method is more memory efficient than a dynamically compiled lambda, and about the
+            same speed.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.MakeFastPropertySetter(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates a single fast property setter for reference types. The result is not cached.
+            </summary>
+            <param name="propertyInfo">propertyInfo to extract the setter for.</param>
+            <returns>a fast getter.</returns>
+            <remarks>
+            This method is more memory efficient than a dynamically compiled lambda, and about the
+            same speed. This only works for reference types.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.ObjectToDictionary(System.Object)">
+             <summary>
+             Given an object, adds each instance property with a public get method as a key and its
+             associated value to a dictionary.
+            
+             If the object is already an <see cref="T:System.Collections.Generic.IDictionary`2"/> instance, then a copy
+             is returned.
+             </summary>
+             <remarks>
+             The implementation of PropertyHelper will cache the property accessors per-type. This is
+             faster when the the same type is used multiple times with ObjectToDictionary.
+             </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription">
+            <summary>
+            Represents an API exposed by this application.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription.ActionDescriptor">
+            <summary>
+            Gets or sets <see cref="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription.ActionDescriptor"/> for this api.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription.GroupName">
+            <summary>
+            Gets or sets group name for this api.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription.HttpMethod">
+            <summary>
+            Gets or sets the supported HTTP method for this api, or null if all HTTP methods are supported.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription.ParameterDescriptions">
+            <summary>
+            Gets a list of <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiParameterDescription"/> for this api.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription.Properties">
+            <summary>
+            Gets arbitrary metadata properties associated with the <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription.RelativePath">
+            <summary>
+            Gets or sets relative url path template (relative to application root) for this api.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription.SupportedRequestFormats">
+            <summary>
+            Gets the list of possible formats for a response.
+            </summary>
+            <remarks>
+            Will be empty if the action returns no response, or if the response type is unclear. Use
+            <c>ProducesAttribute</c> on an action method to specify a response type.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription.SupportedResponseTypes">
+            <summary>
+            Gets the list of possible formats for a response.
+            </summary>
+            <remarks>
+            Will be empty if the action returns no response, or if the response type is unclear. Use
+            <c>ProducesAttribute</c> on an action method to specify a response type.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionExtensions">
+            <summary>
+            Extension methods for <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionExtensions.GetProperty``1(Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription)">
+            <summary>
+            Gets the value of a property from the <see cref="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription.Properties"/> collection
+            using the provided value of <typeparamref name="T"/> as the key.
+            </summary>
+            <typeparam name="T">The type of the property.</typeparam>
+            <param name="apiDescription">The <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription"/>.</param>
+            <returns>The property or the default value of <typeparamref name="T"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionExtensions.SetProperty``1(Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription,``0)">
+            <summary>
+            Sets the value of an property in the <see cref="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription.Properties"/> collection using
+            the provided value of <typeparamref name="T"/> as the key.
+            </summary>
+            <typeparam name="T">The type of the property.</typeparam>
+            <param name="apiDescription">The <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription"/>.</param>
+            <param name="value">The value of the property.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroup">
+            <summary>
+            Represents a group of related apis.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroup.#ctor(System.String,System.Collections.Generic.IReadOnlyList{Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription})">
+            <summary>
+            Creates a new <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroup"/>.
+            </summary>
+            <param name="groupName">The group name.</param>
+            <param name="items">A collection of <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription"/> items for this group.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroup.GroupName">
+            <summary>
+            The group name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroup.Items">
+            <summary>
+            A collection of <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription"/> items for this group.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroupCollection">
+            <summary>
+            A cached collection of <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroup" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroupCollection.#ctor(System.Collections.Generic.IReadOnlyList{Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroup},System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroupCollection"/>.
+            </summary>
+            <param name="items">The list of <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroup"/>.</param>
+            <param name="version">The unique version of discovered groups.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroupCollection.Items">
+            <summary>
+            Returns the list of <see cref="T:System.Collections.Generic.IReadOnlyList`1"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroupCollection.Version">
+            <summary>
+            Returns the unique version of the current items.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroupCollectionProvider">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroupCollectionProvider.#ctor(Microsoft.AspNetCore.Mvc.Infrastructure.IActionDescriptorCollectionProvider,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionProvider})">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroupCollectionProvider"/>.
+            </summary>
+            <param name="actionDescriptorCollectionProvider">
+            The <see cref="T:Microsoft.AspNetCore.Mvc.Infrastructure.IActionDescriptorCollectionProvider"/>.
+            </param>
+            <param name="apiDescriptionProviders">
+            The <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroupCollectionProvider.ApiDescriptionGroups">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionProviderContext">
+            <summary>
+            A context object for <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription"/> providers.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionProviderContext.#ctor(System.Collections.Generic.IReadOnlyList{Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor})">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionProviderContext"/>.
+            </summary>
+            <param name="actions">The list of actions.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionProviderContext.Actions">
+            <summary>
+            The list of actions.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionProviderContext.Results">
+            <summary>
+            The list of resulting <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiParameterDescription">
+            <summary>
+            A metadata description of an input to an API.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiParameterDescription.ModelMetadata">
+            <summary>
+            Gets or sets the <see cref="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiParameterDescription.ModelMetadata"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiParameterDescription.Name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiParameterDescription.RouteInfo">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiParameterRouteInfo"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiParameterDescription.Source">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.BindingSource"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiParameterDescription.Type">
+            <summary>
+            Gets or sets the parameter type.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiParameterRouteInfo">
+            <summary>
+            A metadata description of routing information for an <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiParameterDescription"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiParameterRouteInfo.Constraints">
+            <summary>
+            Gets or sets the set of <see cref="T:Microsoft.AspNetCore.Routing.IRouteConstraint"/> objects for the parameter.
+            </summary>
+            <remarks>
+            Route constraints are only applied when a value is bound from a URL's path. See
+            <see cref="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiParameterDescription.Source"/> for the data source considered.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiParameterRouteInfo.DefaultValue">
+            <summary>
+            Gets or sets the default value for the parameter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiParameterRouteInfo.IsOptional">
+             <summary>
+             Gets a value indicating whether not a parameter is considered optional by routing.
+             </summary>
+             <remarks>
+             An optional parameter is considered optional by the routing system. This does not imply
+             that the parameter is considered optional by the action.
+            
+             If the parameter uses <see cref="F:Microsoft.AspNetCore.Mvc.ModelBinding.BindingSource.ModelBinding"/> for the value of
+             <see cref="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiParameterDescription.Source"/> then the value may also come from the
+             URL query string or form data.
+             </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiRequestFormat">
+            <summary>
+            A possible format for the body of a request.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiRequestFormat.Formatter">
+            <summary>
+            The formatter used to read this request.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiRequestFormat.MediaType">
+            <summary>
+            The media type of the request.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiResponseFormat">
+            <summary>
+            Possible format for an <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiResponseType"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiResponseFormat.Formatter">
+            <summary>
+            Gets or sets the formatter used to output this response.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiResponseFormat.MediaType">
+            <summary>
+            Gets or sets the media type of the response.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiResponseType">
+            <summary>
+            Possible type of the response body which is formatted by <see cref="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiResponseType.ApiResponseFormats"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiResponseType.ApiResponseFormats">
+            <summary>
+            Gets or sets the response formats supported by this type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiResponseType.ModelMetadata">
+            <summary>
+            Gets or sets <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadata"/> for the <see cref="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiResponseType.Type"/> or null.
+            </summary>
+            <remarks>
+            Will be null if <see cref="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiResponseType.Type"/> is null or void.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiResponseType.Type">
+            <summary>
+            Gets or sets the CLR data type of the response or null.
+            </summary>
+            <remarks>
+            Will be null if the action returns no response, or if the response type is unclear. Use
+            <see cref="T:Microsoft.AspNetCore.Mvc.ProducesAttribute"/> or <see cref="T:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute"/> on an action method
+            to specify a response type.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiResponseType.StatusCode">
+            <summary>
+            Gets or sets the HTTP response status code.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.ApiExplorer.DefaultApiDescriptionProvider">
+            <summary>
+            Implements a provider of <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription"/> for actions represented
+            by <see cref="T:Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.ApiExplorer.DefaultApiDescriptionProvider.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Mvc.MvcOptions},Microsoft.AspNetCore.Routing.IInlineConstraintResolver,Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider)">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.DefaultApiDescriptionProvider"/>.
+            </summary>
+            <param name="optionsAccessor">The accessor for <see cref="T:Microsoft.AspNetCore.Mvc.MvcOptions"/>.</param>
+            <param name="constraintResolver">The <see cref="T:Microsoft.AspNetCore.Routing.IInlineConstraintResolver"/> used for resolving inline
+            constraints.</param>
+            <param name="modelMetadataProvider">The <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider"/>.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.DefaultApiDescriptionProvider.Order">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.ApiExplorer.DefaultApiDescriptionProvider.OnProvidersExecuting(Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionProviderContext)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionGroupCollectionProvider">
+            <summary>
+            Provides access to a collection of <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroup"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionGroupCollectionProvider.ApiDescriptionGroups">
+            <summary>
+            Gets a collection of <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroup"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionProvider.Order">
+            <summary>
+            Gets the order value for determining the order of execution of providers. Providers execute in
+            ascending numeric value of the <see cref="P:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionProvider.Order"/> property.
+            </summary>
+            <remarks>
+            <para>
+            Providers are executed in an ordering determined by an ascending sort of the <see cref="P:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionProvider.Order"/> property.
+            A provider with a lower numeric value of <see cref="P:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionProvider.Order"/> will have its
+            <see cref="M:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionProvider.OnProvidersExecuting(Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionProviderContext)"/> called before that of a provider with a higher numeric value of
+            <see cref="P:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionProvider.Order"/>. The <see cref="M:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionProvider.OnProvidersExecuted(Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionProviderContext)"/> method is called in the reverse ordering after
+            all calls to <see cref="M:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionProvider.OnProvidersExecuting(Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionProviderContext)"/>. A provider with a lower numeric value of
+            <see cref="P:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionProvider.Order"/> will have its <see cref="M:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionProvider.OnProvidersExecuted(Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionProviderContext)"/> method called after that of a provider
+            with a higher numeric value of <see cref="P:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionProvider.Order"/>.
+            </para>
+            <para>
+            If two providers have the same numeric value of <see cref="P:Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionProvider.Order"/>, then their relative execution order
+            is undefined.
+            </para>
+            </remarks>
+        </member>
+    </members>
+</doc>

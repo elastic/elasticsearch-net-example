@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Net.WebSockets</name>
+  </assembly>
+  <members>
+    <member name="T:System.Net.WebSockets.WebSocket">
+      <summary>La classe WebSocket consente alle applicazioni di inviare e ricevere dati dopo il completamento dell'aggiornamento di WebSocket.</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.#ctor">
+      <summary>Crea un'istanza della classe <see cref="T:System.Net.WebSockets.WebSocket" />.</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.Abort">
+      <summary>Interrompe la connessione WebSocket e annulla tutte le operazioni di I/O in corso.</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.CloseAsync(System.Net.WebSockets.WebSocketCloseStatus,System.String,System.Threading.CancellationToken)">
+      <summary>Chiude la connessione WebSocket come operazione asincrona utilizzando l'handshake di chiusura definito nelle specifiche del protocollo WebSocket sezione 7.</summary>
+      <returns>Restituisca il valore <see cref="T:System.Threading.Tasks.Task" />.Oggetto dell'attività che rappresenta l'operazione asincrona. </returns>
+      <param name="closeStatus">Indica il motivo della chiusura della connessione WebSocket.</param>
+      <param name="statusDescription">Specifica una spiegazione leggibile del motivo della chiusura della connessione.</param>
+      <param name="cancellationToken">Token che può essere utilizzato per propagare la notifica della richiesta di annullamento delle operazioni.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.CloseOutputAsync(System.Net.WebSockets.WebSocketCloseStatus,System.String,System.Threading.CancellationToken)">
+      <summary>Avvia o completa l'handshake di chiusura definito nella Specifica del protocollo WebSocket, sezione 7 (le informazioni potrebbero essere in inglese).</summary>
+      <returns>Restituisca il valore <see cref="T:System.Threading.Tasks.Task" />.Oggetto dell'attività che rappresenta l'operazione asincrona. </returns>
+      <param name="closeStatus">Indica il motivo della chiusura della connessione WebSocket.</param>
+      <param name="statusDescription">Consente alle applicazioni di specificare una spiegazione leggibile sul motivo della chiusura della connessione.</param>
+      <param name="cancellationToken">Token che può essere utilizzato per propagare la notifica della richiesta di annullamento delle operazioni.</param>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocket.CloseStatus">
+      <summary>Indica il motivo per cui l'endpoint remoto ha avviato l'handshake di chiusura.</summary>
+      <returns>Restituisca il valore <see cref="T:System.Net.WebSockets.WebSocketCloseStatus" />.</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocket.CloseStatusDescription">
+      <summary>Consente all'endpoint remoto di descrivere il motivo per cui la connessione è stata chiusa.</summary>
+      <returns>Restituisca il valore <see cref="T:System.String" />.</returns>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.Dispose">
+      <summary>Utilizzato per pulire le risorse non gestite per ASP.NET e le implementazioni indipendenti.</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.ReceiveAsync(System.ArraySegment{System.Byte},System.Threading.CancellationToken)">
+      <summary>Riceve dati dalla connessione WebSocket in modo asincrono.</summary>
+      <returns>Restituisca il valore <see cref="T:System.Threading.Tasks.Task`1" />.Oggetto dell'attività che rappresenta l'operazione asincrona.La proprietà <see cref="P:System.Threading.Tasks.Task`1.Result" /> sull'oggetto attività restituisce una matrice <see cref="T:System.Byte" /> che contiene i dati ricevuti.</returns>
+      <param name="buffer">Fa riferimento al buffer di applicazione che rappresenta il percorso di archiviazione per i dati ricevuti.</param>
+      <param name="cancellationToken">Propaga la notifica di richiesta di annullamento delle operazioni.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.SendAsync(System.ArraySegment{System.Byte},System.Net.WebSockets.WebSocketMessageType,System.Boolean,System.Threading.CancellationToken)">
+      <summary>Invia dati sulla connessione WebSocket in modo asincrono.</summary>
+      <returns>Restituisca il valore <see cref="T:System.Threading.Tasks.Task" />.Oggetto dell'attività che rappresenta l'operazione asincrona. </returns>
+      <param name="buffer">Il buffer da inviare tramite la connessione.</param>
+      <param name="messageType">Indica se l'applicazione sta inviando un messaggio testuale o binario.</param>
+      <param name="endOfMessage">Indica se i dati nel buffer sono l'ultima parte di un messaggio.</param>
+      <param name="cancellationToken">Token che propaga la notifica della richiesta di annullamento delle operazioni.</param>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocket.State">
+      <summary>Restituisce lo stato corrente della connessione WebSocket.</summary>
+      <returns>Restituisca il valore <see cref="T:System.Net.WebSockets.WebSocketState" />.</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocket.SubProtocol">
+      <summary>Sottoprotocollo negoziato durante l'handshake di apertura.</summary>
+      <returns>Restituisca il valore <see cref="T:System.String" />.</returns>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketCloseStatus">
+      <summary>Rappresenta i codici di chiusura WebSocket noti definiti nella sezione 11.7 della specifica del protocollo WebSocket.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.Empty">
+      <summary>Nessun errore specificato.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.EndpointUnavailable">
+      <summary>(1001) Indica che è in corso la rimozione di un endpoint.Il server o il client diventerà non disponibile.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.InternalServerError">
+      <summary>La connessione verrà chiusa dal server a causa di un errore nel server.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.InvalidMessageType">
+      <summary>(1003) Il client o il server sta terminando la connessione poiché non accetta il tipo di dati fornito.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.InvalidPayloadData">
+      <summary>(1007) Il client o il server sta terminando la connessione poiché ha ricevuto dati non coerenti con il tipo di messaggio.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.MandatoryExtension">
+      <summary>(1010) Il client sta terminando la connessione poiché prevedeva la negoziazione di un'estensione da parte del server.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.MessageTooBig">
+      <summary>(1004) Riservato per un utilizzo futuro.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.NormalClosure">
+      <summary>(1000) La connessione è stata chiusa dopo che la richiesta è stata completata.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.PolicyViolation">
+      <summary>(1008) La connessione verrà chiusa poiché un endpoint ha ricevuto un messaggio che ne viola i criteri.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.ProtocolError">
+      <summary>(1002) Il client o il server sta terminando la connessione a causa di un errore di protocollo.</summary>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketError">
+      <summary>Contiene l'elenco degli errori possibili WebSocket.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.ConnectionClosedPrematurely">
+      <summary>Indica che la connessione è stata interrotta in modo imprevisto.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.Faulted">
+      <summary>Indica un errore generale.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.HeaderError">
+      <summary>Indica un errore verificatosi in fase di analisi delle intestazioni HTTP durante l'handshake di apertura.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.InvalidMessageType">
+      <summary>Indica che è stato ricevuto un frame di WebSocket con un codice operativo sconosciuto.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.InvalidState">
+      <summary>Indica che il WebSocket è uno stato non valido per l'operazione specificata (ad esempio, chiuso o interrotto).</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.NativeError">
+      <summary>Indica che si è verificato un errore nativo sconosciuto.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.NotAWebSocket">
+      <summary>Indica che la richiesta in ingresso non è una richiesta WebSocket valida.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.Success">
+      <summary>Indica che non erano presenti informazioni sugli errori nativi per l'eccezione.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.UnsupportedProtocol">
+      <summary>Indica che il client ha richiesto una versione non supportata del sottoprotocollo WebSocket.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.UnsupportedVersion">
+      <summary>Indica che il client ha richiesto una versione non supportata del protocollo WebSocket.</summary>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketException">
+      <summary>Rappresenta eccezioni che si verificano durante un'operazione su una connessione di WebSocket.</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Int32)">
+      <summary>Crea un'istanza della classe <see cref="T:System.Net.WebSockets.WebSocketException" />.</summary>
+      <param name="nativeError">Codice di errore nativo per l'eccezione.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Int32,System.Exception)">
+      <summary>Crea un'istanza della classe <see cref="T:System.Net.WebSockets.WebSocketException" />.</summary>
+      <param name="nativeError">Codice di errore nativo per l'eccezione.</param>
+      <param name="innerException">Indica l'eccezione precedente che ha causato l'eccezione corrente.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Int32,System.String)">
+      <summary>Crea un'istanza della classe <see cref="T:System.Net.WebSockets.WebSocketException" />.</summary>
+      <param name="nativeError">Codice di errore nativo per l'eccezione.</param>
+      <param name="message">Descrizione dell'errore.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError)">
+      <summary>Crea un'istanza della classe <see cref="T:System.Net.WebSockets.WebSocketException" />.</summary>
+      <param name="error">L'errore dall'enumerazione WebSocketError.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.Exception)">
+      <summary>Crea un'istanza della classe <see cref="T:System.Net.WebSockets.WebSocketException" />.</summary>
+      <param name="error">L'errore dall'enumerazione WebSocketError.</param>
+      <param name="innerException">Indica l'eccezione precedente che ha causato l'eccezione corrente.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.Int32)">
+      <summary>Crea un'istanza della classe <see cref="T:System.Net.WebSockets.WebSocketException" />.</summary>
+      <param name="error">L'errore dall'enumerazione WebSocketError.</param>
+      <param name="nativeError">Codice di errore nativo per l'eccezione.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.Int32,System.Exception)">
+      <summary>Crea un'istanza della classe <see cref="T:System.Net.WebSockets.WebSocketException" />.</summary>
+      <param name="error">L'errore dall'enumerazione WebSocketError.</param>
+      <param name="nativeError">Codice di errore nativo per l'eccezione.</param>
+      <param name="innerException">Indica l'eccezione precedente che ha causato l'eccezione corrente.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.Int32,System.String)">
+      <summary>Crea un'istanza della classe <see cref="T:System.Net.WebSockets.WebSocketException" />.</summary>
+      <param name="error">L'errore dall'enumerazione WebSocketError.</param>
+      <param name="nativeError">Codice di errore nativo per l'eccezione.</param>
+      <param name="message">Descrizione dell'errore.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.Int32,System.String,System.Exception)">
+      <summary>Crea un'istanza della classe <see cref="T:System.Net.WebSockets.WebSocketException" />.</summary>
+      <param name="error">L'errore dall'enumerazione WebSocketError.</param>
+      <param name="nativeError">Codice di errore nativo per l'eccezione.</param>
+      <param name="message">Descrizione dell'errore.</param>
+      <param name="innerException">Indica l'eccezione precedente che ha causato l'eccezione corrente.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.String)">
+      <summary>Crea un'istanza della classe <see cref="T:System.Net.WebSockets.WebSocketException" />.</summary>
+      <param name="error">L'errore dall'enumerazione WebSocketError.</param>
+      <param name="message">Descrizione dell'errore.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.String,System.Exception)">
+      <summary>Crea un'istanza della classe <see cref="T:System.Net.WebSockets.WebSocketException" />.</summary>
+      <param name="error">L'errore dall'enumerazione WebSocketError.</param>
+      <param name="message">Descrizione dell'errore.</param>
+      <param name="innerException">Indica l'eccezione precedente che ha causato l'eccezione corrente.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.String)">
+      <summary>Crea un'istanza della classe <see cref="T:System.Net.WebSockets.WebSocketException" />.</summary>
+      <param name="message">Descrizione dell'errore.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.String,System.Exception)">
+      <summary>Crea un'istanza della classe <see cref="T:System.Net.WebSockets.WebSocketException" />.</summary>
+      <param name="message">Descrizione dell'errore.</param>
+      <param name="innerException">Indica l'eccezione precedente che ha causato l'eccezione corrente.</param>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketException.ErrorCode">
+      <summary>Codice di errore nativo per l'eccezione che si è verificata.</summary>
+      <returns>Restituisce <see cref="T:System.Int32" />.</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketException.WebSocketErrorCode">
+      <summary>Restituisce un WebSocketError che indica il tipo di errore che si è verificato.</summary>
+      <returns>Restituisce <see cref="T:System.Net.WebSockets.WebSocketError" />.</returns>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketMessageType">
+      <summary>Indica il tipo di messaggio.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketMessageType.Binary">
+      <summary>Il messaggio è in formato binario.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketMessageType.Close">
+      <summary>È stata completata una ricezione perché è stato ricevuto un messaggio di chiusura.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketMessageType.Text">
+      <summary>Il messaggio in testo non crittografato.</summary>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketReceiveResult">
+      <summary>Un'istanza di questa classe rappresenta il risultato dell'esecuzione di una singola operazione di ReceiveAsync in un WebSocket.</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketReceiveResult.#ctor(System.Int32,System.Net.WebSockets.WebSocketMessageType,System.Boolean)">
+      <summary>Crea un'istanza della classe <see cref="T:System.Net.WebSockets.WebSocketReceiveResult" />.</summary>
+      <param name="count">Numero di byte ricevuti.</param>
+      <param name="messageType">Tipo messaggio ricevuto.</param>
+      <param name="endOfMessage">Indica se si tratta del messaggio finale.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketReceiveResult.#ctor(System.Int32,System.Net.WebSockets.WebSocketMessageType,System.Boolean,System.Nullable{System.Net.WebSockets.WebSocketCloseStatus},System.String)">
+      <summary>Crea un'istanza della classe <see cref="T:System.Net.WebSockets.WebSocketReceiveResult" />.</summary>
+      <param name="count">Numero di byte ricevuti.</param>
+      <param name="messageType">Tipo messaggio ricevuto.</param>
+      <param name="endOfMessage">Indica se si tratta del messaggio finale.</param>
+      <param name="closeStatus">Indica l'oggetto <see cref="T:System.Net.WebSockets.WebSocketCloseStatus" /> della connessione.</param>
+      <param name="closeStatusDescription">Descrizione di <paramref name="closeStatus" />.</param>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketReceiveResult.CloseStatus">
+      <summary>Indica il motivo per cui l'endpoint remoto ha avviato l'handshake di chiusura.</summary>
+      <returns>Restituisce <see cref="T:System.Net.WebSockets.WebSocketCloseStatus" />.</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketReceiveResult.CloseStatusDescription">
+      <summary>Restituisce la descrizione facoltativa del motivo per cui l'handshake di chiusura è stato avviato dall'endpoint remoto.</summary>
+      <returns>Restituisce <see cref="T:System.String" />.</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketReceiveResult.Count">
+      <summary>Indica il numero di byte ricevuti da WebSocket.</summary>
+      <returns>Restituisce <see cref="T:System.Int32" />.</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketReceiveResult.EndOfMessage">
+      <summary>Indica se il messaggio è stato ricevuto per intero.</summary>
+      <returns>Restituisce <see cref="T:System.Boolean" />.</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketReceiveResult.MessageType">
+      <summary>Indica se il messaggio corrente è un messaggio UTF-8 o un messaggio binario.</summary>
+      <returns>Restituisce <see cref="T:System.Net.WebSockets.WebSocketMessageType" />.</returns>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketState">
+      <summary> Definisce i diversi stati in cui può trovarsi un'istanza di WebSockets.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.Aborted">
+      <summary>Riservato per un utilizzo futuro.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.Closed">
+      <summary>Indica che l'handshake di chiusura WebSocket è stato completato correttamente.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.CloseReceived">
+      <summary>Un messaggio di chiusura è stato ricevuto dall'endpoint remoto.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.CloseSent">
+      <summary>Un messaggio di chiusura è stato inviato all'endpoint remoto.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.Connecting">
+      <summary>La connessione sta negoziando l'handshake con l'endpoint remoto.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.None">
+      <summary>Riservato per un utilizzo futuro.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.Open">
+      <summary>Lo stato iniziale dopo che l'handshake HTTP è stato completato.</summary>
+    </member>
+  </members>
+</doc>

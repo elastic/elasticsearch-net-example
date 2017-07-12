@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.FileSystem.Watcher</name>
+  </assembly>
+  <members>
+    <member name="T:System.IO.ErrorEventArgs">
+      <summary>
+        <see cref="E:System.IO.FileSystemWatcher.Error" /> 이벤트에 대한 데이터를 제공합니다.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.ErrorEventArgs.#ctor(System.Exception)">
+      <summary>
+        <see cref="T:System.IO.ErrorEventArgs" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="exception">발생한 오류를 나타내는 <see cref="T:System.Exception" />입니다. </param>
+    </member>
+    <member name="M:System.IO.ErrorEventArgs.GetException">
+      <summary>발생한 오류를 나타내는 <see cref="T:System.Exception" />을 가져옵니다.</summary>
+      <returns>발생한 오류를 나타내는 <see cref="T:System.Exception" />입니다.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.ErrorEventHandler">
+      <summary>
+        <see cref="T:System.IO.FileSystemWatcher" /> 개체의 <see cref="E:System.IO.FileSystemWatcher.Error" /> 이벤트를 처리할 메서드를 나타냅니다.</summary>
+      <param name="sender">이벤트 소스입니다. </param>
+      <param name="e">이벤트 데이터가 포함된 <see cref="T:System.IO.ErrorEventArgs" /> 개체입니다. </param>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.FileSystemEventArgs">
+      <summary>디렉터리 이벤트 <see cref="E:System.IO.FileSystemWatcher.Changed" />, <see cref="E:System.IO.FileSystemWatcher.Created" /> 및 <see cref="E:System.IO.FileSystemWatcher.Deleted" />에 대한 데이터를 제공합니다.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.FileSystemEventArgs.#ctor(System.IO.WatcherChangeTypes,System.String,System.String)">
+      <summary>
+        <see cref="T:System.IO.FileSystemEventArgs" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="changeType">파일 시스템에서 발견된 변경 유형을 나타내는 <see cref="T:System.IO.WatcherChangeTypes" /> 값 중 하나입니다. </param>
+      <param name="directory">영향 받는 파일 또는 디렉터리의 루트 디렉터리입니다. </param>
+      <param name="name">영향 받는 파일 또는 디렉터리 이름입니다. </param>
+    </member>
+    <member name="P:System.IO.FileSystemEventArgs.ChangeType">
+      <summary>발생한 디렉터리 이벤트의 형식을 가져옵니다.</summary>
+      <returns>파일 시스템에서 발견된 변경 유형을 나타내는 <see cref="T:System.IO.WatcherChangeTypes" /> 값 중 하나입니다.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemEventArgs.FullPath">
+      <summary>영향 받는 파일 또는 디렉터리의 정규화된 경로를 가져옵니다.</summary>
+      <returns>영향 받는 파일 또는 디렉터리의 경로입니다.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemEventArgs.Name">
+      <summary>영향 받는 파일 또는 디렉터리의 이름을 가져옵니다.</summary>
+      <returns>영향 받는 파일 또는 디렉터리 이름입니다.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.FileSystemEventHandler">
+      <summary>
+        <see cref="T:System.IO.FileSystemWatcher" /> 클래스의 <see cref="E:System.IO.FileSystemWatcher.Changed" />, <see cref="E:System.IO.FileSystemWatcher.Created" /> 또는 <see cref="E:System.IO.FileSystemWatcher.Deleted" /> 이벤트를 처리할 메서드를 나타냅니다.</summary>
+      <param name="sender">이벤트 소스입니다. </param>
+      <param name="e">이벤트 데이터가 포함된 <see cref="T:System.IO.FileSystemEventArgs" />입니다. </param>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.FileSystemWatcher">
+      <summary>파일 시스템 변경 알림을 수신하면서 디렉터리 또는 디렉터리의 파일이 변경되면 이벤트를 발생시킵니다.이 형식에 대 한.NET Framework 소스 코드를 찾아보려면 참조는 Reference Source.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.#ctor">
+      <summary>
+        <see cref="T:System.IO.FileSystemWatcher" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.#ctor(System.String)">
+      <summary>모니터링할 디렉터리가 지정된 경우 <see cref="T:System.IO.FileSystemWatcher" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="path">모니터링할 디렉터리입니다. 표준 또는 UNC(Universal Naming Convention) 표기법으로 나타냅니다. </param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> 매개 변수가 null인 경우 </exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> 매개 변수가 빈 문자열("")인 경우또는 <paramref name="path" /> 매개 변수로 지정된 경로가 없는 경우 </exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" />가 너무 깁니다.</exception>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.#ctor(System.String,System.String)">
+      <summary>모니터링할 디렉터리 및 파일 형식이 지정된 경우 <see cref="T:System.IO.FileSystemWatcher" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="path">모니터링할 디렉터리입니다. 표준 또는 UNC(Universal Naming Convention) 표기법으로 나타냅니다. </param>
+      <param name="filter">조사할 파일 형식입니다.예를 들어 "*.txt"를 지정하면 모든 텍스트 파일에 대한 변경 내용을 조사합니다.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> 매개 변수가 null인 경우또는 <paramref name="filter" /> 매개 변수가 null인 경우 </exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> 매개 변수가 빈 문자열("")인 경우또는 <paramref name="path" /> 매개 변수로 지정된 경로가 없는 경우 </exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" />가 너무 깁니다.</exception>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Changed">
+      <summary>지정된 <see cref="P:System.IO.FileSystemWatcher.Path" />에서 파일이나 디렉터리가 변경될 경우에 발생합니다.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Created">
+      <summary>지정된 <see cref="P:System.IO.FileSystemWatcher.Path" />에서 파일이나 디렉터리가 만들어질 경우에 발생합니다.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Deleted">
+      <summary>지정된 <see cref="P:System.IO.FileSystemWatcher.Path" />에서 파일이나 디렉터리가 삭제될 경우에 발생합니다.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.Dispose"></member>
+    <member name="M:System.IO.FileSystemWatcher.Dispose(System.Boolean)">
+      <summary>
+        <see cref="T:System.IO.FileSystemWatcher" />가 사용하는 관리되지 않는 리소스를 해제하고, 관리되는 리소스를 선택적으로 해제합니다.</summary>
+      <param name="disposing">관리되는 리소스와 관리되지 않는 리소스를 모두 해제하려면 true로 설정하고, 관리되지 않는 리소스만 해제하려면 false로 설정합니다.</param>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.EnableRaisingEvents">
+      <summary>구성 요소가 활성화되는지를 나타내는 값을 가져오거나 설정합니다.</summary>
+      <returns>구성 요소를 사용하면 true이고, 그렇지 않으면 false입니다.기본값은 false입니다.Visual Studio 2005의 디자이너에서 구성 요소를 사용하고 있으면 기본값은 true입니다.</returns>
+      <exception cref="T:System.ObjectDisposedException">
+        <see cref="T:System.IO.FileSystemWatcher" /> 개체가 삭제된 경우</exception>
+      <exception cref="T:System.PlatformNotSupportedException">현재 운영 체제가 Microsoft Windows NT 이상이 아닌 경우</exception>
+      <exception cref="T:System.IO.FileNotFoundException">
+        <see cref="P:System.IO.FileSystemWatcher.Path" />에 지정된 디렉터리를 찾을 수 없는 경우</exception>
+      <exception cref="T:System.ArgumentException">
+        <see cref="P:System.IO.FileSystemWatcher.Path" />가 설정되지 않았거나 잘못된 경우</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Error">
+      <summary>
+        <see cref="T:System.IO.FileSystemWatcher" />의 인스턴스가 변경을 지속적으로 모니터링 할 수 없는 경우 또는 내부 버퍼가 오버플로되는 경우 발생합니다.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.Filter">
+      <summary>디렉터리에서 모니터링할 파일을 결정하는 데 사용되는 필터 문자열을 가져오거나 설정합니다.</summary>
+      <returns>필터 문자열입니다.기본값은 "*.*"입니다. 이 경우 모든 파일이 조사됩니다.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.IncludeSubdirectories">
+      <summary>지정된 경로 내에 있는 하위 디렉터리를 모니터링해야 하는지를 나타내는 값을 가져오거나 설정합니다.</summary>
+      <returns>하위 디렉터리를 모니터링하려면 true, 그렇지 않으면 false입니다.기본값은 false입니다.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.InternalBufferSize">
+      <summary>내부 버퍼의 크기(바이트)를 가져오거나 설정합니다.</summary>
+      <returns>내부 버퍼의 크기(바이트)입니다.기본값은 8192(8KB)입니다.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.NotifyFilter">
+      <summary>조사할 변경 내용 형식을 가져오거나 설정합니다.</summary>
+      <returns>
+        <see cref="T:System.IO.NotifyFilters" /> 값 중 하나입니다.기본값은 LastWrite, FileName, DirectoryName의 비트 OR 조합입니다.</returns>
+      <exception cref="T:System.ArgumentException">이 값이 <see cref="T:System.IO.NotifyFilters" /> 값의 유효한 비트 OR 조합이 아닌 경우 </exception>
+      <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">설정된 값이 유효하지 않은 경우</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnChanged(System.IO.FileSystemEventArgs)">
+      <summary>
+        <see cref="E:System.IO.FileSystemWatcher.Changed" /> 이벤트를 발생시킵니다.</summary>
+      <param name="e">이벤트 데이터를 포함하는 <see cref="T:System.IO.FileSystemEventArgs" />입니다. </param>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnCreated(System.IO.FileSystemEventArgs)">
+      <summary>
+        <see cref="E:System.IO.FileSystemWatcher.Created" /> 이벤트를 발생시킵니다.</summary>
+      <param name="e">이벤트 데이터를 포함하는 <see cref="T:System.IO.FileSystemEventArgs" />입니다. </param>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnDeleted(System.IO.FileSystemEventArgs)">
+      <summary>
+        <see cref="E:System.IO.FileSystemWatcher.Deleted" /> 이벤트를 발생시킵니다.</summary>
+      <param name="e">이벤트 데이터를 포함하는 <see cref="T:System.IO.FileSystemEventArgs" />입니다. </param>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnError(System.IO.ErrorEventArgs)">
+      <summary>
+        <see cref="E:System.IO.FileSystemWatcher.Error" /> 이벤트를 발생시킵니다.</summary>
+      <param name="e">이벤트 데이터를 포함하는 <see cref="T:System.IO.ErrorEventArgs" />입니다. </param>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnRenamed(System.IO.RenamedEventArgs)">
+      <summary>
+        <see cref="E:System.IO.FileSystemWatcher.Renamed" /> 이벤트를 발생시킵니다.</summary>
+      <param name="e">이벤트 데이터를 포함하는 <see cref="T:System.IO.RenamedEventArgs" />입니다. </param>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.Path">
+      <summary>조사할 디렉터리의 경로를 가져오거나 설정합니다.</summary>
+      <returns>모니터링할 경로입니다.기본값은 빈 문자열("")입니다.</returns>
+      <exception cref="T:System.ArgumentException">지정된 경로가 없거나 찾지 못한 경우또는 지정된 경로에 와일드카드 문자가 포함되어 있는 경우또는 지정된 경로에 잘못된 경로 문자가 포함되어 있는 경우</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Renamed">
+      <summary>지정된 <see cref="P:System.IO.FileSystemWatcher.Path" />에서 파일이나 디렉터리의 이름이 바뀔 경우 발생합니다.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.NotifyFilters">
+      <summary>파일 또는 폴더에서 조사할 변경 내용을 지정합니다.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="F:System.IO.NotifyFilters.Attributes">
+      <summary>파일 또는 폴더의 특성입니다.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.CreationTime">
+      <summary>파일 또는 폴더를 만든 시간입니다.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.DirectoryName">
+      <summary>디렉터리 이름입니다.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.FileName">
+      <summary>파일 이름입니다.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.LastAccess">
+      <summary>파일 또는 폴더를 마지막으로 열었던 날짜입니다.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.LastWrite">
+      <summary>파일 또는 폴더에 마지막으로 기록된 날짜입니다.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.Security">
+      <summary>파일 또는 폴더의 보안 설정입니다.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.Size">
+      <summary>파일 또는 폴더의 크기입니다.</summary>
+    </member>
+    <member name="T:System.IO.RenamedEventArgs">
+      <summary>
+        <see cref="E:System.IO.FileSystemWatcher.Renamed" /> 이벤트에 대한 데이터를 제공합니다.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.RenamedEventArgs.#ctor(System.IO.WatcherChangeTypes,System.String,System.String,System.String)">
+      <summary>
+        <see cref="T:System.IO.RenamedEventArgs" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="changeType">
+        <see cref="T:System.IO.WatcherChangeTypes" /> 값 중 하나입니다. </param>
+      <param name="directory">영향 받는 파일 또는 디렉터리 이름입니다. </param>
+      <param name="name">영향 받는 파일 또는 디렉터리 이름입니다. </param>
+      <param name="oldName">영향 받는 파일 또는 디렉터리의 이전 이름입니다. </param>
+    </member>
+    <member name="P:System.IO.RenamedEventArgs.OldFullPath">
+      <summary>영향 받는 파일 또는 디렉터리의 이전 정규화된 경로를 가져옵니다.</summary>
+      <returns>영향 받는 파일 또는 디렉터리의 이전 정규화된 경로입니다.</returns>
+      <filterpriority>2</filterpriority>
+      <PermissionSet>
+        <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true" />
+      </PermissionSet>
+    </member>
+    <member name="P:System.IO.RenamedEventArgs.OldName">
+      <summary>영향 받는 파일 또는 디렉터리의 이전 이름을 가져옵니다.</summary>
+      <returns>영향 받는 파일 또는 디렉터리의 이전 이름입니다.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.RenamedEventHandler">
+      <summary>
+        <see cref="T:System.IO.FileSystemWatcher" /> 클래스의 <see cref="E:System.IO.FileSystemWatcher.Renamed" /> 이벤트를 처리할 메서드를 나타냅니다.</summary>
+      <param name="sender">이벤트 소스입니다. </param>
+      <param name="e">이벤트 데이터가 포함된 <see cref="T:System.IO.RenamedEventArgs" />입니다. </param>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.WatcherChangeTypes">
+      <summary>파일 또는 디렉터리에 대해 발생할 수 있는 변경 내용입니다.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.All">
+      <summary>파일 또는 폴더의 만들기, 삭제, 변경, 또는 이름 바꾸기 이벤트입니다.</summary>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.Changed">
+      <summary>파일 또는 폴더에 대한 변경 내용입니다.변경 내용 형식에는 크기, 특성, 보안 설정, 마지막 작성 시간 및 마지막 액세스 시간 등의 변경이 있습니다.</summary>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.Created">
+      <summary>파일 또는 폴더 만들기입니다.</summary>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.Deleted">
+      <summary>파일 또는 폴더 삭제입니다.</summary>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.Renamed">
+      <summary>파일 또는 폴더의 이름 바꾸기입니다.</summary>
+    </member>
+  </members>
+</doc>

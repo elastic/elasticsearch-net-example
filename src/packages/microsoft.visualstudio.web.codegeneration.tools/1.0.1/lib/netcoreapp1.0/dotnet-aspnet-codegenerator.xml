@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>dotnet-aspnet-codegenerator</name>
+    </assembly>
+    <members>
+        <member name="M:Microsoft.VisualStudio.Web.CodeGeneration.Tools.Program.Execute(System.String[],System.Boolean,Microsoft.VisualStudio.Web.CodeGeneration.ILogger)">
+            <summary>
+            Steps of execution
+               1. Try getting the projectContext for the project
+               2. Invoke project dependency command with the first compatible tfm found in the project
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Web.CodeGeneration.Tools.ToolCommandLineHelper.GetProjectDependencyCommandArgs(System.String[],System.String,System.String)">
+            <summary>
+            Adds the --dependencyCommand flag, --port-number option and --targetFramework option
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.ArgumentEscaper.EscapeAndConcatenateArgArrayForProcessStart(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Undo the processing which took place to create string[] args in Main,
+            so that the next process will receive the same string[] args
+            
+            See here for more info:
+            http://blogs.msdn.com/b/twistylittlepassagesallalike/archive/2011/04/23/everyone-quotes-arguments-the-wrong-way.aspx
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.ArgumentEscaper.EscapeArgArray(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Undo the processing which took place to create string[] args in Main,
+            so that the next process will receive the same string[] args
+            
+            See here for more info:
+            http://blogs.msdn.com/b/twistylittlepassagesallalike/archive/2011/04/23/everyone-quotes-arguments-the-wrong-way.aspx
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.DotnetToolDispatcher.CreateDispatchCommand(System.String,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},NuGet.Frameworks.NuGetFramework,System.String,System.String,System.String)">
+            <summary>
+            Invokes the 'tool' with the dependency context of the user's project.
+            </summary>
+            <param name="runtimeConfigPath">Full path to the runtimeconfig.json for the user's project.</param>
+            <param name="depsFile">Full path to the deps.json for the user's project.</param>
+            <param name="dependencyToolPath">The executable which needs to be invoked.</param>
+            <param name="dispatchArgs">Arguments to pass to the executable.</param>
+            <param name="framework"></param>
+            <param name="configuration"></param>
+            <param name="projectDirectory"></param>
+            <param name="assemblyFullPath"></param>
+        </member>
+    </members>
+</doc>

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Nest;
 using NuSearch.Domain.Model;
 
@@ -19,11 +16,11 @@ namespace NuSearch.Domain
 
 		public static Uri CreateUri(int port)
 		{
-			var host = "localhost";
-			if (Process.GetProcessesByName("fiddler").Any())
-				host = "ipv4.fiddler";
+			var host = Process.GetProcessesByName("fiddler").Any() 
+				? "ipv4.fiddler"
+				: "localhost";
 
-			return new Uri("http://" + host + ":" + port);
+			return new Uri($"http://{host}:{port}");
 		}
 
 		static NuSearchConfiguration()
@@ -40,15 +37,8 @@ namespace NuSearch.Domain
 				);
 		}
 
-		public static ElasticClient GetClient()
-		{
-			return new ElasticClient(_connectionSettings);
-		}
+		public static ElasticClient GetClient() => new ElasticClient(_connectionSettings);
 
-		public static string CreateIndexName()
-		{
-			return $"{LiveIndexAlias}-{DateTime.UtcNow:dd-MM-yyyy-HH-mm-ss}";
-		}
-
+		public static string CreateIndexName() => $"{LiveIndexAlias}-{DateTime.UtcNow:dd-MM-yyyy-HH-mm-ss}";
 	}
 }

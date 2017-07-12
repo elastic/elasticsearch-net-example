@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Text.Encoding.CodePages</name>
+  </assembly>
+  <members>
+    <member name="T:System.Text.CodePagesEncodingProvider">
+      <summary>Proporciona acceso a un proveedor de codificación de páginas de códigos admitidas en el escritorio de .NET Framework, pero no en .NET Framework 4.6 RC. </summary>
+    </member>
+    <member name="P:System.Text.CodePagesEncodingProvider.Instance">
+      <summary>Obtiene un proveedor de codificación para páginas de códigos admitidas en el escritorio de .NET Framework pero no en la plataforma .NET Framework actual. </summary>
+      <returns>Un proveedor de codificación que permite el acceso a las codificaciones no admitidas en .NET Framework 4.6 RC. </returns>
+    </member>
+  </members>
+</doc>

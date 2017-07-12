@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Net.WebSockets</name>
+  </assembly>
+  <members>
+    <member name="T:System.Net.WebSockets.WebSocket">
+      <summary>WebSocket 클래스는 WebSocket 업그레이드가 완료된 후에 응용 프로그램에서 데이터를 보내고 받을 수 있도록 합니다.</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.#ctor">
+      <summary>
+        <see cref="T:System.Net.WebSockets.WebSocket" /> 클래스의 인스턴스를 만듭니다.</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.Abort">
+      <summary>WebSocket 연결을 중단하고 보류 중인 모든 IO 작업을 취소합니다.</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.CloseAsync(System.Net.WebSockets.WebSocketCloseStatus,System.String,System.Threading.CancellationToken)">
+      <summary>WebSocket protocol specification 7단원에 정의된 close 핸드셰이크를 사용하여 비동기 작업으로 WebSocket 연결을 닫습니다.</summary>
+      <returns>
+        <see cref="T:System.Threading.Tasks.Task" />를 반환합니다.비동기 작업(operation)을 나타내는 작업(task) 개체입니다. </returns>
+      <param name="closeStatus">WebSocket 연결을 닫는 이유를 나타냅니다.</param>
+      <param name="statusDescription">사람이 읽을 수 있는 설명을 연결이 닫힌 이유로 지정합니다.</param>
+      <param name="cancellationToken">작업을 취소해야 하는 알림을 전파하는 데 사용할 수 있는 토큰입니다.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.CloseOutputAsync(System.Net.WebSockets.WebSocketCloseStatus,System.String,System.Threading.CancellationToken)">
+      <summary>WebSocket 프로토콜 사양 섹션 7에 정의된 close 핸드셰이크를 시작하거나 완료합니다.</summary>
+      <returns>
+        <see cref="T:System.Threading.Tasks.Task" />를 반환합니다.비동기 작업(operation)을 나타내는 작업(task) 개체입니다. </returns>
+      <param name="closeStatus">WebSocket 연결을 닫는 이유를 나타냅니다.</param>
+      <param name="statusDescription">응용 프로그램에서 연결이 닫힌 이유에 대해 사용자가 읽을 수 있는 설명을 지정하도록 허용합니다.</param>
+      <param name="cancellationToken">작업을 취소해야 하는 알림을 전파하는 데 사용할 수 있는 토큰입니다.</param>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocket.CloseStatus">
+      <summary>원격 끝점에서 close 핸드셰이크를 시작한 이유를 나타냅니다.</summary>
+      <returns>
+        <see cref="T:System.Net.WebSockets.WebSocketCloseStatus" />를 반환합니다.</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocket.CloseStatusDescription">
+      <summary>원격 끝점에서 연결이 닫힌 이유를 설명하도록 허용합니다.</summary>
+      <returns>
+        <see cref="T:System.String" />를 반환합니다.</returns>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.Dispose">
+      <summary>ASP.NET 및 자체 호스팅 구현에 대한 관리되지 않는 리소스를 정리하는 데 사용됩니다.</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.ReceiveAsync(System.ArraySegment{System.Byte},System.Threading.CancellationToken)">
+      <summary>WebSocket 연결에서 비동기적으로 데이터를 수신합니다.</summary>
+      <returns>
+        <see cref="T:System.Threading.Tasks.Task`1" />를 반환합니다.비동기 작업(operation)을 나타내는 작업(task) 개체입니다.작업 개체의 <see cref="P:System.Threading.Tasks.Task`1.Result" /> 속성은 수신된 데이터가 포함된 <see cref="T:System.Byte" /> 배열을 반환합니다.</returns>
+      <param name="buffer">수신한 데이터의 저장소 위치인 응용 프로그램 버퍼를 참조합니다.</param>
+      <param name="cancellationToken">작업을 취소하지 않아야 함을 전파합니다.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.SendAsync(System.ArraySegment{System.Byte},System.Net.WebSockets.WebSocketMessageType,System.Boolean,System.Threading.CancellationToken)">
+      <summary>WebSocket 연결을 통해 데이터를 비동기적으로 보냅니다.</summary>
+      <returns>
+        <see cref="T:System.Threading.Tasks.Task" />를 반환합니다.비동기 작업(operation)을 나타내는 작업(task) 개체입니다. </returns>
+      <param name="buffer">연결을 통해 전송되는 버퍼입니다.</param>
+      <param name="messageType">응용 프로그램에서 이진 메시지를 보내고 있는지 아니면 텍스트 메시지를 보내고 있는지를 나타냅니다.</param>
+      <param name="endOfMessage">"버퍼"의 데이터가 메시지의 마지막 부분인지 여부를 나타냅니다.</param>
+      <param name="cancellationToken">작업을 취소해야 한다는 알림을 전파하는 토큰입니다.</param>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocket.State">
+      <summary>WebSocket 연결의 현재 상태를 반환합니다.</summary>
+      <returns>
+        <see cref="T:System.Net.WebSockets.WebSocketState" />를 반환합니다.</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocket.SubProtocol">
+      <summary>열기 핸드셰이크 중 협상된 하위 프로토콜입니다.</summary>
+      <returns>
+        <see cref="T:System.String" />를 반환합니다.</returns>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketCloseStatus">
+      <summary>WebSocket 프로토콜 사양의 섹션 11.7에 정의된 잘 알려진 WebSocket 닫기 코드를 나타냅니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.Empty">
+      <summary>지정된 오류가 없습니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.EndpointUnavailable">
+      <summary>(1001) 끝점이 제거되고 있음을 나타냅니다.서버 또는 클라이언트를 사용할 수 없게 됩니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.InternalServerError">
+      <summary>서버 오류로 인해 서버에서 연결이 닫힙니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.InvalidMessageType">
+      <summary>(1003) 클라이언트 또는 서버가 받은 데이터 형식을 받아들일 수 없기 때문에 연결을 종료하고 있습니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.InvalidPayloadData">
+      <summary>(1007) 클라이언트 또는 서버가 메시지 형식과 일치하지 않는 데이터를 받았기 때문에 연결을 종료하고 있습니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.MandatoryExtension">
+      <summary>(1010) 서버가 확장을 협상할 것으로 예상했기 때문에 클라이언트가 연결을 종료하고 있습니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.MessageTooBig">
+      <summary>(1004) 다음에 사용하도록 예약됩니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.NormalClosure">
+      <summary>(1000) 요청이 수행된 후 연결이 닫혔습니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.PolicyViolation">
+      <summary>(1008) 끝점이 정책을 위반하는 메시지를 받았기 때문에 연결이 닫힙니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.ProtocolError">
+      <summary>(1002) 클라이언트 또는 서버가 프로토콜 오류로 인해 연결을 종료하고 있습니다.</summary>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketError">
+      <summary>가능한 WebSocket 오류 목록을 포함합니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.ConnectionClosedPrematurely">
+      <summary>연결이 예기치 않게 종료되었음을 나타냅니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.Faulted">
+      <summary>일반 오류를 나타냅니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.HeaderError">
+      <summary>열기 핸드셰이크 동안 HTTP 헤더를 구문 분석할 때 오류가 발생했음을 나타냅니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.InvalidMessageType">
+      <summary>알 수 없는 opcode가 포함된 WebSocket 프레임이 수신되었음을 나타냅니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.InvalidState">
+      <summary>WebSocket이 지정된 작업에 대한 잘못된 상태임을 나타냅니다(예: 종료 또는 중단된 작업).</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.NativeError">
+      <summary>알 수 없는 네이티브 오류가 발생했음을 나타냅니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.NotAWebSocket">
+      <summary>들어오는 요청이 유효한 websocket 요청이 아님을 나타냅니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.Success">
+      <summary>실행에 대한 네이티브 오류 정보가 없음을 나타냅니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.UnsupportedProtocol">
+      <summary>클라이언트가 지원되지 않는 WebSocket 하위 프로토콜 버전을 요청했음을 나타냅니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.UnsupportedVersion">
+      <summary>클라이언트가 지원되지 않는 WebSocket 프로토콜 버전을 요청했음을 나타냅니다.</summary>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketException">
+      <summary>WebSocket 연결에서 작업을 수행할 때 발생한 예외를 나타냅니다.</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Int32)">
+      <summary>
+        <see cref="T:System.Net.WebSockets.WebSocketException" /> 클래스의 인스턴스를 만듭니다.</summary>
+      <param name="nativeError">예외에 대한 네이티브 오류 코드입니다.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Int32,System.Exception)">
+      <summary>
+        <see cref="T:System.Net.WebSockets.WebSocketException" /> 클래스의 인스턴스를 만듭니다.</summary>
+      <param name="nativeError">예외에 대한 네이티브 오류 코드입니다.</param>
+      <param name="innerException">현재 예외를 발생시킨 이전 예외를 나타냅니다.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Int32,System.String)">
+      <summary>
+        <see cref="T:System.Net.WebSockets.WebSocketException" /> 클래스의 인스턴스를 만듭니다.</summary>
+      <param name="nativeError">예외에 대한 네이티브 오류 코드입니다.</param>
+      <param name="message">오류에 대한 설명입니다.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError)">
+      <summary>
+        <see cref="T:System.Net.WebSockets.WebSocketException" /> 클래스의 인스턴스를 만듭니다.</summary>
+      <param name="error">WebSocketError 열거형의 오류입니다.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.Exception)">
+      <summary>
+        <see cref="T:System.Net.WebSockets.WebSocketException" /> 클래스의 인스턴스를 만듭니다.</summary>
+      <param name="error">WebSocketError 열거형의 오류입니다.</param>
+      <param name="innerException">현재 예외를 발생시킨 이전 예외를 나타냅니다.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.Int32)">
+      <summary>
+        <see cref="T:System.Net.WebSockets.WebSocketException" /> 클래스의 인스턴스를 만듭니다.</summary>
+      <param name="error">WebSocketError 열거형의 오류입니다.</param>
+      <param name="nativeError">예외에 대한 네이티브 오류 코드입니다.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.Int32,System.Exception)">
+      <summary>
+        <see cref="T:System.Net.WebSockets.WebSocketException" /> 클래스의 인스턴스를 만듭니다.</summary>
+      <param name="error">WebSocketError 열거형의 오류입니다.</param>
+      <param name="nativeError">예외에 대한 네이티브 오류 코드입니다.</param>
+      <param name="innerException">현재 예외를 발생시킨 이전 예외를 나타냅니다.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.Int32,System.String)">
+      <summary>
+        <see cref="T:System.Net.WebSockets.WebSocketException" /> 클래스의 인스턴스를 만듭니다.</summary>
+      <param name="error">WebSocketError 열거형의 오류입니다.</param>
+      <param name="nativeError">예외에 대한 네이티브 오류 코드입니다.</param>
+      <param name="message">오류에 대한 설명입니다.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.Int32,System.String,System.Exception)">
+      <summary>
+        <see cref="T:System.Net.WebSockets.WebSocketException" /> 클래스의 인스턴스를 만듭니다.</summary>
+      <param name="error">WebSocketError 열거형의 오류입니다.</param>
+      <param name="nativeError">예외에 대한 네이티브 오류 코드입니다.</param>
+      <param name="message">오류에 대한 설명입니다.</param>
+      <param name="innerException">현재 예외를 발생시킨 이전 예외를 나타냅니다.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.String)">
+      <summary>
+        <see cref="T:System.Net.WebSockets.WebSocketException" /> 클래스의 인스턴스를 만듭니다.</summary>
+      <param name="error">WebSocketError 열거형의 오류입니다.</param>
+      <param name="message">오류에 대한 설명입니다.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.String,System.Exception)">
+      <summary>
+        <see cref="T:System.Net.WebSockets.WebSocketException" /> 클래스의 인스턴스를 만듭니다.</summary>
+      <param name="error">WebSocketError 열거형의 오류입니다.</param>
+      <param name="message">오류에 대한 설명입니다.</param>
+      <param name="innerException">현재 예외를 발생시킨 이전 예외를 나타냅니다.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.String)">
+      <summary>
+        <see cref="T:System.Net.WebSockets.WebSocketException" /> 클래스의 인스턴스를 만듭니다.</summary>
+      <param name="message">오류에 대한 설명입니다.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.String,System.Exception)">
+      <summary>
+        <see cref="T:System.Net.WebSockets.WebSocketException" /> 클래스의 인스턴스를 만듭니다.</summary>
+      <param name="message">오류에 대한 설명입니다.</param>
+      <param name="innerException">현재 예외를 발생시킨 이전 예외를 나타냅니다.</param>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketException.ErrorCode">
+      <summary>발생한 오류에 대한 네이티브 오류 코드입니다.</summary>
+      <returns>
+        <see cref="T:System.Int32" />를 반환합니다.</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketException.WebSocketErrorCode">
+      <summary>발 한 오류의 형식을 나타내는 WebSocketError를 반환합니다.</summary>
+      <returns>
+        <see cref="T:System.Net.WebSockets.WebSocketError" />를 반환합니다.</returns>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketMessageType">
+      <summary>메시지 형식을 나타냅니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketMessageType.Binary">
+      <summary>메시지가 이진 형식입니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketMessageType.Close">
+      <summary>닫기 메시지를 받았기 때문에 받기가 완료되었습니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketMessageType.Text">
+      <summary>메시지는 일반 텍스트입니다.</summary>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketReceiveResult">
+      <summary>이 클래스의 인스턴스는 WebSocket에서 단일 ReceiveAsync 작업을 수행한 결과를 나타냅니다.</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketReceiveResult.#ctor(System.Int32,System.Net.WebSockets.WebSocketMessageType,System.Boolean)">
+      <summary>
+        <see cref="T:System.Net.WebSockets.WebSocketReceiveResult" /> 클래스의 인스턴스를 만듭니다.</summary>
+      <param name="count">받은 바이트 수입니다.</param>
+      <param name="messageType">받은 메시지의 형식입니다.</param>
+      <param name="endOfMessage">최종 메시지인지 여부를 나타냅니다.</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketReceiveResult.#ctor(System.Int32,System.Net.WebSockets.WebSocketMessageType,System.Boolean,System.Nullable{System.Net.WebSockets.WebSocketCloseStatus},System.String)">
+      <summary>
+        <see cref="T:System.Net.WebSockets.WebSocketReceiveResult" /> 클래스의 인스턴스를 만듭니다.</summary>
+      <param name="count">받은 바이트 수입니다.</param>
+      <param name="messageType">받은 메시지의 형식입니다.</param>
+      <param name="endOfMessage">최종 메시지인지 여부를 나타냅니다.</param>
+      <param name="closeStatus">연결의 <see cref="T:System.Net.WebSockets.WebSocketCloseStatus" />를 나타냅니다.</param>
+      <param name="closeStatusDescription">
+        <paramref name="closeStatus" />에 대한 설명입니다.</param>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketReceiveResult.CloseStatus">
+      <summary>원격 끝점에서 close 핸드셰이크를 시작한 이유를 나타냅니다.</summary>
+      <returns>
+        <see cref="T:System.Net.WebSockets.WebSocketCloseStatus" />를 반환합니다.</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketReceiveResult.CloseStatusDescription">
+      <summary>원격 끝점에서 close 핸드셰이크를 시작한 이유를 설명하는 선택적 설명을 반환합니다.</summary>
+      <returns>
+        <see cref="T:System.String" />를 반환합니다.</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketReceiveResult.Count">
+      <summary>받은 WebSocket의 바이트 수를 나타냅니다.</summary>
+      <returns>
+        <see cref="T:System.Int32" />를 반환합니다.</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketReceiveResult.EndOfMessage">
+      <summary>메시지를 완전히 받았는지 여부를 나타냅니다.</summary>
+      <returns>
+        <see cref="T:System.Boolean" />를 반환합니다.</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketReceiveResult.MessageType">
+      <summary>현재 메시지가 UTF-8 메시지인지 아니면 이진 메시지인지를 나타냅니다.</summary>
+      <returns>
+        <see cref="T:System.Net.WebSockets.WebSocketMessageType" />를 반환합니다.</returns>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketState">
+      <summary> WebSockets 인스턴스가 있을 수 있는 다양한 상태를 정의합니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.Aborted">
+      <summary>다음에 사용하도록 예약됩니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.Closed">
+      <summary>WebSocket close 핸드셰이크가 정성적으로 완료되었음을 나타냅니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.CloseReceived">
+      <summary>닫기 메시지가 원격 끝점에서 수신되었습니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.CloseSent">
+      <summary>닫기 메시지가 원격 끝점으로 전송되었습니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.Connecting">
+      <summary>연결은 핸드셰이크와 원격 끝점을 협상하고 있습니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.None">
+      <summary>다음에 사용하도록 예약됩니다.</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.Open">
+      <summary>HTTP 핸드셰이크가 완료된 후의 초기 상태입니다.</summary>
+    </member>
+  </members>
+</doc>

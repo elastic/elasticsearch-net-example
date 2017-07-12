@@ -1,14 +1,9 @@
-﻿using NuSearch.Domain.Model;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Linq;
 using System.Xml.Serialization;
+using NuSearch.Domain.Model;
 
 namespace NuSearch.Domain.Data
 {
@@ -18,13 +13,12 @@ namespace NuSearch.Domain.Data
 		private readonly XmlSerializer _serializer;
 		private readonly XmlSerializer _dumpSerializer;
 
-
 		public int Count { get; set; }
 
 		public NugetDumpReader(string dumpDirectory)
 		{
 			this._files = Directory.GetFiles(dumpDirectory, "nugetdump-*.xml");
-			this.Count = this._files.Count();
+			this.Count = this._files.Length;
 			this._serializer = new XmlSerializer(typeof(FeedPackage));
 			this._dumpSerializer = new XmlSerializer(typeof(NugetDump));
 		}

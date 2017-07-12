@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Diagnostics.FileVersionInfo</name>
+  </assembly>
+  <members>
+    <member name="T:System.Diagnostics.FileVersionInfo">
+      <summary>Содержит сведения о версии физического файла на диске.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.Comments">
+      <summary>Возвращает комментарии к файлу.</summary>
+      <returns>Комментарии к файлу или значение null, если файл не содержал сведения о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.CompanyName">
+      <summary>Возвращает название организации, которая является создателем файла.</summary>
+      <returns>Название организации, которая является создателем файла или значение null, если файл не содержал сведения о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileBuildPart">
+      <summary>Возвращает номер построения файла.</summary>
+      <returns>Значение, представляющее номер построения файла, или значение null если файл не содержал сведения о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileDescription">
+      <summary>Возвращает описание файла.</summary>
+      <returns>Описание файла или значение null, если файл не содержал сведения о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileMajorPart">
+      <summary>Возвращает основную часть номера версии.</summary>
+      <returns>Значение, представляющее основную часть номера версии, или значение 0 (ноль), если файл не содержал сведений о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileMinorPart">
+      <summary>Возвращает вспомогательную часть номера версии файла.</summary>
+      <returns>Значение, представляющее вспомогательную часть номера версии файла, или значение 0 (ноль), если файл не содержал сведений о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileName">
+      <summary>Возвращает имя файла, который описывается данным экземпляром класса <see cref="T:System.Diagnostics.FileVersionInfo" />.</summary>
+      <returns>Имя файла, который описывается данным экземпляром класса <see cref="T:System.Diagnostics.FileVersionInfo" />.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FilePrivatePart">
+      <summary>Возвращает номер закрытой части файла.</summary>
+      <returns>Значение, представляющее номер закрытой части файла, или значение null, если файл не содержал сведений о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileVersion">
+      <summary>Возвращает номер версии файла.</summary>
+      <returns>Номер версии файла или значение null, если файл не содержал сведения о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.Diagnostics.FileVersionInfo.GetVersionInfo(System.String)">
+      <summary>Возвращает класс <see cref="T:System.Diagnostics.FileVersionInfo" />, предоставляющий сведения о версии указанного файла.</summary>
+      <returns>Класс <see cref="T:System.Diagnostics.FileVersionInfo" />, содержащий сведения о файле.Если поле не содержало сведений о версии, <see cref="T:System.Diagnostics.FileVersionInfo" /> содержит только имя запрашиваемого файла.</returns>
+      <param name="fileName">Имя и полный путь к файлу, сведения о версии которого необходимо получить. </param>
+      <exception cref="T:System.IO.FileNotFoundException">Не удается найти указанный файл. </exception>
+      <filterpriority>1</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.InternalName">
+      <summary>Возвращает внутреннее имя файла (если оно существует).</summary>
+      <returns>Внутреннее имя файла.Если оно отсутствует, это свойство будет содержать исходное имя файла без расширения.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsDebug">
+      <summary>Возвращает значение, показывающее, содержит ли файл данные отладки или производится ли его компиляция с помощью доступных средств отладки.</summary>
+      <returns>Значение true, если файл содержит данные отладки или его компиляция производится с помощью доступных средств отладки; в противном случае — значение false.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsPatched">
+      <summary>Возвращает значение, указывающее, был ли файл изменен и не совпадает ли он с исходным файлом той же версии.</summary>
+      <returns>Значение true, если файл исправлен; в противном случае — значение false.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsPreRelease">
+      <summary>Возвращает значение, указывающее, является ли версия файла версией разработчика, или коммерческой версией продукта.</summary>
+      <returns>Значение true, если файл является предварительной версией; в противном случае — значение false.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsPrivateBuild">
+      <summary>Возвращает значение, указывающее, создан ли файл с помощью стандартных процедур.</summary>
+      <returns>Значение true, если файл является закрытой сборкой; значение false если файл был создан с помощью стандартных процедур или не содержал сведения о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsSpecialBuild">
+      <summary>Возвращает значение, указывающее, является ли файл особой сборкой.</summary>
+      <returns>Значение true, если файл является особой сборкой; в противном случае — значение false.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.Language">
+      <summary>Возвращает языковую строку по умолчанию для блока сведений о версии.</summary>
+      <returns>Строка описания для идентификатора Microsoft Language в ресурсе версии или значение null, если файл не содержал сведения о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.LegalCopyright">
+      <summary>Возвращает все уведомления об авторских правах, применимые к указанному файлу.</summary>
+      <returns>Уведомления об авторских правах, примененные к указанному файлу.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.LegalTrademarks">
+      <summary>Возвращает товарные знаки и охраняемые товарные знаки, применимые к файлу.</summary>
+      <returns>Товарные знаки и охраняемые товарные знаки, применимые к файлу или null, если файл не содержал сведения о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.OriginalFilename">
+      <summary>Возвращает имя, под которым создавался файл.</summary>
+      <returns>Имя, под которым создавался файл или значение null, если файл не содержал сведения о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.PrivateBuild">
+      <summary>Возвращает сведения о закрытой версии файла.</summary>
+      <returns>Сведения о закрытой версии файла или значение null, если файл не содержал сведения о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductBuildPart">
+      <summary>Возвращает номер построения продукта, с которым связан файл.</summary>
+      <returns>Значение, представляющее номер построения продукта, с которым связан этот файл, или значение null, если файл не содержал сведения о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductMajorPart">
+      <summary>Возвращает основную часть номера версии продукта, с которым связан файл.</summary>
+      <returns>Значение, представляющее основную часть номера версии продукта, или значение null если файл не содержал сведения о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductMinorPart">
+      <summary>Возвращает вспомогательную часть номера версии продукта, с которым связан файл.</summary>
+      <returns>Значение, представляющее вспомогательную часть номера версии продукта, или значение null если файл не содержал сведения о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductName">
+      <summary>Возвращает название продукта, с которым распространяется файл.</summary>
+      <returns>Название продукта, с которым распространяется этот файл или значение null, если файл не содержал сведения о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductPrivatePart">
+      <summary>Возвращает закрытую часть номера продукта, с которым связан файл.</summary>
+      <returns>Значение, представляющее закрытую часть номера продукта, с которым связан этот файл, или значение null, если файл не содержал сведения о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductVersion">
+      <summary>Возвращает версию продукта, с которым распространяется этот файл.</summary>
+      <returns>Версия продукта, с которым распространяется этот файл или значение null, если файл не содержал сведения о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.SpecialBuild">
+      <summary>Возвращает сведения об особой сборке файла.</summary>
+      <returns>Сведения об особой сборке файла или значение null, если файл не содержал сведения о версии.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.Diagnostics.FileVersionInfo.ToString">
+      <summary>Возвращает неполный список свойств класса <see cref="T:System.Diagnostics.FileVersionInfo" /> с их значениями.</summary>
+      <returns>Список свойств класса со значениями: <see cref="P:System.Diagnostics.FileVersionInfo.FileName" />, <see cref="P:System.Diagnostics.FileVersionInfo.InternalName" />, <see cref="P:System.Diagnostics.FileVersionInfo.OriginalFilename" />, <see cref="P:System.Diagnostics.FileVersionInfo.FileVersion" />, <see cref="P:System.Diagnostics.FileVersionInfo.FileDescription" />, <see cref="P:System.Diagnostics.FileVersionInfo.ProductName" />, <see cref="P:System.Diagnostics.FileVersionInfo.ProductVersion" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsDebug" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsPatched" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsPreRelease" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsPrivateBuild" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsSpecialBuild" />,<see cref="P:System.Diagnostics.FileVersionInfo.Language" />.Если файл не содержал сведений о версии, этот список будет содержать только имя запрашиваемого файла.Логические значения будут иметь значение false, а все другие элементы — значение null.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+  </members>
+</doc>

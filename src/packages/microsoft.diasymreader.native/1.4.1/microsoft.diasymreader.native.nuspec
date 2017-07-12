@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.DiaSymReader.Native</id>
+    <version>1.4.1</version>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>http://go.microsoft.com/fwlink/?LinkId=529443</licenseUrl>
+    <projectUrl>http://msdn.com/roslyn</projectUrl>
+    <description>Native implementation of PDB file reader and writer.
+Supported Platforms:
+- Windows x86
+- Windows amd64
+- Windows arm</description>
+    <summary>Microsoft DiaSymReader</summary>
+    <releaseNotes>Native implementation of PDB file reader and writer</releaseNotes>
+    <language>en-US</language>
+    <tags>DiaSymReader PDB</tags>
+    <serviceable>true</serviceable>
+    <contentFiles>
+      <files include="runtimes\win\native\Microsoft.DiaSymReader.Native.x86.dll" buildAction="Content" copyToOutput="true" />
+      <files include="runtimes\win\native\Microsoft.DiaSymReader.Native.amd64.dll" buildAction="Content" copyToOutput="true" />
+      <files include="runtimes\win\native\Microsoft.DiaSymReader.Native.arm.dll" buildAction="Content" copyToOutput="true" />
+    </contentFiles>
+  </metadata>
+</package>

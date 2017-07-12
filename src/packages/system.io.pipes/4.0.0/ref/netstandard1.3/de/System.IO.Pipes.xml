@@ -1,0 +1,597 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.Pipes</name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.Win32.SafeHandles.SafePipeHandle">
+      <summary>Stellt eine Wrapperklasse für ein Pipehandle dar. </summary>
+    </member>
+    <member name="M:Microsoft.Win32.SafeHandles.SafePipeHandle.#ctor(System.IntPtr,System.Boolean)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:Microsoft.Win32.SafeHandles.SafePipeHandle" />-Klasse.</summary>
+      <param name="preexistingHandle">Ein <see cref="T:System.IntPtr" />-Objekt, das das zu verwendende, bereits vorhandene Handle darstellt.</param>
+      <param name="ownsHandle">true, um das Handle während der Finalisierungsphase zuverlässig freizugeben, und false, um eine zuverlässige Freigabe zu verhindern (nicht empfohlen).</param>
+    </member>
+    <member name="P:Microsoft.Win32.SafeHandles.SafePipeHandle.IsInvalid"></member>
+    <member name="T:System.IO.Pipes.AnonymousPipeClientStream">
+      <summary>Macht die Clientseite eines anonymen Pipestreams verfügbar, der synchrone und asynchrone Lese- und Schreibvorgänge unterstützt.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.IO.Pipes.PipeDirection,Microsoft.Win32.SafeHandles.SafePipeHandle)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />-Klasse aus dem angegebenen Handle.</summary>
+      <param name="direction">Einer der Enumerationswerte, der die Richtung der Pipe bestimmt.Anonyme Pipes dürfen nur eine Richtung aufweisen, daher kann <paramref name="direction" /> nicht auf <see cref="F:System.IO.Pipes.PipeDirection.InOut" /> festgelegt werden.</param>
+      <param name="safePipeHandle">Ein sicheres Handle für die Pipe, die von diesem <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />-Objekt gekapselt wird.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="safePipeHandle " />ist kein gültiger Handle.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="safePipeHandle" /> ist null.</exception>
+      <exception cref="T:System.NotSupportedException">Für <paramref name="direction" /> ist <see cref="F:System.IO.Pipes.PipeDirection.InOut" /> festgelegt.</exception>
+      <exception cref="T:System.IO.IOException">Es ist ein E/A-Fehler aufgetreten, beispielsweise ein Datenträgerfehler.- oder - Der Stream wurde geschlossen.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.IO.Pipes.PipeDirection,System.String)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />-Klasse mit der angegebenen Piperichtung und einer Zeichenfolgendarstellung des Pipehandles.</summary>
+      <param name="direction">Einer der Enumerationswerte, der die Richtung der Pipe bestimmt.Anonyme Pipes dürfen nur eine Richtung aufweisen, daher kann <paramref name="direction" /> nicht auf <see cref="F:System.IO.Pipes.PipeDirection.InOut" /> festgelegt werden.</param>
+      <param name="pipeHandleAsString">Eine Zeichenfolge, die das Pipehandle darstellt.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeHandleAsString" /> ist ein ungültiges Handle.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeHandleAsString" /> ist null.</exception>
+      <exception cref="T:System.NotSupportedException">Für <paramref name="direction" /> ist <see cref="F:System.IO.Pipes.PipeDirection.InOut" /> festgelegt.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.String)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />-Klasse mit der angegebenen Zeichenfolgendarstellung des Pipehandles.</summary>
+      <param name="pipeHandleAsString">Eine Zeichenfolge, die das Pipehandle darstellt.</param>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="pipeHandleAsString" /> ist kein gültiges Pipehandle.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeClientStream.Finalize">
+      <summary>Gibt nicht verwaltete Ressourcen frei und führt weitere Bereinigungsvorgänge aus, bevor Sie die <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> Instanz durch die Garbagecollection freigegeben wird.</summary>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeClientStream.ReadMode">
+      <summary>Legt den Lesemodus für das <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />-Objekt fest.</summary>
+      <returns>Der <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> für das <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />-Objekt.</returns>
+      <exception cref="T:System.ArgumentOutOfRangeException">Der Übertragungsmodus ist nicht gültig.Bei anonymen Pipes wird nur <see cref="F:System.IO.Pipes.PipeTransmissionMode.Byte" /> unterstützt.</exception>
+      <exception cref="T:System.NotSupportedException">Der Übertragungsmodus lautet <see cref="F:System.IO.Pipes.PipeTransmissionMode.Message" />.</exception>
+      <exception cref="T:System.IO.IOException">Die Verbindung wurde unterbrochen, oder es ist ein anderer E/A-Fehler aufgetreten.</exception>
+      <exception cref="T:System.ObjectDisposedException">Die Pipe ist geschlossen.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeClientStream.TransmissionMode">
+      <summary>Ruft den von der aktuellen Pipe unterstützten Pipeübertragungsmodus ab.</summary>
+      <returns>
+        <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> unterstützt durch die aktuelle Pipe.</returns>
+    </member>
+    <member name="T:System.IO.Pipes.AnonymousPipeServerStream">
+      <summary>Macht einen Stream um eine anonyme Pipe verfügbar, der synchrone und asynchrone Lese- und Schreibvorgänge unterstützt.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />-Klasse.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />-Klasse mit der angegebenen Piperichtung.</summary>
+      <param name="direction">Einer der Enumerationswerte, der die Richtung der Pipe bestimmt.Anonyme Pipes dürfen nur eine Richtung aufweisen, daher kann <paramref name="direction" /> nicht auf <see cref="F:System.IO.Pipes.PipeDirection.InOut" /> festgelegt werden.</param>
+      <exception cref="T:System.NotSupportedException">Für <paramref name="direction" /> ist <see cref="F:System.IO.Pipes.PipeDirection.InOut" /> festgelegt.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,Microsoft.Win32.SafeHandles.SafePipeHandle,Microsoft.Win32.SafeHandles.SafePipeHandle)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />-Klasse aus den angegebenen Pipehandles.</summary>
+      <param name="direction">Einer der Enumerationswerte, der die Richtung der Pipe bestimmt.Anonyme Pipes dürfen nur eine Richtung aufweisen, daher kann <paramref name="direction" /> nicht auf <see cref="F:System.IO.Pipes.PipeDirection.InOut" /> festgelegt werden.</param>
+      <param name="serverSafePipeHandle">Ein sicheres Handle für die Pipe, die von diesem <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />-Objekt gekapselt wird.</param>
+      <param name="clientSafePipeHandle">Ein sicheres Handle für das <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />-Objekt.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="serverSafePipeHandle" /> oder <paramref name="clientSafePipeHandle" /> ist ein ungültiges Handle.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="serverSafePipeHandle" /> oder <paramref name="clientSafePipeHandle" /> ist null.</exception>
+      <exception cref="T:System.NotSupportedException">Für <paramref name="direction" /> ist <see cref="F:System.IO.Pipes.PipeDirection.InOut" /> festgelegt.</exception>
+      <exception cref="T:System.IO.IOException">Es ist ein E/A-Fehler aufgetreten, beispielsweise ein Datenträgerfehler.- oder - Der Stream wurde geschlossen.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,System.IO.HandleInheritability)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />-Klasse mit der angegebenen Piperichtung und dem angegebenen Vererbbarkeitsmodus.</summary>
+      <param name="direction">Einer der Enumerationswerte, der die Richtung der Pipe bestimmt.Anonyme Pipes dürfen nur eine Richtung aufweisen, daher kann <paramref name="direction" /> nicht auf <see cref="F:System.IO.Pipes.PipeDirection.InOut" /> festgelegt werden.</param>
+      <param name="inheritability">Einer der Enumerationswerte, der bestimmt, ob das zugrunde liegende Handle von untergeordneten Prozessen geerbt werden kann.Muss entweder auf <see cref="F:System.IO.HandleInheritability.None" /> oder auf <see cref="F:System.IO.HandleInheritability.Inheritable" /> festgelegt sein.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="inheritability" /> ist nicht auf <see cref="F:System.IO.HandleInheritability.None" /> oder <see cref="F:System.IO.HandleInheritability.Inheritable" /> festgelegt.</exception>
+      <exception cref="T:System.NotSupportedException">Für <paramref name="direction" /> ist <see cref="F:System.IO.Pipes.PipeDirection.InOut" /> festgelegt.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,System.IO.HandleInheritability,System.Int32)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />-Klasse mit der angegebenen Piperichtung, dem angegebenen Vererbbarkeitsmodus und der angegebenen Puffergröße.</summary>
+      <param name="direction">Einer der Enumerationswerte, der die Richtung der Pipe bestimmt.Anonyme Pipes dürfen nur eine Richtung aufweisen, daher kann <paramref name="direction" /> nicht auf <see cref="F:System.IO.Pipes.PipeDirection.InOut" /> festgelegt werden.</param>
+      <param name="inheritability">Einer der Enumerationswerte, der bestimmt, ob das zugrunde liegende Handle von untergeordneten Prozessen geerbt werden kann.Muss entweder auf <see cref="F:System.IO.HandleInheritability.None" /> oder auf <see cref="F:System.IO.HandleInheritability.Inheritable" /> festgelegt sein.</param>
+      <param name="bufferSize">Die Größe des Puffers.Dieser Wert muss größer oder gleich 0 sein.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="inheritability" /> ist nicht auf <see cref="F:System.IO.HandleInheritability.None" /> oder <see cref="F:System.IO.HandleInheritability.Inheritable" /> festgelegt.- oder - <paramref name="bufferSize" /> ist kleiner als 0.</exception>
+      <exception cref="T:System.NotSupportedException">Für <paramref name="direction" /> ist <see cref="F:System.IO.Pipes.PipeDirection.InOut" /> festgelegt.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeServerStream.ClientSafePipeHandle">
+      <summary>Ruft das sichere Handle für das <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />-Objekt ab, das gegenwärtig mit dem <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />-Objekt verbunden ist.</summary>
+      <returns>Ein Handle für das <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />-Objekt, das derzeit mit dem <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />-Objekt verbunden ist.</returns>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.DisposeLocalCopyOfClientHandle">
+      <summary>Schließt die lokale Kopie des Handles für das <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />-Objekt.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.Finalize">
+      <summary>Gibt nicht verwaltete Ressourcen frei und führt weitere Bereinigungsvorgänge aus, bevor Sie die <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> Instanz durch die Garbagecollection freigegeben wird.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.GetClientHandleAsString">
+      <summary>Ruft das Handle des verbundenen <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />-Objekts als Zeichenfolge ab.</summary>
+      <returns>Eine Zeichenfolge, die das Handle des verbundenen <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />-Objekts darstellt.</returns>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeServerStream.ReadMode">
+      <summary>Legt den Lesemodus für das <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />-Objekt fest.Für anonyme Pipes muss der Übertragungsmodus <see cref="F:System.IO.Pipes.PipeTransmissionMode.Byte" /> sein.</summary>
+      <returns>Der Lesemodus für das <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />-Objekt.</returns>
+      <exception cref="T:System.ArgumentOutOfRangeException">Der Übertragungsmodus ist nicht gültig.Bei anonymen Pipes wird nur <see cref="F:System.IO.Pipes.PipeTransmissionMode.Byte" /> unterstützt.</exception>
+      <exception cref="T:System.NotSupportedException">Die Eigenschaft ist auf <see cref="F:System.IO.Pipes.PipeTransmissionMode.Message" /> festgelegt. Dies wird für anonyme Pipes nicht unterstützt.</exception>
+      <exception cref="T:System.IO.IOException">Die Verbindung wurde unterbrochen, oder es ist ein anderer E/A-Fehler aufgetreten.</exception>
+      <exception cref="T:System.ObjectDisposedException">Die Pipe ist geschlossen.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeServerStream.TransmissionMode">
+      <summary>Ruft den von der aktuellen Pipe unterstützten Pipeübertragungsmodus ab.</summary>
+      <returns>Die <see cref="T:System.IO.Pipes.PipeTransmissionMode" />, die von der aktuellen Pipe unterstützt wird.</returns>
+    </member>
+    <member name="T:System.IO.Pipes.NamedPipeClientStream">
+      <summary>Macht einen <see cref="T:System.IO.Stream" /> um eine benannte Pipe verfügbar, der synchrone und asynchrone Lese- und Schreibvorgänge unterstützt.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.IO.Pipes.PipeDirection,System.Boolean,System.Boolean,Microsoft.Win32.SafeHandles.SafePipeHandle)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.NamedPipeClientStream" />-Klasse für das angegebene Pipehandle mit der angegebenen Piperichtung.</summary>
+      <param name="direction">Einer der Enumerationswerte, der die Richtung der Pipe bestimmt.</param>
+      <param name="isAsync">true, um anzugeben, dass das Handle asynchron geöffnet wurde, andernfalls false.</param>
+      <param name="isConnected">true, um anzugeben, dass die Pipe verbunden ist, andernfalls false.</param>
+      <param name="safePipeHandle">Ein sicheres Handle für die Pipe, die von diesem <see cref="T:System.IO.Pipes.NamedPipeClientStream" />-Objekt gekapselt wird.</param>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="safePipeHandle" />ist kein gültiger Handle.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="safePipeHandle" />ist kein gültiger Handle.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="safePipeHandle" /> ist null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="direction" /> ist kein gültiger <see cref="T:System.IO.Pipes.PipeDirection" />-Wert.</exception>
+      <exception cref="T:System.IO.IOException">Der Stream wurde geschlossen. </exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.NamedPipeClientStream" />-Klasse mit dem angegebenen Pipenamen.</summary>
+      <param name="pipeName">Der Name der Pipe.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> ist eine Zeichenfolge der Länge 0 (null).</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> ist auf "anonym" festgelegt.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String,System.String)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.NamedPipeClientStream" />-Klasse mit dem angegebenen Pipe- und Servernamen.</summary>
+      <param name="serverName">Der Name des Remotecomputers, mit dem eine Verbindung hergestellt werden soll, oder ".", um den lokalen Computer anzugeben.</param>
+      <param name="pipeName">Der Name der Pipe.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> oder <paramref name="serverName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> oder <paramref name="serverName" /> ist eine Zeichenfolge der Länge 0 (null).</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> ist auf "anonym" festgelegt.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String,System.String,System.IO.Pipes.PipeDirection)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.NamedPipeClientStream" />-Klasse mit dem angegebenen Pipe- und Servernamen und der angegebenen Piperichtung.</summary>
+      <param name="serverName">Der Name des Remotecomputers, mit dem eine Verbindung hergestellt werden soll, oder ".", um den lokalen Computer anzugeben.</param>
+      <param name="pipeName">Der Name der Pipe.</param>
+      <param name="direction">Einer der Enumerationswerte, der die Richtung der Pipe bestimmt.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> oder <paramref name="serverName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> oder <paramref name="serverName" /> ist eine Zeichenfolge der Länge 0 (null).</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> ist auf "anonym" festgelegt.- oder - <paramref name="direction" /> ist kein gültiger <see cref="T:System.IO.Pipes.PipeDirection" />-Wert.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String,System.String,System.IO.Pipes.PipeDirection,System.IO.Pipes.PipeOptions)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.NamedPipeClientStream" />-Klasse mit dem angegebenen Pipe- und Servernamen, der angegebenen Piperichtung und den angegebenen Pipeoptionen.</summary>
+      <param name="serverName">Der Name des Remotecomputers, mit dem eine Verbindung hergestellt werden soll, oder ".", um den lokalen Computer anzugeben.</param>
+      <param name="pipeName">Der Name der Pipe.</param>
+      <param name="direction">Einer der Enumerationswerte, der die Richtung der Pipe bestimmt.</param>
+      <param name="options">Einer der Enumerationswerte, der bestimmt, wie die Pipe geöffnet oder erstellt wird.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> oder <paramref name="serverName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> oder <paramref name="serverName" /> ist eine Zeichenfolge der Länge 0 (null).</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> ist auf "anonym" festgelegt.- oder - <paramref name="direction" /> ist kein gültiger <see cref="T:System.IO.Pipes.PipeDirection" />-Wert.- oder - <paramref name="options" /> ist kein gültiger <see cref="T:System.IO.Pipes.PipeOptions" />-Wert.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String,System.String,System.IO.Pipes.PipeDirection,System.IO.Pipes.PipeOptions,System.Security.Principal.TokenImpersonationLevel)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.NamedPipeClientStream" />-Klasse mit dem angegebenen Pipe- und Servernamen, der angegebenen Piperichtung, den angegebenen Pipeoptionen und der angegebenen Ebene des Sicherheitsidentitätswechsels.</summary>
+      <param name="serverName">Der Name des Remotecomputers, mit dem eine Verbindung hergestellt werden soll, oder ".", um den lokalen Computer anzugeben.</param>
+      <param name="pipeName">Der Name der Pipe.</param>
+      <param name="direction">Einer der Enumerationswerte, der die Richtung der Pipe bestimmt.</param>
+      <param name="options">Einer der Enumerationswerte, der bestimmt, wie die Pipe geöffnet oder erstellt wird.</param>
+      <param name="impersonationLevel">Einer der Enumerationswerte, der die Ebene des Sicherheitsidentitätswechsels bestimmt.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> oder <paramref name="serverName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> oder <paramref name="serverName" /> ist eine Zeichenfolge der Länge 0 (null).</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> ist auf "anonym" festgelegt.- oder - <paramref name="direction" /> ist kein gültiger <see cref="T:System.IO.Pipes.PipeDirection" />-Wert.- oder - <paramref name="options" /> ist kein gültiger <see cref="T:System.IO.Pipes.PipeOptions" />-Wert.- oder - <paramref name="impersonationLevel" /> ist kein gültiger <see cref="T:System.Security.Principal.TokenImpersonationLevel" />-Wert.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.Connect">
+      <summary>Stellt eine Verbindung mit einem wartenden Server mit einem unendlichen Timeoutwert her.</summary>
+      <exception cref="T:System.InvalidOperationException">Es ist bereits eine Verbindung mit dem Client vorhanden.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.Connect(System.Int32)">
+      <summary>Stellt innerhalb des angegebenen Timeouts eine Verbindung mit einem wartenden Server her.</summary>
+      <param name="timeout">Die Anzahl von Millisekunden, für die auf eine Antwort des Servers gewartet werden soll, bevor das Timeout der Verbindung erreicht ist.</param>
+      <exception cref="T:System.TimeoutException">Mit dem Server konnte innerhalb des angegebenen <paramref name="timeout" />-Zeitraums keine Verbindung hergestellt werden.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="timeout" /> ist kleiner als 0 und nicht auf <see cref="F:System.Threading.Timeout.Infinite" /> festgelegt.</exception>
+      <exception cref="T:System.InvalidOperationException">Es ist bereits eine Verbindung mit dem Client vorhanden.</exception>
+      <exception cref="T:System.IO.IOException">Der Server wird mit einem anderen Client verbunden, und das Timeout ist abgelaufen.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.ConnectAsync">
+      <summary>Stellt eine asynchrone Verbindung mit einem wartenden Server mit einem unendlichen Timeoutwert her.</summary>
+      <returns>Eine Aufgabe, die den asynchronen Verbindungsvorgang darstellt.</returns>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.ConnectAsync(System.Int32)">
+      <summary>Stellt innerhalb des angegebenen Timeouts eine asynchrone Verbindung mit einem wartenden Server her.</summary>
+      <returns>Eine Aufgabe, die den asynchronen Verbindungsvorgang darstellt.</returns>
+      <param name="timeout">Die Anzahl von Millisekunden, für die auf eine Antwort des Servers gewartet werden soll, bevor das Timeout der Verbindung erreicht ist.</param>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.ConnectAsync(System.Int32,System.Threading.CancellationToken)">
+      <summary>Stellt innerhalb des angegebenen Timeouts eine asynchrone Verbindung mit einem wartenden Server her und überwacht Abbruchanforderungen.</summary>
+      <returns>Eine Aufgabe, die den asynchronen Verbindungsvorgang darstellt.</returns>
+      <param name="timeout">Die Anzahl von Millisekunden, für die auf eine Antwort des Servers gewartet werden soll, bevor das Timeout der Verbindung erreicht ist.</param>
+      <param name="cancellationToken">Das Token zum überwachen von Abbruchanforderungen .Der Standardwert ist <see cref="P:System.Threading.CancellationToken.None" />.</param>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.ConnectAsync(System.Threading.CancellationToken)">
+      <summary>Stellt eine asynchrone Verbindung mit einem wartenden Server her und überwacht Abbruchanforderungen.</summary>
+      <returns>Eine Aufgabe, die den asynchronen Verbindungsvorgang darstellt.</returns>
+      <param name="cancellationToken">Das Token zum überwachen von Abbruchanforderungen .Der Standardwert ist <see cref="P:System.Threading.CancellationToken.None" />.</param>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.Finalize">
+      <summary>Gibt nicht verwaltete Ressourcen frei und führt weitere Bereinigungsvorgänge aus, bevor Sie die <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> Instanz durch die Garbagecollection freigegeben wird.</summary>
+    </member>
+    <member name="P:System.IO.Pipes.NamedPipeClientStream.NumberOfServerInstances">
+      <summary>Ruft die Anzahl von Serverinstanzen mit dem gleichen Pipenamen ab.</summary>
+      <returns>Die Anzahl von Serverinstanzen mit dem gleichen Pipenamen.</returns>
+      <exception cref="T:System.InvalidOperationException">Es wurde kein Pipehandle festgelegt.- oder - Das aktuelle <see cref="T:System.IO.Pipes.NamedPipeClientStream" />-Objekt hat noch keine Verbindung mit einem <see cref="T:System.IO.Pipes.NamedPipeServerStream" />-Objekt hergestellt.</exception>
+      <exception cref="T:System.IO.IOException">Die Pipe wurde unterbrochen, oder es ist ein E/A-Fehler aufgetreten.</exception>
+      <exception cref="T:System.ObjectDisposedException">Das zugrunde liegende Pipehandle wird geschlossen.</exception>
+    </member>
+    <member name="T:System.IO.Pipes.NamedPipeServerStream">
+      <summary>Macht einen <see cref="T:System.IO.Stream" /> um eine benannte Pipe verfügbar, der synchrone und asynchrone Lese- und Schreibvorgänge unterstützt.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,System.Boolean,System.Boolean,Microsoft.Win32.SafeHandles.SafePipeHandle)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.NamedPipeServerStream" />-Klasse aus dem angegebenen Pipehandle.</summary>
+      <param name="direction">Einer der Enumerationswerte, der die Richtung der Pipe bestimmt.</param>
+      <param name="isAsync">true, um anzugeben, dass das Handle asynchron geöffnet wurde, andernfalls false.</param>
+      <param name="isConnected">true, um anzugeben, dass die Pipe verbunden ist, andernfalls false.</param>
+      <param name="safePipeHandle">Ein sicheres Handle für die Pipe, die von diesem <see cref="T:System.IO.Pipes.NamedPipeServerStream" />-Objekt gekapselt wird.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="direction" /> ist kein gültiger <see cref="T:System.IO.Pipes.PipeDirection" />-Wert.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="safePipeHandle" /> ist null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="safePipeHandle" /> ist ein ungültiges Handle.</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="safePipeHandle" /> ist kein gültiges Pipehandle.- oder - Die maximale Anzahl der Serverinstanzen wurde überschritten.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.NamedPipeServerStream" />-Klasse mit dem angegebenen Pipenamen.</summary>
+      <param name="pipeName">Der Name der Pipe.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> ist eine Zeichenfolge der Länge 0 (null).</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> ist auf "anonym" festgelegt.</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> enthält einen Doppelpunkt (":").</exception>
+      <exception cref="T:System.PlatformNotSupportedException">Das Betriebssystem ist Windows Millennium Edition, Windows 98 oder Windows 95, die nicht unterstützt werden. </exception>
+      <exception cref="T:System.IO.IOException">Die maximale Anzahl der Serverinstanzen wurde überschritten.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.NamedPipeServerStream" />-Klasse mit den angegebenen Werten für Pipename und Piperichtung.</summary>
+      <param name="pipeName">Der Name der Pipe.</param>
+      <param name="direction">Einer der Enumerationswerte, der die Richtung der Pipe bestimmt.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> ist eine Zeichenfolge der Länge 0 (null).</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> ist auf "anonym" festgelegt.- oder - <paramref name="direction" /> ist kein gültiger <see cref="T:System.IO.Pipes.PipeDirection" />-Wert.</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> enthält einen Doppelpunkt (":").</exception>
+      <exception cref="T:System.PlatformNotSupportedException">Das Betriebssystem ist Windows Millennium Edition, Windows 98 oder Windows 95, die nicht unterstützt werden.</exception>
+      <exception cref="T:System.IO.IOException">Die maximale Anzahl der Serverinstanzen wurde überschritten.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.NamedPipeServerStream" />-Klasse mit dem angegebenen Pipenamen, der angegebenen Piperichtung und der angegebenen maximalen Anzahl von Serverinstanzen.</summary>
+      <param name="pipeName">Der Name der Pipe.</param>
+      <param name="direction">Einer der Enumerationswerte, der die Richtung der Pipe bestimmt.</param>
+      <param name="maxNumberOfServerInstances">Die maximale Anzahl von Serverinstanzen mit dem gleichen Namen.Für diesen Wert kann <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" /> übergeben werden.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> ist eine Zeichenfolge der Länge 0 (null).</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> ist auf "anonym" festgelegt.- oder - <paramref name="direction" /> ist kein gültiger <see cref="T:System.IO.Pipes.PipeDirection" />-Wert.- oder - Eine nicht negative Zahl ist erforderlich. - oder - <paramref name="maxNumberofServerInstances" /> ist kleiner als -1 oder größer als 254 (-1 gibt <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" /> an)- oder - <see cref="F:System.IO.HandleInheritability.None" /> oder <see cref="F:System.IO.HandleInheritability.Inheritable" /> ist erforderlich.- oder - Die Zugriffsrechte sind beschränkt auf das <see cref="F:System.IO.Pipes.PipeAccessRights.ChangePermissions" />-Flag, das <see cref="F:System.IO.Pipes.PipeAccessRights.TakeOwnership" /> -Flag und das <see cref="F:System.IO.Pipes.PipeAccessRights.AccessSystemSecurity" />-Flag.</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> enthält einen Doppelpunkt (":").</exception>
+      <exception cref="T:System.PlatformNotSupportedException">Das Betriebssystem ist Windows Millennium Edition, Windows 98 oder Windows 95, die nicht unterstützt werden.</exception>
+      <exception cref="T:System.IO.IOException">Die maximale Anzahl der Serverinstanzen wurde überschritten.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.NamedPipeServerStream" />-Klasse mit dem angegebenen Pipenamen, der angegebenen Piperichtung, der angegebenen maximalen Anzahl von Serverinstanzen und dem angegebenen Übertragungsmodus.</summary>
+      <param name="pipeName">Der Name der Pipe.</param>
+      <param name="direction">Einer der Enumerationswerte, der die Richtung der Pipe bestimmt.</param>
+      <param name="maxNumberOfServerInstances">Die maximale Anzahl von Serverinstanzen mit dem gleichen Namen.Für diesen Wert kann <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" /> übergeben werden.</param>
+      <param name="transmissionMode">Einer der Enumerationswerte, der den Übertragungsmodus der Pipe bestimmt.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> ist eine Zeichenfolge der Länge 0 (null).</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> ist auf "anonym" festgelegt.- oder - <paramref name="direction" /> ist kein gültiger <see cref="T:System.IO.Pipes.PipeDirection" />-Wert.- oder - <paramref name="maxNumberofServerInstances" /> ist kleiner als -1 oder größer als 254 (-1 gibt <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" /> an)</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> enthält einen Doppelpunkt (":").</exception>
+      <exception cref="T:System.PlatformNotSupportedException">Das Betriebssystem ist Windows Millennium Edition, Windows 98 oder Windows 95, die nicht unterstützt werden.</exception>
+      <exception cref="T:System.IO.IOException">Die maximale Anzahl der Serverinstanzen wurde überschritten.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.NamedPipeServerStream" />-Klasse mit dem angegebenen Pipenamen, der angegebenen Piperichtung, der angegebenen maximalen Anzahl von Serverinstanzen, dem angegebenen Übertragungsmodus und den angegebenen Pipeoptionen.</summary>
+      <param name="pipeName">Der Name der Pipe.</param>
+      <param name="direction">Einer der Enumerationswerte, der die Richtung der Pipe bestimmt.</param>
+      <param name="maxNumberOfServerInstances">Die maximale Anzahl von Serverinstanzen mit dem gleichen Namen.Für diesen Wert kann <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" /> übergeben werden.</param>
+      <param name="transmissionMode">Einer der Enumerationswerte, der den Übertragungsmodus der Pipe bestimmt.</param>
+      <param name="options">Einer der Enumerationswerte, der bestimmt, wie die Pipe geöffnet oder erstellt wird.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> ist eine Zeichenfolge der Länge 0 (null).</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> ist auf "anonym" festgelegt.- oder - <paramref name="direction" /> ist kein gültiger <see cref="T:System.IO.Pipes.PipeDirection" />-Wert.- oder - <paramref name="maxNumberofServerInstances" /> ist kleiner als -1 oder größer als 254 (-1 gibt <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" /> an)- oder - <paramref name="options" /> ist kein gültiger <see cref="T:System.IO.Pipes.PipeOptions" />-Wert.</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> enthält einen Doppelpunkt (":").</exception>
+      <exception cref="T:System.PlatformNotSupportedException">Das Betriebssystem ist Windows Millennium Edition, Windows 98 oder Windows 95, die nicht unterstützt werden.</exception>
+      <exception cref="T:System.IO.IOException">Die maximale Anzahl der Serverinstanzen wurde überschritten.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.NamedPipeServerStream" />-Klasse mit dem angegebenen Pipenamen, der angegebenen Piperichtung, der angegebenen maximalen Anzahl von Serverinstanzen, dem angegebenen Übertragungsmodus, den angegebenen Pipeoptionen und der empfohlenen Größe für Eingabe- und Ausgabepuffer.</summary>
+      <param name="pipeName">Der Name der Pipe.</param>
+      <param name="direction">Einer der Enumerationswerte, der die Richtung der Pipe bestimmt.</param>
+      <param name="maxNumberOfServerInstances">Die maximale Anzahl von Serverinstanzen mit dem gleichen Namen.Für diesen Wert kann <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" /> übergeben werden.</param>
+      <param name="transmissionMode">Einer der Enumerationswerte, der den Übertragungsmodus der Pipe bestimmt.</param>
+      <param name="options">Einer der Enumerationswerte, der bestimmt, wie die Pipe geöffnet oder erstellt wird.</param>
+      <param name="inBufferSize">Ein positiver Wert größer als 0, der die Eingabepuffergröße angibt.</param>
+      <param name="outBufferSize">Ein positiver Wert größer als 0, der die Ausgabepuffergröße angibt.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> ist eine Zeichenfolge der Länge 0 (null).</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> ist auf "anonym" festgelegt.- oder - <paramref name="direction" /> ist kein gültiger <see cref="T:System.IO.Pipes.PipeDirection" />-Wert.- oder - <paramref name="maxNumberofServerInstances" /> ist kleiner als -1 oder größer als 254 (-1 gibt <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" /> an)- oder - <paramref name="options" /> ist kein gültiger <see cref="T:System.IO.Pipes.PipeOptions" />-Wert.- oder - <paramref name="inBufferSize" /> ist negativ.</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> enthält einen Doppelpunkt (":").</exception>
+      <exception cref="T:System.PlatformNotSupportedException">Das Betriebssystem ist Windows Millennium Edition, Windows 98 oder Windows 95, die nicht unterstützt werden.</exception>
+      <exception cref="T:System.IO.IOException">Die maximale Anzahl der Serverinstanzen wurde überschritten.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.Disconnect">
+      <summary>Trennt die aktuelle Verbindung.</summary>
+      <exception cref="T:System.InvalidOperationException">Es wurden noch keine Pipeverbindungen hergestellt.- oder - Die verbundene Pipe wurde bereits getrennt.- oder - Es wurde kein Pipehandle festgelegt.</exception>
+      <exception cref="T:System.ObjectDisposedException">Die Pipe ist geschlossen.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.Finalize">
+      <summary>Gibt nicht verwaltete Ressourcen frei und führt weitere Bereinigungsvorgänge aus, bevor Sie die <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> Instanz durch die Garbagecollection freigegeben wird.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.GetImpersonationUserName">
+      <summary>Ruft den Benutzernamen des Clients am anderen Ende der Pipe ab.</summary>
+      <returns>Der Benutzername des Clients am anderen Ende der Pipe.</returns>
+      <exception cref="T:System.InvalidOperationException">Es wurden noch keine Pipeverbindungen hergestellt.- oder - Die verbundene Pipe wurde bereits getrennt.- oder - Es wurde kein Pipehandle festgelegt.</exception>
+      <exception cref="T:System.ObjectDisposedException">Die Pipe ist geschlossen.</exception>
+      <exception cref="T:System.IO.IOException">Die Pipeverbindung wurde unterbrochen.- oder - Der Benutzername des Clients ist länger als 19 Zeichen.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.WaitForConnection">
+      <summary>Wartet auf das Herstellen einer Verbindung mit diesem <see cref="T:System.IO.Pipes.NamedPipeServerStream" />-Objekt durch einen Client.</summary>
+      <exception cref="T:System.InvalidOperationException">Eine Pipeverbindung wurde bereits hergestellt.- oder - Es wurde kein Pipehandle festgelegt.</exception>
+      <exception cref="T:System.ObjectDisposedException">Die Pipe ist geschlossen.</exception>
+      <exception cref="T:System.IO.IOException">Die Pipeverbindung wurde unterbrochen.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync">
+      <summary>Wartet asynchron darauf, dass sich ein Client mit diesem <see cref="T:System.IO.Pipes.NamedPipeServerStream" />-Objekt verbindet.</summary>
+      <returns>Eine Aufgabe, die den asynchronen Wartevorgang darstellt.</returns>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync(System.Threading.CancellationToken)">
+      <summary>Wartet asynchron darauf, dass sich ein Client mit diesem <see cref="T:System.IO.Pipes.NamedPipeServerStream" />-Objekt verbindet und überwacht Abbruchanforderungen.</summary>
+      <returns>Eine Aufgabe, die den asynchronen Wartevorgang darstellt.</returns>
+      <param name="cancellationToken">Das Token zum überwachen von Abbruchanforderungen .</param>
+    </member>
+    <member name="T:System.IO.Pipes.PipeDirection">
+      <summary>Gibt die Richtung der Pipe an.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeDirection.In">
+      <summary>Gibt an, dass die Piperichtung die Eingangsrichtung ist.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeDirection.InOut">
+      <summary>Gibt an, dass die Pipe bidirektional ist.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeDirection.Out">
+      <summary>Gibt an, dass die Piperichtung die Ausgangsrichtung ist.</summary>
+    </member>
+    <member name="T:System.IO.Pipes.PipeOptions">
+      <summary>Stellt Optionen zum Erstellen eines <see cref="T:System.IO.Pipes.PipeStream" />-Objekts bereit.Diese Enumeration verfügt über ein <see cref="T:System.FlagsAttribute" />-Attribut, das die bitweise Kombination der Memberwerte zulässt.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeOptions.Asynchronous">
+      <summary>Gibt an, dass die Pipe für asynchrone Lese- und Schreibvorgänge verwendet werden kann.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeOptions.None">
+      <summary>Gibt an, dass keine zusätzlichen Parameter vorhanden sind.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeOptions.WriteThrough">
+      <summary>Gibt an, dass das System durch jeden Zwischencache schreiben und direkt zur Pipe wechseln soll.</summary>
+    </member>
+    <member name="T:System.IO.Pipes.PipeStream">
+      <summary>Macht ein <see cref="T:System.IO.Stream" />-Objekt um eine Pipe verfügbar, das sowohl anonyme als auch benannte Pipes unterstützt.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.#ctor(System.IO.Pipes.PipeDirection,System.Int32)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.PipeStream" />-Klasse unter Verwendung des angegebenen <see cref="T:System.IO.Pipes.PipeDirection" />-Werts und der angegebenen Puffergröße.</summary>
+      <param name="direction">Einer der <see cref="T:System.IO.Pipes.PipeDirection" />-Werte, die die Richtung des Pipeobjekts angeben.</param>
+      <param name="bufferSize">Ein positiver <see cref="T:System.Int32" />-Wert größer oder gleich 0, der die Puffergröße angibt.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="direction" /> ist kein gültiger <see cref="T:System.IO.Pipes.PipeDirection" />-Wert.- oder - <paramref name="bufferSize" /> ist kleiner als 0.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.#ctor(System.IO.Pipes.PipeDirection,System.IO.Pipes.PipeTransmissionMode,System.Int32)">
+      <summary>Initialisiert eine neue Instanz der <see cref="T:System.IO.Pipes.PipeStream" />-Klasse mit der angegebenen <see cref="T:System.IO.Pipes.PipeDirection" />, dem angegebenen <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> und der angegebenen Puffergröße.</summary>
+      <param name="direction">Einer der <see cref="T:System.IO.Pipes.PipeDirection" />-Werte, die die Richtung des Pipeobjekts angeben.</param>
+      <param name="transmissionMode">Einer der <see cref="T:System.IO.Pipes.PipeTransmissionMode" />-Werte, die den Übertragungsmodus des Pipeobjekts angeben.</param>
+      <param name="outBufferSize">Ein positiver <see cref="T:System.Int32" />-Wert größer oder gleich 0, der die Puffergröße angibt.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="direction" /> ist kein gültiger <see cref="T:System.IO.Pipes.PipeDirection" />-Wert.- oder - <paramref name="transmissionMode" /> ist kein gültiger <see cref="T:System.IO.Pipes.PipeTransmissionMode" />-Wert.- oder - <paramref name="bufferSize" /> ist kleiner als 0.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.CanRead">
+      <summary>Ruft einen Wert ab, der angibt, ob der aktuelle Stream Lesevorgänge unterstützt.</summary>
+      <returns>true, wenn der Stream Lesevorgänge unterstützt, andernfalls false.</returns>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.CanSeek">
+      <summary>Ruft einen Wert ab, der angibt, ob der aktuelle Stream Suchvorgänge unterstützt.</summary>
+      <returns>false in allen Fällen.</returns>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.CanWrite">
+      <summary>Ruft einen Wert ab, der angibt, ob der aktuelle Stream Schreibvorgänge unterstützt.</summary>
+      <returns>true, wenn der Stream Schreibvorgänge unterstützt, andernfalls false.</returns>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Dispose(System.Boolean)">
+      <summary>Gibt die von der <see cref="T:System.IO.Pipes.PipeStream" />-Klasse verwendeten nicht verwalteten Ressourcen frei und gibt (optional) auch die verwalteten Ressourcen frei.</summary>
+      <param name="disposing">true, um sowohl verwaltete als auch nicht verwaltete Ressourcen freizugeben, false, um ausschließlich nicht verwaltete Ressourcen freizugeben.</param>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Flush">
+      <summary>Löscht den Puffer für den aktuellen Stream und veranlasst die Ausgabe aller gepufferten Daten an das zugrunde liegende Gerät.</summary>
+      <exception cref="T:System.ObjectDisposedException">Die Pipe ist geschlossen.</exception>
+      <exception cref="T:System.NotSupportedException">Die Pipe unterstützt keine Schreibvorgänge.</exception>
+      <exception cref="T:System.IO.IOException">Die Pipe wurde unterbrochen, oder es ist ein anderer E/A-Fehler aufgetreten.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.InBufferSize">
+      <summary>Ruft die Größe des Eingangspuffers für eine Pipe in Bytes ab.</summary>
+      <returns>Ein Ganzzahlwert, der die Größe des Eingangspuffers in Bytes darstellt.</returns>
+      <exception cref="T:System.NotSupportedException">Der Stream ist nicht lesbar.</exception>
+      <exception cref="T:System.InvalidOperationException">Die Pipe wartet auf das Herstellen einer Verbindung.</exception>
+      <exception cref="T:System.IO.IOException">Die Pipe wurde unterbrochen, oder es ist ein anderer E/A-Fehler aufgetreten.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.IsAsync">
+      <summary>Ruft einen Wert ab, der angibt, ob ein <see cref="T:System.IO.Pipes.PipeStream" />-Objekt asynchron oder synchron geöffnet wurde.</summary>
+      <returns>true, wenn das <see cref="T:System.IO.Pipes.PipeStream" />-Objekt asynchron geöffnet wurde, andernfalls false.</returns>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.IsConnected">
+      <summary>Ruft einen Wert ab, der angibt, ob ein <see cref="T:System.IO.Pipes.PipeStream" />-Objekt verbunden ist, oder legt diesen fest.</summary>
+      <returns>true, wenn das <see cref="T:System.IO.Pipes.PipeStream" />-Objekt verbunden ist, andernfalls false.</returns>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.IsMessageComplete">
+      <summary>Ruft einen Wert ab, der angibt, ob in der vom letzten Lesevorgang zurückgegebenen Meldung weitere Daten vorhanden sind.</summary>
+      <returns>true, wenn in der Meldung keine weiteren zu lesenden Zeichen vorhanden sind, andernfalls false.</returns>
+      <exception cref="T:System.InvalidOperationException">Die Pipe ist nicht verbunden.- oder - Es wurde kein Pipehandle festgelegt.- oder - Der <see cref="P:System.IO.Pipes.PipeStream.ReadMode" />-Eigenschaftswert der Pipe ist nicht <see cref="F:System.IO.Pipes.PipeTransmissionMode.Message" />.</exception>
+      <exception cref="T:System.ObjectDisposedException">Die Pipe ist geschlossen.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.Length">
+      <summary>Ruft die Länge eines Streams in Bytes ab.</summary>
+      <returns>0 in allen Fällen.</returns>
+      <exception cref="T:System.NotSupportedException">Wird immer ausgelöst.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.OutBufferSize">
+      <summary>Ruft die Größe des Ausgangspuffers für eine Pipe in Bytes ab.</summary>
+      <returns>Die Größe des Ausgangspuffers in Bytes.</returns>
+      <exception cref="T:System.NotSupportedException">Der Stream ist unschreibbar.</exception>
+      <exception cref="T:System.InvalidOperationException">Die Pipe wartet auf das Herstellen einer Verbindung.</exception>
+      <exception cref="T:System.IO.IOException">Die Pipe wurde unterbrochen, oder es ist ein anderer E/A-Fehler aufgetreten.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.Position">
+      <summary>Ruft die aktuelle Position des aktuellen Streams ab oder legt diese fest.</summary>
+      <returns>0 in allen Fällen.</returns>
+      <exception cref="T:System.NotSupportedException">Wird immer ausgelöst.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Read(System.Byte[],System.Int32,System.Int32)">
+      <summary>Liest einen Byteblock aus einem Stream und schreibt die Daten in einen angegebenen Puffer.</summary>
+      <returns>Die Gesamtanzahl der in den <paramref name="buffer" /> gelesenen Bytes.Dies kann weniger als die Anzahl der angeforderten Bytes sein, wenn diese Anzahl an Bytes derzeit nicht verfügbar ist, oder 0, wenn das Streamende erreicht ist.</returns>
+      <param name="buffer">Enthält nach dem Beenden dieser Methode das angegebene Bytearray mit den Werten zwischen <paramref name="offset" /> und (<paramref name="offset" /> + <paramref name="count" /> - 1), die durch die aus der aktuellen Quelle gelesenen Bytes ersetzt wurden.</param>
+      <param name="offset">Das Byteoffset im <paramref name="buffer" />-Array, an dem die gelesenen Bytes platziert werden.</param>
+      <param name="count">Die maximale Anzahl der zu lesenden Bytes.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> ist null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> ist kleiner als 0.- oder - <paramref name="count" /> ist kleiner als 0.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="count" /> ist größer als die Anzahl der im <paramref name="buffer" /> verfügbaren Bytes.</exception>
+      <exception cref="T:System.ObjectDisposedException">Die Pipe ist geschlossen.</exception>
+      <exception cref="T:System.NotSupportedException">Die Pipe unterstützt keine Lesevorgänge.</exception>
+      <exception cref="T:System.InvalidOperationException">Die Pipe wurde getrennt, sie wartet auf das Herstellen einer Verbindung, oder das Handle wurde nicht festgelegt.</exception>
+      <exception cref="T:System.IO.IOException">Ein E/A-Fehler ist aufgetreten.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.ReadAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)"></member>
+    <member name="M:System.IO.Pipes.PipeStream.ReadByte">
+      <summary>Liest ein Byte aus einer Pipe.</summary>
+      <returns>Das in <see cref="T:System.Int32" /> umgewandelte Byte oder -1, wenn das Ende des Streams erreicht wurde (die Pipe wurde geschlossen).</returns>
+      <exception cref="T:System.ObjectDisposedException">Die Pipe ist geschlossen.</exception>
+      <exception cref="T:System.NotSupportedException">Die Pipe unterstützt keine Lesevorgänge.</exception>
+      <exception cref="T:System.InvalidOperationException">Die Pipe wurde getrennt, sie wartet auf das Herstellen einer Verbindung, oder das Handle wurde nicht festgelegt.</exception>
+      <exception cref="T:System.IO.IOException">Ein E/A-Fehler ist aufgetreten.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.ReadMode">
+      <summary>Ruft den Lesemodus für ein <see cref="T:System.IO.Pipes.PipeStream" />-Objekt ab oder legt diesen fest.</summary>
+      <returns>Einer der <see cref="T:System.IO.Pipes.PipeTransmissionMode" />-Werte, die angeben, wie das <see cref="T:System.IO.Pipes.PipeStream" />-Objekt aus der Pipe liest.</returns>
+      <exception cref="T:System.ArgumentOutOfRangeException">Der angegebene Wert ist kein gültiger <see cref="T:System.IO.Pipes.PipeTransmissionMode" />-Wert.</exception>
+      <exception cref="T:System.NotSupportedException">Der angegebene Wert ist kein unterstützter <see cref="T:System.IO.Pipes.PipeTransmissionMode" />-Wert für diesen Pipestream.</exception>
+      <exception cref="T:System.InvalidOperationException">Das Handle wurde nicht festgelegt.- oder - Die Pipe wartet auf das Herstellen einer Verbindung mit einem benannten Client.</exception>
+      <exception cref="T:System.IO.IOException">Die Pipe wurde unterbrochen, oder es ist ein E/A-Fehler mit einem benannten Client aufgetreten.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.SafePipeHandle">
+      <summary>Ruft das sichere Handle für das lokale Ende der Pipe ab, die vom aktuellen <see cref="T:System.IO.Pipes.PipeStream" />-Objekt gekapselt wird.</summary>
+      <returns>Ein <see cref="T:Microsoft.Win32.SafeHandles.SafePipeHandle" />-Objekt für die Pipe, die vom aktuellen <see cref="T:System.IO.Pipes.PipeStream" />-Objekt gekapselt wird.</returns>
+      <exception cref="T:System.InvalidOperationException">Es wurde kein Pipehandle festgelegt.</exception>
+      <exception cref="T:System.ObjectDisposedException">Die Pipe ist geschlossen.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Seek(System.Int64,System.IO.SeekOrigin)">
+      <summary>Legt die aktuelle Position des aktuellen Streams auf den angegebenen Wert fest.</summary>
+      <returns>Die neue Position im Stream.</returns>
+      <param name="offset">Der Punkt relativ zu <paramref name="origin" />, ab dem gesucht werden soll.</param>
+      <param name="origin">Bestimmt den Anfang, das Ende oder die aktuelle Position als Bezugspunkt für <paramref name="offset" /> unter Verwendung eines Werts vom Typ <see cref="T:System.IO.SeekOrigin" />.</param>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.SetLength(System.Int64)">
+      <summary>Legt die Länge des aktuellen Streams auf den angegebenen Wert fest.</summary>
+      <param name="value">Die neue Länge des Streams.</param>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.TransmissionMode">
+      <summary>Ruft den von der aktuellen Pipe unterstützten Pipeübertragungsmodus ab.</summary>
+      <returns>Einer der <see cref="T:System.IO.Pipes.PipeTransmissionMode" />-Werte, die den von der aktuellen Pipe unterstützten Übertragungsmodus angeben.</returns>
+      <exception cref="T:System.ObjectDisposedException">Die Pipe ist geschlossen.</exception>
+      <exception cref="T:System.InvalidOperationException">Das Handle wurde nicht festgelegt.- oder - Die Pipe wartet auf das Herstellen einer Verbindung in einem anonymen Client/Server-Vorgang oder einer Verbindung mit einem benannten Client. </exception>
+      <exception cref="T:System.IO.IOException">Die Pipe wurde unterbrochen, oder es ist ein anderer E/A-Fehler aufgetreten.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.WaitForPipeDrain">
+      <summary>Wartet, bis das andere Ende der Pipe alle gesendeten Bytes gelesen hat.</summary>
+      <exception cref="T:System.ObjectDisposedException">Die Pipe ist geschlossen.</exception>
+      <exception cref="T:System.NotSupportedException">Die Pipe unterstützt keine Schreibvorgänge.</exception>
+      <exception cref="T:System.IO.IOException">Die Pipe wurde unterbrochen, oder es ist ein anderer E/A-Fehler aufgetreten.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Write(System.Byte[],System.Int32,System.Int32)">
+      <summary>Schreibt einen Byteblock mit den Daten aus einem Puffer in den aktuellen Stream.</summary>
+      <param name="buffer">Der Puffer, der Daten enthält, die in die Pipe geschrieben werden sollen.</param>
+      <param name="offset">Der nullbasierte Byteoffset im <paramref name="buffer" />, ab dem Bytes in den aktuellen Stream kopiert werden.</param>
+      <param name="count">Die maximale Anzahl an Bytes, die in den aktuellen Stream geschrieben werden sollen.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> ist null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> ist kleiner als 0.- oder - <paramref name="count" /> ist kleiner als 0.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="count" /> ist größer als die Anzahl der im <paramref name="buffer" /> verfügbaren Bytes.</exception>
+      <exception cref="T:System.ObjectDisposedException">Die Pipe ist geschlossen.</exception>
+      <exception cref="T:System.NotSupportedException">Die Pipe unterstützt keine Schreibvorgänge.</exception>
+      <exception cref="T:System.IO.IOException">Die Pipe wurde unterbrochen, oder es ist ein anderer E/A-Fehler aufgetreten.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.WriteAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)"></member>
+    <member name="M:System.IO.Pipes.PipeStream.WriteByte(System.Byte)">
+      <summary>Schreibt ein Byte in den aktuellen Stream.</summary>
+      <param name="value">Das Byte, das in den Stream geschrieben werden soll.</param>
+      <exception cref="T:System.ObjectDisposedException">Die Pipe ist geschlossen.</exception>
+      <exception cref="T:System.NotSupportedException">Die Pipe unterstützt keine Schreibvorgänge.</exception>
+      <exception cref="T:System.InvalidOperationException">Die Pipe wurde getrennt, sie wartet auf das Herstellen einer Verbindung, oder das Handle wurde nicht festgelegt.</exception>
+      <exception cref="T:System.IO.IOException">Die Pipe wurde unterbrochen, oder es ist ein anderer E/A-Fehler aufgetreten.</exception>
+    </member>
+    <member name="T:System.IO.Pipes.PipeTransmissionMode">
+      <summary>Gibt den Übertragungsmodus der Pipe an.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeTransmissionMode.Byte">
+      <summary>Gibt an, dass die Daten in der Pipe als Bytestream übertragen und gelesen werden.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeTransmissionMode.Message">
+      <summary>Gibt an, dass die Daten in der Pipe als Meldungsstream übertragen und gelesen werden.</summary>
+    </member>
+  </members>
+</doc>

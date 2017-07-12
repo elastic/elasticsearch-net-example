@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Server.IISIntegration</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Extensions.Internal.SecurityHelper">
+            <summary>
+            Helper code used when implementing authentication middleware
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.SecurityHelper.MergeUserPrincipal(System.Security.Claims.ClaimsPrincipal,System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            Add all ClaimsIdentities from an additional ClaimPrincipal to the ClaimsPrincipal
+            Merges a new claims principal, placing all new identities first, and eliminating
+            any empty unauthenticated identities from context.User
+            </summary>
+            <param name="existingPrincipal">The <see cref="T:System.Security.Claims.ClaimsPrincipal"/> containing existing <see cref="T:System.Security.Claims.ClaimsIdentity"/>.</param>
+            <param name="additionalPrincipal">The <see cref="T:System.Security.Claims.ClaimsPrincipal"/> containing <see cref="T:System.Security.Claims.ClaimsIdentity"/> to be added.</param>
+        </member>
+        <member name="F:Microsoft.Extensions.Internal.TaskCache.CompletedTask">
+            <summary>
+            A <see cref="T:System.Threading.Tasks.Task"/> that's already completed successfully.
+            </summary>
+            <remarks>
+            We're caching this in a static readonly field to make it more inlinable and avoid the volatile lookup done
+            by <c>Task.CompletedTask</c>.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Extensions.Internal.TaskCache`1.DefaultCompletedTask">
+            <summary>
+            Gets a completed <see cref="T:System.Threading.Tasks.Task"/> with the value of <c>default(T)</c>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.IISOptions.AutomaticAuthentication">
+            <summary>
+            If true the authentication middleware alter the request user coming in and respond to generic challenges.
+            If false the authentication middleware will only provide identity and respond to challenges when explicitly indicated
+            by the AuthenticationScheme.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.IISOptions.ForwardWindowsAuthentication">
+            <summary>
+            If true authentication middleware will try to authenticate using platform handler windows authentication
+            If false authentication middleware won't be added
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.IISOptions.ForwardClientCertificate">
+            <summary>
+            Populates the ITLSConnectionFeature if the MS-ASPNETCORE-CLIENTCERT request header is present.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.IISOptions.AuthenticationDescriptions">
+            <summary>
+            Additional information about the authentication type which is made available to the application.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration(Microsoft.AspNetCore.Hosting.IWebHostBuilder)">
+            <summary>
+            Configures the port and base path the server should listen on when running behind AspNetCoreModule.
+            The app will also be configured to capture startup errors.
+            </summary>
+            <param name="hostBuilder"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

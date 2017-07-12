@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Remotion.Linq</id>
+    <version>2.1.1</version>
+    <title>Remotion.Linq</title>
+    <authors>rubicon IT GmbH</authors>
+    <owners>rubicon IT GmbH</owners>
+    <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
+    <projectUrl>http://relinq.codeplex.com</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>re-linq Frontend: A foundation for parsing LINQ expression trees and generating queries in SQL or other languages.
+Key features:
+- Transforms expression trees into abstract syntax trees resemblying LINQ query expressions (from ... select syntax)
+- Simplifies many aspects of this tree (sub queries, transparent identifieres, pre-evaluation ...)
+- Provides basic infrastructure for backend development (e.g. SQL generation) 
+- Provides a framework for user-defined query extensions and transformations</description>
+    <copyright>Copyright (c) rubicon IT GmbH, www.rubicon.eu - Licensed under Apache License, Version 2.0</copyright>
+    <tags>re-motion LINQ ExpressionTrees</tags>
+    <dependencies>
+      <group targetFramework=".NETStandard1.0">
+        <dependency id="System.Collections" version="[4.0.11, )" />
+        <dependency id="System.Diagnostics.Debug" version="[4.0.11, )" />
+        <dependency id="System.Linq" version="[4.1.0, )" />
+        <dependency id="System.Linq.Expressions" version="[4.1.0, )" />
+        <dependency id="System.Linq.Queryable" version="[4.0.1, )" />
+        <dependency id="System.ObjectModel" version="[4.0.12, )" />
+        <dependency id="System.Reflection" version="[4.1.0, )" />
+        <dependency id="System.Reflection.Extensions" version="[4.0.1, )" />
+        <dependency id="System.Runtime" version="[4.1.0, )" />
+        <dependency id="System.Runtime.Extensions" version="[4.1.0, )" />
+        <dependency id="System.Threading" version="[4.0.11, )" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

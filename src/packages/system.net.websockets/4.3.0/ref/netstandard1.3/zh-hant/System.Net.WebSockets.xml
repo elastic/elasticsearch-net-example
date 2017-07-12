@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Net.WebSockets</name>
+  </assembly>
+  <members>
+    <member name="T:System.Net.WebSockets.WebSocket">
+      <summary>WebSocket 類別允許應用程式在 WebSocket 升級完成後傳送和接收資料。</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.#ctor">
+      <summary>建立 <see cref="T:System.Net.WebSockets.WebSocket" /> 類別的執行個體。</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.Abort">
+      <summary>中止 WebSocket 連線並取消任何暫止 IO 作業。</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.CloseAsync(System.Net.WebSockets.WebSocketCloseStatus,System.String,System.Threading.CancellationToken)">
+      <summary>使用 WebSocket 通訊協定規格第 7 節 (英文) 中的關閉信號交換定義，以非同步作業方式關閉 WebSocket 連接。</summary>
+      <returns>傳回 <see cref="T:System.Threading.Tasks.Task" />。工作物件，表示非同步作業。</returns>
+      <param name="closeStatus">指出關閉 WebSocket 連線的原因。</param>
+      <param name="statusDescription">指定易懂的連線結束原因說明。</param>
+      <param name="cancellationToken">可以用來散佈應該取消作業之通知的語彙基元。</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.CloseOutputAsync(System.Net.WebSockets.WebSocketCloseStatus,System.String,System.Threading.CancellationToken)">
+      <summary>啟始或完成 WebSocket 通訊協定規格區段 7中所定義的關閉信號交換。</summary>
+      <returns>傳回 <see cref="T:System.Threading.Tasks.Task" />。工作物件，表示非同步作業。</returns>
+      <param name="closeStatus">指出關閉 WebSocket 連線的原因。</param>
+      <param name="statusDescription">可讓應用程式就連線關閉的原因指定人類看得懂的說明。</param>
+      <param name="cancellationToken">可以用來散佈應該取消作業之通知的語彙基元。</param>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocket.CloseStatus">
+      <summary>指出遠端端點為什麼啟始關閉信號交換的原因。</summary>
+      <returns>傳回 <see cref="T:System.Net.WebSockets.WebSocketCloseStatus" />。</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocket.CloseStatusDescription">
+      <summary>允許遠端端點描述連線關閉的原因。</summary>
+      <returns>傳回 <see cref="T:System.String" />。</returns>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.Dispose">
+      <summary>用來清除 ASP.NET 的 Unmanaged 資源和自我裝載的實作。</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.ReceiveAsync(System.ArraySegment{System.Byte},System.Threading.CancellationToken)">
+      <summary>以非同步方式從 WebSocket 連線接收資料。</summary>
+      <returns>傳回 <see cref="T:System.Threading.Tasks.Task`1" />。工作物件，表示非同步作業。工作物件上的 <see cref="P:System.Threading.Tasks.Task`1.Result" /> 屬性會傳回包含已接收之資料的 <see cref="T:System.Byte" /> 陣列。</returns>
+      <param name="buffer">參考應用程式緩衝區，該緩衝區是已接收的資料的儲存位置。</param>
+      <param name="cancellationToken">散佈通知，表示不應取消作業。</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocket.SendAsync(System.ArraySegment{System.Byte},System.Net.WebSockets.WebSocketMessageType,System.Boolean,System.Threading.CancellationToken)">
+      <summary>透過 WebSocket 以非同步的方式傳送資料。</summary>
+      <returns>傳回 <see cref="T:System.Threading.Tasks.Task" />。工作物件，表示非同步作業。</returns>
+      <param name="buffer">要透過連線傳送的緩衝區。</param>
+      <param name="messageType">表示應用程式正在傳送二進位或文字訊息。</param>
+      <param name="endOfMessage">指示「緩衝區」中的資料是否為訊息的最後一部分。</param>
+      <param name="cancellationToken">散佈通知的語彙基元，該通知表示不應取消作業。</param>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocket.State">
+      <summary>傳回 WebSocket 連接的目前狀態。</summary>
+      <returns>傳回 <see cref="T:System.Net.WebSockets.WebSocketState" />。</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocket.SubProtocol">
+      <summary>在開啟信號交換期間所交涉的附屬通訊協定。</summary>
+      <returns>傳回 <see cref="T:System.String" />。</returns>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketCloseStatus">
+      <summary>表示 WebSocket 通訊協定規格 第 11.7 節 中定義的 WebSocket 關閉程式碼。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.Empty">
+      <summary>未指定任何錯誤。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.EndpointUnavailable">
+      <summary>(1001) 表示正在移除端點。伺服器或用戶端將會無法使用。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.InternalServerError">
+      <summary>伺服器將會關閉這個連接，因為伺服器上發生錯誤。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.InvalidMessageType">
+      <summary>(1003) 用戶端或伺服器正在終止連接，因為無法接受所接收到的資料型別。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.InvalidPayloadData">
+      <summary>(1007) 用戶端或伺服器正在終止連接，因為收到的資料與訊息類型不一致。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.MandatoryExtension">
+      <summary>(1010) 用戶端正在終止連接，因為伺服器必須交涉的是擴充功能。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.MessageTooBig">
+      <summary>(1004) 保留供將來使用。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.NormalClosure">
+      <summary>(1000) 連接已在完成要求之後關閉。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.PolicyViolation">
+      <summary>(1008) 將會關閉連接，因為端點已收到違反其原則的訊息。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketCloseStatus.ProtocolError">
+      <summary>(1002) 用戶端或伺服器正在終止連接，因為發生通訊協定錯誤。</summary>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketError">
+      <summary>包含可能的 WebSocket 錯誤清單。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.ConnectionClosedPrematurely">
+      <summary>指出連線已意外終止。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.Faulted">
+      <summary>表示一般錯誤。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.HeaderError">
+      <summary>指出開啟信號交換期間剖析 HTTP 標頭時發生的錯誤。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.InvalidMessageType">
+      <summary>表示已收到具有未知 opcode 的 WebSocket 框架。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.InvalidState">
+      <summary>指示 WebSocket 為指定的作業 (例如，正在關閉或中止) 的無效狀態。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.NativeError">
+      <summary>指示發生未知的原生錯誤。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.NotAWebSocket">
+      <summary>指出傳入的要求不是有效的 websocket 要求。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.Success">
+      <summary>表示沒有例外狀況的原生錯誤資訊。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.UnsupportedProtocol">
+      <summary>表示用戶端要求不支援的 WebSocket 附屬通訊協定。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketError.UnsupportedVersion">
+      <summary>表示用戶端要求不支援的 WebSocket 通訊協定版本。</summary>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketException">
+      <summary>表示在 WebSocket 連線執行作業時發生的例外狀況。</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Int32)">
+      <summary>建立 <see cref="T:System.Net.WebSockets.WebSocketException" /> 類別的執行個體。</summary>
+      <param name="nativeError">例外狀況的原生錯誤碼。</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Int32,System.Exception)">
+      <summary>建立 <see cref="T:System.Net.WebSockets.WebSocketException" /> 類別的執行個體。</summary>
+      <param name="nativeError">例外狀況的原生錯誤碼。</param>
+      <param name="innerException">表示導致目前例外狀況的先前例外狀況。</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Int32,System.String)">
+      <summary>建立 <see cref="T:System.Net.WebSockets.WebSocketException" /> 類別的執行個體。</summary>
+      <param name="nativeError">例外狀況的原生錯誤碼。</param>
+      <param name="message">錯誤的描述。</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError)">
+      <summary>建立 <see cref="T:System.Net.WebSockets.WebSocketException" /> 類別的執行個體。</summary>
+      <param name="error">來自 WebSocketError 列舉的錯誤。</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.Exception)">
+      <summary>建立 <see cref="T:System.Net.WebSockets.WebSocketException" /> 類別的執行個體。</summary>
+      <param name="error">來自 WebSocketError 列舉的錯誤。</param>
+      <param name="innerException">表示導致目前例外狀況的先前例外狀況。</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.Int32)">
+      <summary>建立 <see cref="T:System.Net.WebSockets.WebSocketException" /> 類別的執行個體。</summary>
+      <param name="error">來自 WebSocketError 列舉的錯誤。</param>
+      <param name="nativeError">例外狀況的原生錯誤碼。</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.Int32,System.Exception)">
+      <summary>建立 <see cref="T:System.Net.WebSockets.WebSocketException" /> 類別的執行個體。</summary>
+      <param name="error">來自 WebSocketError 列舉的錯誤。</param>
+      <param name="nativeError">例外狀況的原生錯誤碼。</param>
+      <param name="innerException">表示導致目前例外狀況的先前例外狀況。</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.Int32,System.String)">
+      <summary>建立 <see cref="T:System.Net.WebSockets.WebSocketException" /> 類別的執行個體。</summary>
+      <param name="error">來自 WebSocketError 列舉的錯誤。</param>
+      <param name="nativeError">例外狀況的原生錯誤碼。</param>
+      <param name="message">錯誤的描述。</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.Int32,System.String,System.Exception)">
+      <summary>建立 <see cref="T:System.Net.WebSockets.WebSocketException" /> 類別的執行個體。</summary>
+      <param name="error">來自 WebSocketError 列舉的錯誤。</param>
+      <param name="nativeError">例外狀況的原生錯誤碼。</param>
+      <param name="message">錯誤的描述。</param>
+      <param name="innerException">表示導致目前例外狀況的先前例外狀況。</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.String)">
+      <summary>建立 <see cref="T:System.Net.WebSockets.WebSocketException" /> 類別的執行個體。</summary>
+      <param name="error">來自 WebSocketError 列舉的錯誤。</param>
+      <param name="message">錯誤的描述。</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.Net.WebSockets.WebSocketError,System.String,System.Exception)">
+      <summary>建立 <see cref="T:System.Net.WebSockets.WebSocketException" /> 類別的執行個體。</summary>
+      <param name="error">來自 WebSocketError 列舉的錯誤。</param>
+      <param name="message">錯誤的描述。</param>
+      <param name="innerException">表示導致目前例外狀況的先前例外狀況。</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.String)">
+      <summary>建立 <see cref="T:System.Net.WebSockets.WebSocketException" /> 類別的執行個體。</summary>
+      <param name="message">錯誤的描述。</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketException.#ctor(System.String,System.Exception)">
+      <summary>建立 <see cref="T:System.Net.WebSockets.WebSocketException" /> 類別的執行個體。</summary>
+      <param name="message">錯誤的描述。</param>
+      <param name="innerException">表示導致目前例外狀況的先前例外狀況。</param>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketException.ErrorCode">
+      <summary>發生之例外狀況的原生錯誤碼。</summary>
+      <returns>傳回 <see cref="T:System.Int32" />。</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketException.WebSocketErrorCode">
+      <summary>傳回 WebSocketError，表示所發生的錯誤的類型。</summary>
+      <returns>傳回 <see cref="T:System.Net.WebSockets.WebSocketError" />。</returns>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketMessageType">
+      <summary>指出訊息類型。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketMessageType.Binary">
+      <summary>訊息為二進位格式。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketMessageType.Close">
+      <summary>接收已完成，因為已收到關閉訊息。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketMessageType.Text">
+      <summary>此訊息為純文字。</summary>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketReceiveResult">
+      <summary>這個類別的執行個體表示在 WebSocket 上執行單一 ReceiveAsync 作業的結果。</summary>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketReceiveResult.#ctor(System.Int32,System.Net.WebSockets.WebSocketMessageType,System.Boolean)">
+      <summary>建立 <see cref="T:System.Net.WebSockets.WebSocketReceiveResult" /> 類別的執行個體。</summary>
+      <param name="count">接收的位元組數目。</param>
+      <param name="messageType">接收到的訊息類型。</param>
+      <param name="endOfMessage">表示此訊息是否為最後訊息。</param>
+    </member>
+    <member name="M:System.Net.WebSockets.WebSocketReceiveResult.#ctor(System.Int32,System.Net.WebSockets.WebSocketMessageType,System.Boolean,System.Nullable{System.Net.WebSockets.WebSocketCloseStatus},System.String)">
+      <summary>建立 <see cref="T:System.Net.WebSockets.WebSocketReceiveResult" /> 類別的執行個體。</summary>
+      <param name="count">接收的位元組數目。</param>
+      <param name="messageType">接收到的訊息類型。</param>
+      <param name="endOfMessage">表示此訊息是否為最後訊息。</param>
+      <param name="closeStatus">表示連接的 <see cref="T:System.Net.WebSockets.WebSocketCloseStatus" />。</param>
+      <param name="closeStatusDescription">
+        <paramref name="closeStatus" /> 的描述。</param>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketReceiveResult.CloseStatus">
+      <summary>指出遠端端點為什麼啟始關閉信號交換的原因。</summary>
+      <returns>傳回 <see cref="T:System.Net.WebSockets.WebSocketCloseStatus" />。</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketReceiveResult.CloseStatusDescription">
+      <summary>傳回描述遠端端點為何已啟動關閉信號交換的選擇性描述。</summary>
+      <returns>傳回 <see cref="T:System.String" />。</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketReceiveResult.Count">
+      <summary>表示 WebSocket 收到的位元組數。</summary>
+      <returns>傳回 <see cref="T:System.Int32" />。</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketReceiveResult.EndOfMessage">
+      <summary>指示是否已完全接收訊息。</summary>
+      <returns>傳回 <see cref="T:System.Boolean" />。</returns>
+    </member>
+    <member name="P:System.Net.WebSockets.WebSocketReceiveResult.MessageType">
+      <summary>指出目前的訊息是 UTF-8 訊息或二進位訊息。</summary>
+      <returns>傳回 <see cref="T:System.Net.WebSockets.WebSocketMessageType" />。</returns>
+    </member>
+    <member name="T:System.Net.WebSockets.WebSocketState">
+      <summary> 定義 WebSockets 執行個體可能處於的狀態。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.Aborted">
+      <summary>保留供將來使用。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.Closed">
+      <summary>指示 WebSocket 關閉信號交換正常完成。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.CloseReceived">
+      <summary>接收到來自遠端端點的關閉訊息。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.CloseSent">
+      <summary>關閉訊息已傳送至遠端端點。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.Connecting">
+      <summary>這個連接正在交涉與遠端端點的信號交換。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.None">
+      <summary>保留供將來使用。</summary>
+    </member>
+    <member name="F:System.Net.WebSockets.WebSocketState.Open">
+      <summary>HTTP 信號交換完成之後的初始狀態。</summary>
+    </member>
+  </members>
+</doc>

@@ -1,19 +1,10 @@
-﻿using Nest;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using Nest;
+using NuSearch.Domain;
 using NuSearch.Domain.Data;
 using NuSearch.Domain.Model;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Mime;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using System.Xml.Serialization;
-using NuSearch.Domain;
-using NuSearch.Domain.Extensions;
-using ShellProgressBar;
 
 namespace NuSearch.Indexer
 {
@@ -33,6 +24,7 @@ namespace NuSearch.Indexer
 			IndexDumps();
 			SwapAlias();
 
+			Console.WriteLine("Press any key to continue");
 			Console.Read();
 		}
 
@@ -50,7 +42,6 @@ namespace NuSearch.Indexer
 					.NumberOfReplicas(0)
 					.Analysis(Analysis)
 				)
-
 				.Mappings(m => m
 					.Map<Package>(MapPackage)
 				)
@@ -83,7 +74,7 @@ namespace NuSearch.Indexer
 				)
 				.Nested<PackageAuthor>(n => n
 					.Name(p => p.Authors.First())
-					.Properties(props=>props
+					.Properties(props => props
 						.Text(t => t
 							.Name(a => a.Name)
 							.Fields(fs => fs
@@ -139,10 +130,11 @@ namespace NuSearch.Indexer
 			);
 
 			bulkAll.Subscribe(new BulkAllObserver(
-				onNext: (b) => { Console.Write("."); },
-				onError: (e) => { throw e; },
+				onNext: b => Console.Write("."),
+				onError: e => throw e,
 				onCompleted: () => waitHandle.Signal()
 			));
+
 			waitHandle.Wait();
 			Console.WriteLine("Done.");
 		}

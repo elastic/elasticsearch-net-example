@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.VisualStudio.Web.CodeGeneration.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.VisualStudio.Web.CodeGeneration.CommandLine.AliasAttribute">
+            <summary>
+            Specifies a command line alias for a code generator.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.Web.CodeGeneration.CommandLine.ArgumentAttribute">
+            <summary>
+            Indicates a command line argument.
+            Arguments are passed as positional parameters from the command line.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.CommandLine.ArgumentAttribute.Description">
+            <summary>
+            Help string shown for the argument.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.Web.CodeGeneration.CommandLine.OptionAttribute">
+            <summary>
+            Indicates a command line option.
+            Options are passed as named parameters from the command line.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.CommandLine.OptionAttribute.Name">
+            <summary>
+            Name of the option. Usually passed with the prefix --.
+            If the Name is not set, name of the property on which the attribute
+            is declared is assumed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.CommandLine.OptionAttribute.ShortName">
+            <summary>
+            ShortName for convenience. Usually passed with the prefix -.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.CommandLine.OptionAttribute.Description">
+            <summary>
+            Help string shown for the option.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.CommandLine.OptionAttribute.DefaultValue">
+            <summary>
+            An optional default value to set if user did not pass a value
+            for this option.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.Web.CodeGeneration.DefaultFileSystem">
+            <summary>
+            Default implementation of <see cref="T:Microsoft.VisualStudio.Web.CodeGeneration.IFileSystem"/>
+            using the real file sytem.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.Web.CodeGeneration.ICodeGenerator">
+            <summary>
+            Marker interface to indicate that this class is a code generator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Web.CodeGeneration.IFilesLocator.GetFilePath(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Returns the first file found within the given search paths.
+            </summary>
+            <remarks>
+            A recursive search is done within each search path 
+            and the file matching file with the fileName is returned.
+            If multiple files with the same name are found in a given search path,
+            an exception is thrown.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.VisualStudio.Web.CodeGeneration.IFileSystem">
+            <summary>
+            An abstraction over common file/disk utilities.
+            Intended for mocking the disk operations in unit tests
+            by providing an alternate mock implemention.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Web.CodeGeneration.IModelTypesLocator.GetType(System.String)">
+            <summary>
+            Returns the types matching a type name.
+            The method returns types for which the
+            full name matches the given typeName exactly.
+            However, if there are none exactly matching, then
+            it returns all the types whose type name (without the namespace name)
+            matches the given type name. This allows the callers
+            to pass in a short type name and get the results.
+            Caller has to decide what to do when there are multiple matches.
+            </summary>
+            <param name="typeName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.VisualStudio.Web.CodeGeneration.Core.MessageStrings">
+            <summary>
+               A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.Core.MessageStrings.ResourceManager">
+            <summary>
+               Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.Core.MessageStrings.Culture">
+            <summary>
+               Overrides the current thread's CurrentUICulture property for all
+               resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.Core.MessageStrings.CodeGeneratorInstanceCreationError">
+            <summary>
+               Looks up a localized string similar to There was an error creating the code generator instance: {0}\r\n{1}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.Core.MessageStrings.CodeGeneratorNotFound">
+            <summary>
+               Looks up a localized string similar to No code generators found with the name &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.Core.MessageStrings.DnuNotFound">
+            <summary>
+               Looks up a localized string similar to Could not find dotnet.exe on path. .
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.Core.MessageStrings.FileNotFound">
+            <summary>
+               Looks up a localized string similar to The provided file &apos;{0}&apos; does not exist. This method expects a fully qualified path of an existing file..
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.Core.MessageStrings.FileNotFoundInFolders">
+            <summary>
+               Looks up a localized string similar to A file matching the name {0} was not found within any of the folders: {1}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.Core.MessageStrings.MethodNotFound">
+            <summary>
+               Looks up a localized string similar to {0} method with a model parameter is not found in class: {1}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.Core.MessageStrings.MultipleCodeGeneratorsFound">
+            <summary>
+               Looks up a localized string similar to Multiple code generators found matching the name &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.Core.MessageStrings.MultipleFilesFound">
+            <summary>
+               Looks up a localized string similar to Multiple files with name {0} found within {1}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.Core.MessageStrings.MultipleMethodsFound">
+            <summary>
+               Looks up a localized string similar to Multiple {0} methods with a model parameter are found in class: {1}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.Core.MessageStrings.NullParamError">
+            <summary>
+               Looks up a localized string similar to Parameter &apos;{0}&apos; cannot be null or empty..
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.Core.MessageStrings.TemplateFileNotFound">
+            <summary>
+               Looks up a localized string similar to Template file {0} not found within search paths {1}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.Core.MessageStrings.TemplateProcessingError">
+            <summary>
+               Looks up a localized string similar to There was an error running the template {0}: {1}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.Core.MessageStrings.UnableToRunRestore">
+            <summary>
+               Looks up a localized string similar to Unable to run restore..
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Web.CodeGeneration.Core.MessageStrings.UnexpectedTypeLibraryForTemplates">
+            <summary>
+               Looks up a localized string similar to Unexpected type of library information for template folders.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,523 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.UnmanagedMemoryStream</name>
+  </assembly>
+  <members>
+    <member name="T:System.IO.UnmanagedMemoryAccessor">
+      <summary>Предоставляет произвольный доступ к неуправляемым блокам памяти из управляемого кода.</summary>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.#ctor">
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.IO.UnmanagedMemoryAccessor" />. </summary>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64)">
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.IO.UnmanagedMemoryAccessor" /> указанными буфером, смещением и емкостью.</summary>
+      <param name="buffer">Буфер, который должен содержать метод доступа.</param>
+      <param name="offset">Байт, с которого должен начинаться метод доступа.</param>
+      <param name="capacity">Размер выделяемой памяти (в байтах).</param>
+      <exception cref="T:System.ArgumentException">Сумма <paramref name="offset" /> и <paramref name="capacity" /> больше значения <paramref name="buffer" />.</exception>
+      <exception cref="T:System.ArgumentNullException">Свойство <paramref name="buffer" /> имеет значение null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="offset" /> или <paramref name="capacity" /> меньше нуля.</exception>
+      <exception cref="T:System.InvalidOperationException">Сумма <paramref name="offset" /> и <paramref name="capacity" /> выйдет за верхний предел адресного пространства.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.IO.UnmanagedMemoryAccessor" /> указанными буфером, смещением, емкостью и правами доступа.</summary>
+      <param name="buffer">Буфер, который должен содержать метод доступа.</param>
+      <param name="offset">Байт, с которого должен начинаться метод доступа.</param>
+      <param name="capacity">Размер выделяемой памяти (в байтах).</param>
+      <param name="access">Тип разрешенного доступа к памяти.Значение по умолчанию — <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <exception cref="T:System.ArgumentException">Сумма <paramref name="offset" /> и <paramref name="capacity" /> больше значения <paramref name="buffer" />.</exception>
+      <exception cref="T:System.ArgumentNullException">Свойство <paramref name="buffer" /> имеет значение null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="offset" /> или <paramref name="capacity" /> меньше нуля.-или-<paramref name="access" /> не является допустимым значением перечисления <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" />.</exception>
+      <exception cref="T:System.InvalidOperationException">Сумма <paramref name="offset" /> и <paramref name="capacity" /> выйдет за верхний предел адресного пространства.</exception>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.CanRead">
+      <summary>Определяет, доступен ли метод доступа для чтения.</summary>
+      <returns>Значение true, если метод доступа доступен для чтения; в противном случае — значение false. </returns>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.CanWrite">
+      <summary>Определяет, доступен ли метод доступа для записи.</summary>
+      <returns>Значение true, если метод доступа доступен для записи; в противном случае — значение false. </returns>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.Capacity">
+      <summary>Возвращает емкость метода доступа.</summary>
+      <returns>Емкость метода доступа.</returns>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Dispose">
+      <summary>Освобождает все ресурсы, занятые модулем <see cref="T:System.IO.UnmanagedMemoryAccessor" />. </summary>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Dispose(System.Boolean)">
+      <summary>Освобождает неуправляемые ресурсы, используемые объектом <see cref="T:System.IO.UnmanagedMemoryAccessor" />, а при необходимости освобождает также управляемые ресурсы. </summary>
+      <param name="disposing">Значение true позволяет освободить как управляемые, так и неуправляемые ресурсы; значение false освобождает только неуправляемые ресурсы. </param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Initialize(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>Задает начальные значения для метода доступа.</summary>
+      <param name="buffer">Буфер, который должен содержать метод доступа.</param>
+      <param name="offset">Байт, с которого должен начинаться метод доступа.</param>
+      <param name="capacity">Размер выделяемой памяти (в байтах).</param>
+      <param name="access">Тип разрешенного доступа к памяти.Значение по умолчанию — <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <exception cref="T:System.ArgumentException">Сумма <paramref name="offset" /> и <paramref name="capacity" /> больше значения <paramref name="buffer" />.</exception>
+      <exception cref="T:System.ArgumentNullException">Свойство <paramref name="buffer" /> имеет значение null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="offset" /> или <paramref name="capacity" /> меньше нуля.-или-<paramref name="access" /> не является допустимым значением перечисления <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" />.</exception>
+      <exception cref="T:System.InvalidOperationException">Сумма <paramref name="offset" /> и <paramref name="capacity" /> выйдет за верхний предел адресного пространства.</exception>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.IsOpen">
+      <summary>Определяет, открыт ли метод доступа процессом в текущий момент.</summary>
+      <returns>Значение true, если метод доступа открыт; в противном случае — значение false. </returns>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadBoolean(System.Int64)">
+      <summary>Считывает из метода доступа логическое значение.</summary>
+      <returns>true или false.</returns>
+      <param name="position">Число байтов в методе доступа, с которого должно начаться чтение. </param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для чтения значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает чтение.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadByte(System.Int64)">
+      <summary>Считывает из метода доступа значение байта.</summary>
+      <returns>Прочитанное значение.</returns>
+      <param name="position">Число байтов в методе доступа, с которого должно начаться чтение.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для чтения значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает чтение.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadChar(System.Int64)">
+      <summary>Считывает из метода доступа символ.</summary>
+      <returns>Прочитанное значение.</returns>
+      <param name="position">Число байтов в методе доступа, с которого должно начаться чтение.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для чтения значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает чтение.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadDecimal(System.Int64)">
+      <summary>Считывает из метода доступа десятичное число.</summary>
+      <returns>Прочитанное значение.</returns>
+      <param name="position">Число байтов в методе доступа, с которого должно начаться чтение.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для чтения значения.-или-Считываемое десятичное число недопустимо.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает чтение.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadDouble(System.Int64)">
+      <summary>Считывает из метода доступа значение с плавающей запятой двойной точности.</summary>
+      <returns>Прочитанное значение.</returns>
+      <param name="position">Число байтов в методе доступа, с которого должно начаться чтение.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для чтения значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает чтение.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadInt16(System.Int64)">
+      <summary>Считывает из метода доступа 16-разрядное целое число.</summary>
+      <returns>Прочитанное значение.</returns>
+      <param name="position">Число байтов в методе доступа, с которого должно начаться чтение.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для чтения значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает чтение.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadInt32(System.Int64)">
+      <summary>Считывает из метода доступа 32-разрядное целое число.</summary>
+      <returns>Прочитанное значение.</returns>
+      <param name="position">Число байтов в методе доступа, с которого должно начаться чтение.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для чтения значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает чтение.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadInt64(System.Int64)">
+      <summary>Считывает из метода доступа 64-разрядное целое число.</summary>
+      <returns>Прочитанное значение.</returns>
+      <param name="position">Число байтов в методе доступа, с которого должно начаться чтение.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для чтения значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает чтение.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadSByte(System.Int64)">
+      <summary>Считывает из метода доступа 8-разрядное целое число со знаком.</summary>
+      <returns>Прочитанное значение.</returns>
+      <param name="position">Число байтов в методе доступа, с которого должно начаться чтение.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для чтения значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает чтение.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadSingle(System.Int64)">
+      <summary>Считывает из метода доступа значение с плавающей запятой одиночной точности.</summary>
+      <returns>Прочитанное значение.</returns>
+      <param name="position">Число байтов в методе доступа, с которого должно начаться чтение.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для чтения значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает чтение.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadUInt16(System.Int64)">
+      <summary>Считывает из метода доступа 16-разрядное целое число без знака.</summary>
+      <returns>Прочитанное значение.</returns>
+      <param name="position">Число байтов в методе доступа, с которого должно начаться чтение.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для чтения значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает чтение.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadUInt32(System.Int64)">
+      <summary>Считывает из метода доступа 32-разрядное целое число без знака.</summary>
+      <returns>Прочитанное значение.</returns>
+      <param name="position">Число байтов в методе доступа, с которого должно начаться чтение.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для чтения значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает чтение.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadUInt64(System.Int64)">
+      <summary>Считывает из метода доступа 64-разрядное целое число без знака.</summary>
+      <returns>Прочитанное значение.</returns>
+      <param name="position">Число байтов в методе доступа, с которого должно начаться чтение.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для чтения значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает чтение.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Boolean)">
+      <summary>Записывает в метод доступа логическое значение.</summary>
+      <param name="position">Число байтов в методе доступа, с которого должна начаться запись.</param>
+      <param name="value">Значение для записи.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для записи значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает запись.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Byte)">
+      <summary>Записывает в метод доступа значение байта.</summary>
+      <param name="position">Число байтов в методе доступа, с которого должна начаться запись.</param>
+      <param name="value">Значение для записи.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для записи значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает запись.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Char)">
+      <summary>Записывает в метод доступа символ.</summary>
+      <param name="position">Число байтов в методе доступа, с которого должна начаться запись.</param>
+      <param name="value">Значение для записи.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для записи значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает запись.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Decimal)">
+      <summary>Записывает в метод доступа десятичное число.</summary>
+      <param name="position">Число байтов в методе доступа, с которого должна начаться запись.</param>
+      <param name="value">Значение для записи.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для записи значения.-или-Десятичное число недопустимо.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает запись.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Double)">
+      <summary>Записывает в метод доступа значение типа Double.</summary>
+      <param name="position">Число байтов в методе доступа, с которого должна начаться запись.</param>
+      <param name="value">Значение для записи.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для записи значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает запись.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Int16)">
+      <summary>Записывает в метод доступа 16-разрядное целое число.</summary>
+      <param name="position">Число байтов в методе доступа, с которого должна начаться запись.</param>
+      <param name="value">Значение для записи.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для записи значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает запись.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Int32)">
+      <summary>Записывает в метод доступа 32-разрядное целое число.</summary>
+      <param name="position">Число байтов в методе доступа, с которого должна начаться запись.</param>
+      <param name="value">Значение для записи.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для записи значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает запись.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Int64)">
+      <summary>Записывает в метод доступа 64-разрядное целое число.</summary>
+      <param name="position">Число байтов в методе доступа, с которого должна начаться запись.</param>
+      <param name="value">Значение для записи.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после позиции для записи значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает запись.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.SByte)">
+      <summary>Записывает в метод доступа 8-разрядное целое число.</summary>
+      <param name="position">Число байтов в методе доступа, с которого должна начаться запись.</param>
+      <param name="value">Значение для записи.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для записи значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает запись.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Single)">
+      <summary>Записывает в метод доступа значение типа Single.</summary>
+      <param name="position">Число байтов в методе доступа, с которого должна начаться запись.</param>
+      <param name="value">Значение для записи.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для записи значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает запись.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.UInt16)">
+      <summary>Записывает в метод доступа 16-разрядное целое число без знака.</summary>
+      <param name="position">Число байтов в методе доступа, с которого должна начаться запись.</param>
+      <param name="value">Значение для записи.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для записи значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает запись.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.UInt32)">
+      <summary>Записывает в метод доступа 32-разрядное целое число без знака.</summary>
+      <param name="position">Число байтов в методе доступа, с которого должна начаться запись.</param>
+      <param name="value">Значение для записи.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для записи значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает запись.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.UInt64)">
+      <summary>Записывает в метод доступа 64-разрядное целое число без знака.</summary>
+      <param name="position">Число байтов в методе доступа, с которого должна начаться запись.</param>
+      <param name="value">Значение для записи.</param>
+      <exception cref="T:System.ArgumentException">Не хватает байтов после <paramref name="position" /> для записи значения.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> меньше нуля или больше емкости метода доступа.</exception>
+      <exception cref="T:System.NotSupportedException">Метод доступа не поддерживает запись.</exception>
+      <exception cref="T:System.ObjectDisposedException">Объект доступа был освобожден.</exception>
+    </member>
+    <member name="T:System.IO.UnmanagedMemoryStream">
+      <summary>Предоставляет доступ к неуправляемым блокам памяти из управляемого кода.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor">
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.IO.UnmanagedMemoryStream" />.</summary>
+      <exception cref="T:System.Security.SecurityException">Пользователь не имеет необходимого разрешения.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Byte*,System.Int64)">
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.IO.UnmanagedMemoryStream" />, используя заданное расположение и объем памяти.</summary>
+      <param name="pointer">Указатель на расположение неуправляемой памяти.</param>
+      <param name="length">Используемый объем памяти.</param>
+      <exception cref="T:System.Security.SecurityException">Пользователь не имеет необходимого разрешения.</exception>
+      <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="pointer" /> — null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="length" /> меньше нуля.-или-Значение параметра <paramref name="length" /> достаточно велико, чтобы привести к переполнению.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Byte*,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.IO.UnmanagedMemoryStream" />, используя указанные значения расположения, объема памяти, общего объема памяти и доступа к файлам.</summary>
+      <param name="pointer">Указатель на расположение неуправляемой памяти.</param>
+      <param name="length">Используемый объем памяти.</param>
+      <param name="capacity">Общий объем памяти, назначенный для потока.</param>
+      <param name="access">Одно из значений <see cref="T:System.IO.FileAccess" />.</param>
+      <exception cref="T:System.Security.SecurityException">Пользователь не имеет необходимого разрешения.</exception>
+      <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="pointer" /> — null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="length" /> меньше нуля.-или- Значение параметра <paramref name="capacity" /> меньше нуля.-или-Значение параметра <paramref name="length" /> больше, чем значение <paramref name="capacity" />.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64)">
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.IO.UnmanagedMemoryStream" /> в безопасном буфере с указанным смещением и длиной. </summary>
+      <param name="buffer">Буфер, который должен содержать поток неуправляемой памяти.</param>
+      <param name="offset">Позиция байта в буфере, с которой должен начинаться поток неуправляемой памяти.</param>
+      <param name="length">Длина потока неуправляемой памяти.</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.IO.UnmanagedMemoryStream" /> в безопасном буфере с указанными смещением, длиной и правами доступа к файлам. </summary>
+      <param name="buffer">Буфер, который должен содержать поток неуправляемой памяти.</param>
+      <param name="offset">Позиция байта в буфере, с которой должен начинаться поток неуправляемой памяти.</param>
+      <param name="length">Длина потока неуправляемой памяти.</param>
+      <param name="access">Режим доступа к файлам для потока неуправляемой памяти. </param>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.CanRead">
+      <summary>Возвращает значение, определяющее, поддерживает ли поток операции чтения.</summary>
+      <returns>Значение false, если объект был создан конструктором с использованием параметра <paramref name="access" />, не включающего чтение потока, и если поток закрыт; в противном случае — значение true.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.CanSeek">
+      <summary>Возвращает значение, определяющее, поддерживает ли поток операции поиска.</summary>
+      <returns>Значение false, если поток закрыт, в противном случае — значение true.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.CanWrite">
+      <summary>Возвращает значение, определяющее, поддерживает ли поток операции записи.</summary>
+      <returns>Значение false, если объект был создан конструктором со значением параметра <paramref name="access" />, которое поддерживает запись, или если объект был создан конструктором без параметров, или если поток закрыт; в противном случае — значение true.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.Capacity">
+      <summary>Возвращает длину потока (размер) или общий объем памяти, назначенный потоку (емкость).</summary>
+      <returns>Размер или емкость потока.</returns>
+      <exception cref="T:System.ObjectDisposedException">Поток закрыт.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Dispose(System.Boolean)">
+      <summary>Освобождает неуправляемые ресурсы, используемые объектом <see cref="T:System.IO.UnmanagedMemoryStream" />, а при необходимости освобождает также и управляемые ресурсы.</summary>
+      <param name="disposing">Значение true позволяет освободить как управляемые, так и неуправляемые ресурсы; значение false освобождает только неуправляемые ресурсы.</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Flush">
+      <summary>Переопределяет метод <see cref="M:System.IO.Stream.Flush" /> так, что никакие действия не выполняются.</summary>
+      <exception cref="T:System.ObjectDisposedException">Поток закрыт.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.FlushAsync(System.Threading.CancellationToken)">
+      <summary>Переопределяет метод <see cref="M:System.IO.Stream.FlushAsync(System.Threading.CancellationToken)" /> так, что операция отменяется, если это указано, но никакие другие действия не выполняются.Доступно начиная с версии .NET Framework 2015</summary>
+      <returns>Задача, представляющая асинхронную операцию очистки.</returns>
+      <param name="cancellationToken">Токен для отслеживания запросов отмены.Значение по умолчанию — <see cref="P:System.Threading.CancellationToken.None" />.</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Initialize(System.Byte*,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.IO.UnmanagedMemoryStream" />, используя указатель на неуправляемое расположение в памяти. </summary>
+      <param name="pointer">Указатель на расположение неуправляемой памяти.</param>
+      <param name="length">Используемый объем памяти.</param>
+      <param name="capacity">Общий объем памяти, назначенный для потока.</param>
+      <param name="access">Одно из значений <see cref="T:System.IO.FileAccess" />. </param>
+      <exception cref="T:System.Security.SecurityException">Пользователь не имеет необходимого разрешения.</exception>
+      <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="pointer" /> — null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="length" /> меньше нуля.-или- Значение параметра <paramref name="capacity" /> меньше нуля.-или-Значение параметра <paramref name="length" /> достаточно велико, чтобы привести к переполнению.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Initialize(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.IO.UnmanagedMemoryStream" /> в безопасном буфере с указанными смещением, длиной и правами доступа к файлам. </summary>
+      <param name="buffer">Буфер, который должен содержать поток неуправляемой памяти.</param>
+      <param name="offset">Позиция байта в буфере, с которой должен начинаться поток неуправляемой памяти.</param>
+      <param name="length">Длина потока неуправляемой памяти.</param>
+      <param name="access">Режим доступа к файлам для потока неуправляемой памяти.</param>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.Length">
+      <summary>Возвращает длину данных в потоке.</summary>
+      <returns>Длина данных в потоке.</returns>
+      <exception cref="T:System.ObjectDisposedException">Поток закрыт.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.Position">
+      <summary>Возвращает или задает текущую позицию в потоке.</summary>
+      <returns>Текущая позиция в потоке.</returns>
+      <exception cref="T:System.ObjectDisposedException">Поток закрыт.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">Для позиции задано значение меньше нуля или значение позиции больше <see cref="F:System.Int32.MaxValue" />, или добавление к текущему указателю привело к переполнению.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.PositionPointer">
+      <summary>Возвращает или задает указатель байтов для потока, используя текущее положение в потоке.</summary>
+      <returns>Указатель байтов.</returns>
+      <exception cref="T:System.IndexOutOfRangeException">Значение текущей позиции превышает емкость потока.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">Указываемая позиция не является допустимой в текущем потоке.</exception>
+      <exception cref="T:System.IO.IOException">Для указателя задается значение меньше, чем значение начальной позиции потока.</exception>
+      <exception cref="T:System.NotSupportedException">Поток был инициализирован для использования с <see cref="T:System.Runtime.InteropServices.SafeBuffer" />.Свойство <see cref="P:System.IO.UnmanagedMemoryStream.PositionPointer" /> допустимо только для потоков, которые инициализируются с указателем <see cref="T:System.Byte" />.</exception>
+      <filterpriority>2</filterpriority>
+      <PermissionSet>
+        <IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode" />
+      </PermissionSet>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Read(System.Byte[],System.Int32,System.Int32)">
+      <summary>Считывает указанное число байтов в указанный массив.</summary>
+      <returns>Общее количество байтов, считанных в буфер.Это число может быть меньше количества запрошенных байтов, если столько байтов в настоящее время недоступно, а также равняться нулю (0), если был достигнут конец потока.</returns>
+      <param name="buffer">При возврате данный метод содержит указанный массив байтов, в котором значения между <paramref name="offset" /> и (<paramref name="offset" /> + <paramref name="count" /> - 1) заменены байтами, считанными из текущего источника.Этот параметр передается неинициализированным.</param>
+      <param name="offset">Смещение байтов (начиная с нуля) в <paramref name="buffer" />, с которого начинается сохранение данных, считанных из текущего потока.</param>
+      <param name="count">Максимальное количество байтов, которое должно быть считано из текущего потока.</param>
+      <exception cref="T:System.ObjectDisposedException">Поток закрыт.</exception>
+      <exception cref="T:System.NotSupportedException">Основная память не поддерживает чтение.-или- Свойству <see cref="P:System.IO.UnmanagedMemoryStream.CanRead" /> задано значение false. </exception>
+      <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="buffer" /> — null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="offset" /> меньше нуля. -или- Значение параметра <paramref name="count" /> меньше нуля.</exception>
+      <exception cref="T:System.ArgumentException">Длина массива буфера без учета параметра <paramref name="offset" /> меньше значения параметра <paramref name="count" />.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.ReadAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+      <summary>Считывает в асинхронном режиме указанное число байтов в указанный массив.Доступно начиная с версии .NET Framework 2015</summary>
+      <returns>Задача, представляющая асинхронную операцию чтения.Значение параметра <paramref name="TResult" /> содержит общее число байтов, считанных в буфер.Значение результата может быть меньше запрошенного числа байтов, если число доступных в данный момент байтов меньше запрошенного числа, или результат может быть равен 0 (нулю), если был достигнут конец потока.</returns>
+      <param name="buffer">Буфер, в который записываются данные.</param>
+      <param name="offset">Смещение байтов в <paramref name="buffer" />, с которого начинается запись данных из потока.</param>
+      <param name="count">Максимальное число байтов, предназначенных для чтения.</param>
+      <param name="cancellationToken">Токен для отслеживания запросов отмены.Значение по умолчанию — <see cref="P:System.Threading.CancellationToken.None" />.</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.ReadByte">
+      <summary>Считывает байт из потока и перемещает позицию в потоке на один байт или возвращает -1, если достигнут конец потока.</summary>
+      <returns>Байт без знака, приведенный к объекту <see cref="T:System.Int32" />, или значение -1, если достигнут конец потока.</returns>
+      <exception cref="T:System.ObjectDisposedException">Поток закрыт.</exception>
+      <exception cref="T:System.NotSupportedException">Основная память не поддерживает чтение.-или-Текущая позиция – в конце потока.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Seek(System.Int64,System.IO.SeekOrigin)">
+      <summary>Устанавливает текущую позицию текущего потока на заданное значение.</summary>
+      <returns>Новая позиция в потоке.</returns>
+      <param name="offset">Указатель относительно начальной точки <paramref name="origin" />, от которой начинается поиск. </param>
+      <param name="loc">Задает начальную, конечную или текущую позицию как опорную точку для <paramref name="origin" />, используя значение типа <see cref="T:System.IO.SeekOrigin" />. </param>
+      <exception cref="T:System.IO.IOException">Попытка поиска была выполнена до начала потока.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">Значение <paramref name="offset" /> больше максимального значения потока.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="loc" /> недопустим.</exception>
+      <exception cref="T:System.ObjectDisposedException">Поток закрыт.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.SetLength(System.Int64)">
+      <summary>Присваивает длине потока указанное значение.</summary>
+      <param name="value">Длина потока.</param>
+      <exception cref="T:System.IO.IOException">Произошла ошибка ввода-вывода. </exception>
+      <exception cref="T:System.ObjectDisposedException">Поток закрыт.</exception>
+      <exception cref="T:System.NotSupportedException">Основная память не поддерживает запись.-или-Предпринята попытка записи в поток, и значение свойства <see cref="P:System.IO.UnmanagedMemoryStream.CanWrite" /> равно false.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">Указанное значение <paramref name="value" /> превышает значение емкости потока.-или-Указанный <paramref name="value" /> имеет отрицательное значение.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Write(System.Byte[],System.Int32,System.Int32)">
+      <summary>Записывает в текущий поток блок байтов, используя данные из буфера.</summary>
+      <param name="buffer">Массив байтов, из которого необходимо скопировать байты в текущий поток.</param>
+      <param name="offset">Смещение в буфере, с которого необходимо начать копирование байтов в текущий поток.</param>
+      <param name="count">Число байтов для записи в текущий поток.</param>
+      <exception cref="T:System.ObjectDisposedException">Поток закрыт.</exception>
+      <exception cref="T:System.NotSupportedException">Основная память не поддерживает запись. -или-Предпринята попытка записи в поток, и значение свойства <see cref="P:System.IO.UnmanagedMemoryStream.CanWrite" /> равно false.-или-Значение параметра <paramref name="count" /> больше значения емкости потока.-или-Позиция – в конце емкости потока.</exception>
+      <exception cref="T:System.IO.IOException">Ошибка ввода-вывода. </exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">Значение одного из указанных параметров меньше нуля.</exception>
+      <exception cref="T:System.ArgumentException">Значение параметра <paramref name="offset" /> без учета длины параметра <paramref name="buffer" /> меньше значения параметра <paramref name="count" />.</exception>
+      <exception cref="T:System.ArgumentNullException">Параметр <paramref name="buffer" /> имеет значение null.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.WriteAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+      <summary>Асинхронно записывает последовательность байтов в текущий поток, перемещает текущую позицию внутри потока на число записанных байтов и отслеживает запросы отмены.Доступно начиная с версии .NET Framework 2015</summary>
+      <returns>Задача, представляющая асинхронную операцию записи.</returns>
+      <param name="buffer">Буфер, из которого записываются данные.</param>
+      <param name="offset">Смещение байтов (начиная с нуля) в объекте <paramref name="buffer" />, с которого начинается копирование байтов в поток.</param>
+      <param name="count">Максимальное число байтов для записи.</param>
+      <param name="cancellationToken">Токен для отслеживания запросов отмены.Значение по умолчанию — <see cref="P:System.Threading.CancellationToken.None" />.</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.WriteByte(System.Byte)">
+      <summary>Запись байта в текущую позицию в потоке файла.</summary>
+      <param name="value">Значение в байтах, записанное в поток.</param>
+      <exception cref="T:System.ObjectDisposedException">Поток закрыт.</exception>
+      <exception cref="T:System.NotSupportedException">Основная память не поддерживает запись.-или-Предпринята попытка записи в поток, и значение свойства <see cref="P:System.IO.UnmanagedMemoryStream.CanWrite" /> равно false.-или- Текущая позиция – в конце емкости потока.</exception>
+      <exception cref="T:System.IO.IOException">Предоставленное значение <paramref name="value" /> приводит к превышению максимальной емкости потока.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+  </members>
+</doc>

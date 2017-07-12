@@ -1,0 +1,621 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.Pipes</name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.Win32.SafeHandles.SafePipeHandle">
+      <summary>파이프 핸들에 대한 래퍼 클래스를 나타냅니다. </summary>
+    </member>
+    <member name="M:Microsoft.Win32.SafeHandles.SafePipeHandle.#ctor(System.IntPtr,System.Boolean)">
+      <summary>
+        <see cref="T:Microsoft.Win32.SafeHandles.SafePipeHandle" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="preexistingHandle">사용할 기존 핸들을 나타내는 <see cref="T:System.IntPtr" /> 개체입니다.</param>
+      <param name="ownsHandle">종료 단계에서 핸들을 안정적으로 해제하려면 true이고, 안정적으로 해제할 수 없게 하려면 false(권장되지 않음)입니다.</param>
+    </member>
+    <member name="P:Microsoft.Win32.SafeHandles.SafePipeHandle.IsInvalid"></member>
+    <member name="T:System.IO.Pipes.AnonymousPipeClientStream">
+      <summary>동기 및 비동기 읽기/쓰기 작업을 모두 지원하는 익명 파이프 스트림의 클라이언트 측을 노출합니다.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.IO.Pipes.PipeDirection,Microsoft.Win32.SafeHandles.SafePipeHandle)">
+      <summary>지정된 핸들을 사용하여 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="direction">파이프의 방향을 결정하는 열거형 값 중 하나입니다.익명 파이프는 한 방향으로만 지정할 수 있으므로 <paramref name="direction" />을 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />으로 설정할 수 없습니다.</param>
+      <param name="safePipeHandle">이 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 개체가 캡슐화할 파이프의 SafeHandle입니다.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="safePipeHandle " />는 유효한 핸들이 아닙니다.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="safePipeHandle" />가 null인 경우</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="direction" />이 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />로 설정됩니다.</exception>
+      <exception cref="T:System.IO.IOException">디스크 오류 등의 I/O 오류가 발생한 경우또는스트림이 닫힌 경우</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.IO.Pipes.PipeDirection,System.String)">
+      <summary>지정된 파이프 방향 및 파이프 핸들의 문자열 표현을 사용하여 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="direction">파이프의 방향을 결정하는 열거형 값 중 하나입니다.익명 파이프는 한 방향으로만 지정할 수 있으므로 <paramref name="direction" />을 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />으로 설정할 수 없습니다.</param>
+      <param name="pipeHandleAsString">파이프 핸들을 나타내는 문자열입니다.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeHandleAsString" />은(는) 잘못된 핸들입니다.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeHandleAsString" />가 null인 경우</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="direction" />이 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />로 설정됩니다.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.String)">
+      <summary>파이프 핸들의 지정된 문자열 표현을 사용하여 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 클래스의 새 인스턴스를 초기화합니다. </summary>
+      <param name="pipeHandleAsString">파이프 핸들을 나타내는 문자열입니다.</param>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="pipeHandleAsString" />이 유효한 파이프 핸들이 아닌 경우</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeClientStream.Finalize">
+      <summary>관리 되지않는 리소스를 해제 하기 전에 다른 정리 작업을 수행 하 고는 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 인스턴스 가비지 수집에서 회수 됩니다.</summary>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeClientStream.ReadMode">
+      <summary>
+        <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 개체에 대한 읽기 모드를 설정합니다.</summary>
+      <returns>
+        <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 개체에 대한 <see cref="T:System.IO.Pipes.PipeTransmissionMode" />입니다.</returns>
+      <exception cref="T:System.ArgumentOutOfRangeException">전송 모드가 올바르지 않습니다.익명 파이프의 경우 <see cref="F:System.IO.Pipes.PipeTransmissionMode.Byte" />만 지원됩니다.</exception>
+      <exception cref="T:System.NotSupportedException">전송 모드는 <see cref="F:System.IO.Pipes.PipeTransmissionMode.Message" />입니다.</exception>
+      <exception cref="T:System.IO.IOException">연결이 끊어졌거나 다른 I/O 오류가 발생했습니다.</exception>
+      <exception cref="T:System.ObjectDisposedException">파이프가 닫힌 경우</exception>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeClientStream.TransmissionMode">
+      <summary>현재 파이프가 지원하는 파이프 전송 모드를 가져옵니다.</summary>
+      <returns>현재 파이프에서 지원하는 <see cref="T:System.IO.Pipes.PipeTransmissionMode" />입니다.</returns>
+    </member>
+    <member name="T:System.IO.Pipes.AnonymousPipeServerStream">
+      <summary>동기 및 비동기 읽기/쓰기 작업을 모두 지원하는 익명 파이프 주위의 스트림을 노출합니다.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor">
+      <summary>
+        <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection)">
+      <summary>지정된 파이프 방향을 사용하여 <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="direction">파이프의 방향을 결정하는 열거형 값 중 하나입니다.익명 파이프는 한 방향으로만 지정할 수 있으므로 <paramref name="direction" />을 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />으로 설정할 수 없습니다.</param>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="direction" />이 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />로 설정됩니다.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,Microsoft.Win32.SafeHandles.SafePipeHandle,Microsoft.Win32.SafeHandles.SafePipeHandle)">
+      <summary>지정된 파이프 핸들을 사용하여 <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="direction">파이프의 방향을 결정하는 열거형 값 중 하나입니다.익명 파이프는 한 방향으로만 지정할 수 있으므로 <paramref name="direction" />을 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />으로 설정할 수 없습니다.</param>
+      <param name="serverSafePipeHandle">이 <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 개체가 캡슐화할 파이프의 SafeHandle입니다.</param>
+      <param name="clientSafePipeHandle">
+        <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 개체의 SafeHandle입니다.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="serverSafePipeHandle" />또는 <paramref name="clientSafePipeHandle" />이 잘못된 핸들인 경우</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="serverSafePipeHandle" /> 또는 <paramref name="clientSafePipeHandle" />가 null인 경우</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="direction" />이 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />로 설정됩니다.</exception>
+      <exception cref="T:System.IO.IOException">디스크 오류 등의 I/O 오류가 발생한 경우또는스트림이 닫힌 경우</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,System.IO.HandleInheritability)">
+      <summary>지정된 파이프 방향 및 상속 모드를 사용하여 <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 클래스의 새 인스턴스를 초기화합니다. </summary>
+      <param name="direction">파이프의 방향을 결정하는 열거형 값 중 하나입니다.익명 파이프는 한 방향으로만 지정할 수 있으므로 <paramref name="direction" />을 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />으로 설정할 수 없습니다.</param>
+      <param name="inheritability">자식 프로세스가 기본 핸들을 상속할 수 있는지 여부를 결정하는 열거형 값 중 하나입니다.<see cref="F:System.IO.HandleInheritability.None" /> 또는 <see cref="F:System.IO.HandleInheritability.Inheritable" />로 설정해야 합니다.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="inheritability" />가 <see cref="F:System.IO.HandleInheritability.None" /> 또는 <see cref="F:System.IO.HandleInheritability.Inheritable" />로 설정되어 있지 않습니다.</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="direction" />이 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />로 설정됩니다.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,System.IO.HandleInheritability,System.Int32)">
+      <summary>지정된 파이프 방향, 상속 모드 및 버퍼 크기를 사용하여 <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 클래스의 새 인스턴스를 초기화합니다. </summary>
+      <param name="direction">파이프의 방향을 결정하는 열거형 값 중 하나입니다.익명 파이프는 한 방향으로만 지정할 수 있으므로 <paramref name="direction" />을 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />으로 설정할 수 없습니다.</param>
+      <param name="inheritability">자식 프로세스가 기본 핸들을 상속할 수 있는지 여부를 결정하는 열거형 값 중 하나입니다.<see cref="F:System.IO.HandleInheritability.None" /> 또는 <see cref="F:System.IO.HandleInheritability.Inheritable" />로 설정해야 합니다.</param>
+      <param name="bufferSize">버퍼의 크기입니다.이 값은 0보다 크거나 같아야 합니다.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="inheritability" />가 <see cref="F:System.IO.HandleInheritability.None" /> 또는 <see cref="F:System.IO.HandleInheritability.Inheritable" />로 설정되어 있지 않습니다.또는<paramref name="bufferSize" />가 0보다 작은 경우</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="direction" />이 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />로 설정됩니다.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeServerStream.ClientSafePipeHandle">
+      <summary>현재 <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 개체에 연결된 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 개체에 대한 안전한 핸들을 가져옵니다.</summary>
+      <returns>현재 <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 개체에 연결된 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 개체의 핸들입니다.</returns>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.DisposeLocalCopyOfClientHandle">
+      <summary>
+        <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 개체 핸들의 로컬 복사본을 종료합니다.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.Finalize">
+      <summary>관리 되지않는 리소스를 해제 하기 전에 다른 정리 작업을 수행 하 고는 <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 인스턴스 가비지 수집에서 회수 됩니다.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.GetClientHandleAsString">
+      <summary>연결된 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 개체의 핸들을 문자열로 가져옵니다.</summary>
+      <returns>연결된 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 개체의 핸들을 나타내는 문자열입니다.</returns>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeServerStream.ReadMode">
+      <summary>
+        <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 개체에 대한 읽기 모드를 설정합니다.익명 파이프의 경우 전송 모드가 <see cref="F:System.IO.Pipes.PipeTransmissionMode.Byte" />여야 합니다.</summary>
+      <returns>
+        <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 개체에 대한 읽기 모드입니다.</returns>
+      <exception cref="T:System.ArgumentOutOfRangeException">전송 모드가 올바르지 않습니다.익명 파이프의 경우 <see cref="F:System.IO.Pipes.PipeTransmissionMode.Byte" />만 지원됩니다.</exception>
+      <exception cref="T:System.NotSupportedException">속성이 <see cref="F:System.IO.Pipes.PipeTransmissionMode.Message" />로 설정되며, 이는 익명 파이프를 지원하지 않습니다.</exception>
+      <exception cref="T:System.IO.IOException">연결이 끊어졌거나 다른 I/O 오류가 발생했습니다.</exception>
+      <exception cref="T:System.ObjectDisposedException">파이프가 닫힌 경우</exception>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeServerStream.TransmissionMode">
+      <summary>현재 파이프가 지원하는 파이프 전송 모드를 가져옵니다.</summary>
+      <returns>현재 파이프에서 지원하는 <see cref="T:System.IO.Pipes.PipeTransmissionMode" />입니다.</returns>
+    </member>
+    <member name="T:System.IO.Pipes.NamedPipeClientStream">
+      <summary>동기 및 비동기 읽기/쓰기 작업을 모두 지원하는 명명된 파이프 주위의 <see cref="T:System.IO.Stream" />을 노출합니다.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.IO.Pipes.PipeDirection,System.Boolean,System.Boolean,Microsoft.Win32.SafeHandles.SafePipeHandle)">
+      <summary>지정된 파이프 방향을 사용하여 지정된 파이프 핸들에 대한 <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="direction">파이프의 방향을 결정하는 열거형 값 중 하나입니다.</param>
+      <param name="isAsync">핸들이 비동기 방식으로 열린 경우 true, 그렇지 않은 경우 false입니다.</param>
+      <param name="isConnected">파이프가 연결된 경우 true, 그렇지 않은 경우 false입니다.</param>
+      <param name="safePipeHandle">이 <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> 개체가 캡슐화할 파이프의 SafeHandle입니다.</param>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="safePipeHandle" />는 유효한 핸들이 아닙니다.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="safePipeHandle" />는 유효한 핸들이 아닙니다.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="safePipeHandle" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="direction" />은(는) 올바른 <see cref="T:System.IO.Pipes.PipeDirection" /> 값이 아닙니다.</exception>
+      <exception cref="T:System.IO.IOException">스트림이 닫힌 경우 </exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String)">
+      <summary>지정된 파이프 이름을 사용하여 <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="pipeName">파이프의 이름입니다.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" />이 길이가 0인 문자열인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" />이 "anonymous"로 설정된 경우</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String,System.String)">
+      <summary>지정된 파이프 및 서버 이름을 사용하여 <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="serverName">연결할 원격 컴퓨터의 이름 또는 로컬 컴퓨터를 지정하는 경우 "."입니다.</param>
+      <param name="pipeName">파이프의 이름입니다.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> 또는 <paramref name="serverName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> 또는 <paramref name="serverName" />가 길이가 0인 문자열인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" />이 "anonymous"로 설정된 경우</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String,System.String,System.IO.Pipes.PipeDirection)">
+      <summary>지정된 파이프와 서버 이름 및 지정된 파이프 방향을 사용하여 <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="serverName">연결할 원격 컴퓨터의 이름 또는 로컬 컴퓨터를 지정하는 경우 "."입니다.</param>
+      <param name="pipeName">파이프의 이름입니다.</param>
+      <param name="direction">파이프의 방향을 결정하는 열거형 값 중 하나입니다.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> 또는 <paramref name="serverName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> 또는 <paramref name="serverName" />가 길이가 0인 문자열인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" />이 "anonymous"로 설정된 경우또는<paramref name="direction" />은(는) 올바른 <see cref="T:System.IO.Pipes.PipeDirection" /> 값이 아닙니다.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String,System.String,System.IO.Pipes.PipeDirection,System.IO.Pipes.PipeOptions)">
+      <summary>지정된 파이프와 서버 이름 및 지정된 파이프 방향과 파이프 옵션을 사용하여 <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="serverName">연결할 원격 컴퓨터의 이름 또는 로컬 컴퓨터를 지정하는 경우 "."입니다.</param>
+      <param name="pipeName">파이프의 이름입니다.</param>
+      <param name="direction">파이프의 방향을 결정하는 열거형 값 중 하나입니다.</param>
+      <param name="options">파이프를 열거나 만드는 방법을 결정하는 열거형 값 중 하나입니다.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> 또는 <paramref name="serverName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> 또는 <paramref name="serverName" />가 길이가 0인 문자열인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" />이 "anonymous"로 설정된 경우또는<paramref name="direction" />은(는) 올바른 <see cref="T:System.IO.Pipes.PipeDirection" /> 값이 아닙니다.또는<paramref name="options" />은(는) 올바른 <see cref="T:System.IO.Pipes.PipeOptions" /> 값이 아닙니다.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String,System.String,System.IO.Pipes.PipeDirection,System.IO.Pipes.PipeOptions,System.Security.Principal.TokenImpersonationLevel)">
+      <summary>지정된 파이프와 서버 이름, 지정된 파이프 방향, 파이프 옵션 및 보안 가장 수준을 사용하여 <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="serverName">연결할 원격 컴퓨터의 이름 또는 로컬 컴퓨터를 지정하는 경우 "."입니다.</param>
+      <param name="pipeName">파이프의 이름입니다.</param>
+      <param name="direction">파이프의 방향을 결정하는 열거형 값 중 하나입니다.</param>
+      <param name="options">파이프를 열거나 만드는 방법을 결정하는 열거형 값 중 하나입니다.</param>
+      <param name="impersonationLevel">보안 가장 수준을 결정하는 열거형 값 중 하나입니다.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> 또는 <paramref name="serverName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> 또는 <paramref name="serverName" />가 길이가 0인 문자열인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" />이 "anonymous"로 설정된 경우또는<paramref name="direction" />은(는) 올바른 <see cref="T:System.IO.Pipes.PipeDirection" /> 값이 아닙니다.또는<paramref name="options" />은(는) 올바른 <see cref="T:System.IO.Pipes.PipeOptions" /> 값이 아닙니다.또는<paramref name="impersonationLevel" />은(는) 올바른 <see cref="T:System.Security.Principal.TokenImpersonationLevel" /> 값이 아닙니다.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.Connect">
+      <summary>무한 시간 제한 값을 사용하여 대기 중인 서버에 연결합니다.</summary>
+      <exception cref="T:System.InvalidOperationException">클라이언트가 이미 연결되어 있습니다.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.Connect(System.Int32)">
+      <summary>지정된 시간 제한 기간 내에 대기 서버에 연결합니다.</summary>
+      <param name="timeout">연결 제한 시간이 초과되기 전에 서버 응답을 기다릴 시간(밀리초)입니다.</param>
+      <exception cref="T:System.TimeoutException">지정된 <paramref name="timeout" /> 기간 내에 서버에 연결할 수 없는 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="timeout" />이 0보다 작고 <see cref="F:System.Threading.Timeout.Infinite" />로 설정되지 않았습니다.</exception>
+      <exception cref="T:System.InvalidOperationException">클라이언트가 이미 연결되어 있습니다.</exception>
+      <exception cref="T:System.IO.IOException">서버가 다른 클라이언트에 연결되었고 시간 초과 기간이 만료 되었습니다.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.ConnectAsync">
+      <summary>무한한 제한 시간을 사용하여 대기 중인 서버에 비동기 방식으로 연결합니다.</summary>
+      <returns>비동기 연결 작업(operation)을 나타내는 작업(task)입니다.</returns>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.ConnectAsync(System.Int32)">
+      <summary>지정된 제한 시간 내에 대기 중인 서버에 비동기 방식으로 연결합니다.</summary>
+      <returns>비동기 연결 작업(operation)을 나타내는 작업(task)입니다.</returns>
+      <param name="timeout">연결 제한 시간이 초과되기 전에 서버 응답을 기다릴 시간(밀리초)입니다.</param>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.ConnectAsync(System.Int32,System.Threading.CancellationToken)">
+      <summary>지정된 제한 시간 내에 대기 중인 서버에 비동기 방식으로 연결하고 취소 요청을 모니터링합니다.</summary>
+      <returns>비동기 연결 작업(operation)을 나타내는 작업(task)입니다.</returns>
+      <param name="timeout">연결 제한 시간이 초과되기 전에 서버 응답을 기다릴 시간(밀리초)입니다.</param>
+      <param name="cancellationToken">취소 요청을 모니터링할 토큰입니다.기본값은 <see cref="P:System.Threading.CancellationToken.None" />입니다.</param>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.ConnectAsync(System.Threading.CancellationToken)">
+      <summary>대기 중인 서버에 비동기 방식으로 연결하고 취소 요청을 모니터링합니다.</summary>
+      <returns>비동기 연결 작업(operation)을 나타내는 작업(task)입니다.</returns>
+      <param name="cancellationToken">취소 요청을 모니터링할 토큰입니다.기본값은 <see cref="P:System.Threading.CancellationToken.None" />입니다.</param>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.Finalize">
+      <summary>관리 되지않는 리소스를 해제 하기 전에 다른 정리 작업을 수행 하 고는 <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> 인스턴스 가비지 수집에서 회수 됩니다.</summary>
+    </member>
+    <member name="P:System.IO.Pipes.NamedPipeClientStream.NumberOfServerInstances">
+      <summary>같은 파이프 이름을 공유하는 서버 인스턴스의 수를 가져옵니다.</summary>
+      <returns>같은 파이프 이름을 공유하는 서버 인스턴스의 수입니다.</returns>
+      <exception cref="T:System.InvalidOperationException">파이프 핸들이 설정되지 않은 경우또는현재 <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> 개체가 아직 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 개체에 연결되지 않은 경우</exception>
+      <exception cref="T:System.IO.IOException">파이프가 끊어졌거나 I/O 오류가 발생한 경우</exception>
+      <exception cref="T:System.ObjectDisposedException">내부 파이프 핸들이 닫혔습니다.</exception>
+    </member>
+    <member name="T:System.IO.Pipes.NamedPipeServerStream">
+      <summary>동기 및 비동기 읽기/쓰기 작업을 모두 지원하는 명명된 파이프 주위의 <see cref="T:System.IO.Stream" />을 노출합니다.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,System.Boolean,System.Boolean,Microsoft.Win32.SafeHandles.SafePipeHandle)">
+      <summary>지정된 파이프 핸들을 사용하여 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="direction">파이프의 방향을 결정하는 열거형 값 중 하나입니다.</param>
+      <param name="isAsync">핸들이 비동기 방식으로 열린 경우 true, 그렇지 않은 경우 false입니다.</param>
+      <param name="isConnected">파이프가 연결된 경우 true, 그렇지 않은 경우 false입니다.</param>
+      <param name="safePipeHandle">이 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 개체가 캡슐화할 파이프의 SafeHandle입니다.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="direction" />은(는) 올바른 <see cref="T:System.IO.Pipes.PipeDirection" /> 값이 아닙니다.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="safePipeHandle" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="safePipeHandle" />은(는) 잘못된 핸들입니다.</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="safePipeHandle" />이 유효한 파이프 핸들이 아닌 경우또는서버 인스턴스의 최대 개수가 초과되었습니다.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String)">
+      <summary>지정된 파이프 이름을 사용하여 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="pipeName">파이프의 이름입니다.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" />이 길이가 0인 문자열인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" />이 "anonymous"로 설정된 경우</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" />에 콜론(":")이 있는 경우</exception>
+      <exception cref="T:System.PlatformNotSupportedException">운영 체제는 Windows Millennium Edition, Windows 98 또는 Windows 95이며, 지원되지 않습니다. </exception>
+      <exception cref="T:System.IO.IOException">서버 인스턴스의 최대 개수가 초과되었습니다.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection)">
+      <summary>지정된 파이프 이름 및 파이프 방향을 사용하여 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="pipeName">파이프의 이름입니다.</param>
+      <param name="direction">파이프의 방향을 결정하는 열거형 값 중 하나입니다.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" />이 길이가 0인 문자열인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" />이 "anonymous"로 설정된 경우또는<paramref name="direction" />은(는) 올바른 <see cref="T:System.IO.Pipes.PipeDirection" /> 값이 아닙니다.</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" />에 콜론(":")이 있는 경우</exception>
+      <exception cref="T:System.PlatformNotSupportedException">운영 체제는 Windows Millennium Edition, Windows 98 또는 Windows 95이며, 지원되지 않습니다.</exception>
+      <exception cref="T:System.IO.IOException">서버 인스턴스의 최대 개수가 초과되었습니다.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32)">
+      <summary>지정된 파이프 이름, 파이프 방향 및 최대 서버 인스턴스 수를 사용하여 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="pipeName">파이프의 이름입니다.</param>
+      <param name="direction">파이프의 방향을 결정하는 열거형 값 중 하나입니다.</param>
+      <param name="maxNumberOfServerInstances">같은 이름을 공유하는 서버 인스턴스의 최대 수입니다.이 값에 <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />를 전달할 수 있습니다.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" />이 길이가 0인 문자열인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" />이 "anonymous"로 설정된 경우또는<paramref name="direction" />은(는) 올바른 <see cref="T:System.IO.Pipes.PipeDirection" /> 값이 아닙니다.또는음수가 아닌 숫자가 필요합니다. 또는<paramref name="maxNumberofServerInstances" />가 -1보다 작거나 254보다 큰 경우(-1은 <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />를 나타냄)또는<see cref="F:System.IO.HandleInheritability.None" /> 또는 <see cref="F:System.IO.HandleInheritability.Inheritable" />이 필요합니다.또는액세스 권한은 <see cref="F:System.IO.Pipes.PipeAccessRights.ChangePermissions" />, <see cref="F:System.IO.Pipes.PipeAccessRights.TakeOwnership" /> 및 <see cref="F:System.IO.Pipes.PipeAccessRights.AccessSystemSecurity" /> 플래그로 제한됩니다.</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" />에 콜론(":")이 있는 경우</exception>
+      <exception cref="T:System.PlatformNotSupportedException">운영 체제는 Windows Millennium Edition, Windows 98 또는 Windows 95이며, 지원되지 않습니다.</exception>
+      <exception cref="T:System.IO.IOException">서버 인스턴스의 최대 개수가 초과되었습니다.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode)">
+      <summary>지정된 파이프 이름, 파이프 방향, 최대 서버 인스턴스 수 및 전송 모드를 사용하여 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="pipeName">파이프의 이름입니다.</param>
+      <param name="direction">파이프의 방향을 결정하는 열거형 값 중 하나입니다.</param>
+      <param name="maxNumberOfServerInstances">같은 이름을 공유하는 서버 인스턴스의 최대 수입니다.이 값에 <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />를 전달할 수 있습니다.</param>
+      <param name="transmissionMode">파이프의 전송 모드를 결정하는 열거형 값 중 하나입니다.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" />이 길이가 0인 문자열인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" />이 "anonymous"로 설정된 경우또는<paramref name="direction" />은(는) 올바른 <see cref="T:System.IO.Pipes.PipeDirection" /> 값이 아닙니다.또는<paramref name="maxNumberofServerInstances" />가 -1보다 작거나 254보다 큰 경우(-1은 <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />를 나타냄)</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" />에 콜론(":")이 있는 경우</exception>
+      <exception cref="T:System.PlatformNotSupportedException">운영 체제는 Windows Millennium Edition, Windows 98 또는 Windows 95이며, 지원되지 않습니다.</exception>
+      <exception cref="T:System.IO.IOException">서버 인스턴스의 최대 개수가 초과되었습니다.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions)">
+      <summary>지정된 파이프 이름, 파이프 방향, 최대 서버 인스턴스 수, 전송 모드 및 파이프 옵션을 사용하여 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="pipeName">파이프의 이름입니다.</param>
+      <param name="direction">파이프의 방향을 결정하는 열거형 값 중 하나입니다.</param>
+      <param name="maxNumberOfServerInstances">같은 이름을 공유하는 서버 인스턴스의 최대 수입니다.이 값에 <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />를 전달할 수 있습니다.</param>
+      <param name="transmissionMode">파이프의 전송 모드를 결정하는 열거형 값 중 하나입니다.</param>
+      <param name="options">파이프를 열거나 만드는 방법을 결정하는 열거형 값 중 하나입니다.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" />이 길이가 0인 문자열인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" />이 "anonymous"로 설정된 경우또는<paramref name="direction" />은(는) 올바른 <see cref="T:System.IO.Pipes.PipeDirection" /> 값이 아닙니다.또는<paramref name="maxNumberofServerInstances" />가 -1보다 작거나 254보다 큰 경우(-1은 <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />를 나타냄)또는<paramref name="options" />은(는) 올바른 <see cref="T:System.IO.Pipes.PipeOptions" /> 값이 아닙니다.</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" />에 콜론(":")이 있는 경우</exception>
+      <exception cref="T:System.PlatformNotSupportedException">운영 체제는 Windows Millennium Edition, Windows 98 또는 Windows 95이며, 지원되지 않습니다.</exception>
+      <exception cref="T:System.IO.IOException">서버 인스턴스의 최대 개수가 초과되었습니다.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32)">
+      <summary>지정된 파이프 이름, 파이프 방향, 최대 서버 인스턴스 수, 전송 모드, 파이프 옵션 및 권장 입출력 버퍼 크기를 사용하여 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="pipeName">파이프의 이름입니다.</param>
+      <param name="direction">파이프의 방향을 결정하는 열거형 값 중 하나입니다.</param>
+      <param name="maxNumberOfServerInstances">같은 이름을 공유하는 서버 인스턴스의 최대 수입니다.이 값에 <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />를 전달할 수 있습니다.</param>
+      <param name="transmissionMode">파이프의 전송 모드를 결정하는 열거형 값 중 하나입니다.</param>
+      <param name="options">파이프를 열거나 만드는 방법을 결정하는 열거형 값 중 하나입니다.</param>
+      <param name="inBufferSize">입력 버퍼 크기를 나타내는 0보다 큰 양의 값입니다.</param>
+      <param name="outBufferSize">출력 버퍼 크기를 나타내는 0보다 큰 양의 값입니다.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" />이 길이가 0인 문자열인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" />이 "anonymous"로 설정된 경우또는<paramref name="direction" />은(는) 올바른 <see cref="T:System.IO.Pipes.PipeDirection" /> 값이 아닙니다.또는<paramref name="maxNumberofServerInstances" />가 -1보다 작거나 254보다 큰 경우(-1은 <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />를 나타냄)또는<paramref name="options" />은(는) 올바른 <see cref="T:System.IO.Pipes.PipeOptions" /> 값이 아닙니다.또는<paramref name="inBufferSize" />가 음수인 경우</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" />에 콜론(":")이 있는 경우</exception>
+      <exception cref="T:System.PlatformNotSupportedException">운영 체제는 Windows Millennium Edition, Windows 98 또는 Windows 95이며, 지원되지 않습니다.</exception>
+      <exception cref="T:System.IO.IOException">서버 인스턴스의 최대 개수가 초과되었습니다.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.Disconnect">
+      <summary>현재 연결을 끊습니다.</summary>
+      <exception cref="T:System.InvalidOperationException">파이프 연결이 아직 설정되지 않은 경우또는연결된 파이프가 이미 연결이 끊긴 경우또는파이프 핸들이 설정되지 않은 경우</exception>
+      <exception cref="T:System.ObjectDisposedException">파이프가 닫힌 경우</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.Finalize">
+      <summary>관리 되지않는 리소스를 해제 하기 전에 다른 정리 작업을 수행 하 고는 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 인스턴스 가비지 수집에서 회수 됩니다.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.GetImpersonationUserName">
+      <summary>파이프 반대쪽 끝에서 클라이언트의 사용자 이름을 가져옵니다.</summary>
+      <returns>파이프 반대쪽 끝에 있는 클라이언트의 사용자 이름입니다.</returns>
+      <exception cref="T:System.InvalidOperationException">파이프 연결이 아직 설정되지 않은 경우또는연결된 파이프가 이미 연결이 끊긴 경우또는파이프 핸들이 설정되지 않은 경우</exception>
+      <exception cref="T:System.ObjectDisposedException">파이프가 닫힌 경우</exception>
+      <exception cref="T:System.IO.IOException">파이프 연결이 끊어진 경우또는클라이언트의 사용자 이름이 19자보다 깁니다.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.WaitForConnection">
+      <summary>클라이언트가 이 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 개체에 연결할 때까지 기다립니다.</summary>
+      <exception cref="T:System.InvalidOperationException">파이프 연결이 이미 설정된 경우또는파이프 핸들이 설정되지 않은 경우</exception>
+      <exception cref="T:System.ObjectDisposedException">파이프가 닫힌 경우</exception>
+      <exception cref="T:System.IO.IOException">파이프 연결이 끊어진 경우</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync">
+      <summary>이에 연결 하는 클라이언트에 대해 비동기적으로 대기 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 개체입니다.</summary>
+      <returns>비동기 대기 작업(operation)을 나타내는 작업(task)입니다.</returns>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync(System.Threading.CancellationToken)">
+      <summary>이에 연결 하는 클라이언트에 대해 비동기적으로 대기 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 개체 및 모니터 취소 요청 합니다.</summary>
+      <returns>비동기 대기 작업(operation)을 나타내는 작업(task)입니다.</returns>
+      <param name="cancellationToken">취소 요청을 모니터링할 토큰입니다.</param>
+    </member>
+    <member name="T:System.IO.Pipes.PipeDirection">
+      <summary>파이프의 방향을 지정합니다.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeDirection.In">
+      <summary>파이프 방향을 안쪽으로 지정합니다.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeDirection.InOut">
+      <summary>파이프 방향을 양쪽으로 지정합니다.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeDirection.Out">
+      <summary>파이프 방향을 바깥쪽으로 지정합니다.</summary>
+    </member>
+    <member name="T:System.IO.Pipes.PipeOptions">
+      <summary>
+        <see cref="T:System.IO.Pipes.PipeStream" /> 개체를 만들기 위한 옵션을 제공합니다.이 열거형에는 멤버 값의 비트 조합을 허용하는 <see cref="T:System.FlagsAttribute" />가 있습니다.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeOptions.Asynchronous">
+      <summary>파이프를 비동기 읽기 및 쓰기에 사용할 수 있음을 나타냅니다.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeOptions.None">
+      <summary>추가 매개 변수가 없음을 나타냅니다.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeOptions.WriteThrough">
+      <summary>시스템에서 중간 캐시를 통해 데이터를 기록하고 파이프로 직접 이동해야 함을 나타냅니다.</summary>
+    </member>
+    <member name="T:System.IO.Pipes.PipeStream">
+      <summary>익명 파이프와 명명된 파이프를 모두 지원하는 파이프 주위의 <see cref="T:System.IO.Stream" /> 개체를 노출합니다.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.#ctor(System.IO.Pipes.PipeDirection,System.Int32)">
+      <summary>지정된 <see cref="T:System.IO.Pipes.PipeDirection" /> 값과 버퍼 크기를 사용하여 <see cref="T:System.IO.Pipes.PipeStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="direction">파이프 개체의 방향을 나타내는 <see cref="T:System.IO.Pipes.PipeDirection" /> 값 중 하나입니다.</param>
+      <param name="bufferSize">버퍼 크기를 나타내는 0 또는 0보다 큰 양의 <see cref="T:System.Int32" /> 값입니다.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="direction" />은(는) 올바른 <see cref="T:System.IO.Pipes.PipeDirection" /> 값이 아닙니다.또는<paramref name="bufferSize" />가 0보다 작은 경우</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.#ctor(System.IO.Pipes.PipeDirection,System.IO.Pipes.PipeTransmissionMode,System.Int32)">
+      <summary>지정된 <see cref="T:System.IO.Pipes.PipeDirection" />, <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> 및 버퍼 크기를 사용하여 <see cref="T:System.IO.Pipes.PipeStream" /> 클래스의 새 인스턴스를 초기화합니다.</summary>
+      <param name="direction">파이프 개체의 방향을 나타내는 <see cref="T:System.IO.Pipes.PipeDirection" /> 값 중 하나입니다.</param>
+      <param name="transmissionMode">파이프 개체의 전송 모드를 나타내는 <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> 값 중 하나입니다.</param>
+      <param name="outBufferSize">버퍼 크기를 나타내는 0 또는 0보다 큰 양의 <see cref="T:System.Int32" /> 값입니다.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="direction" />은(는) 올바른 <see cref="T:System.IO.Pipes.PipeDirection" /> 값이 아닙니다.또는<paramref name="transmissionMode" />은(는) 올바른 <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> 값이 아닙니다.또는<paramref name="bufferSize" />가 0보다 작은 경우</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.CanRead">
+      <summary>현재 스트림이 읽기 작업을 지원하는지 여부를 나타내는 값을 가져옵니다.</summary>
+      <returns>스트림이 읽기 작업을 지원하면 true이고, 지원하지 않으면 false입니다.</returns>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.CanSeek">
+      <summary>현재 스트림이 검색 작업을 지원하는지 여부를 나타내는 값을 가져옵니다.</summary>
+      <returns>모든 경우에 false입니다.</returns>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.CanWrite">
+      <summary>현재 스트림이 쓰기 작업을 지원하는지 여부를 나타내는 값을 가져옵니다.</summary>
+      <returns>스트림이 쓰기 작업을 지원하면 true이고, 지원하지 않으면 false입니다.</returns>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Dispose(System.Boolean)">
+      <summary>
+        <see cref="T:System.IO.Pipes.PipeStream" /> 클래스에 사용되는 관리되지 않는 리소스를 해제하고, 필요에 따라 관리되는 리소스를 해제합니다.</summary>
+      <param name="disposing">관리되는 리소스와 관리되지 않는 리소스를 모두 해제하려면 true로 설정하고, 관리되지 않는 리소스만 해제하려면 false로 설정합니다.</param>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Flush">
+      <summary>현재 스트림에 대한 버퍼를 지우고 버퍼링된 모든 데이터를 내부 장치에 기록합니다.</summary>
+      <exception cref="T:System.ObjectDisposedException">파이프가 닫힌 경우</exception>
+      <exception cref="T:System.NotSupportedException">파이프에서 쓰기 작업을 지원하지 않는 경우</exception>
+      <exception cref="T:System.IO.IOException">파이프가 끊어졌거나 다른 I/O 오류가 발생한 경우</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.InBufferSize">
+      <summary>파이프에 대한 인바운드 버퍼의 크기(바이트)를 가져옵니다.</summary>
+      <returns>인바운드 버퍼 크기(바이트)를 나타내는 정수 값입니다.</returns>
+      <exception cref="T:System.NotSupportedException">스트림을 읽을 수 없습니다.</exception>
+      <exception cref="T:System.InvalidOperationException">파이프가 연결을 기다리는 중인 경우</exception>
+      <exception cref="T:System.IO.IOException">파이프가 끊어졌거나 다른 I/O 오류가 발생한 경우</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.IsAsync">
+      <summary>
+        <see cref="T:System.IO.Pipes.PipeStream" /> 개체가 동기적으로 열렸는지 비동기적으로 열렸는지를 나타내는 값을 가져옵니다.</summary>
+      <returns>
+        <see cref="T:System.IO.Pipes.PipeStream" /> 개체가 비동기적으로 열렸으면 true이고, 그렇지 않으면 false입니다.</returns>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.IsConnected">
+      <summary>
+        <see cref="T:System.IO.Pipes.PipeStream" /> 개체가 연결되었는지 여부를 나타내는 값을 가져오거나 설정합니다.</summary>
+      <returns>
+        <see cref="T:System.IO.Pipes.PipeStream" /> 개체가 연결되었으면 true이고, 연결되지 않았으면 false입니다.</returns>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.IsMessageComplete">
+      <summary>가장 최근의 읽기 작업을 통해 반환된 메시지에 다른 데이터가 더 있는지 여부를 나타내는 값을 가져옵니다.</summary>
+      <returns>메시지에서 읽을 문자가 더 이상 없으면 true이고, 그렇지 않으면 false입니다.</returns>
+      <exception cref="T:System.InvalidOperationException">파이프가 연결되지 않은 경우또는파이프 핸들이 설정되지 않은 경우또는파이프의 <see cref="P:System.IO.Pipes.PipeStream.ReadMode" /> 속성 값이 <see cref="F:System.IO.Pipes.PipeTransmissionMode.Message" />가 아닌 경우</exception>
+      <exception cref="T:System.ObjectDisposedException">파이프가 닫힌 경우</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.Length">
+      <summary>스트림의 길이(바이트)를 가져옵니다.</summary>
+      <returns>모든 경우에 0입니다.</returns>
+      <exception cref="T:System.NotSupportedException">항상 throw됩니다.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.OutBufferSize">
+      <summary>파이프에 대한 아웃바운드 버퍼의 크기(바이트)를 가져옵니다.</summary>
+      <returns>아웃바운드 버퍼 크기(바이트)입니다.</returns>
+      <exception cref="T:System.NotSupportedException">스트림이 쓸 수 없습니다.</exception>
+      <exception cref="T:System.InvalidOperationException">파이프가 연결을 기다리는 중인 경우</exception>
+      <exception cref="T:System.IO.IOException">파이프가 끊어졌거나 다른 I/O 오류가 발생한 경우</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.Position">
+      <summary>현재 스트림의 현재 위치를 가져오거나 설정합니다.</summary>
+      <returns>모든 경우에 0입니다.</returns>
+      <exception cref="T:System.NotSupportedException">항상 throw됩니다.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Read(System.Byte[],System.Int32,System.Int32)">
+      <summary>스트림에서 바이트 블록을 읽어서 그 데이터를 지정된 버퍼에 씁니다.</summary>
+      <returns>
+        <paramref name="buffer" />로 읽어온 총 바이트 수입니다.이 값은 현재 사용 가능한 바이트 수가 부족한 경우 요청된 바이트 수보다 작을 수 있으며, 스트림의 끝에 도달하면 0이 됩니다.</returns>
+      <param name="buffer">이 메서드가 반환될 때 지정된 바이트 배열의 값은 <paramref name="offset" />과 (<paramref name="offset" /> + <paramref name="count" /> - 1) 사이에서 현재 원본으로부터 읽어온 바이트로 교체된 상태로 포함됩니다.</param>
+      <param name="offset">읽은 바이트를 배치할 <paramref name="buffer" /> 배열의 바이트 오프셋입니다.</param>
+      <param name="count">읽을 최대 바이트 수입니다.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" />가 0보다 작은 경우또는<paramref name="count" />가 0보다 작은 경우</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="count" />가 <paramref name="buffer" />에 사용할 수 있는 바이트 수보다 큰 경우</exception>
+      <exception cref="T:System.ObjectDisposedException">파이프가 닫힌 경우</exception>
+      <exception cref="T:System.NotSupportedException">파이프에서 읽기 작업을 지원하지 않는 경우</exception>
+      <exception cref="T:System.InvalidOperationException">파이프가 연결이 끊어졌거나, 연결을 기다리는 중이거나, 핸들을 설정하지 않은 경우</exception>
+      <exception cref="T:System.IO.IOException">I/O 오류가 발생한 경우</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.ReadAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)"></member>
+    <member name="M:System.IO.Pipes.PipeStream.ReadByte">
+      <summary>파이프에서 바이트를 읽습니다.</summary>
+      <returns>
+        <see cref="T:System.Int32" />로 캐스팅된 바이트 또는 스트림의 끝(파이프가 닫힘)을 나타내는 -1입니다.</returns>
+      <exception cref="T:System.ObjectDisposedException">파이프가 닫힌 경우</exception>
+      <exception cref="T:System.NotSupportedException">파이프에서 읽기 작업을 지원하지 않는 경우</exception>
+      <exception cref="T:System.InvalidOperationException">파이프가 연결이 끊어졌거나, 연결을 기다리는 중이거나, 핸들을 설정하지 않은 경우</exception>
+      <exception cref="T:System.IO.IOException">I/O 오류가 발생한 경우</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.ReadMode">
+      <summary>
+        <see cref="T:System.IO.Pipes.PipeStream" /> 개체에 대한 읽기 모드를 가져오거나 설정합니다.</summary>
+      <returns>
+        <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> 개체가 파이프에서  읽는 방법을 나타내는 <see cref="T:System.IO.Pipes.PipeStream" /> 값 중 하나입니다.</returns>
+      <exception cref="T:System.ArgumentOutOfRangeException">제공된 값이 유효한 <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> 값이 아닌 경우</exception>
+      <exception cref="T:System.NotSupportedException">제공된 값은 이 파이프 스트림에 대해 지원되는 <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> 값이 아닙니다.</exception>
+      <exception cref="T:System.InvalidOperationException">핸들을 설정하지 않은 경우또는파이프가 명명된 클라이언트와의 연결을 기다리는 중인 경우</exception>
+      <exception cref="T:System.IO.IOException">파이프가 끊어졌거나 명명된 클라이언트에 I/O 오류가 발생한 경우</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.SafePipeHandle">
+      <summary>현재 <see cref="T:System.IO.Pipes.PipeStream" /> 개체에서 캡슐화하는 파이프의 로컬 끝에 대한 SafeHandle을 가져옵니다.</summary>
+      <returns>현재 <see cref="T:System.IO.Pipes.PipeStream" /> 개체에서 캡슐화하는 파이프에 대한 <see cref="T:Microsoft.Win32.SafeHandles.SafePipeHandle" /> 개체입니다.</returns>
+      <exception cref="T:System.InvalidOperationException">파이프 핸들이 설정되지 않은 경우</exception>
+      <exception cref="T:System.ObjectDisposedException">파이프가 닫힌 경우</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Seek(System.Int64,System.IO.SeekOrigin)">
+      <summary>현재 스트림의 현재 위치를 지정된 값으로 설정합니다.</summary>
+      <returns>스트림 내의 새 위치입니다.</returns>
+      <param name="offset">검색을 시작할 <paramref name="origin" />에 상대적인 위치입니다.</param>
+      <param name="origin">
+        <see cref="T:System.IO.SeekOrigin" /> 형식의 값을 사용하여 시작, 끝 또는 현재 위치를 <paramref name="offset" />에 대한 참조 지점으로 지정합니다.</param>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.SetLength(System.Int64)">
+      <summary>현재 스트림의 길이를 지정된 값으로 설정합니다.</summary>
+      <param name="value">스트림의 새 길이입니다.</param>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.TransmissionMode">
+      <summary>현재 파이프가 지원하는 파이프 전송 모드를 가져옵니다.</summary>
+      <returns>현재 파이프에서 지원하는 전송 모드를 나타내는 <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> 값 중 하나입니다.</returns>
+      <exception cref="T:System.ObjectDisposedException">파이프가 닫힌 경우</exception>
+      <exception cref="T:System.InvalidOperationException">핸들을 설정하지 않은 경우또는파이프가 익명 클라이언트/서버 작업에서의 연결 또는 명명된 클라이언트와의 연결을 기다리는 중인 경우 </exception>
+      <exception cref="T:System.IO.IOException">파이프가 끊어졌거나 다른 I/O 오류가 발생한 경우</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.WaitForPipeDrain">
+      <summary>보낸 바이트를 파이프의 다른 끝에서 모두 읽을 때까지 기다립니다.</summary>
+      <exception cref="T:System.ObjectDisposedException">파이프가 닫힌 경우</exception>
+      <exception cref="T:System.NotSupportedException">파이프에서 쓰기 작업을 지원하지 않는 경우</exception>
+      <exception cref="T:System.IO.IOException">파이프가 끊어졌거나 다른 I/O 오류가 발생한 경우</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Write(System.Byte[],System.Int32,System.Int32)">
+      <summary>버퍼의 데이터를 사용하여 현재 스트림에 바이트 블록을 씁니다.</summary>
+      <param name="buffer">파이프에 쓸 데이터를 포함하는 버퍼입니다.</param>
+      <param name="offset">현재 스트림으로 바이트를 복사하기 시작할 <paramref name="buffer" />의 바이트 오프셋(0부터 시작)입니다.</param>
+      <param name="count">현재 스트림에 쓸 최대 바이트 수입니다.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" />가 0보다 작은 경우또는<paramref name="count" />가 0보다 작은 경우</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="count" />가 <paramref name="buffer" />에 사용할 수 있는 바이트 수보다 큰 경우</exception>
+      <exception cref="T:System.ObjectDisposedException">파이프가 닫힌 경우</exception>
+      <exception cref="T:System.NotSupportedException">파이프에서 쓰기 작업을 지원하지 않는 경우</exception>
+      <exception cref="T:System.IO.IOException">파이프가 끊어졌거나 다른 I/O 오류가 발생한 경우</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.WriteAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)"></member>
+    <member name="M:System.IO.Pipes.PipeStream.WriteByte(System.Byte)">
+      <summary>현재 스트림에 바이트를 씁니다.</summary>
+      <param name="value">스트림에 쓸 바이트입니다.</param>
+      <exception cref="T:System.ObjectDisposedException">파이프가 닫힌 경우</exception>
+      <exception cref="T:System.NotSupportedException">파이프에서 쓰기 작업을 지원하지 않는 경우</exception>
+      <exception cref="T:System.InvalidOperationException">파이프가 연결이 끊어졌거나, 연결을 기다리는 중이거나, 핸들을 설정하지 않은 경우</exception>
+      <exception cref="T:System.IO.IOException">파이프가 끊어졌거나 다른 I/O 오류가 발생한 경우</exception>
+    </member>
+    <member name="T:System.IO.Pipes.PipeTransmissionMode">
+      <summary>파이프의 전송 모드를 지정합니다.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeTransmissionMode.Byte">
+      <summary>파이프의 데이터를 바이트 스트림으로 전송하여 읽도록 지정합니다.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeTransmissionMode.Message">
+      <summary>파이프의 데이터를 메시지 스트림으로 전송하여 읽도록 지정합니다.</summary>
+    </member>
+  </members>
+</doc>

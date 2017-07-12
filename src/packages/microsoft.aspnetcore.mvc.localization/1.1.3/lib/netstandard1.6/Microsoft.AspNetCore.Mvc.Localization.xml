@@ -1,0 +1,550 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Mvc.Localization</name>
+    </assembly>
+    <members>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.#ctor(System.Reflection.PropertyInfo)">
+            <summary>
+            Initializes a fast <see cref="T:Microsoft.Extensions.Internal.PropertyHelper"/>.
+            This constructor does not cache the helper. For caching, use <see cref="M:Microsoft.Extensions.Internal.PropertyHelper.GetProperties(System.Object)"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Internal.PropertyHelper.Property">
+            <summary>
+            Gets the backing <see cref="T:System.Reflection.PropertyInfo"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Internal.PropertyHelper.Name">
+            <summary>
+            Gets (or sets in derived types) the property name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Internal.PropertyHelper.ValueGetter">
+            <summary>
+            Gets the property value getter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Internal.PropertyHelper.ValueSetter">
+            <summary>
+            Gets the property value setter.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.GetValue(System.Object)">
+            <summary>
+            Returns the property value for the specified <paramref name="instance"/>.
+            </summary>
+            <param name="instance">The object whose property value will be returned.</param>
+            <returns>The property value.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.SetValue(System.Object,System.Object)">
+            <summary>
+            Sets the property value for the specified <paramref name="instance" />.
+            </summary>
+            <param name="instance">The object whose property value will be set.</param>
+            <param name="value">The property value.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.GetProperties(System.Object)">
+            <summary>
+            Creates and caches fast property helpers that expose getters for every public get property on the
+            underlying type.
+            </summary>
+            <param name="instance">the instance to extract property accessors for.</param>
+            <returns>a cached array of all public property getters from the underlying type of target instance.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.GetProperties(System.Type)">
+            <summary>
+            Creates and caches fast property helpers that expose getters for every public get property on the
+            specified type.
+            </summary>
+            <param name="type">the type to extract property accessors for.</param>
+            <returns>a cached array of all public property getters from the type of target instance.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.GetVisibleProperties(System.Object)">
+            <summary>
+            <para>
+            Creates and caches fast property helpers that expose getters for every non-hidden get property
+            on the specified type.
+            </para>
+            <para>
+            <see cref="M:GetVisibleProperties"/> excludes properties defined on base types that have been
+            hidden by definitions using the <c>new</c> keyword.
+            </para>
+            </summary>
+            <param name="instance">The instance to extract property accessors for.</param>
+            <returns>
+            A cached array of all public property getters from the instance's type.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.GetVisibleProperties(System.Type)">
+            <summary>
+            <para>
+            Creates and caches fast property helpers that expose getters for every non-hidden get property
+            on the specified type.
+            </para>
+            <para>
+            <see cref="M:GetVisibleProperties"/> excludes properties defined on base types that have been
+            hidden by definitions using the <c>new</c> keyword.
+            </para>
+            </summary>
+            <param name="type">The type to extract property accessors for.</param>
+            <returns>
+            A cached array of all public property getters from the type.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.MakeFastPropertyGetter(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates a single fast property getter. The result is not cached.
+            </summary>
+            <param name="propertyInfo">propertyInfo to extract the getter for.</param>
+            <returns>a fast getter.</returns>
+            <remarks>
+            This method is more memory efficient than a dynamically compiled lambda, and about the
+            same speed.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.MakeNullSafeFastPropertyGetter(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates a single fast property getter which is safe for a null input object. The result is not cached.
+            </summary>
+            <param name="propertyInfo">propertyInfo to extract the getter for.</param>
+            <returns>a fast getter.</returns>
+            <remarks>
+            This method is more memory efficient than a dynamically compiled lambda, and about the
+            same speed.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.MakeFastPropertySetter(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates a single fast property setter for reference types. The result is not cached.
+            </summary>
+            <param name="propertyInfo">propertyInfo to extract the setter for.</param>
+            <returns>a fast getter.</returns>
+            <remarks>
+            This method is more memory efficient than a dynamically compiled lambda, and about the
+            same speed. This only works for reference types.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.ObjectToDictionary(System.Object)">
+             <summary>
+             Given an object, adds each instance property with a public get method as a key and its
+             associated value to a dictionary.
+            
+             If the object is already an <see cref="T:System.Collections.Generic.IDictionary`2"/> instance, then a copy
+             is returned.
+             </summary>
+             <remarks>
+             The implementation of PropertyHelper will cache the property accessors per-type. This is
+             faster when the the same type is used multiple times with ObjectToDictionary.
+             </remarks>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcBuilderExtensions">
+            <summary>
+            Extension methods for configuring MVC view localization.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcBuilder)">
+            <summary>
+            Adds MVC view localization to the application.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcBuilder,Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat)">
+            <summary>
+             Adds MVC view localization to the application.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</param>
+            <param name="format">The view format for localized views.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.Extensions.Localization.LocalizationOptions})">
+            <summary>
+             Adds MVC view localization to the application.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</param>
+            <param name="setupAction">An action to configure the <see cref="T:Microsoft.Extensions.Localization.LocalizationOptions"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcBuilder,Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat,System.Action{Microsoft.Extensions.Localization.LocalizationOptions})">
+            <summary>
+             Adds MVC view localization to the application.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</param>
+            <param name="format">The view format for localized views.</param>
+            <param name="setupAction">An action to configure the <see cref="T:Microsoft.Extensions.Localization.LocalizationOptions"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcCoreBuilderExtensions">
+            <summary>
+            Extension methods for configuring MVC view localization.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcCoreBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder)">
+            <summary>
+            Adds MVC localization to the application.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</returns>
+            <remarks>
+            Adding localization also adds support for views via
+            <see cref="M:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcCoreBuilderExtensions.AddViews(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder)"/> and the Razor view engine
+            via <see cref="M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcCoreBuilderExtensions.AddRazorViewEngine(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder)"/>.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcCoreBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat)">
+            <summary>
+             Adds MVC localization to the application.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</param>
+            <param name="format">The view format for localized views.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</returns>
+            <remarks>
+            Adding localization also adds support for views via
+            <see cref="M:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcCoreBuilderExtensions.AddViews(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder)"/> and the Razor view engine
+            via <see cref="M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcCoreBuilderExtensions.AddRazorViewEngine(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder)"/>.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcCoreBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.Extensions.Localization.LocalizationOptions})">
+            <summary>
+            Adds MVC localization to the application.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</param>
+            <param name="setupAction">An action to configure the <see cref="T:Microsoft.Extensions.Localization.LocalizationOptions"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</returns>
+            <remarks>
+            Adding localization also adds support for views via
+            <see cref="M:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcCoreBuilderExtensions.AddViews(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder)"/> and the Razor view engine
+            via <see cref="M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcCoreBuilderExtensions.AddRazorViewEngine(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder)"/>.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcCoreBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat,System.Action{Microsoft.Extensions.Localization.LocalizationOptions})">
+            <summary>
+             Adds MVC localization to the application.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</param>
+            <param name="format">The view format for localized views.</param>
+            <param name="setupAction">An action to configure the <see cref="T:Microsoft.Extensions.Localization.LocalizationOptions"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</returns>
+            <remarks>
+            Adding localization also adds support for views via
+            <see cref="M:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcCoreBuilderExtensions.AddViews(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder)"/> and the Razor view engine
+            via <see cref="M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcCoreBuilderExtensions.AddRazorViewEngine(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder)"/>.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer">
+            <summary>
+            An <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer"/> that uses the provided <see cref="T:Microsoft.Extensions.Localization.IStringLocalizer"/> to do HTML-aware
+            localization of content.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer.#ctor(Microsoft.Extensions.Localization.IStringLocalizer)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer"/>.
+            </summary>
+            <param name="localizer">The <see cref="T:Microsoft.Extensions.Localization.IStringLocalizer"/> to read strings from.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer.Item(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer.Item(System.String,System.Object[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer.GetString(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer.GetString(System.String,System.Object[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer.GetAllStrings(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer.WithCulture(System.Globalization.CultureInfo)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer.ToHtmlString(Microsoft.Extensions.Localization.LocalizedString)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString"/> for a <see cref="T:Microsoft.Extensions.Localization.LocalizedString"/>.
+            </summary>
+            <param name="result">The <see cref="T:Microsoft.Extensions.Localization.LocalizedString"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizerExtensions">
+            <summary>
+            Extension methods for <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizerExtensions.GetHtml(Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer,System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString"/> resource for a specific name.
+            </summary>
+            <param name="htmlLocalizer">The <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer"/>.</param>
+            <param name="name">The key to use.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString"/> resource.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizerExtensions.GetHtml(Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer,System.String,System.Object[])">
+            <summary>
+            Gets the <see cref="T:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString"/> resource for a specific name.
+            </summary>
+            <param name="htmlLocalizer">The <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer"/>.</param>
+            <param name="name">The key to use.</param>
+            <param name="arguments">The values to format the string with.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString"/> resource.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizerExtensions.GetAllStrings(Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer)">
+            <summary>
+            Gets all string resources including those for parent cultures.
+            </summary>
+            <param name="htmlLocalizer">The <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer"/>.</param>
+            <returns>The string resources.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizerFactory">
+            <summary>
+            An <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizerFactory"/> that creates instances of <see cref="T:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer"/> using the
+            registered <see cref="T:Microsoft.Extensions.Localization.IStringLocalizerFactory"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizerFactory.#ctor(Microsoft.Extensions.Localization.IStringLocalizerFactory)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizerFactory"/>.
+            </summary>
+            <param name="localizerFactory">The <see cref="T:Microsoft.Extensions.Localization.IStringLocalizerFactory"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizerFactory.Create(System.Type)">
+            <summary>
+            Creates an <see cref="T:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer"/> using the specified <see cref="T:System.Type"/>.
+            </summary>
+            <param name="resourceSource">The <see cref="T:System.Type"/> to load resources for.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizerFactory.Create(System.String,System.String)">
+            <summary>
+            Creates an <see cref="T:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer"/> using the specified base name and location.
+            </summary>
+            <param name="baseName">The base name of the resource to load strings from.</param>
+            <param name="location">The location to load resources from.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer"/>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer`1">
+            <summary>
+            An <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer"/> implementation that provides localized HTML content for the specified type
+            <typeparamref name="TResource"/>.
+            </summary>
+            <typeparam name="TResource">The <see cref="T:System.Type"/> to scope the resource names.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer`1.#ctor(Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizerFactory)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer`1"/>.
+            </summary>
+            <param name="factory">The <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizerFactory"/>.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer`1.Item(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer`1.Item(System.String,System.Object[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer`1.GetString(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer`1.GetString(System.String,System.Object[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer`1.GetAllStrings(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer`1.WithCulture(System.Globalization.CultureInfo)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer">
+            <summary>
+            Represents a type that that does HTML-aware localization of strings, by HTML encoding arguments that are
+            formatted in the resource string.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer.Item(System.String)">
+            <summary>
+            Gets the string resource with the given name.
+            </summary>
+            <param name="name">The name of the string resource.</param>
+            <returns>The string resource as a <see cref="T:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString"/>.</returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer.Item(System.String,System.Object[])">
+            <summary>
+            Gets the string resource with the given name and formatted with the supplied arguments. The arguments will
+            be HTML encoded.
+            </summary>
+            <param name="name">The name of the string resource.</param>
+            <param name="arguments">The values to format the string with.</param>
+            <returns>The formatted string resource as a <see cref="T:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer.GetString(System.String)">
+            <summary>
+            Gets the string resource with the given name.
+            </summary>
+            <param name="name">The name of the string resource.</param>
+            <returns>The string resource as a <see cref="T:Microsoft.Extensions.Localization.LocalizedString"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer.GetString(System.String,System.Object[])">
+            <summary>
+            Gets the string resource with the given name and formatted with the supplied arguments.
+            </summary>
+            <param name="name">The name of the string resource.</param>
+            <param name="arguments">The values to format the string with.</param>
+            <returns>The formatted string resource as a <see cref="T:Microsoft.Extensions.Localization.LocalizedString"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer.GetAllStrings(System.Boolean)">
+            <summary>
+            Gets all string resources.
+            </summary>
+            <param name="includeParentCultures">
+            A <see cref="T:System.Boolean"/> indicating whether to include strings from parent cultures.
+            </param>
+            <returns>The strings.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer.WithCulture(System.Globalization.CultureInfo)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer"/> for a specific <see cref="T:System.Globalization.CultureInfo"/>.
+            </summary>
+            <param name="culture">The <see cref="T:System.Globalization.CultureInfo"/> to use.</param>
+            <returns>A culture-specific <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer"/>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizerFactory">
+            <summary>
+            A factory that creates <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer"/> instances.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizerFactory.Create(System.Type)">
+            <summary>
+            Creates an <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer"/> using the <see cref="T:System.Reflection.Assembly"/> and
+            <see cref="P:System.Type.FullName"/> of the specified <see cref="T:System.Type"/>.
+            </summary>
+            <param name="resourceSource">The <see cref="T:System.Type"/>.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizerFactory.Create(System.String,System.String)">
+            <summary>
+            Creates an <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer"/>.
+            </summary>
+            <param name="baseName">The base name of the resource to load strings from.</param>
+            <param name="location">The location to load resources from.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer"/>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer`1">
+            <summary>
+            An <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer"/> that provides localized HTML content.
+            </summary>
+            <typeparam name="TResource">The <see cref="T:System.Type"/> to scope the resource names.</typeparam>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer">
+            <summary>
+            Represents a type that provides HTML-aware localization for views.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString">
+            <summary>
+            An <see cref="T:Microsoft.AspNetCore.Html.IHtmlContent"/> with localized content.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString.#ctor(System.String,System.String)">
+            <summary>
+            Creates an instance of <see cref="T:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString"/>.
+            </summary>
+            <param name="name">The name of the string resource.</param>
+            <param name="value">The string resource.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            Creates an instance of <see cref="T:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString"/>.
+            </summary>
+            <param name="name">The name of the string resource.</param>
+            <param name="value">The string resource.</param>
+            <param name="isResourceNotFound">A flag that indicates if the resource is not found.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString.#ctor(System.String,System.String,System.Boolean,System.Object[])">
+            <summary>
+            Creates an instance of <see cref="T:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString"/>.
+            </summary>
+            <param name="name">The name of the string resource.</param>
+            <param name="value">The string resource.</param>
+            <param name="isResourceNotFound">A flag that indicates if the resource is not found.</param>
+            <param name="arguments">The values to format the <paramref name="value"/> with.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString.Name">
+            <summary>
+            The name of the string resource.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString.Value">
+            <summary>
+            The string resource.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString.IsResourceNotFound">
+            <summary>
+            Gets a flag that indicates if the resource is not found.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString.WriteTo(System.IO.TextWriter,System.Text.Encodings.Web.HtmlEncoder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Localization.ViewLocalizer">
+            <summary>
+            An <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer"/> implementation that derives the resource location from the executing view's
+            file path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.ViewLocalizer.#ctor(Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizerFactory,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.AspNetCore.Mvc.Localization.ViewLocalizer"/>.
+            </summary>
+            <param name="localizerFactory">The <see cref="T:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizerFactory"/>.</param>
+            <param name="hostingEnvironment">The <see cref="T:Microsoft.AspNetCore.Hosting.IHostingEnvironment"/>.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Localization.ViewLocalizer.Item(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Localization.ViewLocalizer.Item(System.String,System.Object[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.ViewLocalizer.GetString(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.ViewLocalizer.GetString(System.String,System.Object[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.ViewLocalizer.WithCulture(System.Globalization.CultureInfo)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.ViewLocalizer.GetAllStrings(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.ViewLocalizer.Contextualize(Microsoft.AspNetCore.Mvc.Rendering.ViewContext)">
+            <summary>
+            Apply the specified <see cref="T:Microsoft.AspNetCore.Mvc.Rendering.ViewContext"/>.
+            </summary>
+            <param name="viewContext">The <see cref="T:Microsoft.AspNetCore.Mvc.Rendering.ViewContext"/>.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Localization.Resources.NullStringLocalizer">
+            <summary>
+            Must call CreateStringLocalizer method before using this property.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.Resources.FormatNullStringLocalizer">
+            <summary>
+            Must call CreateStringLocalizer method before using this property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Localization.Resources.NullStringLocalizerFactory">
+            <summary>
+            IStringLocalizerFactory is null. Must call other constructor overload to use this property.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.Resources.FormatNullStringLocalizerFactory">
+            <summary>
+            IStringLocalizerFactory is null. Must call other constructor overload to use this property.
+            </summary>
+        </member>
+    </members>
+</doc>

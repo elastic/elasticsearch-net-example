@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.MemoryMappedFiles</name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.Win32.SafeHandles.SafeMemoryMappedFileHandle">
+      <summary>Предоставляет безопасный дескриптор, представляющий размещенный в памяти файл для последовательного доступа.</summary>
+    </member>
+    <member name="P:Microsoft.Win32.SafeHandles.SafeMemoryMappedFileHandle.IsInvalid"></member>
+    <member name="T:Microsoft.Win32.SafeHandles.SafeMemoryMappedViewHandle">
+      <summary>Предоставляет безопасный дескриптор, соответствующий представлению блока неуправляемой памяти для произвольного доступа. </summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFile">
+      <summary>Представляет размещенный в памяти файл. </summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.IO.FileStream,System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.HandleInheritability,System.Boolean)">
+      <summary>Создает размещенный в памяти файл из существующего файла с заданным режимом доступа, именем, режимом и емкости.</summary>
+      <returns>Размещенный в памяти файл с заданными характеристиками.</returns>
+      <param name="fileStream">Файловый поток существующий файл.</param>
+      <param name="mapName">Имя, присваиваемое размещенному в памяти файлу.</param>
+      <param name="capacity">Максимальный размер, выделяемый размещенному в памяти файлу, в байтах.Укажите значение 0, чтобы задать емкость до размера <paramref name="filestream" />.</param>
+      <param name="access">Одно из значений перечисления, определяющее разрешенный тип доступа к размещенному в памяти файлу. Этот параметр не может быть присвоено <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />. </param>
+      <param name="inheritability">Одно из значений перечисления, определяющее, может ли дескриптор размещенного в памяти файла наследоваться дочерним процессом.Значение по умолчанию — <see cref="F:System.IO.HandleInheritability.None" />.</param>
+      <param name="leaveOpen">Значение, указывающее, следует ли закрывать исходный файл потоковую передачу, когда <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" /> удаляется. </param>
+      <exception cref="T:System.ArgumentException">Параметр <paramref name="mapName" /> имеет значение null или является пустой строкой.-или-<paramref name="capacity" /> и длина файла равны нулю.-или-<paramref name="access" />имеет значение <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> или <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> значение перечисления, которое не допускается.-или-<paramref name="access" />имеет значение <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read" /> и <paramref name="capacity" /> больше, чем длина filestream.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="fileStream" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="capacity" /> меньше нуля.-или-Значение параметра <paramref name="capacity" /> меньше, чем размер файла.-или-<paramref name="access" /> не является допустимым значением перечисления <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" />.-или-<paramref name="inheritability" /> не является допустимым значением перечисления <see cref="T:System.IO.HandleInheritability" />.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String)">
+      <summary>Создает размещенный в памяти файл из файла на диске.</summary>
+      <returns>Размещенный в памяти файл.</returns>
+      <param name="path">Путь к файлу для сопоставления.</param>
+      <exception cref="T:System.ArgumentException">Параметр <paramref name="path" /> является пустой строкой, содержащей только пробелы либо один или несколько недопустимых знаков, определенных методом <see cref="M:System.IO.Path.GetInvalidFileNameChars" />. -или-<paramref name="path" /> ссылается на недопустимое устройство. </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" />is null.</exception>
+      <exception cref="T:System.IO.IOException">Произошла ошибка ввода-вывода.</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> превышает максимальную длину, определенную операционной системой.В Windows пути должны содержать менее 248 символов, а имена файлов — менее 260 символов.</exception>
+      <exception cref="T:System.Security.SecurityException">Вызывающая сторона не имеет необходимых разрешений для файла.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode)">
+      <summary>Создает из файла на диске размещенный в памяти файл с заданным режимом доступа. </summary>
+      <returns>Размещенный в памяти файл с заданным режимом доступа.</returns>
+      <param name="path">Путь к файлу для сопоставления.</param>
+      <param name="mode">Режим доступа; должен иметь тип <see cref="F:System.IO.FileMode.Open" />.</param>
+      <exception cref="T:System.ArgumentException">Параметр <paramref name="path" /> является пустой строкой, содержащей только пробелы либо один или несколько недопустимых знаков, определенных методом <see cref="M:System.IO.Path.GetInvalidFileNameChars" />. -или-<paramref name="path" /> ссылается на недопустимое устройство.-или-<paramref name="mode" />is <see cref="F:System.IO.FileMode.Append" />.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" />is null.</exception>
+      <exception cref="T:System.IO.IOException">Значение параметра <paramref name="mode" /> равно <see cref="F:System.IO.FileMode.Create" />, <see cref="F:System.IO.FileMode.CreateNew" /> или <see cref="F:System.IO.FileMode.Truncate" />.-или-<paramref name="mode" /> имеет значение <see cref="F:System.IO.FileMode.OpenOrCreate" /> и файл отсутствует на диске.-или-Произошла ошибка ввода-вывода.</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> превышает максимальную длину, определенную операционной системой.В Windows пути должны содержать менее 248 символов, а имена файлов — менее 260 символов.</exception>
+      <exception cref="T:System.Security.SecurityException">Вызывающая сторона не имеет необходимых разрешений для файла.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String)">
+      <summary>Создает из файла на диске размещенный в памяти файл с заданным режимом доступа и именем.</summary>
+      <returns>Размещенный в памяти файл с заданными именем и режимом доступа.</returns>
+      <param name="path">Путь к файлу для сопоставления.</param>
+      <param name="mode">Режим доступа; должен иметь тип <see cref="F:System.IO.FileMode.Open" />.</param>
+      <param name="mapName">Имя, присваиваемое размещенному в памяти файлу. </param>
+      <exception cref="T:System.ArgumentException">Параметр <paramref name="path" /> является пустой строкой, содержащей только пробелы либо один или несколько недопустимых знаков, определенных методом <see cref="M:System.IO.Path.GetInvalidFileNameChars" />. -или-<paramref name="path" /> ссылается на недопустимое устройство.-или-Параметр <paramref name="mapName" /> содержит пустую строку.-или-<paramref name="mode" />is <see cref="F:System.IO.FileMode.Append" />.</exception>
+      <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="path" /> или <paramref name="mapName" /> — null.</exception>
+      <exception cref="T:System.IO.IOException">Значение параметра <paramref name="mode" /> равно <see cref="F:System.IO.FileMode.Create" />, <see cref="F:System.IO.FileMode.CreateNew" /> или <see cref="F:System.IO.FileMode.Truncate" />.-или-<paramref name="mode" /> имеет значение <see cref="F:System.IO.FileMode.OpenOrCreate" /> и файл отсутствует на диске.-или-Произошла ошибка ввода-вывода.</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> превышает максимальную длину, определенную операционной системой.В Windows пути должны содержать менее 248 символов, а имена файлов — менее 260 символов.</exception>
+      <exception cref="T:System.Security.SecurityException">Вызывающая сторона не имеет необходимых разрешений для файла.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String,System.Int64)">
+      <summary>Создает из файла на диске размещенный в памяти файл с заданным режимом доступа, именем и емкостью.</summary>
+      <returns>Размещенный в памяти файл с заданными характеристиками.</returns>
+      <param name="path">Путь к файлу для сопоставления.</param>
+      <param name="mode">Режим доступа; может иметь любое значение перечисления <see cref="T:System.IO.FileMode" />, кроме <see cref="F:System.IO.FileMode.Append" />.</param>
+      <param name="mapName">Имя, присваиваемое размещенному в памяти файлу. </param>
+      <param name="capacity">Максимальный размер, выделяемый размещенному в памяти файлу, в байтах.Чтобы задать емкость, равную размеру файла на диске, указывается значение 0.</param>
+      <exception cref="T:System.ArgumentException">Параметр <paramref name="path" /> является пустой строкой, содержащей только пробелы либо один или несколько недопустимых знаков, определенных методом <see cref="M:System.IO.Path.GetInvalidFileNameChars" />. -или-<paramref name="path" /> ссылается на недопустимое устройство.-или-Параметр <paramref name="mapName" /> содержит пустую строку.-или-<paramref name="mode" />is <see cref="F:System.IO.FileMode.Append" />.</exception>
+      <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="path" /> или <paramref name="mapName" /> — null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> больше, чем размер логического адресного пространства.-или-Значение параметра <paramref name="capacity" /> меньше нуля.-или-<paramref name="capacity" /> меньше размера файла (но не ноль).-или-<paramref name="capacity" /> — ноль, а размер файла на диске также — ноль.</exception>
+      <exception cref="T:System.IO.IOException">Произошла ошибка ввода-вывода.</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> превышает максимальную длину, определенную операционной системой.В Windows пути должны содержать менее 248 символов, а имена файлов — менее 260 символов.</exception>
+      <exception cref="T:System.Security.SecurityException">Вызывающая сторона не имеет необходимых разрешений для файла.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>Создает из файла на диске размещенный в памяти файл с указанными режимом доступа, именем, емкостью и типом доступа.</summary>
+      <returns>Размещенный в памяти файл с заданными характеристиками.</returns>
+      <param name="path">Путь к файлу для сопоставления.</param>
+      <param name="mode">Режим доступа; может иметь любое значение перечисления <see cref="T:System.IO.FileMode" />, кроме <see cref="F:System.IO.FileMode.Append" />.</param>
+      <param name="mapName">Имя, присваиваемое размещенному в памяти файлу. </param>
+      <param name="capacity">Максимальный размер, выделяемый размещенному в памяти файлу, в байтах.Чтобы задать емкость, равную размеру файла на диске, указывается значение 0.</param>
+      <param name="access">Одно из значений перечисления, определяющее разрешенный тип доступа к размещенному в памяти файлу.</param>
+      <exception cref="T:System.ArgumentException">Параметр <paramref name="mapName" /> содержит пустую строку.-или-<paramref name="access" /> не является разрешенным значением.-или-<paramref name="path" /> указывает пустой файл.-или-Параметр <paramref name="access" /> указан как <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read" />, а емкость превышает размер файла, указанного параметром <paramref name="path" />.-или-<paramref name="mode" />is <see cref="F:System.IO.FileMode.Append" />.</exception>
+      <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="path" /> или <paramref name="mapName" /> — null. </exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> больше, чем размер логического адресного пространства.-или-Значение параметра <paramref name="capacity" /> меньше нуля.-или-<paramref name="capacity" /> меньше размера файла (но не ноль).-или-<paramref name="capacity" /> — ноль, а размер файла на диске также — ноль.-или-Параметр <paramref name="access" /> не является определенным значением <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" />.-или-Размер файла, указанный <paramref name="path" /> больше <paramref name="capacity" />.</exception>
+      <exception cref="T:System.IO.IOException">-или-Произошла ошибка ввода-вывода.</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> превышает максимальную длину, определенную операционной системой.В Windows пути должны содержать менее 248 символов, а имена файлов — менее 260 символов.</exception>
+      <exception cref="T:System.Security.SecurityException">Вызывающая сторона не имеет необходимых разрешений для файла.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64)">
+      <summary>Создает размещенный в памяти файл с заданной емкостью в системной памяти. </summary>
+      <returns>Размещенный в памяти файл с заданными именем и емкостью.</returns>
+      <param name="mapName">Имя, присваиваемое размещенному в памяти файлу.</param>
+      <param name="capacity">Максимальный размер, выделяемый размещенному в памяти файлу, в байтах.</param>
+      <exception cref="T:System.ArgumentException">Параметр <paramref name="mapName" /> содержит пустую строку. </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="capacity" /> меньше или равно нулю.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>Создает размещенный в памяти файл с заданной емкостью и типом доступа в системной памяти. </summary>
+      <returns>Размещенный в памяти файл с заданными характеристиками.</returns>
+      <param name="mapName">Имя, присваиваемое размещенному в памяти файлу.</param>
+      <param name="capacity">Максимальный размер, выделяемый размещенному в памяти файлу, в байтах.</param>
+      <param name="access">Одно из значений перечисления, определяющее разрешенный тип доступа к размещенному в памяти файлу.Значение по умолчанию — <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <exception cref="T:System.ArgumentException">Параметр <paramref name="mapName" /> содержит пустую строку.-или-Параметр <paramref name="access" /> доступен только на запись значением перечисления <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />. </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="capacity" /> меньше или равно нулю.-или-<paramref name="access" /> не является допустимым значением перечисления <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" />.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.MemoryMappedFiles.MemoryMappedFileOptions,System.IO.HandleInheritability)">
+      <summary>Создает размещенный в памяти файл с указанным именем, емкостью, тип доступа, параметры выделения памяти и режимом.</summary>
+      <returns>Размещенный в памяти файл с заданными характеристиками.</returns>
+      <param name="mapName">Имя, присваиваемое размещенному в памяти файлу.</param>
+      <param name="capacity">Максимальный размер, выделяемый размещенному в памяти файлу, в байтах.</param>
+      <param name="access">Одно из значений перечисления, определяющее разрешенный тип доступа к размещенному в памяти файлу.Значение по умолчанию — <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <param name="options">Побитовое сочетание значений перечисления, которое задает параметры выделения памяти для размещенного в памяти файла.</param>
+      <param name="inheritability">Значение, указывающее, является ли дескриптор файла отображения памяти могут наследоваться дочерний процесс.Значение по умолчанию — <see cref="F:System.IO.HandleInheritability.None" />.</param>
+      <exception cref="T:System.ArgumentException">Параметр <paramref name="mapName" /> содержит пустую строку.-или-Параметр <paramref name="access" /> доступен только на запись значением перечисления <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />. </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="capacity" /> меньше или равно нулю.-или-<paramref name="access" /> не является допустимым значением перечисления <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" />.-или-Параметр <paramref name="inheritability" /> не является допустимым значением <see cref="T:System.IO.HandleInheritability" />.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64)">
+      <summary>Создает или открывает размещенный в памяти файл с заданной емкостью в системной памяти.</summary>
+      <returns>Размещенный в памяти файл с заданным именем и размером.</returns>
+      <param name="mapName">Имя, присваиваемое размещенному в памяти файлу.</param>
+      <param name="capacity">Максимальный размер, выделяемый размещенному в памяти файлу, в байтах.</param>
+      <exception cref="T:System.ArgumentException">Параметр <paramref name="mapName" /> содержит пустую строку.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> больше, чем размер логического адресного пространства.-или-Значение параметра <paramref name="capacity" /> меньше или равно нулю.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>Создает или открывает размещенный в памяти файл с заданной емкостью и типом доступа в системной памяти. </summary>
+      <returns>Размещенный в памяти файл с заданными характеристиками.</returns>
+      <param name="mapName">Имя, присваиваемое размещенному в памяти файлу.</param>
+      <param name="capacity">Максимальный размер, выделяемый размещенному в памяти файлу, в байтах.</param>
+      <param name="access">Одно из значений перечисления, определяющее разрешенный тип доступа к размещенному в памяти файлу.Значение по умолчанию — <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <exception cref="T:System.ArgumentException">Параметр <paramref name="mapName" /> содержит пустую строку.-или-Параметр <paramref name="access" /> доступен только на запись значением перечисления <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> больше, чем размер логического адресного пространства.-или-Значение параметра <paramref name="capacity" /> меньше или равно нулю.-или-<paramref name="access" /> не является допустимым значением перечисления <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" />.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">В операционной системе запрещен указанный доступ к файлу; например, доступ установлен как <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> или <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />, но файл или каталог доступен только для чтения. </exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.MemoryMappedFiles.MemoryMappedFileOptions,System.IO.HandleInheritability)">
+      <summary>Создает новый файл сопоставленной памяти пустой или открывает существующий файл сопоставленной памяти, если оно существует с тем же именем.Если открывается существующий файл, аргументы емкости, параметры и памяти будет игнорироваться.</summary>
+      <returns>Размещенный в памяти файл с заданными характеристиками.</returns>
+      <param name="mapName">Имя, присваиваемое размещенному в памяти файлу.</param>
+      <param name="capacity">Максимальный размер, выделяемый размещенному в памяти файлу, в байтах.</param>
+      <param name="access">Одно из значений перечисления, определяющее разрешенный тип доступа к размещенному в памяти файлу.Значение по умолчанию — <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <param name="options">Побитовое сочетание значений, которые указывают параметры выделения памяти для применения к файлу.</param>
+      <param name="inheritability">Значение, указывающее, является ли дескриптор файла отображения памяти могут наследоваться дочерний процесс.Значение по умолчанию — <see cref="F:System.IO.HandleInheritability.None" />.</param>
+      <exception cref="T:System.ArgumentException">Параметр <paramref name="mapName" /> содержит пустую строку.-или-Параметр <paramref name="access" /> доступен только на запись значением перечисления <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> больше, чем размер логического адресного пространства.-или-Значение параметра <paramref name="capacity" /> меньше или равно нулю.-или-<paramref name="access" /> не является допустимым значением перечисления <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" />.-или-<paramref name="inheritability" /> не является допустимым значением перечисления <see cref="T:System.IO.HandleInheritability" />.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">В операционной системе запрещен указанный доступ к файлу; например, доступ установлен как <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> или <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />, но файл или каталог доступен только для чтения. </exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor">
+      <summary>Создает метод <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" />, который соответствует представлению размещенного в памяти файла.</summary>
+      <returns>Блок оперативной памяти.</returns>
+      <exception cref="T:System.UnauthorizedAccessException">Доступ к сопоставленному в памяти файлу не авторизован.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor(System.Int64,System.Int64)">
+      <summary>Создает <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" />, который сопоставляется с представлением размещенного в памяти файла и имеет заданное смещение и размер.</summary>
+      <returns>Блок оперативной памяти.</returns>
+      <param name="offset">Байт, с которого должно начинаться представление.</param>
+      <param name="size">Размер представления.Укажите 0 (нуль), чтобы создать представление, которое начинается с <paramref name="offset" /> и заканчивается приблизительно в конце размещенного в памяти файла.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> или <paramref name="size" /> является отрицательным значением.-или-<paramref name="size" /> больше логического адресного пространства.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">Доступ к сопоставленному в памяти файлу не авторизован.</exception>
+      <exception cref="T:System.IO.IOException">Произошла ошибка ввода-вывода.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor(System.Int64,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>Создает <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" />, который сопоставляется с представлением размещенного в памяти файла и имеет заданное смещение, размер и ограничения по доступу.</summary>
+      <returns>Блок оперативной памяти.</returns>
+      <param name="offset">Байт, с которого должно начинаться представление.</param>
+      <param name="size">Размер представления.Укажите 0 (нуль), чтобы создать представление, которое начинается с <paramref name="offset" /> и заканчивается приблизительно в конце размещенного в памяти файла.</param>
+      <param name="access">Одно из значений перечисления, определяющее разрешенный тип доступа к размещенному в памяти файлу.Значение по умолчанию — <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> или <paramref name="size" /> является отрицательным значением.-или-<paramref name="size" /> больше логического адресного пространства.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">Параметр <paramref name="access" /> недопустим для сопоставленного в памяти файла.</exception>
+      <exception cref="T:System.IO.IOException">Произошла ошибка ввода-вывода.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream">
+      <summary>Создает поток, который соответствует представлению размещенного в памяти файла.  </summary>
+      <returns>Поток памяти.</returns>
+      <exception cref="T:System.UnauthorizedAccessException">Доступ к сопоставленному в памяти файлу не авторизован.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream(System.Int64,System.Int64)">
+      <summary>Создает поток, который сопоставляется с представлением размещенного в памяти файла и имеет заданное смещение и размер.</summary>
+      <returns>Поток памяти с заданными смещением и размером.</returns>
+      <param name="offset">Байт, с которого должно начинаться представление.</param>
+      <param name="size">Размер представления.Укажите 0 (нуль), чтобы создать представление, которое начинается с <paramref name="offset" /> и заканчивается приблизительно в конце размещенного в памяти файла.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> или <paramref name="size" /> является отрицательным значением.-или-<paramref name="size" /> больше логического адресного пространства.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">Доступ к сопоставленному в памяти файлу не авторизован.</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="size" /> больше, чем общая виртуальная память.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream(System.Int64,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>Создает поток, который сопоставляется с представлением размещенного в памяти файла и имеет заданное смещение, размер и тип доступа.</summary>
+      <returns>Поток памяти с заданными характеристиками.</returns>
+      <param name="offset">Байт, с которого должно начинаться представление.</param>
+      <param name="size">Размер представления.Укажите 0 (нуль), чтобы создать представление, которое начинается с <paramref name="offset" /> и заканчивается приблизительно в конце размещенного в памяти файла.</param>
+      <param name="access">Одно из значений перечисления, определяющее разрешенный тип доступа к размещенному в памяти файлу.Значение по умолчанию — <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> или <paramref name="size" /> является отрицательным значением.-или-<paramref name="size" /> больше логического адресного пространства.-или-<paramref name="access " /> не является допустимым значением перечисления <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" />.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">Параметр <paramref name="access" /> недопустим для сопоставленного в памяти файла.</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="size" /> больше, чем общая виртуальная память.-или-Параметр <paramref name="access" /> недопустим для сопоставленного в памяти файла.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.Dispose">
+      <summary>Освобождает все ресурсы, используемые объектом <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" />. </summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.Dispose(System.Boolean)">
+      <summary>Освобождает неуправляемые ресурсы, используемые объектом <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" />, а при необходимости освобождает также управляемые ресурсы. </summary>
+      <param name="disposing">trueЧтобы освободить управляемые и неуправляемые ресурсы; false чтобы освободить только неуправляемые ресурсы. </param>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String)">
+      <summary>Открывает существующий размещенный в памяти файл с заданным именем в системной памяти.</summary>
+      <returns>Размещенный в памяти файл с заданным именем. </returns>
+      <param name="mapName">Имя размещенного в памяти файла, который необходимо открыть.</param>
+      <exception cref="T:System.ArgumentException">Параметр <paramref name="mapName" /> содержит пустую строку.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.IO.FileNotFoundException">Файл, заданный для <paramref name="mapName" />, не существует.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String,System.IO.MemoryMappedFiles.MemoryMappedFileRights)">
+      <summary>Открывает существующий размещенный в памяти файл с заданными именем и правами доступа в системной памяти.</summary>
+      <returns>Размещенный в памяти файл с заданными характеристиками.</returns>
+      <param name="mapName">Имя размещенного в памяти файла, который необходимо открыть.</param>
+      <param name="desiredAccessRights">Одно из значений перечисления, определяющее права доступа, применяемые к размещенному в памяти файлу.</param>
+      <exception cref="T:System.ArgumentException">Параметр <paramref name="mapName" /> содержит пустую строку.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="desiredAccessRights" /> не является допустимым значением перечисления <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights" />.</exception>
+      <exception cref="T:System.IO.FileNotFoundException">Файл, заданный для <paramref name="mapName" />, не существует.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String,System.IO.MemoryMappedFiles.MemoryMappedFileRights,System.IO.HandleInheritability)">
+      <summary>Открывает существующий размещенный в памяти файл с заданными именем, правами доступа и режимом наследования в системной памяти.</summary>
+      <returns>Размещенный в памяти файл с заданными характеристиками.</returns>
+      <param name="mapName">Имя размещенного в памяти файла, который необходимо открыть.</param>
+      <param name="desiredAccessRights">Одно из значений перечисления, определяющее права доступа, применяемые к размещенному в памяти файлу.</param>
+      <param name="inheritability">Одно из значений перечисления, определяющее, может ли дескриптор размещенного в памяти файла наследоваться дочерним процессом.Значение по умолчанию — <see cref="F:System.IO.HandleInheritability.None" />.</param>
+      <exception cref="T:System.ArgumentException">Параметр <paramref name="mapName" /> содержит пустую строку.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="desiredAccessRights" /> не является допустимым значением перечисления <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights" />.-или-<paramref name="inheritability" /> не является допустимым значением перечисления <see cref="T:System.IO.HandleInheritability" />.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">Запрошенный доступ недопустимый для файла отображения памяти.</exception>
+      <exception cref="T:System.IO.FileNotFoundException">Файл, заданный для <paramref name="mapName" />, не существует.</exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedFile.SafeMemoryMappedFileHandle">
+      <summary>Возвращает дескриптор размещенного в памяти файла.</summary>
+      <returns>Дескриптор размещенного в памяти файла.</returns>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess">
+      <summary>Задает возможности доступа и ограничения для размещенного в памяти файла или представления. </summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.CopyOnWrite">
+      <summary>Доступ на чтение и запись к файлу с тем ограничением, что все операции записи не будут видны другим процессам. </summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read">
+      <summary>Доступ к файлу только для чтения.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadExecute">
+      <summary>Доступ на чтение к файлу, который может хранить и запускать выполняемый код.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite">
+      <summary>Доступ для чтения и записи файла.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWriteExecute">
+      <summary>Доступ на чтение и запись к файлу, который может хранить и запускать выполняемый код.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write">
+      <summary>Доступ к файлу только на запись.</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileOptions">
+      <summary>Предоставляет параметры выделения памяти для размещенных в памяти файлов.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileOptions.DelayAllocatePages">
+      <summary>Выделение памяти откладывается до создания представления с помощью метода <see cref="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor" /> или <see cref="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream" />.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileOptions.None">
+      <summary>Никакие параметры выделения памяти не применяются.</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights">
+      <summary>Задает права доступа к размещенному в памяти файлу, который не связан с файлом на диске.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.AccessSystemSecurity">
+      <summary>Право на получение или задание разрешений для файла.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ChangePermissions">
+      <summary>Право на изменение правил безопасности и аудита, связанных с файлом.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.CopyOnWrite">
+      <summary>Право на чтение и запись файла с тем ограничением, что все операции записи не будут видны другим процессам.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Delete">
+      <summary>Право на удаление файла.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Execute">
+      <summary>Право на запуск файла приложения.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.FullControl">
+      <summary>Право на полный контроль над файлом, а также на изменение правил доступа и аудита.Это значение представляет право выполнять над файлом любые операции и является объединением всех входящих в перечисление прав.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Read">
+      <summary>Право открывать и копировать файл в качестве файла, доступного только для чтения.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadExecute">
+      <summary>Право открывать и копировать папки и файлы с разрешением только для чтения, а также запускать файлы приложений.Это право включает права <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Read" /> и <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Execute" />.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadPermissions">
+      <summary>Право открывать и копировать правила доступа и аудита, связанные с файлом.Оно не включает в себя право на чтение данных, атрибутов файловой системы или дополнительных атрибутов файловой системы.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadWrite">
+      <summary>Право открывать и копировать файлы и право добавлять данные в файлы или удалять данные из файлов.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadWriteExecute">
+      <summary>Право открывать и копировать файлы и право добавлять данные в файлы или удалять данные из файлов, а также право запускать файлы приложений.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.TakeOwnership">
+      <summary>Право изменять владельца файла.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Write">
+      <summary>Право добавлять данные в файлы и удалять данные из файлов.</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor">
+      <summary>Представление размещенного в памяти файла с произвольным доступом.</summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.Flush">
+      <summary>Очищает все буферы для этого представления и вызывает запись всех буферизованных данных в базовый файл.</summary>
+      <exception cref="T:System.ObjectDisposedException">Методы были вызваны после закрытия метода доступа.</exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.PointerOffset">
+      <summary>[Поддерживается в .NET Framework 4.5.1 и более поздних версиях] Получает Число байтов, на которое исходная позиция этого представления смещена от начала сопоставленного в памяти файла. </summary>
+      <returns>Число байтов между исходной позицией этого представления и началом сопоставленного в памяти файла. </returns>
+      <exception cref="T:System.InvalidOperationException">Объект, из которого создан экземпляр — null. </exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.SafeMemoryMappedViewHandle">
+      <summary>Получает дескриптор для просмотра размещенного в памяти файла.</summary>
+      <returns>Программа-оболочка дескриптора операционной системы для просмотра файла. </returns>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedViewStream">
+      <summary>Представление размещенного в памяти файла в виде потока с последовательным доступом.</summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewStream.Flush">
+      <summary>Очищает все буферы для этого потока и вызывает запись всех буферизованных данных в базовый файл.</summary>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewStream.PointerOffset">
+      <summary>[Поддерживается в .NET Framework 4.5.1 и более поздних версиях] Получает Число байтов, на которое исходная позиция этого представления смещена от начала сопоставленного в памяти файла.</summary>
+      <returns>Число байтов между исходной позицией этого представления и началом сопоставленного в памяти файла. </returns>
+      <exception cref="T:System.InvalidOperationException">Объект, из которого создан экземпляр — null. </exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewStream.SafeMemoryMappedViewHandle">
+      <summary>Получает дескриптор для просмотра размещенного в памяти файла.</summary>
+      <returns>Программа-оболочка дескриптора операционной системы для просмотра файла. </returns>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewStream.SetLength(System.Int64)">
+      <summary>Устанавливает длину текущего потока.</summary>
+      <param name="value">Необходимая длина текущего потока в байтах.</param>
+      <exception cref="T:System.NotSupportedException">Этот метод не поддерживается.</exception>
+    </member>
+  </members>
+</doc>

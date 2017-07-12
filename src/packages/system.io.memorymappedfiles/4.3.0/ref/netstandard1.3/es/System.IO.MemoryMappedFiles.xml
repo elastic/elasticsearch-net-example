@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.MemoryMappedFiles</name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.Win32.SafeHandles.SafeMemoryMappedFileHandle">
+      <summary>Proporciona un controlador seguro que representa un archivo asignado a la memoria para el acceso secuencial.</summary>
+    </member>
+    <member name="P:Microsoft.Win32.SafeHandles.SafeMemoryMappedFileHandle.IsInvalid"></member>
+    <member name="T:Microsoft.Win32.SafeHandles.SafeMemoryMappedViewHandle">
+      <summary>Proporciona un controlador seguro que representa una vista de un bloque de memoria no administrada para el acceso aleatorio. </summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFile">
+      <summary>Representa un archivo asignado a la memoria. </summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.IO.FileStream,System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.HandleInheritability,System.Boolean)">
+      <summary>Crea un archivo asignado a la memoria a partir de un archivo existente con el modo de acceso, el nombre, la herencia y la capacidad especificados.</summary>
+      <returns>Archivo asignado a la memoria que tiene las características especificadas.</returns>
+      <param name="fileStream">Secuencia de archivo del archivo existente.</param>
+      <param name="mapName">Nombre que se va a asignar al archivo asignado a la memoria.</param>
+      <param name="capacity">Tamaño máximo, en bytes, que se va a asignar al archivo asignado a la memoria.Especifique 0 para establecer la capacidad en el tamaño de <paramref name="filestream" />.</param>
+      <param name="access">Uno de los valores de enumeración que especifica el tipo de acceso permitido para el archivo asignado a la memoria. Este parámetro no puede establecerse en <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />. </param>
+      <param name="inheritability">Uno de los valores de enumeración que especifica si un proceso secundario puede heredar un identificador para el archivo asignado a la memoria.De manera predeterminada, es <see cref="F:System.IO.HandleInheritability.None" />.</param>
+      <param name="leaveOpen">Un valor que indica si se debe cerrar el archivo de origen al transmitir el <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" /> se elimina. </param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> es null o una cadena vacía.o bien<paramref name="capacity" /> y la longitud del archivo son cero.o bien<paramref name="access" />se establece en <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> o <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> valor de enumeración, que no está permitido.o bien<paramref name="access" />se establece en <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read" /> y <paramref name="capacity" /> es mayor que la longitud de filestream.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="fileStream" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> es menor que cero.o bien<paramref name="capacity" /> es menor que el tamaño de archivo.o bien<paramref name="access" /> no es un valor de enumeración <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> válido.o bien<paramref name="inheritability" /> no es un valor de enumeración <see cref="T:System.IO.HandleInheritability" /> válido.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String)">
+      <summary>Crea un archivo asignado a la memoria a partir de un archivo de disco.</summary>
+      <returns>Archivo asignado a la memoria.</returns>
+      <param name="path">Ruta de acceso al archivo que se va asignar.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> es una cadena vacía, que solo contiene espacios en blanco, o bien, contiene uno o varios de los caracteres no válidos definidos por el método <see cref="M:System.IO.Path.GetInvalidFileNameChars" />. o bien<paramref name="path" /> hace referencia a un dispositivo no válido. </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" />is null.</exception>
+      <exception cref="T:System.IO.IOException">Error de E/S.</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> supera la longitud máxima definida por el sistema operativo.En Windows, las rutas de acceso deben contener menos de 248 caracteres y los nombres de archivo deben contener menos de 260 caracteres.</exception>
+      <exception cref="T:System.Security.SecurityException">El llamador no tiene los permisos necesarios para el archivo.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode)">
+      <summary>Crea un archivo asignado a la memoria que tiene el modo de acceso especificado de un archivo de disco. </summary>
+      <returns>Archivo asignado a la memoria con el modo de acceso especificado.</returns>
+      <param name="path">Ruta de acceso al archivo que se va asignar.</param>
+      <param name="mode">Modo de acceso; debe ser <see cref="F:System.IO.FileMode.Open" />.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> es una cadena vacía, que solo contiene espacios en blanco, o bien, contiene uno o varios de los caracteres no válidos definidos por el método <see cref="M:System.IO.Path.GetInvalidFileNameChars" />. o bien<paramref name="path" /> hace referencia a un dispositivo no válido.o bien<paramref name="mode" />is <see cref="F:System.IO.FileMode.Append" />.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" />is null.</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="mode" /> es <see cref="F:System.IO.FileMode.Create" />, <see cref="F:System.IO.FileMode.CreateNew" /> o <see cref="F:System.IO.FileMode.Truncate" />.o bien<paramref name="mode" /> es <see cref="F:System.IO.FileMode.OpenOrCreate" /> y el archivo del disco no existe.o bienError de E/S.</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> supera la longitud máxima definida por el sistema operativo.En Windows, las rutas de acceso deben contener menos de 248 caracteres y los nombres de archivo deben contener menos de 260 caracteres.</exception>
+      <exception cref="T:System.Security.SecurityException">El llamador no tiene los permisos necesarios para el archivo.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String)">
+      <summary>Crea un archivo asignado a la memoria que tiene el modo de acceso y el nombre especificados de un archivo de disco.</summary>
+      <returns>Archivo asignado a la memoria con el nombre y el modo de acceso especificados.</returns>
+      <param name="path">Ruta de acceso al archivo que se va asignar.</param>
+      <param name="mode">Modo de acceso; debe ser <see cref="F:System.IO.FileMode.Open" />.</param>
+      <param name="mapName">Nombre que se va a asignar al archivo asignado a la memoria. </param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> es una cadena vacía, que solo contiene espacios en blanco, o bien, contiene uno o varios de los caracteres no válidos definidos por el método <see cref="M:System.IO.Path.GetInvalidFileNameChars" />. o bien<paramref name="path" /> hace referencia a un dispositivo no válido.o bien<paramref name="mapName" /> es una cadena vacía.o bien<paramref name="mode" />is <see cref="F:System.IO.FileMode.Append" />.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> o <paramref name="mapName" /> es null.</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="mode" /> es <see cref="F:System.IO.FileMode.Create" />, <see cref="F:System.IO.FileMode.CreateNew" /> o <see cref="F:System.IO.FileMode.Truncate" />.o bien<paramref name="mode" /> es <see cref="F:System.IO.FileMode.OpenOrCreate" /> y el archivo del disco no existe.o bienError de E/S.</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> supera la longitud máxima definida por el sistema operativo.En Windows, las rutas de acceso deben contener menos de 248 caracteres y los nombres de archivo deben contener menos de 260 caracteres.</exception>
+      <exception cref="T:System.Security.SecurityException">El llamador no tiene los permisos necesarios para el archivo.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String,System.Int64)">
+      <summary>Crea un archivo asignado a la memoria que tiene el modo de acceso, el nombre y la capacidad especificados de un archivo de disco.</summary>
+      <returns>Archivo asignado a la memoria que tiene las características especificadas.</returns>
+      <param name="path">Ruta de acceso al archivo que se va asignar.</param>
+      <param name="mode">Modo de acceso: puede ser cualquiera de los valores de enumeración <see cref="T:System.IO.FileMode" /> excepto <see cref="F:System.IO.FileMode.Append" />.</param>
+      <param name="mapName">Nombre que se va a asignar al archivo asignado a la memoria. </param>
+      <param name="capacity">Tamaño máximo, en bytes, que se va a asignar al archivo asignado a la memoria.Especifique 0 para establecer la capacidad en el tamaño del archivo de disco.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> es una cadena vacía, que solo contiene espacios en blanco, o bien, contiene uno o varios de los caracteres no válidos definidos por el método <see cref="M:System.IO.Path.GetInvalidFileNameChars" />. o bien<paramref name="path" /> hace referencia a un dispositivo no válido.o bien<paramref name="mapName" /> es una cadena vacía.o bien<paramref name="mode" />is <see cref="F:System.IO.FileMode.Append" />.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> o <paramref name="mapName" /> es null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> es mayor que el tamaño del espacio de direcciones lógico.o bien<paramref name="capacity" /> es menor que cero.o bien<paramref name="capacity" /> es menor que el tamaño de archivo (pero no es cero).o bien<paramref name="capacity" /> es cero y el tamaño del archivo en disco también es cero.</exception>
+      <exception cref="T:System.IO.IOException">Error de E/S.</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> supera la longitud máxima definida por el sistema operativo.En Windows, las rutas de acceso deben contener menos de 248 caracteres y los nombres de archivo deben contener menos de 260 caracteres.</exception>
+      <exception cref="T:System.Security.SecurityException">El llamador no tiene los permisos necesarios para el archivo.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>Crea un archivo asignado a la memoria que tiene el modo de acceso, el nombre, la capacidad y el tipo de acceso especificados de un archivo de disco.</summary>
+      <returns>Archivo asignado a la memoria que tiene las características especificadas.</returns>
+      <param name="path">Ruta de acceso al archivo que se va asignar.</param>
+      <param name="mode">Modo de acceso: puede ser cualquiera de los valores de enumeración <see cref="T:System.IO.FileMode" /> excepto <see cref="F:System.IO.FileMode.Append" />.</param>
+      <param name="mapName">Nombre que se va a asignar al archivo asignado a la memoria. </param>
+      <param name="capacity">Tamaño máximo, en bytes, que se va a asignar al archivo asignado a la memoria.Especifique 0 para establecer la capacidad en el tamaño del archivo de disco.</param>
+      <param name="access">Uno de los valores de enumeración que especifica el tipo de acceso permitido para el archivo asignado a la memoria.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> es una cadena vacía.o bien<paramref name="access" /> no es un valor permitido.o bien<paramref name="path" /> especifica un archivo vacío.o bien<paramref name="access" /> se especifica como <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read" /> y la capacidad es mayor que el tamaño de archivo que indica <paramref name="path" />.o bien<paramref name="mode" />is <see cref="F:System.IO.FileMode.Append" />.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> o <paramref name="mapName" /> es null. </exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> es mayor que el tamaño del espacio de direcciones lógico.o bien<paramref name="capacity" /> es menor que cero.o bien<paramref name="capacity" /> es menor que el tamaño de archivo (pero no es cero).o bien<paramref name="capacity" /> es cero y el tamaño del archivo en disco también es cero.o bien<paramref name="access" /> no es un valor definido de <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" />.o bienEl tamaño del archivo que indica <paramref name="path" /> es mayor que <paramref name="capacity" />.</exception>
+      <exception cref="T:System.IO.IOException">o bienError de E/S.</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> supera la longitud máxima definida por el sistema operativo.En Windows, las rutas de acceso deben contener menos de 248 caracteres y los nombres de archivo deben contener menos de 260 caracteres.</exception>
+      <exception cref="T:System.Security.SecurityException">El llamador no tiene los permisos necesarios para el archivo.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64)">
+      <summary>Crea un archivo asignado a la memoria con la capacidad especificada en la memoria del sistema. </summary>
+      <returns>Archivo asignado a la memoria con el nombre y la capacidad especificados.</returns>
+      <param name="mapName">Nombre que se va a asignar al archivo asignado a la memoria.</param>
+      <param name="capacity">Tamaño máximo, en bytes, que se va a asignar al archivo asignado a la memoria.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> es una cadena vacía. </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> es menor o igual que cero.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>Crea un archivo asignado a la memoria con la capacidad y el tipo de acceso especificados en la memoria del sistema. </summary>
+      <returns>Archivo asignado a la memoria que tiene las características especificadas.</returns>
+      <param name="mapName">Nombre que se va a asignar al archivo asignado a la memoria.</param>
+      <param name="capacity">Tamaño máximo, en bytes, que se va a asignar al archivo asignado a la memoria.</param>
+      <param name="access">Uno de los valores de enumeración que especifica el tipo de acceso permitido para el archivo asignado a la memoria.De manera predeterminada, es <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> es una cadena vacía.o bien<paramref name="access" /> está establecido como de solo escritura con el valor de enumeración <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />. </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> es menor o igual que cero.o bien<paramref name="access" /> no es un valor de enumeración <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> válido.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.MemoryMappedFiles.MemoryMappedFileOptions,System.IO.HandleInheritability)">
+      <summary>Crea un archivo asignado a la memoria con el nombre, la capacidad, el tipo de acceso, las opciones de asignación de memoria y la herencia especificados.</summary>
+      <returns>Archivo asignado a la memoria que tiene las características especificadas.</returns>
+      <param name="mapName">Nombre que se va a asignar al archivo asignado a la memoria.</param>
+      <param name="capacity">Tamaño máximo, en bytes, que se va a asignar al archivo asignado a la memoria.</param>
+      <param name="access">Uno de los valores de enumeración que especifica el tipo de acceso permitido para el archivo asignado a la memoria.De manera predeterminada, es <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <param name="options">Combinación bit a bit de valores de enumeración que especifica las opciones de asignación de memoria para el archivo asignado a la memoria.</param>
+      <param name="inheritability">Valor que especifica si un proceso secundario puede heredar un identificador para el archivo asignado a la memoria.De manera predeterminada, es <see cref="F:System.IO.HandleInheritability.None" />.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> es una cadena vacía.o bien<paramref name="access" /> está establecido como de solo escritura con el valor de enumeración <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />. </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> es menor o igual que cero.o bien<paramref name="access" /> no es un valor de enumeración <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> válido.o bien<paramref name="inheritability" /> no es un valor válido de <see cref="T:System.IO.HandleInheritability" />.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64)">
+      <summary>Crea o abre un archivo asignado a la memoria con la capacidad especificada en la memoria del sistema.</summary>
+      <returns>Archivo asignado a la memoria que tiene el nombre y el tamaño especificados.</returns>
+      <param name="mapName">Nombre que se va a asignar al archivo asignado a la memoria.</param>
+      <param name="capacity">Tamaño máximo, en bytes, que se va a asignar al archivo asignado a la memoria.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> es una cadena vacía.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> es mayor que el tamaño del espacio de direcciones lógico.o bien<paramref name="capacity" /> es menor o igual que cero.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>Crea o abre un archivo asignado a la memoria con la capacidad y el tipo de acceso especificados en la memoria del sistema. </summary>
+      <returns>Archivo asignado a la memoria que tiene las características especificadas.</returns>
+      <param name="mapName">Nombre que se va a asignar al archivo asignado a la memoria.</param>
+      <param name="capacity">Tamaño máximo, en bytes, que se va a asignar al archivo asignado a la memoria.</param>
+      <param name="access">Uno de los valores de enumeración que especifica el tipo de acceso permitido para el archivo asignado a la memoria.De manera predeterminada, es <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> es una cadena vacía.o bien<paramref name="access" /> está establecido como de solo escritura con el valor de enumeración <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> es mayor que el tamaño del espacio de direcciones lógico.o bien<paramref name="capacity" /> es menor o igual que cero.o bien<paramref name="access" /> no es un valor de enumeración <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> válido.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">El sistema operativo denegó el acceso especificado al archivo; por ejemplo, el acceso está establecido en <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> o <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />, pero el archivo o el directorio es de solo lectura. </exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.MemoryMappedFiles.MemoryMappedFileOptions,System.IO.HandleInheritability)">
+      <summary>Crea un archivo asignado a la memoria vacío o abre un archivo existente asignado a la memoria si ya existe uno con el mismo nombre.Si se abre un archivo existente, se omiten la capacidad, las opciones y los argumentos de memoria.</summary>
+      <returns>Archivo asignado a la memoria que tiene las características especificadas.</returns>
+      <param name="mapName">Nombre que se va a asignar al archivo asignado a la memoria.</param>
+      <param name="capacity">Tamaño máximo, en bytes, que se va a asignar al archivo asignado a la memoria.</param>
+      <param name="access">Uno de los valores de enumeración que especifica el tipo de acceso permitido para el archivo asignado a la memoria.De manera predeterminada, es <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <param name="options">Combinación bit a bit de valores que indican las opciones de asignación de memoria que se aplican al archivo.</param>
+      <param name="inheritability">Valor que especifica si un proceso secundario puede heredar un identificador para el archivo asignado a la memoria.De manera predeterminada, es <see cref="F:System.IO.HandleInheritability.None" />.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> es una cadena vacía.o bien<paramref name="access" /> está establecido como de solo escritura con el valor de enumeración <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> es mayor que el tamaño del espacio de direcciones lógico.o bien<paramref name="capacity" /> es menor o igual que cero.o bien<paramref name="access" /> no es un valor de enumeración <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> válido.o bien<paramref name="inheritability" /> no es un valor de enumeración <see cref="T:System.IO.HandleInheritability" /> válido.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">El sistema operativo denegó el acceso especificado al archivo; por ejemplo, el acceso está establecido en <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> o <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />, pero el archivo o el directorio es de solo lectura. </exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor">
+      <summary>Crea un <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" /> que se asigna a una vista del archivo asignado a memoria.</summary>
+      <returns>Bloque de memoria de acceso aleatorio.</returns>
+      <exception cref="T:System.UnauthorizedAccessException">No se autoriza el acceso al archivo asignado a la memoria.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor(System.Int64,System.Int64)">
+      <summary>Crea un <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" /> que se asigna a una vista del archivo asignado a memoria y que tiene el desplazamiento especificado y el tamaño.</summary>
+      <returns>Bloque de memoria de acceso aleatorio.</returns>
+      <param name="offset">Byte en el que va a comenzar la vista.</param>
+      <param name="size">Tamaño de la vista.Especifique 0 (cero) para crear una vista que empiece en <paramref name="offset" /> y termine aproximadamente en el final del archivo asignado a la memoria.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">El valor de <paramref name="offset" /> o <paramref name="size" /> es negativo.o bien<paramref name="size" /> es mayor que el espacio de direcciones lógico.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">No se autoriza el acceso al archivo asignado a la memoria.</exception>
+      <exception cref="T:System.IO.IOException">Error de E/S.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor(System.Int64,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>Crea un <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" /> que se asigna a una vista del archivo asignado a memoria y que contiene el desplazamiento, el tamaño y las restricciones de acceso.</summary>
+      <returns>Bloque de memoria de acceso aleatorio.</returns>
+      <param name="offset">Byte en el que va a comenzar la vista.</param>
+      <param name="size">Tamaño de la vista.Especifique 0 (cero) para crear una vista que empiece en <paramref name="offset" /> y termine aproximadamente en el final del archivo asignado a la memoria.</param>
+      <param name="access">Uno de los valores de enumeración que especifica el tipo de acceso permitido para el archivo asignado a la memoria.De manera predeterminada, es <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">El valor de <paramref name="offset" /> o <paramref name="size" /> es negativo.o bien<paramref name="size" /> es mayor que el espacio de direcciones lógico.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">
+        <paramref name="access" /> no es válido para el archivo asignado por memoria.</exception>
+      <exception cref="T:System.IO.IOException">Error de E/S.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream">
+      <summary>Crea una secuencia que se asigna a una vista del archivo asignado a la memoria.  </summary>
+      <returns>Secuencia de memoria.</returns>
+      <exception cref="T:System.UnauthorizedAccessException">No se autoriza el acceso al archivo asignado a la memoria.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream(System.Int64,System.Int64)">
+      <summary>Crea una secuencia que se asigna a una vista del archivo asignado a la memoria y que tiene el desplazamiento y el tamaño especificados.</summary>
+      <returns>Secuencia de memoria con el desplazamiento y el tamaño especificados.</returns>
+      <param name="offset">Byte en el que va a comenzar la vista.</param>
+      <param name="size">Tamaño de la vista.Especifique 0 (cero) para crear una vista que empiece en <paramref name="offset" /> y termine aproximadamente en el final del archivo asignado a la memoria.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">El valor de <paramref name="offset" /> o <paramref name="size" /> es negativo.o bien<paramref name="size" /> es mayor que el espacio de direcciones lógico.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">No se autoriza el acceso al archivo asignado a la memoria.</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="size" /> es mayor que la memoria virtual total.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream(System.Int64,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>Crea una secuencia que se asigna a una vista del archivo asignado a la memoria y que tiene el desplazamiento, el tamaño y el tipo de acceso especificados.</summary>
+      <returns>Secuencia de memoria con las características especificadas.</returns>
+      <param name="offset">Byte en el que va a comenzar la vista.</param>
+      <param name="size">Tamaño de la vista.Especifique 0 (cero) para crear una vista que empiece en <paramref name="offset" /> y termine aproximadamente en el final del archivo asignado a la memoria.</param>
+      <param name="access">Uno de los valores de enumeración que especifica el tipo de acceso permitido para el archivo asignado a la memoria.De manera predeterminada, es <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">El valor de <paramref name="offset" /> o <paramref name="size" /> es negativo.o bien<paramref name="size" /> es mayor que el espacio de direcciones lógico.o bien<paramref name="access " /> no es un valor de enumeración <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> válido.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">
+        <paramref name="access" /> no es válido para el archivo asignado por memoria.</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="size" /> es mayor que la memoria virtual total.o bien<paramref name="access" /> no es válido para el archivo asignado por memoria.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.Dispose">
+      <summary>Libera todos los recursos que usa <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" />. </summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.Dispose(System.Boolean)">
+      <summary>Libera los recursos no administrados que usa <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" /> y, de forma opcional, libera los recursos administrados. </summary>
+      <param name="disposing">truepara liberar los recursos administrados y no administrados; false para liberar únicamente los recursos no administrados. </param>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String)">
+      <summary>Abre un archivo asignado a la memoria existente que tiene el nombre especificado en la memoria del sistema.</summary>
+      <returns>Archivo asignado a la memoria que tiene el nombre especificado. </returns>
+      <param name="mapName">Nombre del archivo asignado a la memoria que se va a abrir.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> es una cadena vacía.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.IO.FileNotFoundException">El archivo especificado para <paramref name="mapName" /> no existe.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String,System.IO.MemoryMappedFiles.MemoryMappedFileRights)">
+      <summary>Abre un archivo asignado a la memoria existente que tiene el nombre y los permisos de acceso especificados en la memoria del sistema.</summary>
+      <returns>Archivo asignado a la memoria que tiene las características especificadas.</returns>
+      <param name="mapName">Nombre del archivo asignado a la memoria que se va a abrir.</param>
+      <param name="desiredAccessRights">Uno de los valores de enumeración que especifica los derechos de acceso que se van a aplicar al archivo asignado a la memoria.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> es una cadena vacía.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="desiredAccessRights" /> no es un valor de enumeración <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights" /> válido.</exception>
+      <exception cref="T:System.IO.FileNotFoundException">El archivo especificado para <paramref name="mapName" /> no existe.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String,System.IO.MemoryMappedFiles.MemoryMappedFileRights,System.IO.HandleInheritability)">
+      <summary>Abre un archivo asignado a la memoria existente que tiene el nombre, los permisos de acceso y la herencia especificados en la memoria del sistema.</summary>
+      <returns>Archivo asignado a la memoria que tiene las características especificadas.</returns>
+      <param name="mapName">Nombre del archivo asignado a la memoria que se va a abrir.</param>
+      <param name="desiredAccessRights">Uno de los valores de enumeración que especifica los derechos de acceso que se van a aplicar al archivo asignado a la memoria.</param>
+      <param name="inheritability">Uno de los valores de enumeración que especifica si un proceso secundario puede heredar un identificador para el archivo asignado a la memoria.De manera predeterminada, es <see cref="F:System.IO.HandleInheritability.None" />.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> es una cadena vacía.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="desiredAccessRights" /> no es un valor de enumeración <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights" /> válido.o bien<paramref name="inheritability" /> no es un valor de enumeración <see cref="T:System.IO.HandleInheritability" /> válido.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">El acceso solicitado no es válido para el archivo asignado a memoria.</exception>
+      <exception cref="T:System.IO.FileNotFoundException">El archivo especificado para <paramref name="mapName" /> no existe.</exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedFile.SafeMemoryMappedFileHandle">
+      <summary>Obtiene el identificador de un archivo asignado a la memoria.</summary>
+      <returns>Identificador para el archivo asignado a la memoria.</returns>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess">
+      <summary>Especifica las capacidades de acceso y restricciones para una vista o un archivo asignado a la memoria. </summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.CopyOnWrite">
+      <summary>Acceso de lectura y escritura para el archivo, con la restricción de que otros procesos no verán las operaciones de escritura. </summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read">
+      <summary>Acceso de solo lectura al archivo.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadExecute">
+      <summary>Acceso de lectura al archivo que puede almacenar y ejecutar código ejecutable.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite">
+      <summary>Acceso de lectura y escritura al archivo.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWriteExecute">
+      <summary>Acceso de lectura y escritura al archivo que puede almacenar y ejecutar código ejecutable.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write">
+      <summary>Acceso de solo escritura al archivo.</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileOptions">
+      <summary>Proporciona opciones de asignación de memoria para los archivos asignados a la memoria.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileOptions.DelayAllocatePages">
+      <summary>La asignación de memoria se retrasa hasta que se crea una vista con el método <see cref="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream" /> o <see cref="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor" />.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileOptions.None">
+      <summary>No se aplica ninguna opción de asignación de memoria.</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights">
+      <summary>Especifica los derechos de acceso a un archivo asignado a la memoria que no está asociado a un archivo en disco.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.AccessSystemSecurity">
+      <summary>Derecho para obtener o establecer permisos en un archivo.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ChangePermissions">
+      <summary>Derecho para cambiar las reglas de seguridad y auditoría asociadas a un archivo.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.CopyOnWrite">
+      <summary>Derecho para leer y escribir en un archivo con la restricción de que otros procesos no verán las operaciones de escritura.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Delete">
+      <summary>Derecho para eliminar un archivo.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Execute">
+      <summary>Derecho para ejecutar un archivo de aplicación.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.FullControl">
+      <summary>Derecho para ejercer control total sobre un archivo, y para modificar su control de acceso y sus reglas de auditoría.Este valor representa el derecho para hacer operaciones con un archivo y es la combinación de todos los derechos en esta enumeración.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Read">
+      <summary>Derecho para abrir y copiar un archivo como de solo lectura.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadExecute">
+      <summary>Derecho para abrir y copiar una carpeta o un archivo como de solo lectura, y para ejecutar archivos de aplicación.Este derecho incluye los derechos: <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Read" /> y <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Execute" />.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadPermissions">
+      <summary>Derecho para abrir y copiar reglas de acceso y de auditoría de un archivo.Esto no incluye el derecho de leer datos, atributos del sistema de archivos o atributos del sistema de archivos extendidos.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadWrite">
+      <summary>Derecho para abrir y copiar un archivo, y derecho para agregar datos a un archivo o para quitar datos de un archivo.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadWriteExecute">
+      <summary>Derecho para abrir y copiar un archivo, derecho para agregar datos a un archivo o para quitar datos de un archivo y derecho para ejecutar un archivo de aplicación.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.TakeOwnership">
+      <summary>Derecho para cambiar el propietario de un archivo.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Write">
+      <summary>Derecho para agregar datos a un archivo o para quitar datos de un archivo.</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor">
+      <summary>Representa una vista de acceso aleatorio de un archivo asignado a la memoria.</summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.Flush">
+      <summary>Borra todos los búferes de esta vista y hace que todos los datos almacenados en búfer se escriban en el archivo subyacente.</summary>
+      <exception cref="T:System.ObjectDisposedException">Tras cerrar el descriptor de acceso, se llamó a algún método.</exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.PointerOffset">
+      <summary>[Se admite en .NET Framework 4.5.1 y versiones posteriores] Obtiene el número de bytes por el que la posición inicial de esta vista se desplaza desde el principio del archivo asignado a memoria. </summary>
+      <returns>El número de bytes entre la posición inicial de esta vista y el principio del archivo asignado a memoria. </returns>
+      <exception cref="T:System.InvalidOperationException">el objeto a partir del que se creó la instancia es null. </exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.SafeMemoryMappedViewHandle">
+      <summary>Obtiene un identificador para la vista de un archivo asignado a la memoria.</summary>
+      <returns>Contenedor para el identificador del sistema operativo para la vista del archivo. </returns>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedViewStream">
+      <summary>Representa una vista de un archivo asignado a la memoria como una secuencia a la que se obtiene acceso secuencialmente.</summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewStream.Flush">
+      <summary>Borra todos los búferes de esta secuencia y hace que todos los datos almacenados en búfer se escriban en el archivo subyacente.</summary>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewStream.PointerOffset">
+      <summary>[Se admite en .NET Framework 4.5.1 y versiones posteriores] Obtiene el número de bytes por el que la posición inicial de esta vista se desplaza desde el principio del archivo asignado a memoria.</summary>
+      <returns>El número de bytes entre la posición inicial de esta vista y el principio del archivo asignado a memoria. </returns>
+      <exception cref="T:System.InvalidOperationException">el objeto a partir del que se creó la instancia es null. </exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewStream.SafeMemoryMappedViewHandle">
+      <summary>Obtiene un identificador para la vista de un archivo asignado a la memoria.</summary>
+      <returns>Contenedor para el identificador del sistema operativo para la vista del archivo. </returns>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewStream.SetLength(System.Int64)">
+      <summary>Establece la longitud de la secuencia actual.</summary>
+      <param name="value">Longitud deseada de la secuencia actual, en bytes.</param>
+      <exception cref="T:System.NotSupportedException">Este método no es compatible.</exception>
+    </member>
+  </members>
+</doc>

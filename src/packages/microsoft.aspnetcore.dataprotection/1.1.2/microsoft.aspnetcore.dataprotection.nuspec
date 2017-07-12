@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.AspNetCore.DataProtection</id>
+    <version>1.1.2</version>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>ASP.NET Core logic to protect and unprotect data, similar to DPAPI.</description>
+    <tags>aspnetcore,dataprotection</tags>
+    <serviceable>true</serviceable>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5.1">
+        <dependency id="Microsoft.AspNetCore.Cryptography.Internal" version="[1.1.2, )" />
+        <dependency id="Microsoft.AspNetCore.DataProtection.Abstractions" version="[1.1.2, )" />
+        <dependency id="Microsoft.AspNetCore.Hosting.Abstractions" version="[1.1.2, )" />
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="[1.1.1, )" />
+        <dependency id="Microsoft.Extensions.Logging.Abstractions" version="[1.1.2, )" />
+        <dependency id="Microsoft.Extensions.Options" version="[1.1.2, )" />
+        <dependency id="NETStandard.Library" version="[1.6.1, )" />
+      </group>
+      <group targetFramework=".NETStandard1.3">
+        <dependency id="Microsoft.Win32.Registry" version="[4.3.0, )" />
+        <dependency id="System.Security.Claims" version="[4.3.0, )" />
+        <dependency id="System.Security.Principal.Windows" version="[4.3.0, )" />
+        <dependency id="Microsoft.AspNetCore.Cryptography.Internal" version="[1.1.2, )" />
+        <dependency id="Microsoft.AspNetCore.DataProtection.Abstractions" version="[1.1.2, )" />
+        <dependency id="Microsoft.AspNetCore.Hosting.Abstractions" version="[1.1.2, )" />
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="[1.1.1, )" />
+        <dependency id="Microsoft.Extensions.Logging.Abstractions" version="[1.1.2, )" />
+        <dependency id="Microsoft.Extensions.Options" version="[1.1.2, )" />
+        <dependency id="NETStandard.Library" version="[1.6.1, )" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Security" targetFramework=".NETFramework4.5.1" />
+      <frameworkAssembly assemblyName="System.Xml" targetFramework=".NETFramework4.5.1" />
+      <frameworkAssembly assemblyName="System.Xml.Linq" targetFramework=".NETFramework4.5.1" />
+    </frameworkAssemblies>
+    <licenseUrl>http://www.microsoft.com/web/webpi/eula/net_library_eula_enu.htm</licenseUrl>
+    <iconUrl>http://go.microsoft.com/fwlink/?LinkID=288859</iconUrl>
+    <copyright>Copyright © Microsoft Corporation</copyright>
+    <projectUrl>http://www.asp.net/</projectUrl>
+  </metadata>
+</package>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.Extensions.CommandLineUtils</id>
+    <version>1.0.1</version>
+    <authors>Microsoft.Extensions.CommandLineUtils</authors>
+    <owners>Microsoft.Extensions.CommandLineUtils</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Command-line parsing API. Commonly used types:
+Microsoft.Extensions.CommandLineUtils.CommandLineApplication
+Microsoft.Extensions.CommandLineUtils.CommandOption</description>
+    <tags>commandline,parsing</tags>
+    <serviceable>true</serviceable>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5.1" />
+      <group targetFramework=".NETStandard1.3">
+        <dependency id="System.Collections" version="[4.0.11, )" />
+        <dependency id="System.Console" version="[4.0.0, )" />
+        <dependency id="System.IO" version="[4.1.0, )" />
+        <dependency id="System.Linq" version="[4.1.0, )" />
+        <dependency id="System.Resources.ResourceManager" version="[4.0.1, )" />
+      </group>
+    </dependencies>
+    <licenseUrl>http://www.microsoft.com/web/webpi/eula/net_library_eula_enu.htm</licenseUrl>
+    <iconUrl>http://go.microsoft.com/fwlink/?LinkID=288859</iconUrl>
+    <copyright>Copyright © Microsoft Corporation</copyright>
+    <projectUrl>http://www.asp.net/</projectUrl>
+  </metadata>
+</package>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Extensions.Globalization.CultureInfoCache</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Extensions.Globalization.CultureInfoCache">
+            <summary>
+            Provides read-only cached instances of <see cref="T:System.Globalization.CultureInfo"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Globalization.CultureInfoCache.GetCultureInfo(System.String,System.Collections.Generic.IList{System.Globalization.CultureInfo})">
+            <summary>
+            Gets a read-only cached <see cref="T:System.Globalization.CultureInfo"/> for the specified name. Only names that exist in
+            <paramref name="supportedCultures"/> will be used.
+            </summary>
+            <param name="name">The culture name.</param>
+            <param name="supportedCultures">The cultures supported by the application.</param>
+            <returns>
+            A read-only cached <see cref="T:System.Globalization.CultureInfo"/> or <c>null</c> if a match wasn't found in
+            <paramref name="supportedCultures"/>.
+            </returns>
+        </member>
+    </members>
+</doc>

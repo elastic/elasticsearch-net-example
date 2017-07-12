@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.Build.Runtime</id>
+    <version>15.1.548</version>
+    <title>Microsoft.Build.Runtime</title>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>http://go.microsoft.com/fwlink/?LinkId=329770</licenseUrl>
+    <projectUrl>http://go.microsoft.com/fwlink/?LinkId=624683</projectUrl>
+    <iconUrl>https://go.microsoft.com/fwlink/?linkid=825694</iconUrl>
+    <description>This package contains the runtime of MSBuild.  Reference this package only if your application needs to load projects or execute in-process builds.</description>
+    <copyright>Copyright © Microsoft Corporation</copyright>
+    <tags>MSBuild</tags>
+    <dependencies>
+      <group targetFramework=".NETStandard1.5">
+        <dependency id="Microsoft.Build" version="[15.1.548]" />
+        <dependency id="Microsoft.Build.Framework" version="[15.1.548]" />
+        <dependency id="Microsoft.Build.Tasks.Core" version="[15.1.548]" />
+        <dependency id="Microsoft.Build.Utilities.Core" version="[15.1.548]" />
+      </group>
+      <group targetFramework=".NETFramework4.6">
+        <dependency id="Microsoft.Build" version="[15.1.548]" />
+        <dependency id="Microsoft.Build.Framework" version="[15.1.548]" />
+        <dependency id="Microsoft.Build.Tasks.Core" version="[15.1.548]" />
+        <dependency id="Microsoft.Build.Utilities.Core" version="[15.1.548]" />
+      </group>
+    </dependencies>
+    <contentFiles>
+      <files include="**" buildAction="None" copyToOutput="true" flatten="false" />
+    </contentFiles>
+  </metadata>
+</package>

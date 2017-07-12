@@ -1,0 +1,1630 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Razor.Runtime</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Extensions.Internal.ClosedGenericMatcher">
+            <summary>
+            Helper related to generic interface definitions and implementing classes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.ClosedGenericMatcher.ExtractGenericInterface(System.Type,System.Type)">
+            <summary>
+            Determine whether <paramref name="queryType"/> is or implements a closed generic <see cref="T:System.Type"/>
+            created from <paramref name="interfaceType"/>.
+            </summary>
+            <param name="queryType">The <see cref="T:System.Type"/> of interest.</param>
+            <param name="interfaceType">The open generic <see cref="T:System.Type"/> to match. Usually an interface.</param>
+            <returns>
+            The closed generic <see cref="T:System.Type"/> created from <paramref name="interfaceType"/> that
+            <paramref name="queryType"/> is or implements. <c>null</c> if the two <see cref="T:System.Type"/>s have no such
+            relationship.
+            </returns>
+            <remarks>
+            This method will return <paramref name="queryType"/> if <paramref name="interfaceType"/> is
+            <c>typeof(KeyValuePair{,})</c>, and <paramref name="queryType"/> is
+            <c>typeof(KeyValuePair{string, object})</c>.
+            </remarks>
+        </member>
+        <member name="F:Microsoft.Extensions.Internal.TaskCache.CompletedTask">
+            <summary>
+            A <see cref="T:System.Threading.Tasks.Task"/> that's already completed successfully.
+            </summary>
+            <remarks>
+            We're caching this in a static readonly field to make it more inlinable and avoid the volatile lookup done
+            by <c>Task.CompletedTask</c>.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Extensions.Internal.TaskCache`1.DefaultCompletedTask">
+            <summary>
+            Gets a completed <see cref="T:System.Threading.Tasks.Task"/> with the value of <c>default(T)</c>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorResolver_InvalidTagHelperLookupText">
+            <summary>
+            Invalid tag helper directive look up text '{0}'. The correct look up text format is: "typeName, assemblyName".
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorResolver_InvalidTagHelperLookupText(System.Object)">
+            <summary>
+            Invalid tag helper directive look up text '{0}'. The correct look up text format is: "typeName, assemblyName".
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperTypeResolver_CannotResolveTagHelperAssembly">
+            <summary>
+            Cannot resolve TagHelper containing assembly '{0}'. Error: {1}
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperTypeResolver_CannotResolveTagHelperAssembly(System.Object,System.Object)">
+            <summary>
+            Cannot resolve TagHelper containing assembly '{0}'. Error: {1}
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperTypeResolver_TagHelperAssemblyNameCannotBeEmptyOrNull">
+            <summary>
+            Tag helper directive assembly name cannot be null or empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperTypeResolver_TagHelperAssemblyNameCannotBeEmptyOrNull">
+            <summary>
+            Tag helper directive assembly name cannot be null or empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.ScopeManager_EndCannotBeCalledWithoutACallToBegin">
+            <summary>
+            Must call '{2}.{1}' before calling '{2}.{0}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatScopeManager_EndCannotBeCalledWithoutACallToBegin(System.Object,System.Object,System.Object)">
+            <summary>
+            Must call '{2}.{1}' before calling '{2}.{0}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.HtmlTargetElementAttribute_NameCannotBeNullOrWhitespace">
+            <summary>
+            {0} name cannot be null or whitespace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatHtmlTargetElementAttribute_NameCannotBeNullOrWhitespace(System.Object)">
+            <summary>
+            {0} name cannot be null or whitespace.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.ArgumentCannotBeNullOrEmpty">
+            <summary>
+            The value cannot be null or empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatArgumentCannotBeNullOrEmpty">
+            <summary>
+            The value cannot be null or empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorResolver_EncounteredUnexpectedError">
+            <summary>
+            Encountered an unexpected error when attempting to resolve tag helper directive '{0}' with value '{1}'. Error: {2}
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorResolver_EncounteredUnexpectedError(System.Object,System.Object,System.Object)">
+            <summary>
+            Encountered an unexpected error when attempting to resolve tag helper directive '{0}' with value '{1}'. Error: {2}
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.HtmlTargetElementAttribute_InvalidName">
+            <summary>
+            Tag helpers cannot target {0} name '{1}' because it contains a '{2}' character.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatHtmlTargetElementAttribute_InvalidName(System.Object,System.Object,System.Object)">
+            <summary>
+            Tag helpers cannot target {0} name '{1}' because it contains a '{2}' character.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorResolver_InvalidTagHelperDirective">
+            <summary>
+            Invalid tag helper directive '{0}'. Cannot have multiple '{0}' directives on a page.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorResolver_InvalidTagHelperDirective(System.Object)">
+            <summary>
+            Invalid tag helper directive '{0}'. Cannot have multiple '{0}' directives on a page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorResolver_InvalidTagHelperPrefixValue">
+            <summary>
+            Invalid tag helper directive '{0}' value. '{1}' is not allowed in prefix '{2}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorResolver_InvalidTagHelperPrefixValue(System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper directive '{0}' value. '{1}' is not allowed in prefix '{2}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_Attribute">
+            <summary>
+            Attribute
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_Attribute">
+            <summary>
+            Attribute
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_Name">
+            <summary>
+            name
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_Name">
+            <summary>
+            name
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_Prefix">
+            <summary>
+            prefix
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_Prefix">
+            <summary>
+            prefix
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_Tag">
+            <summary>
+            Tag
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_Tag">
+            <summary>
+            Tag
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_InvalidAttributeNameAttribute">
+            <summary>
+            Invalid tag helper bound property '{0}.{1}'. An '{2}' must not be associated with a property with no public setter unless its type implements '{3}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_InvalidAttributeNameAttribute(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper bound property '{0}.{1}'. An '{2}' must not be associated with a property with no public setter unless its type implements '{3}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_InvalidAttributeNameOrPrefixCharacter">
+            <summary>
+            Invalid tag helper bound property '{0}.{1}'. Tag helpers cannot bind to HTML attributes with {2} '{3}' because {2} contains a '{4}' character.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_InvalidAttributeNameOrPrefixCharacter(System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper bound property '{0}.{1}'. Tag helpers cannot bind to HTML attributes with {2} '{3}' because {2} contains a '{4}' character.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_InvalidAttributeNameOrPrefixStart">
+            <summary>
+            Invalid tag helper bound property '{0}.{1}'. Tag helpers cannot bind to HTML attributes with {2} '{3}' because {2} starts with '{4}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_InvalidAttributeNameOrPrefixStart(System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper bound property '{0}.{1}'. Tag helpers cannot bind to HTML attributes with {2} '{3}' because {2} starts with '{4}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_InvalidAttributeNameOrPrefixWhitespace">
+            <summary>
+            Invalid tag helper bound property '{0}.{1}'. Tag helpers cannot bind to HTML attributes with a whitespace {2}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_InvalidAttributeNameOrPrefixWhitespace(System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper bound property '{0}.{1}'. Tag helpers cannot bind to HTML attributes with a whitespace {2}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_InvalidAttributeNameNullOrEmpty">
+            <summary>
+            Invalid tag helper bound property '{0}.{1}'. Tag helpers cannot bind to HTML attributes with a null or empty name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_InvalidAttributeNameNullOrEmpty(System.Object,System.Object)">
+            <summary>
+            Invalid tag helper bound property '{0}.{1}'. Tag helpers cannot bind to HTML attributes with a null or empty name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_InvalidAttributeNameNotNullOrEmpty">
+            <summary>
+            Invalid tag helper bound property '{0}.{1}'. '{2}.{3}' must be null or empty if property has no public setter.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_InvalidAttributeNameNotNullOrEmpty(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper bound property '{0}.{1}'. '{2}.{3}' must be null or empty if property has no public setter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_InvalidAttributePrefixNull">
+            <summary>
+            Invalid tag helper bound property '{0}.{1}'. '{2}.{3}' must not be null if property has no public setter and its type implements '{4}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_InvalidAttributePrefixNull(System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper bound property '{0}.{1}'. '{2}.{3}' must not be null if property has no public setter and its type implements '{4}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_InvalidAttributePrefixNotNull">
+            <summary>
+            Invalid tag helper bound property '{0}.{1}'. '{2}.{3}' must be null unless property type implements '{4}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_InvalidAttributePrefixNotNull(System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper bound property '{0}.{1}'. '{2}.{3}' must be null unless property type implements '{4}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_InvalidRestrictChildrenAttributeName">
+            <summary>
+            Invalid '{0}' tag name '{1}' for tag helper '{2}'. Tag helpers cannot restrict child elements that contain a '{3}' character.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_InvalidRestrictChildrenAttributeName(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid '{0}' tag name '{1}' for tag helper '{2}'. Tag helpers cannot restrict child elements that contain a '{3}' character.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_InvalidRestrictChildrenAttributeNameNullWhitespace">
+            <summary>
+            Invalid '{0}' tag name for tag helper '{1}'. Name cannot be null or whitespace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_InvalidRestrictChildrenAttributeNameNullWhitespace(System.Object,System.Object)">
+            <summary>
+            Invalid '{0}' tag name for tag helper '{1}'. Name cannot be null or whitespace.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_ParentTag">
+            <summary>
+            Parent Tag
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_ParentTag">
+            <summary>
+            Parent Tag
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.ArgumentMustBeAnInstanceOf">
+            <summary>
+            Argument must be an instance of '{0}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatArgumentMustBeAnInstanceOf(System.Object)">
+            <summary>
+            Argument must be an instance of '{0}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_CouldNotFindMatchingEndBrace">
+            <summary>
+            Could not find matching ']' for required attribute '{0}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_CouldNotFindMatchingEndBrace(System.Object)">
+            <summary>
+            Could not find matching ']' for required attribute '{0}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_InvalidRequiredAttributeCharacter">
+            <summary>
+            Invalid required attribute character '{0}' in required attribute '{1}'. Separate required attributes with commas.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_InvalidRequiredAttributeCharacter(System.Object,System.Object)">
+            <summary>
+            Invalid required attribute character '{0}' in required attribute '{1}'. Separate required attributes with commas.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_InvalidRequiredAttributeMismatchedQuotes">
+            <summary>
+            Required attribute '{0}' has mismatched quotes '{1}' around value.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_InvalidRequiredAttributeMismatchedQuotes(System.Object,System.Object)">
+            <summary>
+            Required attribute '{0}' has mismatched quotes '{1}' around value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_PartialRequiredAttributeOperator">
+            <summary>
+            Required attribute '{0}' has a partial CSS operator. '{1}' must be followed by an equals.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_PartialRequiredAttributeOperator(System.Object,System.Object)">
+            <summary>
+            Required attribute '{0}' has a partial CSS operator. '{1}' must be followed by an equals.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.Resources.TagHelperDescriptorFactory_InvalidRequiredAttributeOperator">
+            <summary>
+            Invalid character '{0}' in required attribute '{1}'. Expected supported CSS operator or ']'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.Resources.FormatTagHelperDescriptorFactory_InvalidRequiredAttributeOperator(System.Object,System.Object)">
+            <summary>
+            Invalid character '{0}' in required attribute '{1}'. Expected supported CSS operator or ']'.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.ITagHelperDescriptorFactory">
+            <summary>
+            Factory for <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor"/> instances.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.ITagHelperDescriptorFactory.CreateDescriptors(System.String,System.Type,Microsoft.AspNetCore.Razor.ErrorSink)">
+            <summary>
+            Creates a <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor"/> from the given <paramref name="type"/>.
+            </summary>
+            <param name="assemblyName">The assembly name that contains <paramref name="type"/>.</param>
+            <param name="type">The <see cref="T:System.Type"/> to create a <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor"/> from.
+            </param>
+            <param name="errorSink">The <see cref="T:Microsoft.AspNetCore.Razor.ErrorSink"/> used to collect <see cref="T:Microsoft.AspNetCore.Razor.RazorError"/>s encountered
+            when creating <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor"/>s for the given <paramref name="type"/>.</param>
+            <returns>
+            A collection of <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor"/>s that describe the given <paramref name="type"/>.
+            </returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.ITagHelperTypeResolver">
+            <summary>
+            Locates valid <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>s within an assembly.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.ITagHelperTypeResolver.Resolve(System.String,Microsoft.AspNetCore.Razor.SourceLocation,Microsoft.AspNetCore.Razor.ErrorSink)">
+            <summary>
+            Locates valid <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/> types from the <see cref="T:System.Reflection.Assembly"/> named <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of an <see cref="T:System.Reflection.Assembly"/> to search.</param>
+            <param name="documentLocation">The <see cref="T:Microsoft.AspNetCore.Razor.SourceLocation"/> of the associated
+            <see cref="T:Microsoft.AspNetCore.Razor.Parser.SyntaxTree.SyntaxTreeNode"/> responsible for the current <see cref="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.ITagHelperTypeResolver.Resolve(System.String,Microsoft.AspNetCore.Razor.SourceLocation,Microsoft.AspNetCore.Razor.ErrorSink)"/> call.
+            </param>
+            <param name="errorSink">The <see cref="T:Microsoft.AspNetCore.Razor.ErrorSink"/> used to record errors found when resolving
+            <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/> types.</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of valid <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/> types.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperConventions">
+            <summary>
+            Default convention for determining if a type is a tag helper.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperConventions.IsTagHelper(System.Reflection.TypeInfo)">
+            <summary>
+            Indicates whether or not the <see cref="T:System.Reflection.TypeInfo"/> is a tag helper.
+            </summary>
+            <param name="typeInfo">The <see cref="T:System.Reflection.TypeInfo"/>.</param>
+            <returns>true if <paramref name="typeInfo"/> is a tag helper; false otherwise.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDescriptorFactory">
+            <summary>
+            Factory for <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor"/>s from <see cref="T:System.Type"/>s.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDescriptorFactory.#ctor(System.Boolean)">
+            <summary>
+            Instantiates a new <see cref="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDescriptorFactory"/>.
+            </summary>
+            <param name="designTime">
+            Indicates if <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor"/>s should be created for design time.
+            </param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDescriptorFactory.CreateDescriptors(System.String,System.Type,Microsoft.AspNetCore.Razor.ErrorSink)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDescriptorFactory.ValidHtmlTargetElementAttributeNames(Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute,Microsoft.AspNetCore.Razor.ErrorSink)">
+            <summary>
+            Internal for testing.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDescriptorFactory.ValidateParentTagName(System.String,Microsoft.AspNetCore.Razor.ErrorSink)">
+            <summary>
+            Internal for unit testing.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDescriptorFactory.ToHtmlCase(System.String)">
+            <summary>
+            Converts from pascal/camel case to lower kebab-case.
+            </summary>
+            <example>
+            <code>
+            SomeThing => some-thing
+            capsONInside => caps-on-inside
+            CAPSOnOUTSIDE => caps-on-outside
+            ALLCAPS => allcaps
+            One1Two2Three3 => one1-two2-three3
+            ONE1TWO2THREE3 => one1two2three3
+            First_Second_ThirdHi => first_second_third-hi
+            </code>
+            </example>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDescriptorResolver">
+            <summary>
+            Used to resolve <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor"/>s.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDescriptorResolver.#ctor(System.Boolean)">
+            <summary>
+            Instantiates a new instance of the <see cref="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDescriptorResolver"/> class.
+            </summary>
+            <param name="designTime">Indicates whether resolved <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor"/>s should include
+            design time specific information.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDescriptorResolver.#ctor(Microsoft.AspNetCore.Razor.Runtime.TagHelpers.ITagHelperTypeResolver,Microsoft.AspNetCore.Razor.Runtime.TagHelpers.ITagHelperDescriptorFactory)">
+            <summary>
+            Instantiates a new instance of <see cref="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDescriptorResolver"/> class with the
+            specified <paramref name="typeResolver"/>.
+            </summary>
+            <param name="typeResolver">The <see cref="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperTypeResolver"/>.</param>
+            <param name="descriptorFactory">The <see cref="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDescriptorFactory"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDescriptorResolver.Resolve(Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptorResolutionContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDescriptorResolver.ResolveDescriptorsInAssembly(System.String,Microsoft.AspNetCore.Razor.SourceLocation,Microsoft.AspNetCore.Razor.ErrorSink)">
+            <summary>
+            Resolves all <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor"/>s for <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>s from the
+            given <paramref name="assemblyName"/>.
+            </summary>
+            <param name="assemblyName">
+            The name of the assembly to resolve <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor"/>s from.
+            </param>
+            <param name="documentLocation">The <see cref="T:Microsoft.AspNetCore.Razor.SourceLocation"/> of the directive.</param>
+            <param name="errorSink">Used to record errors found when resolving <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor"/>s
+            within the given <paramref name="assemblyName"/>.</param>
+            <returns><see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor"/>s for <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>s from the given
+            <paramref name="assemblyName"/>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDesignTimeDescriptorFactory">
+            <summary>
+            Factory for providing <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDesignTimeDescriptor"/>s from <see cref="T:System.Type"/>s and
+            <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperAttributeDesignTimeDescriptor"/>s from <see cref="T:System.Reflection.PropertyInfo"/>s.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDesignTimeDescriptorFactory.CreateDescriptor(System.Type)">
+            <summary>
+            Creates a <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDesignTimeDescriptor"/> from the given <paramref name="type"/>.
+            </summary>
+            <param name="type">
+            The <see cref="T:System.Type"/> to create a <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDesignTimeDescriptor"/> from.
+            </param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDesignTimeDescriptor"/> that describes design time specific information
+            for the given <paramref name="type"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDesignTimeDescriptorFactory.CreateAttributeDescriptor(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates a <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperAttributeDesignTimeDescriptor"/> from the given
+            <paramref name="propertyInfo"/>.
+            </summary>
+            <param name="propertyInfo">
+            The <see cref="T:System.Reflection.PropertyInfo"/> to create a <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperAttributeDesignTimeDescriptor"/> from.
+            </param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperAttributeDesignTimeDescriptor"/> that describes design time specific
+            information for the given <paramref name="propertyInfo"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperDesignTimeDescriptorFactory.GetAssemblyLocation(System.Reflection.Assembly)">
+            <summary>
+            Retrieves <paramref name="assembly"/>'s location on disk.
+            </summary>
+            <param name="assembly">The assembly.</param>
+            <returns>The path to the given <paramref name="assembly"/>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext">
+            <summary>
+            Class used to store information about a <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>'s execution lifetime.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.#ctor(System.String,Microsoft.AspNetCore.Razor.TagHelpers.TagMode)">
+            <summary>
+            Internal for testing purposes only.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.#ctor(System.String,Microsoft.AspNetCore.Razor.TagHelpers.TagMode,System.Collections.Generic.IDictionary{System.Object,System.Object},System.String,System.Func{System.Threading.Tasks.Task},System.Action{System.Text.Encodings.Web.HtmlEncoder},System.Func{Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent})">
+            <summary>
+            Instantiates a new <see cref="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext"/>.
+            </summary>
+            <param name="tagName">The HTML tag name in the Razor source.</param>
+            <param name="tagMode">HTML syntax of the element in the Razor source.</param>
+            <param name="items">The collection of items used to communicate with other
+            <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>s</param>
+            <param name="uniqueId">An identifier unique to the HTML element this context is for.</param>
+            <param name="executeChildContentAsync">A delegate used to execute the child content asynchronously.</param>
+            <param name="startTagHelperWritingScope">
+            A delegate used to start a writing scope in a Razor page and optionally override the page's
+            <see cref="T:System.Text.Encodings.Web.HtmlEncoder"/> within that scope.
+            </param>
+            <param name="endTagHelperWritingScope">A delegate used to end a writing scope in a Razor page.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.ChildContentRetrieved">
+            <summary>
+            Indicates if <see cref="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.GetChildContentAsync(System.Boolean,System.Text.Encodings.Web.HtmlEncoder)"/> has been called.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.Items">
+            <summary>
+            Gets the collection of items used to communicate with other <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>s.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.TagHelpers">
+            <summary>
+            <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>s that should be run.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.Output">
+            <summary>
+            The <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>'s output.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.Context">
+            <summary>
+            The <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>'s context.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.Add(Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper)">
+            <summary>
+            Tracks the given <paramref name="tagHelper"/>.
+            </summary>
+            <param name="tagHelper">The tag helper to track.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.AddHtmlAttribute(System.String,System.Object,Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle)">
+            <summary>
+            Tracks the HTML attribute.
+            </summary>
+            <param name="name">The HTML attribute name.</param>
+            <param name="value">The HTML attribute value.</param>
+            <param name="valueStyle">The value style of the attribute.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.AddHtmlAttribute(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute)">
+            <summary>
+            Tracks the HTML attribute.
+            </summary>
+            <param name="attribute">The <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> to track.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.AddTagHelperAttribute(System.String,System.Object,Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle)">
+            <summary>
+            Tracks the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/> bound attribute.
+            </summary>
+            <param name="name">The bound attribute name.</param>
+            <param name="value">The attribute value.</param>
+            <param name="valueStyle">The value style of the attribute.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.AddTagHelperAttribute(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute)">
+            <summary>
+            Tracks the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/> bound attribute.
+            </summary>
+            <param name="attribute">The bound attribute.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.Reinitialize(System.String,Microsoft.AspNetCore.Razor.TagHelpers.TagMode,System.Collections.Generic.IDictionary{System.Object,System.Object},System.String,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Clears the <see cref="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext"/> and updates its state with the provided values.
+            </summary>
+            <param name="tagName">The tag name to use.</param>
+            <param name="tagMode">The <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagMode"/> to use.</param>
+            <param name="items">The <see cref="T:System.Collections.Generic.IDictionary`2"/> to use.</param>
+            <param name="uniqueId">The unique id to use.</param>
+            <param name="executeChildContentAsync">The <see cref="T:System.Func`1"/> to use.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.SetOutputContentAsync">
+            <summary>
+            Executes children asynchronously with the page's <see cref="T:System.Text.Encodings.Web.HtmlEncoder" /> in scope and
+            sets <see cref="P:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.Output"/>'s <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.Content"/> to the rendered results.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that on completion sets <see cref="P:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.Output"/>'s
+            <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.Content"/> to the children's rendered content.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperRunner">
+            <summary>
+            A class used to run <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>s.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperRunner.RunAsync(Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext)">
+            <summary>
+            Calls the <see cref="M:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper.ProcessAsync(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext,Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput)"/> method on <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>s.
+            </summary>
+            <param name="executionContext">Contains information associated with running <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>s.
+            </param>
+            <returns>Resulting <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput"/> from processing all of the
+            <paramref name="executionContext"/>'s <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>s.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperScopeManager">
+            <summary>
+            Class that manages <see cref="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext"/> scopes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperScopeManager.#ctor(System.Action{System.Text.Encodings.Web.HtmlEncoder},System.Func{Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent})">
+            <summary>
+            Instantiates a new <see cref="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperScopeManager"/>.
+            </summary>
+            <param name="startTagHelperWritingScope">
+            A delegate used to start a writing scope in a Razor page and optionally override the page's
+            <see cref="T:System.Text.Encodings.Web.HtmlEncoder"/> within that scope.
+            </param>
+            <param name="endTagHelperWritingScope">A delegate used to end a writing scope in a Razor page.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperScopeManager.Begin(System.String,Microsoft.AspNetCore.Razor.TagHelpers.TagMode,System.String,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Starts a <see cref="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext"/> scope.
+            </summary>
+            <param name="tagName">The HTML tag name that the scope is associated with.</param>
+            <param name="tagMode">HTML syntax of the element in the Razor source.</param>
+            <param name="uniqueId">An identifier unique to the HTML element this scope is for.</param>
+            <param name="executeChildContentAsync">A delegate used to execute the child content asynchronously.</param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext"/> to use.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperScopeManager.End">
+            <summary>
+            Ends a <see cref="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext"/> scope.
+            </summary>
+            <returns>If the current scope is nested, the parent <see cref="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext"/>.
+            <c>null</c> otherwise.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperTypeResolver">
+            <summary>
+            Class that locates valid <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>s within an assembly.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperTypeResolver.Resolve(System.String,Microsoft.AspNetCore.Razor.SourceLocation,Microsoft.AspNetCore.Razor.ErrorSink)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperTypeResolver.GetExportedTypes(System.Reflection.AssemblyName)">
+            <summary>
+            Returns all exported types from the given <paramref name="assemblyName"/>
+            </summary>
+            <param name="assemblyName">The <see cref="T:System.Reflection.AssemblyName"/> to get <see cref="T:System.Reflection.TypeInfo"/>s from.</param>
+            <returns>
+            An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of types exported from the given <paramref name="assemblyName"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperTypeResolver.IsTagHelper(System.Reflection.TypeInfo)">
+            <summary>
+            Indicates if a <see cref="T:System.Reflection.TypeInfo"/> should be treated as a tag helper.
+            </summary>
+            <param name="typeInfo">The <see cref="T:System.Reflection.TypeInfo"/> to inspect.</param>
+            <returns><c>true</c> if <paramref name="typeInfo"/> should be treated as a tag helper; 
+            <c>false</c> otherwise</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.XmlDocumentationProvider">
+            <summary>
+            Extracts summary and remarks XML documentation from an XML documentation file.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.XmlDocumentationProvider.#ctor(System.String)">
+            <summary>
+            Instantiates a new instance of the <see cref="T:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.XmlDocumentationProvider"/>.
+            </summary>
+            <param name="xmlFileLocation">Path to the XML documentation file to read.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.XmlDocumentationProvider.GetSummary(System.String)">
+            <summary>
+            Retrieves the <c>&lt;summary&gt;</c> documentation for the given <paramref name="id"/>.
+            </summary>
+            <param name="id">The id to lookup.</param>
+            <returns><c>&lt;summary&gt;</c> documentation for the given <paramref name="id"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.XmlDocumentationProvider.GetRemarks(System.String)">
+            <summary>
+            Retrieves the <c>&lt;remarks&gt;</c> documentation for the given <paramref name="id"/>.
+            </summary>
+            <param name="id">The id to lookup.</param>
+            <returns><c>&lt;remarks&gt;</c> documentation for the given <paramref name="id"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.XmlDocumentationProvider.GetId(System.Type)">
+            <summary>
+            Generates the <see cref="T:System.String"/> identifier for the given <paramref name="type"/>.
+            </summary>
+            <param name="type">The <see cref="T:System.Type"/> to get the identifier for.</param>
+            <returns>The <see cref="T:System.String"/> identifier for the given <paramref name="type"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Runtime.TagHelpers.XmlDocumentationProvider.GetId(System.Reflection.PropertyInfo)">
+            <summary>
+            Generates the <see cref="T:System.String"/> identifier for the given <paramref name="propertyInfo"/>.
+            </summary>
+            <param name="propertyInfo">The <see cref="T:System.Reflection.PropertyInfo"/> to get the identifier for.</param>
+            <returns>The <see cref="T:System.String"/> identifier for the given <paramref name="propertyInfo"/>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.TagHelpers.DefaultTagHelperContent">
+            <summary>
+            Default concrete <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.DefaultTagHelperContent.IsModified">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.DefaultTagHelperContent.IsEmptyOrWhiteSpace">
+            <inheritdoc />
+            <remarks>Returns <c>true</c> for a cleared <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent"/>.</remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.DefaultTagHelperContent.Append(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.DefaultTagHelperContent.AppendHtml(Microsoft.AspNetCore.Html.IHtmlContent)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.DefaultTagHelperContent.AppendHtml(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.DefaultTagHelperContent.CopyTo(Microsoft.AspNetCore.Html.IHtmlContentBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.DefaultTagHelperContent.MoveTo(Microsoft.AspNetCore.Html.IHtmlContentBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.DefaultTagHelperContent.Clear">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.DefaultTagHelperContent.Reinitialize">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.DefaultTagHelperContent.GetContent">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.DefaultTagHelperContent.GetContent(System.Text.Encodings.Web.HtmlEncoder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.DefaultTagHelperContent.WriteTo(System.IO.TextWriter,System.Text.Encodings.Web.HtmlEncoder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNameAttribute">
+            <summary>
+            Used to override an <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/> property's HTML attribute name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNameAttribute.#ctor">
+            <summary>
+            Instantiates a new instance of the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNameAttribute"/> class with <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNameAttribute.Name"/>
+            equal to <c>null</c>.
+            </summary>
+            <remarks>
+            Associated property must not have a public setter and must be compatible with
+            <see cref="T:System.Collections.Generic.IDictionary`2"/> where <c>TKey</c> is
+            <see cref="T:System.String"/>.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNameAttribute.#ctor(System.String)">
+            <summary>
+            Instantiates a new instance of the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNameAttribute"/> class.
+            </summary>
+            <param name="name">
+            HTML attribute name for the associated property. Must be <c>null</c> or empty if associated property does
+            not have a public setter and is compatible with
+            <see cref="T:System.Collections.Generic.IDictionary`2"/> where <c>TKey</c> is
+            <see cref="T:System.String"/>. Otherwise must not be <c>null</c> or empty.
+            </param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNameAttribute.Name">
+            <summary>
+            HTML attribute name of the associated property.
+            </summary>
+            <value>
+            <c>null</c> or empty if and only if associated property does not have a public setter and is compatible
+            with <see cref="T:System.Collections.Generic.IDictionary`2"/> where <c>TKey</c> is
+            <see cref="T:System.String"/>.
+            </value>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNameAttribute.DictionaryAttributePrefix">
+            <summary>
+            Gets or sets the prefix used to match HTML attribute names. Matching attributes are added to the
+            associated property (an <see cref="T:System.Collections.Generic.IDictionary`2"/>).
+            </summary>
+            <remarks>
+            If non-<c>null</c> associated property must be compatible with
+            <see cref="T:System.Collections.Generic.IDictionary`2"/> where <c>TKey</c> is
+            <see cref="T:System.String"/>.
+            </remarks>
+            <value>
+            <para>
+            If associated property is compatible with
+            <see cref="T:System.Collections.Generic.IDictionary`2"/>, default value is <c>Name + "-"</c>.
+            <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNameAttribute.Name"/> must not be <c>null</c> or empty in this case.
+            </para>
+            <para>
+            Otherwise default value is <c>null</c>.
+            </para>
+            </value>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNameAttribute.DictionaryAttributePrefixSet">
+            <summary>
+            Gets an indication whether <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNameAttribute.DictionaryAttributePrefix"/> has been set. Used to distinguish an
+            uninitialized <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNameAttribute.DictionaryAttributePrefix"/> value from an explicit <c>null</c> setting.
+            </summary>
+            <value><c>true</c> if <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNameAttribute.DictionaryAttributePrefix"/> was set. <c>false</c> otherwise.</value>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNotBoundAttribute">
+            <summary>
+            Indicates the associated <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/> property should not be bound to HTML attributes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNotBoundAttribute.#ctor">
+            <summary>
+            Instantiates a new instance of the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNotBoundAttribute"/> class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute">
+            <summary>
+            Provides an <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>'s target.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute.#ctor">
+            <summary>
+            Instantiates a new instance of the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute"/> class that targets all HTML
+            elements with the required <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute.Attributes"/>.
+            </summary>
+            <remarks><see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute.Tag"/> is set to <c>*</c>.</remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute.#ctor(System.String)">
+            <summary>
+            Instantiates a new instance of the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute"/> class with the given
+            <paramref name="tag"/> as its <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute.Tag"/> value.
+            </summary>
+            <param name="tag">
+            The HTML tag the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/> targets.
+            </param>
+            <remarks>A <c>*</c> <paramref name="tag"/> value indicates this <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>
+            targets all HTML elements with the required <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute.Attributes"/>.</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute.Tag">
+            <summary>
+            The HTML tag the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/> targets. A <c>*</c> value indicates this <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>
+            targets all HTML elements with the required <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute.Attributes"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute.Attributes">
+            <summary>
+            A comma-separated <see cref="T:System.String"/> of attribute selectors the HTML element must match for the
+            <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/> to run. <c>*</c> at the end of an attribute name acts as a prefix match. A value
+            surrounded by square brackets is handled as a CSS attribute value selector. Operators <c>^=</c>, <c>$=</c> and
+            <c>=</c> are supported e.g. <c>"name"</c>, <c>"[name]"</c>, <c>"[name=value]"</c>, <c>"[ name ^= 'value' ]"</c>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute.TagStructure">
+            <summary>
+            The expected tag structure. Defaults to <see cref="F:Microsoft.AspNetCore.Razor.TagHelpers.TagStructure.Unspecified"/>.
+            </summary>
+            <remarks>
+            If <see cref="F:Microsoft.AspNetCore.Razor.TagHelpers.TagStructure.Unspecified"/> and no other tag helpers applying to the same element specify
+            their <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute.TagStructure"/> the <see cref="F:Microsoft.AspNetCore.Razor.TagHelpers.TagStructure.NormalOrSelfClosing"/> behavior is used:
+            <para>
+            <code>
+            &lt;my-tag-helper&gt;&lt;/my-tag-helper&gt;
+            &lt;!-- OR --&gt;
+            &lt;my-tag-helper /&gt;
+            </code>
+            Otherwise, if another tag helper applying to the same element does specify their behavior, that behavior
+            is used.
+            </para>
+            <para>
+            If <see cref="F:Microsoft.AspNetCore.Razor.TagHelpers.TagStructure.WithoutEndTag"/> HTML elements can be written in the following formats:
+            <code>
+            &lt;my-tag-helper&gt;
+            &lt;!-- OR --&gt;
+            &lt;my-tag-helper /&gt;
+            </code>
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute.ParentTag">
+            <summary>
+            The required HTML element name of the direct parent. A <c>null</c> value indicates any HTML element name is
+            allowed.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper">
+            <summary>
+            Contract used to filter matching HTML elements.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper.Order">
+            <summary>
+            When a set of<see cref= "T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper" /> s are executed, their<see cref="M:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper.Init(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext)"/>'s
+            are first invoked in the specified <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper.Order"/>; then their
+            <see cref="M:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper.ProcessAsync(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext,Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput)"/>'s are invoked in the specified
+            <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper.Order"/>. Lower values are executed first.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper.Init(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext)">
+            <summary>
+            Initializes the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/> with the given <paramref name="context"/>. Additions to
+            <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext.Items"/> should be done within this method to ensure they're added prior to
+            executing the children.
+            </summary>
+            <param name="context">Contains information associated with the current HTML tag.</param>
+            <remarks>When more than one <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/> runs on the same element,
+            <see cref="M:TagHelperOutput.GetChildContentAsync"/> may be invoked prior to <see cref="M:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper.ProcessAsync(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext,Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput)"/>.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper.ProcessAsync(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext,Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput)">
+            <summary>
+            Asynchronously executes the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/> with the given <paramref name="context"/> and
+            <paramref name="output"/>.
+            </summary>
+            <param name="context">Contains information associated with the current HTML tag.</param>
+            <param name="output">A stateful HTML element used to generate an HTML tag.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that on completion updates the <paramref name="output"/>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.TagHelpers.NullHtmlEncoder">
+            <summary>
+            A <see cref="T:System.Text.Encodings.Web.HtmlEncoder"/> that does not encode. Should not be used when writing directly to a response
+            expected to contain valid HTML.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.NullHtmlEncoder.#ctor">
+            <summary>
+            Initializes a <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.NullHtmlEncoder"/> instance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.NullHtmlEncoder.Default">
+            <summary>
+            A <see cref="T:System.Text.Encodings.Web.HtmlEncoder"/> instance that does not encode. Should not be used when writing directly to a
+            response expected to contain valid HTML.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.NullHtmlEncoder.MaxOutputCharactersPerInputCharacter">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.NullHtmlEncoder.Encode(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.NullHtmlEncoder.Encode(System.IO.TextWriter,System.Char[],System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.NullHtmlEncoder.Encode(System.IO.TextWriter,System.String,System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.NullHtmlEncoder.FindFirstCharacterToEncode(System.Char*,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.NullHtmlEncoder.TryEncodeUnicodeScalar(System.Int32,System.Char*,System.Int32,System.Int32@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.NullHtmlEncoder.WillEncode(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.TagHelpers.OutputElementHintAttribute">
+            <summary>
+            Provides a hint of the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>'s output element.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.OutputElementHintAttribute.#ctor(System.String)">
+            <summary>
+            Instantiates a new instance of the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.OutputElementHintAttribute"/> class.
+            </summary>
+            <param name="outputElement">
+            The HTML element the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/> may output.
+            </param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.OutputElementHintAttribute.OutputElement">
+            <summary>
+            The HTML element the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/> may output.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.TagHelpers.ReadOnlyTagHelperAttributeList">
+            <summary>
+            A read-only collection of <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/>s.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.ReadOnlyTagHelperAttributeList.#ctor">
+            <summary>
+            Instantiates a new instance of <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ReadOnlyTagHelperAttributeList"/> with an empty
+            collection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.ReadOnlyTagHelperAttributeList.#ctor(System.Collections.Generic.IList{Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute})">
+            <summary>
+            Instantiates a new instance of <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ReadOnlyTagHelperAttributeList"/> with the specified
+            <paramref name="attributes"/>.
+            </summary>
+            <param name="attributes">The collection to wrap.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.ReadOnlyTagHelperAttributeList.Item(System.String)">
+            <summary>
+            Gets the first <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> with <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/>
+            matching <paramref name="name"/>.
+            </summary>
+            <param name="name">
+            The <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> of the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> to get.
+            </param>
+            <returns>The first <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> with <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/>
+            matching <paramref name="name"/>.
+            </returns>
+            <remarks><paramref name="name"/> is compared case-insensitively.</remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.ReadOnlyTagHelperAttributeList.ContainsName(System.String)">
+            <summary>
+            Determines whether a <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> with <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/>
+            matching <paramref name="name"/> exists in the collection.
+            </summary>
+            <param name="name">The <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> of the
+            <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> to get.</param>
+            <returns>
+            <c>true</c> if a <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> with the same
+            <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> exists in the collection; otherwise, <c>false</c>.
+            </returns>
+            <remarks><paramref name="name"/> is compared case-insensitively.</remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.ReadOnlyTagHelperAttributeList.TryGetAttribute(System.String,Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute@)">
+            <summary>
+            Retrieves the first <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> with <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/>
+            matching <paramref name="name"/>.
+            </summary>
+            <param name="name">The <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> of the
+            <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> to get.</param>
+            <param name="attribute">When this method returns, the first <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> with
+            <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> matching <paramref name="name"/>, if found; otherwise,
+            <c>null</c>.</param>
+            <returns><c>true</c> if a <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> with the same
+            <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> exists in the collection; otherwise, <c>false</c>.</returns>
+            <remarks><paramref name="name"/> is compared case-insensitively.</remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.ReadOnlyTagHelperAttributeList.TryGetAttributes(System.String,System.Collections.Generic.IReadOnlyList{Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute}@)">
+            <summary>
+            Retrieves <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/>s in the collection with
+            <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> matching <paramref name="name"/>.
+            </summary>
+            <param name="name">The <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> of the
+            <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/>s to get.</param>
+            <param name="attributes">When this method returns, the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/>s with
+            <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> matching <paramref name="name"/>.</param>
+            <returns><c>true</c> if at least one <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> with the same
+            <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> exists in the collection; otherwise, <c>false</c>.</returns>
+            <remarks><paramref name="name"/> is compared case-insensitively.</remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.ReadOnlyTagHelperAttributeList.IndexOfName(System.String)">
+            <summary>
+            Searches for a <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> who's <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/>
+            case-insensitively matches <paramref name="name"/> and returns the zero-based index of the first
+            occurrence.
+            </summary>
+            <param name="name">The <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> to locate in the collection.</param>
+            <returns>The zero-based index of the first matching <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> within the collection,
+            if found; otherwise, -1.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.ReadOnlyTagHelperAttributeList.NameEquals(System.String,Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute)">
+            <summary>
+            Determines if the specified <paramref name="attribute"/> has the same name as <paramref name="name"/>.
+            </summary>
+            <param name="name">The value to compare against <paramref name="attribute"/>s
+            <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/>.</param>
+            <param name="attribute">The attribute to compare against.</param>
+            <returns><c>true</c> if <paramref name="name"/> case-insensitively matches <paramref name="attribute"/>s
+            <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.TagHelpers.RestrictChildrenAttribute">
+            <summary>
+            Restricts children of the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>'s element.
+            </summary>
+            <remarks>Combining this attribute with a <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute"/> that specifies its
+            <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute.TagStructure"/> as <see cref="F:Microsoft.AspNetCore.Razor.TagHelpers.TagStructure.WithoutEndTag"/> will result
+            in this attribute being ignored.</remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.RestrictChildrenAttribute.#ctor(System.String,System.String[])">
+            <summary>
+            Instantiates a new instance of the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.RestrictChildrenAttribute"/> class.
+            </summary>
+            <param name="childTag">
+            The tag name of an element allowed as a child.
+            </param>
+            <param name="childTags">
+            Additional names of elements allowed as children.
+            </param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.RestrictChildrenAttribute.ChildTags">
+            <summary>
+            Get the names of elements allowed as children.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelper">
+            <summary>
+            Class used to filter matching HTML elements.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelper.Order">
+            <inheritdoc />
+            <remarks>Default order is <c>0</c>.</remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelper.Init(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelper.Process(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext,Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput)">
+            <summary>
+            Synchronously executes the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelper"/> with the given <paramref name="context"/> and
+            <paramref name="output"/>.
+            </summary>
+            <param name="context">Contains information associated with the current HTML tag.</param>
+            <param name="output">A stateful HTML element used to generate an HTML tag.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelper.ProcessAsync(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext,Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput)">
+            <summary>
+            Asynchronously executes the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelper"/> with the given <paramref name="context"/> and
+            <paramref name="output"/>.
+            </summary>
+            <param name="context">Contains information associated with the current HTML tag.</param>
+            <param name="output">A stateful HTML element used to generate an HTML tag.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that on completion updates the <paramref name="output"/>.</returns>
+            <remarks>By default this calls into <see cref="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelper.Process(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext,Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput)"/>.</remarks>.
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute">
+            <summary>
+            An HTML tag helper attribute.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.#ctor(System.String)">
+            <summary>
+            Instantiates a new instance of <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> with the specified <paramref name="name"/>.
+            <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.ValueStyle"/> is set to <see cref="F:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.Minimized"/> and <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Value"/> to
+            <c>null</c>.
+            </summary>
+            <param name="name">The <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> of the attribute.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.#ctor(System.String,System.Object)">
+            <summary>
+            Instantiates a new instance of <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> with the specified <paramref name="name"/>
+            and <paramref name="value"/>. <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.ValueStyle"/> is set to <see cref="F:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes"/>.
+            </summary>
+            <param name="name">The <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> of the attribute.</param>
+            <param name="value">The <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Value"/> of the attribute.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.#ctor(System.String,System.Object,Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle)">
+            <summary>
+            Instantiates a new instance of <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> with the specified <paramref name="name"/>,
+            <paramref name="value"/> and <paramref name="valueStyle"/>.
+            </summary>
+            <param name="name">The <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> of the new instance.</param>
+            <param name="value">The <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Value"/> of the new instance.</param>
+            <param name="valueStyle">The <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.ValueStyle"/> of the new instance.</param>
+            <remarks>If <paramref name="valueStyle"/> is <see cref="F:Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.Minimized"/>,
+            <paramref name="value"/> is ignored when this instance is rendered.</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name">
+            <summary>
+            Gets the name of the attribute.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Value">
+            <summary>
+            Gets the value of the attribute.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.ValueStyle">
+            <summary>
+            Gets the value style of the attribute.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Equals(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute)">
+            <inheritdoc />
+            <remarks><see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> is compared case-insensitively.</remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.WriteTo(System.IO.TextWriter,System.Text.Encodings.Web.HtmlEncoder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.CopyTo(Microsoft.AspNetCore.Html.IHtmlContentBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.MoveTo(Microsoft.AspNetCore.Html.IHtmlContentBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList">
+            <summary>
+            A collection of <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/>s.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList.#ctor">
+            <summary>
+            Instantiates a new instance of <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList"/> with an empty collection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList.#ctor(System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute})">
+            <summary>
+            Instantiates a new instance of <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList"/> with the specified
+            <paramref name="attributes"/>.
+            </summary>
+            <param name="attributes">The collection to wrap.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList.#ctor(System.Collections.Generic.List{Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute})">
+            <summary>
+            Instantiates a new instance of <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList"/> with the specified
+            <paramref name="attributes"/>.
+            </summary>
+            <param name="attributes">The collection to wrap.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList.Item(System.Int32)">
+            <inheritdoc />
+            <remarks>
+            <paramref name="value"/>'s <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> must not be <c>null</c>.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList.SetAttribute(System.String,System.Object)">
+            <summary>
+            Replaces the first <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> with <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> matching
+            <paramref name="name"/> and removes any additional matching <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/>s. If a
+            matching <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> is not found, adds a <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> with
+            <paramref name="name"/> and <paramref name="value"/> to the end of the collection.</summary>
+            <param name="name">
+            The <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> of the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> to set.
+            </param>
+            <param name="value">
+            The <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Value"/> to set.
+            </param>
+            <remarks><paramref name="name"/> is compared case-insensitively.</remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList.SetAttribute(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute)">
+            <summary>
+            Replaces the first <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> with <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> matching
+            <paramref name="attribute"/>'s <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> and removes any additional matching
+            <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/>s. If a matching <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> is not found, adds the
+            specified <paramref name="attribute"/> to the end of the collection.
+            </summary>
+            <param name="attribute">
+            The <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> to set.
+            </param>
+            <remarks><paramref name="attribute"/>'s <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> is compared
+            case-insensitively.</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList.System#Collections#Generic#ICollection{Microsoft#AspNetCore#Razor#TagHelpers#TagHelperAttribute}#IsReadOnly">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList.Add(System.String,System.Object)">
+            <summary>
+            Adds a <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> to the end of the collection with the specified
+            <paramref name="name"/> and <paramref name="value"/>.
+            </summary>
+            <param name="name">The <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> of the attribute to add.</param>
+            <param name="value">The <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Value"/> of the attribute to add.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList.Add(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList.Insert(System.Int32,Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList.Remove(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute)">
+            <inheritdoc />
+            <remarks>
+            <paramref name="attribute"/>s <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> is compared case-insensitively.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList.RemoveAt(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList.RemoveAll(System.String)">
+            <summary>
+            Removes all <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/>s with <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> matching
+            <paramref name="name"/>.
+            </summary>
+            <param name="name">
+            The <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute.Name"/> of <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/>s to remove.
+            </param>
+            <returns>
+            <c>true</c> if at least 1 <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute"/> was removed; otherwise, <c>false</c>.
+            </returns>
+            <remarks><paramref name="name"/> is compared case-insensitively.</remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList.Clear">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent">
+            <summary>
+            Abstract class used to buffer content returned by <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>s.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.IsModified">
+            <summary>
+            Gets a value indicating whether the content was modified.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.IsEmptyOrWhiteSpace">
+            <summary>
+            Gets a value indicating whether the content is empty or whitespace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.SetHtmlContent(Microsoft.AspNetCore.Html.IHtmlContent)">
+            <summary>
+            Sets the content.
+            </summary>
+            <param name="htmlContent">The <see cref="T:Microsoft.AspNetCore.Html.IHtmlContent"/> that replaces the content.</param>
+            <returns>A reference to this instance after the set operation has completed.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.SetContent(System.String)">
+            <summary>
+            Sets the content.
+            </summary>
+            <param name="unencoded">
+            The <see cref="T:System.String"/> that replaces the content. The value is assume to be unencoded
+            as-provided and will be HTML encoded before being written.
+            </param>
+            <returns>A reference to this instance after the set operation has completed.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.SetHtmlContent(System.String)">
+            <summary>
+            Sets the content.
+            </summary>
+            <param name="encoded">
+            The <see cref="T:System.String"/> that replaces the content. The value is assume to be HTML encoded
+            as-provided and no further encoding will be performed.
+            </param>
+            <returns>A reference to this instance after the set operation has completed.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.Append(System.String)">
+            <summary>
+            Appends <paramref name="unencoded"/> to the existing content.
+            </summary>
+            <param name="unencoded">The <see cref="T:System.String"/> to be appended.</param>
+            <returns>A reference to this instance after the append operation has completed.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.AppendHtml(Microsoft.AspNetCore.Html.IHtmlContent)">
+            <summary>
+            Appends <paramref name="htmlContent"/> to the existing content.
+            </summary>
+            <param name="htmlContent">The <see cref="T:Microsoft.AspNetCore.Html.IHtmlContent"/> to be appended.</param>
+            <returns>A reference to this instance after the append operation has completed.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.AppendHtml(System.String)">
+            <summary>
+            Appends <paramref name="encoded"/> to the existing content. <paramref name="encoded"/> is assumed
+            to be an HTML encoded <see cref="T:System.String"/> and no further encoding will be performed.
+            </summary>
+            <param name="encoded">The <see cref="T:System.String"/> to be appended.</param>
+            <returns>A reference to this instance after the append operation has completed.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.AppendFormat(System.String,System.Object[])">
+            <summary>
+            Appends the specified <paramref name="format"/> to the existing content after
+            replacing each format item with the HTML encoded <see cref="T:System.String"/> representation of the
+            corresponding item in the <paramref name="args"/> array.
+            </summary>
+            <param name="format">
+            The composite format <see cref="T:System.String"/> (see http://msdn.microsoft.com/en-us/library/txafckwd.aspx).
+            </param>
+            <param name="args">The object array to format.</param>
+            <returns>A reference to this instance after the append operation has completed.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.AppendFormat(System.IFormatProvider,System.String,System.Object[])">
+            <summary>
+            Appends the specified <paramref name="format"/> to the existing content with information from the
+            <paramref name="provider"/> after replacing each format item with the HTML encoded <see cref="T:System.String"/>
+            representation of the corresponding item in the <paramref name="args"/> array.
+            </summary>
+            <param name="provider">An object that supplies culture-specific formatting information.</param>
+            <param name="format">
+            The composite format <see cref="T:System.String"/> (see http://msdn.microsoft.com/en-us/library/txafckwd.aspx).
+            </param>
+            <param name="args">The object array to format.</param>
+            <returns>A reference to this instance after the append operation has completed.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.Clear">
+            <summary>
+            Clears the content.
+            </summary>
+            <returns>A reference to this instance after the clear operation has completed.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.Reinitialize">
+            <summary>
+            Clears the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent"/>,  so it can be reused.
+            </summary>
+            <remarks>This method does more than what <see cref="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.Clear"/> does. It also resets the
+            <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.IsModified"/> flag.</remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.CopyTo(Microsoft.AspNetCore.Html.IHtmlContentBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.MoveTo(Microsoft.AspNetCore.Html.IHtmlContentBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.GetContent">
+            <summary>
+            Gets the content.
+            </summary>
+            <returns>A <see cref="T:System.String"/> containing the content.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.GetContent(System.Text.Encodings.Web.HtmlEncoder)">
+            <summary>
+            Gets the content.
+            </summary>
+            <param name="encoder">The <see cref="T:System.Text.Encodings.Web.HtmlEncoder"/>.</param>
+            <returns>A <see cref="T:System.String"/> containing the content.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.WriteTo(System.IO.TextWriter,System.Text.Encodings.Web.HtmlEncoder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.Microsoft#AspNetCore#Html#IHtmlContentBuilder#AppendHtml(Microsoft.AspNetCore.Html.IHtmlContent)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.Microsoft#AspNetCore#Html#IHtmlContentBuilder#Append(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.Microsoft#AspNetCore#Html#IHtmlContentBuilder#AppendHtml(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.Microsoft#AspNetCore#Html#IHtmlContentBuilder#Clear">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext">
+            <summary>
+            Contains information related to the execution of <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>s.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext.#ctor(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList,System.Collections.Generic.IDictionary{System.Object,System.Object},System.String)">
+            <summary>
+            Instantiates a new <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext"/>.
+            </summary>
+            <param name="allAttributes">Every attribute associated with the current HTML element.</param>
+            <param name="items">Collection of items used to communicate with other <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>s.</param>
+            <param name="uniqueId">The unique identifier for the source element this <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext" />
+            applies to.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext.AllAttributes">
+            <summary>
+            Every attribute associated with the current HTML element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext.Items">
+            <summary>
+            Gets the collection of items used to communicate with other <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>s.
+            </summary>
+            <remarks>
+            This <see cref="T:System.Collections.Generic.IDictionary`2" /> is copy-on-write in order to ensure items added to this
+            collection are visible only to other <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>s targeting child elements.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext.UniqueId">
+            <summary>
+            An identifier unique to the HTML element this context is for.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext.Reinitialize(System.Collections.Generic.IDictionary{System.Object,System.Object},System.String)">
+            <summary>
+            Clears the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext"/> and updates its state with the provided values.
+            </summary>
+            <param name="items">The <see cref="T:System.Collections.Generic.IDictionary`2"/> to use.</param>
+            <param name="uniqueId">The unique id to use.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput">
+            <summary>
+            Class used to represent the output of an <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.#ctor(System.String,Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList,System.Func{System.Boolean,System.Text.Encodings.Web.HtmlEncoder,System.Threading.Tasks.Task{Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent}})">
+            <summary>
+            Instantiates a new instance of <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput"/>.
+            </summary>
+            <param name="tagName">The HTML element's tag name.</param>
+            <param name="attributes">The HTML attributes.</param>
+            <param name="getChildContentAsync">
+            A delegate used to execute children asynchronously with the given <see cref="T:System.Text.Encodings.Web.HtmlEncoder"/> in scope and
+            return their rendered content.
+            </param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.TagName">
+            <summary>
+            The HTML element's tag name.
+            </summary>
+            <remarks>
+            A whitespace or <c>null</c> value results in no start or end tag being rendered.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.PreElement">
+            <summary>
+            Content that precedes the HTML element.
+            </summary>
+            <remarks>Value is rendered before the HTML element.</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.PreContent">
+            <summary>
+            The HTML element's pre content.
+            </summary>
+            <remarks>Value is prepended to the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>'s final output.</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.Content">
+            <summary>
+            Get or set the HTML element's main content.
+            </summary>
+            <remarks>Value occurs in the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>'s final output after <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.PreContent"/> and
+            before <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.PostContent"/></remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.PostContent">
+            <summary>
+            The HTML element's post content.
+            </summary>
+            <remarks>Value is appended to the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/>'s final output.</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.PostElement">
+            <summary>
+            Content that follows the HTML element.
+            </summary>
+            <remarks>Value is rendered after the HTML element.</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.IsContentModified">
+            <summary>
+            <c>true</c> if <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.Content"/> has been set, <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.TagMode">
+            <summary>
+            Syntax of the element in the generated HTML.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.Attributes">
+            <summary>
+            The HTML element's attributes.
+            </summary>
+            <remarks>
+            MVC will HTML encode <see cref="T:System.String"/> values when generating the start tag. It will not HTML encode
+            a <c>Microsoft.AspNetCore.Mvc.Rendering.HtmlString</c> instance. MVC converts most other types to a
+            <see cref="T:System.String"/>, then HTML encodes the result.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.Reinitialize(System.String,Microsoft.AspNetCore.Razor.TagHelpers.TagMode)">
+            <summary>
+            Clears the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput"/> and updates its state with the provided values.
+            </summary>
+            <param name="tagName">The tag name to use.</param>
+            <param name="tagMode">The <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.TagMode"/> to use.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.SuppressOutput">
+            <summary>
+            Changes <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput"/> to generate nothing.
+            </summary>
+            <remarks>
+            Sets <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.TagName"/> to <c>null</c>, and clears <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.PreElement"/>, <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.PreContent"/>,
+            <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.Content"/>, <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.PostContent"/>, and <see cref="P:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.PostElement"/> to suppress output.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.GetChildContentAsync">
+            <summary>
+            Executes children asynchronously and returns their rendered content.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that on completion returns content rendered by children.</returns>
+            <remarks>
+            This method is memoized. Multiple calls will not cause children to re-execute with the page's original
+            <see cref="T:System.Text.Encodings.Web.HtmlEncoder"/>.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.GetChildContentAsync(System.Boolean)">
+            <summary>
+            Executes children asynchronously and returns their rendered content.
+            </summary>
+            <param name="useCachedResult">
+            If <c>true</c>, multiple calls will not cause children to re-execute with the page's original
+            <see cref="T:System.Text.Encodings.Web.HtmlEncoder"/>; returns cached content.
+            </param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that on completion returns content rendered by children.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.GetChildContentAsync(System.Text.Encodings.Web.HtmlEncoder)">
+            <summary>
+            Executes children asynchronously with the given <paramref name="encoder"/> in scope and returns their
+            rendered content.
+            </summary>
+            <param name="encoder">
+            The <see cref="T:System.Text.Encodings.Web.HtmlEncoder"/> to use when the page handles non-<see cref="T:Microsoft.AspNetCore.Html.IHtmlContent"/> C# expressions.
+            If <c>null</c>, executes children with the page's current <see cref="T:System.Text.Encodings.Web.HtmlEncoder"/>.
+            </param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that on completion returns content rendered by children.</returns>
+            <remarks>
+            This method is memoized. Multiple calls with the same <see cref="T:System.Text.Encodings.Web.HtmlEncoder"/> instance will not cause
+            children to re-execute with that encoder in scope.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput.GetChildContentAsync(System.Boolean,System.Text.Encodings.Web.HtmlEncoder)">
+            <summary>
+            Executes children asynchronously with the given <paramref name="encoder"/> in scope and returns their
+            rendered content.
+            </summary>
+            <param name="useCachedResult">
+            If <c>true</c>, multiple calls with the same <see cref="T:System.Text.Encodings.Web.HtmlEncoder"/> will not cause children to
+            re-execute; returns cached content.
+            </param>
+            <param name="encoder">
+            The <see cref="T:System.Text.Encodings.Web.HtmlEncoder"/> to use when the page handles non-<see cref="T:Microsoft.AspNetCore.Html.IHtmlContent"/> C# expressions.
+            If <c>null</c>, executes children with the page's current <see cref="T:System.Text.Encodings.Web.HtmlEncoder"/>.
+            </param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that on completion returns content rendered by children.</returns>
+        </member>
+    </members>
+</doc>

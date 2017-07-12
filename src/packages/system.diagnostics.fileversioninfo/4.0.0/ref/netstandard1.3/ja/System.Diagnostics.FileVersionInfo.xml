@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Diagnostics.FileVersionInfo</name>
+  </assembly>
+  <members>
+    <member name="T:System.Diagnostics.FileVersionInfo">
+      <summary>ディスク上の物理ファイルのバージョン情報を提供します。</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.Comments">
+      <summary>ファイルに関連付けられているコメントを取得します。</summary>
+      <returns>ファイルに関連付けられているコメント。ファイルにバージョン情報が含まれていない場合は null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.CompanyName">
+      <summary>ファイルを作成した会社名を取得します。</summary>
+      <returns>ファイルを作成した会社名。ファイルにバージョン情報が含まれていない場合は null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileBuildPart">
+      <summary>ファイルのビルド番号を取得します。</summary>
+      <returns>ファイルのビルド番号を表す値。ファイルにバージョン情報が含まれていない場合は null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileDescription">
+      <summary>ファイルの説明を取得します。</summary>
+      <returns>ファイルの説明。ファイルにバージョン情報が含まれていない場合は null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileMajorPart">
+      <summary>メジャー バージョン番号を取得します。</summary>
+      <returns>メジャー バージョン番号を表す値。ファイルにバージョン情報が含まれていない場合は 0。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileMinorPart">
+      <summary>マイナー バージョン番号を取得します。</summary>
+      <returns>ファイルのマイナー バージョン番号を表す値。ファイルにバージョン情報が含まれていない場合は 0。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileName">
+      <summary>
+        <see cref="T:System.Diagnostics.FileVersionInfo" /> のこのインスタンスが記述するファイル名を取得します。</summary>
+      <returns>
+        <see cref="T:System.Diagnostics.FileVersionInfo" /> のこのインスタンスが記述するファイル名。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FilePrivatePart">
+      <summary>ファイルのプライベート パート番号を取得します。</summary>
+      <returns>ファイルのプライベート パート番号を表す値。ファイルにバージョン情報が含まれていない場合は null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileVersion">
+      <summary>ファイルのバージョン番号を取得します。</summary>
+      <returns>ファイルのバージョン番号。ファイルにバージョン情報が含まれていない場合は null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.Diagnostics.FileVersionInfo.GetVersionInfo(System.String)">
+      <summary>指定されたファイルに関連付けられているバージョン情報を表す <see cref="T:System.Diagnostics.FileVersionInfo" /> を返します。</summary>
+      <returns>ファイルの情報が格納されている <see cref="T:System.Diagnostics.FileVersionInfo" />。ファイルにバージョン情報が含まれていない場合、<see cref="T:System.Diagnostics.FileVersionInfo" /> には要求されたファイルの名前のみが含まれます。</returns>
+      <param name="fileName">バージョン情報を取得するファイルの絶対パスおよびファイル名。</param>
+      <exception cref="T:System.IO.FileNotFoundException">指定されたファイルが見つかりません。</exception>
+      <filterpriority>1</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.InternalName">
+      <summary>ファイルの内部名がある場合には、内部名を取得します。</summary>
+      <returns>ファイルの内部名。内部名がない場合は、このプロパティには、拡張子が付かない元のファイル名が格納されます。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsDebug">
+      <summary>ファイルにデバッグ情報を格納するか、またはデバッグ機能を有効にしてファイルをコンパイルするかを指定する値を取得します。</summary>
+      <returns>ファイルにデバッグ情報を格納する場合、またはデバッグ機能を有効にしてコンパイルする場合は true。それ以外の場合は false。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsPatched">
+      <summary>ファイルが変更されているかどうか、および同じバージョン番号の出荷時の元のファイルと異なっているかどうかを指定する値を取得します。</summary>
+      <returns>ファイルに更新プログラムが適用されている場合は true。それ以外の場合は false。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsPreRelease">
+      <summary>ファイルが市販バージョンではない開発用バージョンかどうかを指定する値を取得します。</summary>
+      <returns>ファイルがプレリリース版の場合は true。それ以外の場合は false。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsPrivateBuild">
+      <summary>ファイルが標準リリース プロシージャで作成されたかどうかを指定する値を取得します。</summary>
+      <returns>このファイルがプライベートにビルドされたファイルの場合は true。ファイルが標準リリース プロシージャを使用して作成された場合、またはファイルにバージョン情報が含まれていない場合は false。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsSpecialBuild">
+      <summary>ファイルが特殊なビルドかどうかを指定する値を取得します。</summary>
+      <returns>ファイルが特殊なビルドの場合は true。それ以外の場合は false。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.Language">
+      <summary>バージョン情報ブロックの既定の言語識別文字列を取得します。</summary>
+      <returns>バージョン リソース内の Microsoft 言語識別子の説明文字列。ファイルにバージョン情報が含まれていない場合は null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.LegalCopyright">
+      <summary>指定されたファイルに適用される著作権表記を取得します。</summary>
+      <returns>指定されたファイルに適用される著作権表記。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.LegalTrademarks">
+      <summary>ファイルに適用される商標と登録商標を取得します。</summary>
+      <returns>ファイルに適用される商標と登録商標。ファイルにバージョン情報が含まれていない場合は null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.OriginalFilename">
+      <summary>ファイルが作成されたときの名前を取得します。</summary>
+      <returns>ファイルが作成されたときの名前。ファイルにバージョン情報が含まれていない場合は null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.PrivateBuild">
+      <summary>ファイルのプライベート バージョン情報を取得します。</summary>
+      <returns>ファイルのプライベート バージョン情報。ファイルにバージョン情報が含まれていない場合は null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductBuildPart">
+      <summary>このファイルに関連付けられている製品のビルド番号を取得します。</summary>
+      <returns>このファイルに関連付けられている製品のビルド番号を表す値。ファイルにバージョン情報が含まれていない場合は null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductMajorPart">
+      <summary>このファイルに関連付けられている製品のメジャー バージョン番号を取得します。</summary>
+      <returns>製品のメジャー バージョン番号を表す値。ファイルにバージョン情報が含まれていない場合は null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductMinorPart">
+      <summary>このファイルに関連付けられている製品のマイナー バージョン番号を取得します。</summary>
+      <returns>製品のマイナー バージョン番号を表す値。ファイルにバージョン情報が含まれていない場合は null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductName">
+      <summary>このファイルを含む製品の名前を取得します。</summary>
+      <returns>このファイルを含む製品の名前。ファイルにバージョン情報が含まれていない場合は null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductPrivatePart">
+      <summary>このファイルに関連付けられている製品のプライベート パート番号を取得します。</summary>
+      <returns>このファイルに関連付けられている製品のプライベート パート番号を表す値。ファイルにバージョン情報が含まれていない場合は null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductVersion">
+      <summary>このファイルを含む製品のバージョンを取得します。</summary>
+      <returns>このファイルを含む製品のバージョン。ファイルにバージョン情報が含まれていない場合は null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.SpecialBuild">
+      <summary>ファイルの特殊ビルド情報を取得します。</summary>
+      <returns>ファイルの特殊ビルド情報。ファイルにバージョン情報が含まれていない場合は null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.Diagnostics.FileVersionInfo.ToString">
+      <summary>
+        <see cref="T:System.Diagnostics.FileVersionInfo" /> のプロパティの部分リストとその値を返します。</summary>
+      <returns>このクラスの次に示すプロパティのリストとその値。<see cref="P:System.Diagnostics.FileVersionInfo.FileName" />, <see cref="P:System.Diagnostics.FileVersionInfo.InternalName" />, <see cref="P:System.Diagnostics.FileVersionInfo.OriginalFilename" />, <see cref="P:System.Diagnostics.FileVersionInfo.FileVersion" />, <see cref="P:System.Diagnostics.FileVersionInfo.FileDescription" />, <see cref="P:System.Diagnostics.FileVersionInfo.ProductName" />, <see cref="P:System.Diagnostics.FileVersionInfo.ProductVersion" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsDebug" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsPatched" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsPreRelease" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsPrivateBuild" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsSpecialBuild" />,<see cref="P:System.Diagnostics.FileVersionInfo.Language" />.ファイルにバージョン情報が含まれていない場合、一覧には要求されたファイルの名前のみが含まれます。ブール値は false となり、他のすべてのエントリは null となります。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+  </members>
+</doc>

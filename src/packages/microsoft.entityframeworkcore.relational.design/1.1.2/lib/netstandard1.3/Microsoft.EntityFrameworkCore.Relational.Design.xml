@@ -1,0 +1,441 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.EntityFrameworkCore.Relational.Design</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CandidateNamingService">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CandidateNamingService.GenerateCandidateIdentifier(System.String)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CandidateNamingService.GetDependentEndCandidateNavigationPropertyName(Microsoft.EntityFrameworkCore.Metadata.IForeignKey)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CandidateNamingService.GetPrincipalEndCandidateNavigationPropertyName(Microsoft.EntityFrameworkCore.Metadata.IForeignKey,System.String)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="T:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpNamer`1">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="F:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpNamer`1.NameCache">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpNamer`1.#ctor(System.Func{`0,System.String})">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpNamer`1.GetName(`0)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="T:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUniqueNamer`1">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUniqueNamer`1.#ctor(System.Func{`0,System.String})">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUniqueNamer`1.#ctor(System.Func{`0,System.String},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUniqueNamer`1.GetName(`0)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="T:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="P:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.Instance">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.DelimitString(System.String)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.EscapeString(System.String)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.EscapeVerbatimString(System.String)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.GenerateLiteral(System.Byte[])">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.GenerateLiteral(System.Boolean)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.GenerateLiteral(System.Int32)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.GenerateLiteral(System.Int64)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.GenerateLiteral(System.Decimal)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.GenerateLiteral(System.Single)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.GenerateLiteral(System.Double)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.GenerateLiteral(System.TimeSpan)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.GenerateLiteral(System.DateTime)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.GenerateLiteral(System.DateTimeOffset)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.GenerateLiteral(System.Guid)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.GenerateLiteral(System.String)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.GenerateVerbatimStringLiteral(System.String)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.GenerateLiteral(System.Object)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.IsCSharpKeyword(System.String)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.GenerateCSharpIdentifier(System.String,System.Collections.Generic.ICollection{System.String})">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.GenerateCSharpIdentifier(System.String,System.Collections.Generic.ICollection{System.String},System.Func{System.String,System.Collections.Generic.ICollection{System.String},System.String})">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.Uniquifier(System.String,System.Collections.Generic.ICollection{System.String})">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.GetTypeName(System.Type)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.CSharpUtilities.IsValidIdentifier(System.String)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="T:Microsoft.EntityFrameworkCore.Scaffolding.Internal.DbDataReaderExtension">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.DbDataReaderExtension.GetValueOrDefault``1(System.Data.Common.DbDataReader,System.String)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="T:Microsoft.EntityFrameworkCore.Scaffolding.Internal.IInternalDatabaseModelFactory">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Internal.IInternalDatabaseModelFactory.Create(System.Data.Common.DbConnection,Microsoft.EntityFrameworkCore.Scaffolding.TableSelectionSet)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="T:Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal.ScaffoldingAnnotationNames">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="F:Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal.ScaffoldingAnnotationNames.Prefix">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="F:Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal.ScaffoldingAnnotationNames.UseProviderMethodName">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="F:Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal.ScaffoldingAnnotationNames.ColumnOrdinal">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="F:Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal.ScaffoldingAnnotationNames.DependentEndNavigation">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="F:Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal.ScaffoldingAnnotationNames.PrincipalEndNavigation">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="F:Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal.ScaffoldingAnnotationNames.EntityTypeErrors">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="T:Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal.ScaffoldingFullAnnotationNames">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal.ScaffoldingFullAnnotationNames.#ctor(System.String)">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="P:Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal.ScaffoldingFullAnnotationNames.Instance">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="F:Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal.ScaffoldingFullAnnotationNames.UseProviderMethodName">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="F:Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal.ScaffoldingFullAnnotationNames.ColumnOrdinal">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="F:Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal.ScaffoldingFullAnnotationNames.DependentEndNavigation">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="F:Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal.ScaffoldingFullAnnotationNames.PrincipalEndNavigation">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="F:Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal.ScaffoldingFullAnnotationNames.EntityTypeErrors">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Internal.RelationalDesignLoggerExtensions.LogDebug(Microsoft.Extensions.Logging.ILogger,Microsoft.EntityFrameworkCore.Infrastructure.RelationalDesignEventId,System.Func{System.String})">
+            <summary>
+                This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="T:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings">
+            <summary>
+            	This API supports the Entity Framework Core infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings.CannotFindTypeMappingForColumn(System.Object,System.Object)">
+            <summary>
+            Could not find type mapping for column '{columnName}' with data type '{dateType}'. Skipping column.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings.ForeignKeyScaffoldErrorPrincipalKeyNotFound(System.Object,System.Object,System.Object)">
+            <summary>
+            Could not scaffold the foreign key '{foreignKeyName}'. A key for '{columnsList}' was not found in the principal entity type '{principalEntityType}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings.ForeignKeyScaffoldErrorPrincipalTableNotFound(System.Object)">
+            <summary>
+            Could not scaffold the foreign key '{foreignKeyName}'. The referenced table could not be found. This most likely occurred because the referenced table was excluded from scaffolding.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings.ForeignKeyScaffoldErrorPrincipalTableScaffoldingError(System.Object,System.Object)">
+            <summary>
+            Could not scaffold the foreign key '{foreignKeyName}'. The referenced table '{principalTableName}' could not be scaffolded.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings.ForeignKeyScaffoldErrorPropertyNotFound(System.Object,System.Object)">
+            <summary>
+            Could not scaffold the foreign key '{foreignKeyName}'.  The following columns in the foreign key could not be scaffolded: {columnNames}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings.PrimaryKeyErrorPropertyNotFound(System.Object,System.Object)">
+            <summary>
+            Could not scaffold the primary key for '{tableName}'. The following columns in the primary key could not be scaffolded: {columnNames}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings.MissingPrimaryKey(System.Object)">
+            <summary>
+            Unable to identify the primary key for table '{tableName}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings.ProviderReturnedNullModel(System.Object)">
+            <summary>
+            Metadata model returned should not be null. Provider: {providerTypeName}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings.ReadOnlyFiles(System.Object,System.Object)">
+            <summary>
+            No files generated in directory {outputDirectoryName}. The following file(s) already exist and must be made writeable to continue: {readOnlyFiles}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings.UnableToGenerateEntityType(System.Object)">
+            <summary>
+            Unable to generate entity type for table '{tableName}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings.UnableToScaffoldIndexMissingProperty(System.Object,System.Object)">
+            <summary>
+            Unable to scaffold the index '{indexName}'. The following columns could not be scaffolded: {columnNames}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings.MissingUseProviderMethodNameAnnotation">
+            <summary>
+            Cannot scaffold the connection string. The "UseProviderMethodName" is missing from the scaffolding model.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings.ExistingFiles(System.Object,System.Object)">
+            <summary>
+            The following file(s) already exist in directory {outputDirectoryName}: {existingFiles}. Use the Force flag to overwrite these files.
+            </summary>
+        </member>
+        <member name="P:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings.SequencesRequireName">
+            <summary>
+            Sequence name cannot be null or empty. Entity Framework cannot model a sequence that does not have a name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings.BadSequenceType(System.Object,System.Object)">
+            <summary>
+            For sequence '{sequenceName}'. Unable to scaffold because it uses an unsupported type: '{typeName}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings.MissingSchema(System.Object)">
+            <summary>
+            Unable to find a schema in the database matching the selected schema {schema}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.EntityFrameworkCore.Internal.RelationalDesignStrings.MissingTable(System.Object)">
+            <summary>
+            Unable to find a table in the database matching the selected table {table}.
+            </summary>
+        </member>
+    </members>
+</doc>

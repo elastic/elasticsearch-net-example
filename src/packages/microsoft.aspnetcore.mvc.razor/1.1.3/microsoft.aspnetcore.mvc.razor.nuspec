@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.AspNetCore.Mvc.Razor</id>
+    <version>1.1.3</version>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>ASP.NET Core MVC Razor view engine for CSHTML files.</description>
+    <tags>aspnetcore,aspnetcoremvc,cshtml,razor</tags>
+    <serviceable>true</serviceable>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5.1">
+        <dependency id="Microsoft.AspNetCore.Mvc.Razor.Host" version="[1.1.3, )" />
+        <dependency id="Microsoft.AspNetCore.Mvc.ViewFeatures" version="[1.1.3, )" />
+        <dependency id="Microsoft.CodeAnalysis.CSharp" version="[1.3.0, )" />
+        <dependency id="Microsoft.Extensions.FileProviders.Composite" version="[1.1.1, )" />
+        <dependency id="NETStandard.Library" version="[1.6.1, )" />
+      </group>
+      <group targetFramework=".NETStandard1.6">
+        <dependency id="System.Runtime.Loader" version="[4.3.0, )" />
+        <dependency id="Microsoft.AspNetCore.Mvc.Razor.Host" version="[1.1.3, )" />
+        <dependency id="Microsoft.AspNetCore.Mvc.ViewFeatures" version="[1.1.3, )" />
+        <dependency id="Microsoft.CodeAnalysis.CSharp" version="[1.3.0, )" />
+        <dependency id="Microsoft.Extensions.FileProviders.Composite" version="[1.1.1, )" />
+        <dependency id="NETStandard.Library" version="[1.6.1, )" />
+      </group>
+    </dependencies>
+    <licenseUrl>http://www.microsoft.com/web/webpi/eula/net_library_eula_enu.htm</licenseUrl>
+    <iconUrl>http://go.microsoft.com/fwlink/?LinkID=288859</iconUrl>
+    <copyright>Copyright © Microsoft Corporation</copyright>
+    <projectUrl>http://www.asp.net/</projectUrl>
+  </metadata>
+</package>

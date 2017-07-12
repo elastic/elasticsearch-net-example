@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.DotNet.InternalAbstractions</id>
+    <version>1.0.0</version>
+    <authors>Microsoft.DotNet.InternalAbstractions</authors>
+    <owners>Microsoft.DotNet.InternalAbstractions</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Abstractions for making code that uses file system and environment testable.</description>
+    <tags></tags>
+    <serviceable>true</serviceable>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5.1" />
+      <group targetFramework=".NETStandard1.3">
+        <dependency id="System.AppContext" version="[4.1.0, )" />
+        <dependency id="System.Collections" version="[4.0.11, )" />
+        <dependency id="System.IO" version="[4.1.0, )" />
+        <dependency id="System.IO.FileSystem" version="[4.0.1, )" />
+        <dependency id="System.Reflection.TypeExtensions" version="[4.1.0, )" />
+        <dependency id="System.Runtime.Extensions" version="[4.1.0, )" />
+        <dependency id="System.Runtime.InteropServices" version="[4.1.0, )" />
+        <dependency id="System.Runtime.InteropServices.RuntimeInformation" version="[4.0.0, )" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

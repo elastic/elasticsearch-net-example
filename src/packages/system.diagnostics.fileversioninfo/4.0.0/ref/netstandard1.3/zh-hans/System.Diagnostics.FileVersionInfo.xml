@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Diagnostics.FileVersionInfo</name>
+  </assembly>
+  <members>
+    <member name="T:System.Diagnostics.FileVersionInfo">
+      <summary>为磁盘上的物理文件提供版本信息。</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.Comments">
+      <summary>获取与文件关联的注释。</summary>
+      <returns>与文件关联的注释，当文件不包含版本信息时则为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.CompanyName">
+      <summary>获取生成此文件的公司的名称。</summary>
+      <returns>生成文件的公司的名称，当文件不包含版本信息时则为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileBuildPart">
+      <summary>获取文件的生成号。</summary>
+      <returns>表示文件生成号的值，当文件不包含版本信息时则为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileDescription">
+      <summary>获取文件说明。</summary>
+      <returns>文件说明，当文件不包含版本信息时则为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileMajorPart">
+      <summary>获取版本号的主要版本号部分。</summary>
+      <returns>表示版本号主要部分的值，当文件不包含版本信息时则为 0（零）。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileMinorPart">
+      <summary>获取文件版本号的次要部分。</summary>
+      <returns>表示文件版本号次要部分的值，当文件不包含版本信息时则为 0（零）。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileName">
+      <summary>获取 <see cref="T:System.Diagnostics.FileVersionInfo" /> 的此实例所描述的文件的名称。</summary>
+      <returns>
+        <see cref="T:System.Diagnostics.FileVersionInfo" /> 的此实例所描述的文件的名称。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FilePrivatePart">
+      <summary>获取文件专用部件号。</summary>
+      <returns>表示文件专用部件号的值，当文件不包含版本信息时则为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileVersion">
+      <summary>获取文件版本号。</summary>
+      <returns>文件的版本号，当文件不包含版本信息时则为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.Diagnostics.FileVersionInfo.GetVersionInfo(System.String)">
+      <summary>返回表示与指定文件关联的版本信息的 <see cref="T:System.Diagnostics.FileVersionInfo" />。</summary>
+      <returns>包含文件信息的 <see cref="T:System.Diagnostics.FileVersionInfo" />。如果文件不包含版本信息，则 <see cref="T:System.Diagnostics.FileVersionInfo" /> 仅包含所请求文件的名称。</returns>
+      <param name="fileName">要检索其版本信息的文件的完全限定路径和名称。</param>
+      <exception cref="T:System.IO.FileNotFoundException">无法找到指定的文件。</exception>
+      <filterpriority>1</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.InternalName">
+      <summary>获取文件的内部名称（如果存在）。</summary>
+      <returns>文件的内部名称。如果不存在内部名称，则该属性将包含文件的原始名称（不带扩展名）。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsDebug">
+      <summary>获取一个值，该值指定文件是否包含调试信息或在调试功能启用的情况下进行编译。</summary>
+      <returns>如果文件包含调试信息或在调试功能启用的情况下进行编译，值为 true；反之，值为 false。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsPatched">
+      <summary>获取一个值，该值指定该文件是否已修改，且不同于相同版本号的原始发行文件。</summary>
+      <returns>如果该文件修补过，值为 true；反之，值为 false。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsPreRelease">
+      <summary>获取一个值，该值指定该文件是否为开发版本，而不是用于商业目的的发行版。</summary>
+      <returns>如果该文件是预发行版本，则为 true；否则为 false。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsPrivateBuild">
+      <summary>获取一个值，该值指定文件是否采用标准的发行过程生成。</summary>
+      <returns>如果文件为专用版本，值为 true；如果文件是采用标准发行过程生成的或如果文件不包含版本信息，则值为 false。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsSpecialBuild">
+      <summary>获取一个值，该值指定该文件是否为特殊内部版本。</summary>
+      <returns>如果该文件为特殊内部版本，值为 true；反之，值为 false。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.Language">
+      <summary>获取版本信息区的默认语言字符串。</summary>
+      <returns>版本资源中 Microsoft 语言标识符的描述字符串，当文件不包含版本信息时则为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.LegalCopyright">
+      <summary>获取所有适用于指定文件的版权声明。</summary>
+      <returns>适用于指定文件的版权声明。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.LegalTrademarks">
+      <summary>获取应用到文件的商标和注册商标。</summary>
+      <returns>应用到文件的商标和注册商标，当文件不包含版本信息时则为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.OriginalFilename">
+      <summary>获取创建文件时所使用的名称。</summary>
+      <returns>创建文件时使用的名称，当文件不包含版本信息时则为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.PrivateBuild">
+      <summary>获取文件私有版本的信息。</summary>
+      <returns>文件私有版本的信息，当文件不包含版本信息时则为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductBuildPart">
+      <summary>获取该文件关联产品的生成号。</summary>
+      <returns>表示与此文件关联的产品的生成号的值，当文件不包含版本信息时则为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductMajorPart">
+      <summary>获取与此文件关联的产品版本号的主要部分。</summary>
+      <returns>表示产品版本号主要部分的值，当文件不包含版本信息时则为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductMinorPart">
+      <summary>获取文件关联产品版本号的次要部分。</summary>
+      <returns>表示产品版本号次要部分的值，当文件不包含版本信息时则为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductName">
+      <summary>获取与此文件一起发行的产品的名称。</summary>
+      <returns>与此文件一起发行的产品的名称，当文件不包含版本信息则为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductPrivatePart">
+      <summary>获取此文件关联产品的专用部件号。</summary>
+      <returns>表示生成文件时关联的专用部件号的值，或者如果文件不包含版本信息，则为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductVersion">
+      <summary>获取与此文件一起发行的产品的版本。</summary>
+      <returns>与此文件一起发行的产品的版本，当文件不包含版本信息时则为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.SpecialBuild">
+      <summary>获取文件的特殊内部版本信息。</summary>
+      <returns>文件的特殊内部版本信息，当文件不包含版本信息时则为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.Diagnostics.FileVersionInfo.ToString">
+      <summary>返回 <see cref="T:System.Diagnostics.FileVersionInfo" /> 中属性及相应值的部分列表。</summary>
+      <returns>该类中下列属性及相应值的列表： <see cref="P:System.Diagnostics.FileVersionInfo.FileName" />, <see cref="P:System.Diagnostics.FileVersionInfo.InternalName" />, <see cref="P:System.Diagnostics.FileVersionInfo.OriginalFilename" />, <see cref="P:System.Diagnostics.FileVersionInfo.FileVersion" />, <see cref="P:System.Diagnostics.FileVersionInfo.FileDescription" />, <see cref="P:System.Diagnostics.FileVersionInfo.ProductName" />, <see cref="P:System.Diagnostics.FileVersionInfo.ProductVersion" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsDebug" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsPatched" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsPreRelease" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsPrivateBuild" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsSpecialBuild" />,<see cref="P:System.Diagnostics.FileVersionInfo.Language" />.如果文件不包含版本信息，则此列表将只包含所请求文件的名称。布尔值将为 false，其他所有项将为 null。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+  </members>
+</doc>

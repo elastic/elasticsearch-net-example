@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Diagnostics.FileVersionInfo</name>
+  </assembly>
+  <members>
+    <member name="T:System.Diagnostics.FileVersionInfo">
+      <summary>Fornisce informazioni sulla versione di un file fisico presente sul disco.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.Comments">
+      <summary>Ottiene i commenti associati al file.</summary>
+      <returns>Commenti associati al file o null se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.CompanyName">
+      <summary>Ottiene il nome della società che ha prodotto il file.</summary>
+      <returns>Nome della società che ha prodotto il file o null se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileBuildPart">
+      <summary>Ottiene il numero di build del file.</summary>
+      <returns>Valore che rappresenta il numero di build del file o null se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileDescription">
+      <summary>Ottiene la descrizione del file.</summary>
+      <returns>Descrizione del file o null se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileMajorPart">
+      <summary>Ottiene la parte principale del numero di versione.</summary>
+      <returns>Valore che rappresenta la parte principale del numero di versione o 0 (zero) se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileMinorPart">
+      <summary>Ottiene la parte secondaria del numero di versione.</summary>
+      <returns>Valore che rappresenta la parte secondaria del numero di versione del file o 0 (zero) se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileName">
+      <summary>Ottiene il nome del file descritto da questa istanza di <see cref="T:System.Diagnostics.FileVersionInfo" />.</summary>
+      <returns>Il nome del file descritto da questa istanza di <see cref="T:System.Diagnostics.FileVersionInfo" />.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FilePrivatePart">
+      <summary>Ottiene il numero parte privato del file.</summary>
+      <returns>Valore che rappresenta il numero parte privato del file o null se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileVersion">
+      <summary>Ottiene il numero di versione del file.</summary>
+      <returns>Numero di versione del file o null se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.Diagnostics.FileVersionInfo.GetVersionInfo(System.String)">
+      <summary>Restituisce un oggetto <see cref="T:System.Diagnostics.FileVersionInfo" /> che rappresenta le informazioni sulla versione associate al file specificato.</summary>
+      <returns>Un oggetto <see cref="T:System.Diagnostics.FileVersionInfo" /> contenente le informazioni sul file.Se il file non contiene informazioni sulla versione, l'oggetto <see cref="T:System.Diagnostics.FileVersionInfo" /> include solo il nome del file richiesto.</returns>
+      <param name="fileName">Il nome e il percorso completo del file di cui recuperare le informazioni sulla versione. </param>
+      <exception cref="T:System.IO.FileNotFoundException">Impossibile trovare il file specificato. </exception>
+      <filterpriority>1</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.InternalName">
+      <summary>Ottiene l'eventuale nome interno del file.</summary>
+      <returns>Il nome interno del file.Se non ne esiste alcuno, questa proprietà conterrà il nome originale del file senza estensione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsDebug">
+      <summary>Ottiene un valore che specifica se il file contiene informazioni di debug o se viene compilato con funzionalità di debug abilitate.</summary>
+      <returns>true se il file contiene informazioni di debug o se viene compilato con funzionalità di debug abilitate; in caso contrario, false.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsPatched">
+      <summary>Ottiene un valore che specifica se il file è stato modificato e non è identico al file originale fornito dal produttore con lo stesso numero di versione.</summary>
+      <returns>true se il file è stato modificato con patch; in caso contrario, false.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsPreRelease">
+      <summary>Ottiene un valore che specifica se il file è una versione di sviluppo anziché un prodotto disponibile in commercio.</summary>
+      <returns>true se il file è provvisorio; in caso contrario, false .</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsPrivateBuild">
+      <summary>Ottiene un valore che specifica se il file è stato compilato utilizzando le procedure di rilascio standard.</summary>
+      <returns>true se il file rappresenta una build privata; false se il file è stato compilato con procedure di rilascio standard o non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsSpecialBuild">
+      <summary>Ottiene un valore che specifica se il file è una build speciale.</summary>
+      <returns>true se il file è una build speciale; in caso contrario, false.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.Language">
+      <summary>Ottiene la stringa della lingua predefinita per il blocco di informazioni sulla versione.</summary>
+      <returns>Stringa descrittiva per per l'identificatore del linguaggio Microsoft nella risorsa della versione o null se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.LegalCopyright">
+      <summary>Ottiene tutte le informazioni sul copyright applicabili al file specificato.</summary>
+      <returns>Informazioni sul copyright applicabili al file specificato.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.LegalTrademarks">
+      <summary>Ottiene i marchi e i marchi registrati applicabili al file.</summary>
+      <returns>Marchi e marchi registrati applicabili al file o null se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.OriginalFilename">
+      <summary>Ottiene il nome con cui è stato creato il file.</summary>
+      <returns>Nome con cui è stato creato il file o null se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.PrivateBuild">
+      <summary>Ottiene informazioni su una versione privata del file.</summary>
+      <returns>Informazioni su una versione privata del file o null se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductBuildPart">
+      <summary>Ottiene il numero di build del prodotto cui è associato questo file.</summary>
+      <returns>Valore che rappresenta il numero di build del prodotto cui è associato questo file o null se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductMajorPart">
+      <summary>Ottiene la parte principale del numero di versione del prodotto cui è associato questo file.</summary>
+      <returns>Valore che rappresenta la parte principale del numero di versione del prodotto o null se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductMinorPart">
+      <summary>Ottiene la parte secondaria del numero di versione del prodotto cui è associato il file.</summary>
+      <returns>Valore che rappresenta la parte secondaria del numero di versione del prodotto o null se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductName">
+      <summary>Ottiene il nome del prodotto con cui viene distribuito questo file.</summary>
+      <returns>Nome del prodotto con cui viene distribuito questo file o null se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductPrivatePart">
+      <summary>Ottiene il numero parte privato del prodotto cui è associato questo file.</summary>
+      <returns>Valore che rappresenta il numero parte privato del prodotto cui è associato questo file o null se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductVersion">
+      <summary>Ottiene la versione del prodotto con cui è distribuito questo file.</summary>
+      <returns>Versione del prodotto con cui è distribuito questo file o null se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.SpecialBuild">
+      <summary>Ottiene le informazioni relative alla build speciale del file.</summary>
+      <returns>Informazioni relative alla build speciale del file o null se il file non contiene informazioni sulla versione.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.Diagnostics.FileVersionInfo.ToString">
+      <summary>Restituisce un elenco parziale delle proprietà della classe <see cref="T:System.Diagnostics.FileVersionInfo" /> e dei relativi valori.</summary>
+      <returns>Un elenco delle seguenti proprietà di questa classe e dei relativi valori: <see cref="P:System.Diagnostics.FileVersionInfo.FileName" />, <see cref="P:System.Diagnostics.FileVersionInfo.InternalName" />, <see cref="P:System.Diagnostics.FileVersionInfo.OriginalFilename" />, <see cref="P:System.Diagnostics.FileVersionInfo.FileVersion" />, <see cref="P:System.Diagnostics.FileVersionInfo.FileDescription" />, <see cref="P:System.Diagnostics.FileVersionInfo.ProductName" />, <see cref="P:System.Diagnostics.FileVersionInfo.ProductVersion" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsDebug" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsPatched" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsPreRelease" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsPrivateBuild" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsSpecialBuild" />,<see cref="P:System.Diagnostics.FileVersionInfo.Language" />.Se il file non contiene informazioni sulla versione, l'elenco include solo il nome del file richiesto.I valori boolean saranno false, mentre tutte le altre voci saranno null.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+  </members>
+</doc>

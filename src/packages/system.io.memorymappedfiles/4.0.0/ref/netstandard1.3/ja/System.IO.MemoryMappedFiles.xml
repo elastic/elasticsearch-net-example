@@ -1,0 +1,416 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.MemoryMappedFiles</name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.Win32.SafeHandles.SafeMemoryMappedFileHandle">
+      <summary>順次アクセス用メモリ マップト ファイルを表すセーフ ハンドルを提供します。</summary>
+    </member>
+    <member name="P:Microsoft.Win32.SafeHandles.SafeMemoryMappedFileHandle.IsInvalid"></member>
+    <member name="T:Microsoft.Win32.SafeHandles.SafeMemoryMappedViewHandle">
+      <summary>ランダム アクセス用アンマネージ メモリ ブロックのビューを表すセーフ ハンドルを提供します。</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFile">
+      <summary>メモリ マップト ファイルを表します。</summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.IO.FileStream,System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.HandleInheritability,System.Boolean)">
+      <summary>既存のファイルから、アクセス モード、名前、継承性、および容量が指定されたメモリ マップト ファイルを作成します。</summary>
+      <returns>指定された特性を持つメモリ マップト ファイル。</returns>
+      <param name="fileStream">既存のファイルのファイル ストリーム。</param>
+      <param name="mapName">メモリ マップト ファイルに割り当てる名前。</param>
+      <param name="capacity">メモリ マップト ファイルに割り当てる最大サイズ (バイト単位)。サイズを容量を設定する 0 を指定する<paramref name="filestream" />です。</param>
+      <param name="access">メモリ マップト ファイルに対して許可されたアクセス権の種類を指定する列挙値の 1 つ。このパラメーターを設定することはできません<see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />です。</param>
+      <param name="inheritability">メモリ マップト ファイルへのハンドルを子プロセスが継承できるかどうかを指定する列挙値の 1 つ。既定値は、<see cref="F:System.IO.HandleInheritability.None" /> です。</param>
+      <param name="leaveOpen">ストリームの場合に、ソース ファイルを閉じるかどうかを示す値、<see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" />が破棄されます。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> は、null または空の文字列です。または<paramref name="capacity" /> とファイルの長さがゼロです。または<paramref name="access" />設定されている<see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />または<see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />列挙値は、これは許可されません。または<paramref name="access" />設定されている<see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read" />と<paramref name="capacity" />の長さより大きいfilestreamです。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="fileStream" /> は null です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> が 0 未満です。または<paramref name="capacity" /> がファイル サイズ未満です。または<paramref name="access" /> が有効な <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 列挙値ではありません。または<paramref name="inheritability" /> が有効な <see cref="T:System.IO.HandleInheritability" /> 列挙値ではありません。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String)">
+      <summary>ディスク上のファイルからメモリ マップト ファイルを作成します。</summary>
+      <returns>メモリ マップト ファイル。</returns>
+      <param name="path">割り当てるファイルのパス。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> が、空の文字列であるか、空白しか含んでいないか、<see cref="M:System.IO.Path.GetInvalidFileNameChars" /> メソッドで定義されている無効な文字を 1 つ以上含んでいます。または<paramref name="path" /> が、無効なデバイスを参照しています。 </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> は null です。</exception>
+      <exception cref="T:System.IO.IOException">I/O エラーが発生しました。</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> がオペレーティング システムで定義されている最大長を超えています。Windows では、パスの文字数は 248 未満、ファイル名の文字数は 260 未満でなければなりません。</exception>
+      <exception cref="T:System.Security.SecurityException">呼び出し元に、ファイルに対する必要なアクセス許可がありません。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode)">
+      <summary>ディスク上のファイルから、アクセス モードが指定されたメモリ マップト ファイルを作成します。</summary>
+      <returns>アクセス モードが指定されたメモリ マップト ファイル。</returns>
+      <param name="path">割り当てるファイルのパス。</param>
+      <param name="mode">アクセス モードは、<see cref="F:System.IO.FileMode.Open" /> にする必要があります。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> が、空の文字列であるか、空白しか含んでいないか、<see cref="M:System.IO.Path.GetInvalidFileNameChars" /> メソッドで定義されている無効な文字を 1 つ以上含んでいます。または<paramref name="path" /> が、無効なデバイスを参照しています。または<paramref name="mode" /> は <see cref="F:System.IO.FileMode.Append" /> です。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> は null です。</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="mode" /> が <see cref="F:System.IO.FileMode.Create" />、<see cref="F:System.IO.FileMode.CreateNew" />、または <see cref="F:System.IO.FileMode.Truncate" /> です。または<paramref name="mode" /> が <see cref="F:System.IO.FileMode.OpenOrCreate" /> で、ディスク上のファイルが存在しません。またはI/O エラーが発生しました。</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> がオペレーティング システムで定義されている最大長を超えています。Windows では、パスの文字数は 248 未満、ファイル名の文字数は 260 未満でなければなりません。</exception>
+      <exception cref="T:System.Security.SecurityException">呼び出し元に、ファイルに対する必要なアクセス許可がありません。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String)">
+      <summary>ディスク上のファイルから、アクセス モードと名前が指定されたメモリ マップト ファイルを作成します。</summary>
+      <returns>名前およびアクセス モードが指定されたメモリ マップト ファイル。</returns>
+      <param name="path">割り当てるファイルのパス。</param>
+      <param name="mode">アクセス モードは、<see cref="F:System.IO.FileMode.Open" /> にする必要があります。</param>
+      <param name="mapName">メモリ マップト ファイルに割り当てる名前。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> が、空の文字列であるか、空白しか含んでいないか、<see cref="M:System.IO.Path.GetInvalidFileNameChars" /> メソッドで定義されている無効な文字を 1 つ以上含んでいます。または<paramref name="path" /> が、無効なデバイスを参照しています。または<paramref name="mapName" /> が空の文字列です。または<paramref name="mode" /> は <see cref="F:System.IO.FileMode.Append" /> です。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> または <paramref name="mapName" /> が null です。</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="mode" /> が <see cref="F:System.IO.FileMode.Create" />、<see cref="F:System.IO.FileMode.CreateNew" />、または <see cref="F:System.IO.FileMode.Truncate" /> です。または<paramref name="mode" /> が <see cref="F:System.IO.FileMode.OpenOrCreate" /> で、ディスク上のファイルが存在しません。またはI/O エラーが発生しました。</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> がオペレーティング システムで定義されている最大長を超えています。Windows では、パスの文字数は 248 未満、ファイル名の文字数は 260 未満でなければなりません。</exception>
+      <exception cref="T:System.Security.SecurityException">呼び出し元に、ファイルに対する必要なアクセス許可がありません。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String,System.Int64)">
+      <summary>ディスク上のファイルから、アクセス モード、名前、および容量が指定されたメモリ マップト ファイルを作成します。</summary>
+      <returns>指定された特性を持つメモリ マップト ファイル。</returns>
+      <param name="path">割り当てるファイルのパス。</param>
+      <param name="mode">アクセス モード。<see cref="F:System.IO.FileMode.Append" /> 以外の <see cref="T:System.IO.FileMode" /> 列挙値を指定できます。</param>
+      <param name="mapName">メモリ マップト ファイルに割り当てる名前。</param>
+      <param name="capacity">メモリ マップト ファイルに割り当てる最大サイズ (バイト単位)。容量をディスク上のファイルのサイズに設定するには、0 を指定します。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> が、空の文字列であるか、空白しか含んでいないか、<see cref="M:System.IO.Path.GetInvalidFileNameChars" /> メソッドで定義されている無効な文字を 1 つ以上含んでいます。または<paramref name="path" /> が、無効なデバイスを参照しています。または<paramref name="mapName" /> が空の文字列です。または<paramref name="mode" /> は <see cref="F:System.IO.FileMode.Append" /> です。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> または <paramref name="mapName" /> が null です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> が、論理アドレス空間のサイズを超えています。または<paramref name="capacity" /> が 0 未満です。または<paramref name="capacity" /> がファイル サイズを下回っています (ゼロではない)。または<paramref name="capacity" /> がゼロで、ディスク上のファイルのサイズもゼロです。</exception>
+      <exception cref="T:System.IO.IOException">I/O エラーが発生しました。</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> がオペレーティング システムで定義されている最大長を超えています。Windows では、パスの文字数は 248 未満、ファイル名の文字数は 260 未満でなければなりません。</exception>
+      <exception cref="T:System.Security.SecurityException">呼び出し元に、ファイルに対する必要なアクセス許可がありません。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>ディスク上のファイルから、アクセス モード、名前、容量、およびアクセスの種類が指定されたメモリ マップト ファイルを作成します。</summary>
+      <returns>指定された特性を持つメモリ マップト ファイル。</returns>
+      <param name="path">割り当てるファイルのパス。</param>
+      <param name="mode">アクセス モード。<see cref="F:System.IO.FileMode.Append" /> 以外の <see cref="T:System.IO.FileMode" /> 列挙値を指定できます。</param>
+      <param name="mapName">メモリ マップト ファイルに割り当てる名前。</param>
+      <param name="capacity">メモリ マップト ファイルに割り当てる最大サイズ (バイト単位)。容量をディスク上のファイルのサイズに設定するには、0 を指定します。</param>
+      <param name="access">メモリ マップト ファイルに対して許可されたアクセス権の種類を指定する列挙値の 1 つ。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> が空の文字列です。または<paramref name="access" /> が許可値ではありません。または<paramref name="path" /> が空のファイルを指定しています。または<paramref name="access" /> が <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read" /> として指定され、容量が <paramref name="path" /> によって指定されたファイルのサイズを超えています。または<paramref name="mode" /> は <see cref="F:System.IO.FileMode.Append" /> です。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> または <paramref name="mapName" /> が null です。 </exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> が、論理アドレス空間のサイズを超えています。または<paramref name="capacity" /> が 0 未満です。または<paramref name="capacity" /> がファイル サイズを下回っています (ゼロではない)。または<paramref name="capacity" /> がゼロで、ディスク上のファイルのサイズもゼロです。または<paramref name="access" /> が定義された <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 値ではありません。または<paramref name="path" /> によって示されるファイルのサイズが、<paramref name="capacity" /> を超える値です。</exception>
+      <exception cref="T:System.IO.IOException">またはI/O エラーが発生しました。</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> がオペレーティング システムで定義されている最大長を超えています。Windows では、パスの文字数は 248 未満、ファイル名の文字数は 260 未満でなければなりません。</exception>
+      <exception cref="T:System.Security.SecurityException">呼び出し元に、ファイルに対する必要なアクセス許可がありません。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64)">
+      <summary>容量が指定されたメモリ マップト ファイルをシステム メモリ内で作成します。</summary>
+      <returns>名前および容量が指定されたメモリ マップト ファイル。</returns>
+      <param name="mapName">メモリ マップト ファイルに割り当てる名前。</param>
+      <param name="capacity">メモリ マップト ファイルに割り当てる最大サイズ (バイト単位)。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> が空の文字列です。 </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> は null です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> が 0 以下です。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>容量およびアクセスの種類が指定されたメモリ マップト ファイルをシステム メモリ内で作成します。</summary>
+      <returns>指定された特性を持つメモリ マップト ファイル。</returns>
+      <param name="mapName">メモリ マップト ファイルに割り当てる名前。</param>
+      <param name="capacity">メモリ マップト ファイルに割り当てる最大サイズ (バイト単位)。</param>
+      <param name="access">メモリ マップト ファイルに対して許可されたアクセス権の種類を指定する列挙値の 1 つ。既定値は、<see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" /> です。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> が空の文字列です。または<paramref name="access" /> は <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 列挙値で書き込み専用に設定されます。 </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> は null です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> が 0 以下です。または<paramref name="access" /> が有効な <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 列挙値ではありません。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.MemoryMappedFiles.MemoryMappedFileOptions,System.IO.HandleInheritability)">
+      <summary>名前、容量、アクセスの種類、メモリ割り当てオプション、および継承性が指定されたメモリ マップト ファイルを作成します。</summary>
+      <returns>指定された特性を持つメモリ マップト ファイル。</returns>
+      <param name="mapName">メモリ マップト ファイルに割り当てる名前。</param>
+      <param name="capacity">メモリ マップト ファイルに割り当てる最大サイズ (バイト単位)。</param>
+      <param name="access">メモリ マップト ファイルに対して許可されたアクセス権の種類を指定する列挙値の 1 つ。既定値は、<see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" /> です。</param>
+      <param name="options">メモリ マップト ファイルのメモリ割り当てオプションを指定する列挙値のビットごとの組み合わせ。</param>
+      <param name="inheritability">メモリ マップト ファイルへのハンドルを子プロセスが継承できるかどうかを指定する値。既定値は、<see cref="F:System.IO.HandleInheritability.None" /> です。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> が空の文字列です。または<paramref name="access" /> は <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 列挙値で書き込み専用に設定されます。 </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> は null です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> が 0 以下です。または<paramref name="access" /> が有効な <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 列挙値ではありません。または<paramref name="inheritability" /> が有効な <see cref="T:System.IO.HandleInheritability" /> 値ではありません。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64)">
+      <summary>容量が指定されたメモリ マップト ファイルをシステム メモリ内で作成するか、または開きます。</summary>
+      <returns>指定された名前およびサイズのメモリ マップト ファイル。</returns>
+      <param name="mapName">メモリ マップト ファイルに割り当てる名前。</param>
+      <param name="capacity">メモリ マップト ファイルに割り当てる最大サイズ (バイト単位)。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> が空の文字列です。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> は null です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> が、論理アドレス空間のサイズを超えています。または<paramref name="capacity" /> が 0 以下です。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>容量およびアクセスの種類が指定されたメモリ マップト ファイルをシステム メモリ内で作成するか、または開きます。</summary>
+      <returns>指定された特性を持つメモリ マップト ファイル。</returns>
+      <param name="mapName">メモリ マップト ファイルに割り当てる名前。</param>
+      <param name="capacity">メモリ マップト ファイルに割り当てる最大サイズ (バイト単位)。</param>
+      <param name="access">メモリ マップト ファイルに対して許可されたアクセス権の種類を指定する列挙値の 1 つ。既定値は、<see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" /> です。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> が空の文字列です。または<paramref name="access" /> は <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 列挙値で書き込み専用に設定されます。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> は null です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> が、論理アドレス空間のサイズを超えています。または<paramref name="capacity" /> が 0 以下です。または<paramref name="access" /> が有効な <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 列挙値ではありません。</exception>
+      <exception cref="T:System.UnauthorizedAccessException">オペレーティング システムが、ファイルに指定したアクセスを拒否しました。たとえば、アクセスが <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> または <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" /> に設定されていますが、ファイルまたはディレクトリが読み取り専用です。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.MemoryMappedFiles.MemoryMappedFileOptions,System.IO.HandleInheritability)">
+      <summary>新しい空のメモリ マップト ファイルを作成するか、同じ名前のファイルが存在する場合は既存のメモリ マップト ファイルを開きます。既存のファイルを開く場合、容量、オプション、およびメモリ引数は無視されます。</summary>
+      <returns>指定された特性を持つメモリ マップト ファイル。</returns>
+      <param name="mapName">メモリ マップト ファイルに割り当てる名前。</param>
+      <param name="capacity">メモリ マップト ファイルに割り当てる最大サイズ (バイト単位)。</param>
+      <param name="access">メモリ マップト ファイルに対して許可されたアクセス権の種類を指定する列挙値の 1 つ。既定値は、<see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" /> です。</param>
+      <param name="options">ファイルに適用するメモリ割り当てオプションを示す値のビットごとの組み合わせ。</param>
+      <param name="inheritability">メモリ マップト ファイルへのハンドルを子プロセスが継承できるかどうかを指定する値。既定値は、<see cref="F:System.IO.HandleInheritability.None" /> です。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> が空の文字列です。または<paramref name="access" /> は <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 列挙値で書き込み専用に設定されます。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> は null です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> が、論理アドレス空間のサイズを超えています。または<paramref name="capacity" /> が 0 以下です。または<paramref name="access" /> が有効な <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 列挙値ではありません。または<paramref name="inheritability" /> が有効な <see cref="T:System.IO.HandleInheritability" /> 列挙値ではありません。</exception>
+      <exception cref="T:System.UnauthorizedAccessException">オペレーティング システムが、ファイルに指定したアクセスを拒否しました。たとえば、アクセスが <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> または <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" /> に設定されていますが、ファイルまたはディレクトリが読み取り専用です。 </exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor">
+      <summary>メモリ マップト ファイルのビューに対応する <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" /> を作成します。</summary>
+      <returns>ランダムにアクセスできるメモリ ブロック。</returns>
+      <exception cref="T:System.UnauthorizedAccessException">メモリ マップト ファイル リソースへのアクセスが承認されていません。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor(System.Int64,System.Int64)">
+      <summary>メモリ マップト ファイルのビューに対応するオフセットとサイズが指定された <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" /> を作成します。</summary>
+      <returns>ランダムにアクセスできるメモリ ブロック。</returns>
+      <param name="offset">ビューの開始位置のバイト。</param>
+      <param name="size">ビューのサイズ。<paramref name="offset" /> で始まり、メモリ マップト ファイルの終端付近で終わるビューを作成するには 0 (ゼロ) を指定します。</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> または <paramref name="size" /> が負の値です。または<paramref name="size" /> が、論理アドレス空間を超えています。</exception>
+      <exception cref="T:System.UnauthorizedAccessException">メモリ マップト ファイル リソースへのアクセスが承認されていません。</exception>
+      <exception cref="T:System.IO.IOException">I/O エラーが発生しました。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor(System.Int64,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>メモリ マップト ファイルのビューに対応するオフセット、サイズ、およびアクセス制限が指定された <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" /> を作成します。</summary>
+      <returns>ランダムにアクセスできるメモリ ブロック。</returns>
+      <param name="offset">ビューの開始位置のバイト。</param>
+      <param name="size">ビューのサイズ。<paramref name="offset" /> で始まり、メモリ マップト ファイルの終端付近で終わるビューを作成するには 0 (ゼロ) を指定します。</param>
+      <param name="access">メモリ マップト ファイルに対して許可されたアクセス権の種類を指定する列挙値の 1 つ。既定値は、<see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" /> です。</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> または <paramref name="size" /> が負の値です。または<paramref name="size" /> が、論理アドレス空間を超えています。</exception>
+      <exception cref="T:System.UnauthorizedAccessException">
+        <paramref name="access" /> は、メモリ マップト ファイルに対して無効です。</exception>
+      <exception cref="T:System.IO.IOException">I/O エラーが発生しました。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream">
+      <summary>メモリ マップト ファイルのビューに対応するストリームを作成します。</summary>
+      <returns>メモリのストリーム。</returns>
+      <exception cref="T:System.UnauthorizedAccessException">メモリ マップト ファイル リソースへのアクセスが承認されていません。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream(System.Int64,System.Int64)">
+      <summary>メモリ マップト ファイルのビューに対応する、オフセットとサイズが指定されたストリームを作成します。</summary>
+      <returns>オフセットおよびサイズが指定されたメモリのストリーム。</returns>
+      <param name="offset">ビューの開始位置のバイト。</param>
+      <param name="size">ビューのサイズ。<paramref name="offset" /> で始まり、メモリ マップト ファイルの終端付近で終わるビューを作成するには 0 (ゼロ) を指定します。</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> または <paramref name="size" /> が負の値です。または<paramref name="size" /> が、論理アドレス空間を超えています。</exception>
+      <exception cref="T:System.UnauthorizedAccessException">メモリ マップト ファイル リソースへのアクセスが承認されていません。</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="size" /> が仮想メモリの合計よりも大きくなっています。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream(System.Int64,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>メモリ マップト ファイルのビューに対応するオフセット、サイズ、およびアクセスの種類が指定されたストリームを作成します。</summary>
+      <returns>特性が指定されたメモリのストリーム。</returns>
+      <param name="offset">ビューの開始位置のバイト。</param>
+      <param name="size">ビューのサイズ。<paramref name="offset" /> で始まり、メモリ マップト ファイルの終端付近で終わるビューを作成するには 0 (ゼロ) を指定します。</param>
+      <param name="access">メモリ マップト ファイルに対して許可されたアクセス権の種類を指定する列挙値の 1 つ。既定値は、<see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" /> です。</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> または <paramref name="size" /> が負の値です。または<paramref name="size" /> が、論理アドレス空間を超えています。または<paramref name="access " /> が有効な <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 列挙値ではありません。</exception>
+      <exception cref="T:System.UnauthorizedAccessException">
+        <paramref name="access" /> は、メモリ マップト ファイルに対して無効です。</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="size" /> が仮想メモリの合計よりも大きくなっています。または<paramref name="access" /> は、メモリ マップト ファイルに対して無効です。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.Dispose">
+      <summary>
+        <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" /> によって使用されているすべてのリソースを解放します。</summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.Dispose(System.Boolean)">
+      <summary>
+        <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" /> によって使用されているアンマネージ リソースを解放し、オプションでマネージ リソースも解放します。 </summary>
+      <param name="disposing">マネージ リソースとアンマネージ リソースの両方を解放する場合は true。アンマネージ リソースだけを解放する場合は false。</param>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String)">
+      <summary>システム メモリ内で名前が指定されたメモリ マップト ファイルを開きます。</summary>
+      <returns>指定された名前を持つメモリ マップト ファイル。 </returns>
+      <param name="mapName">開くメモリ マップト ファイルの名前。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> が空の文字列です。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> は null です。</exception>
+      <exception cref="T:System.IO.FileNotFoundException">
+        <paramref name="mapName" /> に指定されたファイルが存在しません。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String,System.IO.MemoryMappedFiles.MemoryMappedFileRights)">
+      <summary>システム メモリ内で名前およびアクセス権が指定されたメモリ マップト ファイルを開きます。</summary>
+      <returns>指定された特性を持つメモリ マップト ファイル。</returns>
+      <param name="mapName">開くメモリ マップト ファイルの名前。</param>
+      <param name="desiredAccessRights">メモリ マップト ファイルに適用するアクセス権を指定する列挙値の 1 つ。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> が空の文字列です。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> は null です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="desiredAccessRights" /> が有効な <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights" /> 列挙値ではありません。</exception>
+      <exception cref="T:System.IO.FileNotFoundException">
+        <paramref name="mapName" /> に指定されたファイルが存在しません。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String,System.IO.MemoryMappedFiles.MemoryMappedFileRights,System.IO.HandleInheritability)">
+      <summary>システム メモリ内で名前、アクセス権、および継承性が指定されたメモリ マップト ファイルを開きます。</summary>
+      <returns>指定された特性を持つメモリ マップト ファイル。</returns>
+      <param name="mapName">開くメモリ マップト ファイルの名前。</param>
+      <param name="desiredAccessRights">メモリ マップト ファイルに適用するアクセス権を指定する列挙値の 1 つ。</param>
+      <param name="inheritability">メモリ マップト ファイルへのハンドルを子プロセスが継承できるかどうかを指定する列挙値の 1 つ。既定値は、<see cref="F:System.IO.HandleInheritability.None" /> です。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> が空の文字列です。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> は null です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="desiredAccessRights" /> が有効な <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights" /> 列挙値ではありません。または<paramref name="inheritability" /> が有効な <see cref="T:System.IO.HandleInheritability" /> 列挙値ではありません。</exception>
+      <exception cref="T:System.UnauthorizedAccessException">要求されたアクセスは、メモリ マップト ファイルに対して無効です。</exception>
+      <exception cref="T:System.IO.FileNotFoundException">
+        <paramref name="mapName" /> に指定されたファイルが存在しません。</exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedFile.SafeMemoryMappedFileHandle">
+      <summary>メモリ マップト ファイルのファイル ハンドルを取得します。</summary>
+      <returns>メモリ マップト ファイルのハンドル。</returns>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess">
+      <summary>メモリ マップト ファイルまたはビューのアクセス機能と制限を指定します。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.CopyOnWrite">
+      <summary>書き込み操作が他のプロセスから見えないように制限された、ファイルの読み取り/書き込みアクセス。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read">
+      <summary>ファイルの読み取り専用アクセス。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadExecute">
+      <summary>実行可能コードを格納および実行できるファイルへの読み取りアクセス。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite">
+      <summary>ファイルへの読み取り/書き込みアクセス。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWriteExecute">
+      <summary>実行可能コードを格納および実行できるファイルへの読み取り/書き込みアクセス。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write">
+      <summary>ファイルへの書き込み専用アクセス。</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileOptions">
+      <summary>メモリ マップト ファイルのメモリ割り当てオプションを提供します。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileOptions.DelayAllocatePages">
+      <summary>
+        <see cref="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor" /> メソッドまたは <see cref="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream" /> メソッドでビューが作成されるまで、メモリ割り当ては延期されます。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileOptions.None">
+      <summary>メモリ割り当てオプションは適用されません。</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights">
+      <summary>ディスク上のファイルに関連付けられていないメモリ マップト ファイルへのアクセス権を指定します。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.AccessSystemSecurity">
+      <summary>ファイルのアクセス許可を取得または設定する権限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ChangePermissions">
+      <summary>ファイルに関連付けられたセキュリティと監査規則を変更する権限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.CopyOnWrite">
+      <summary>書き込み操作が他のプロセスから見えないように制限された、ファイルの読み取り/書き込み権限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Delete">
+      <summary>ファイルを削除する権限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Execute">
+      <summary>アプリケーション ファイルを実行する権限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.FullControl">
+      <summary>ファイルを完全に制御し、アクセス制御と監査規則を変更する権限。この値は、ファイルに対してどのような操作でも行うことができる権限を表します。この値は、この列挙体のすべての権限を組み合わせたものです。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Read">
+      <summary>ファイルを読み取り専用で開いたりコピーしたりする権限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadExecute">
+      <summary>フォルダーまたはファイルを読み取り専用として開いたりコピーしたりする権限、およびアプリケーション ファイルを実行する権限。この権限には、<see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Read" /> 権限および <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Execute" /> 権限が含まれます。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadPermissions">
+      <summary>ファイルを開いてアクセス規則と監査規則をコピーする権限。これには、データ、ファイル システム属性、または拡張ファイル システム属性を読み取る権限は含まれません。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadWrite">
+      <summary>ファイルを開いたりコピーしたりする権限、およびファイルにデータを追加したりファイルからデータを削除したりする権限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadWriteExecute">
+      <summary>ファイルを開いたりコピーしたりする権限、ファイルにデータを追加したりファイルからデータを削除したりする権限、およびアプリケーション ファイルを実行する権限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.TakeOwnership">
+      <summary>ファイルの所有者を変更する権限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Write">
+      <summary>ファイルにデータを追加する権限またはファイルからデータを削除する権限。</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor">
+      <summary>メモリ マップト ファイルのランダムにアクセスされるビューを表します。</summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.Flush">
+      <summary>このビューのすべてのバッファーをクリアし、バッファー内のデータが基になるファイルに書き込まれるようにします。</summary>
+      <exception cref="T:System.ObjectDisposedException">アクセサーが閉じられた後でメソッドが呼び出されました。</exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.PointerOffset">
+      <summary>[.NET Framework 4.5.1 以降のバージョンでサポートされる]メモリ マップ ファイルの先頭からこのビューの開始位置までのオフセットを表すバイト数を取得します。</summary>
+      <returns>このビューの開始位置とメモリ マップ ファイルの先頭との間のバイト数です。</returns>
+      <exception cref="T:System.InvalidOperationException">このインスタンスの作成元のオブジェクトが null です。</exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.SafeMemoryMappedViewHandle">
+      <summary>メモリ マップト ファイルのビューへのハンドルを取得します。</summary>
+      <returns>ファイルのビューに対するオペレーティング システムのハンドルのラッパー。</returns>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedViewStream">
+      <summary>メモリ マップト ファイルのビューを順次アクセス ストリームとして表します。</summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewStream.Flush">
+      <summary>このストリームのすべてのバッファーをクリアし、バッファー内のデータが基になるファイルに書き込まれるようにします。</summary>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewStream.PointerOffset">
+      <summary>[.NET Framework 4.5.1 以降のバージョンでサポートされる]メモリ マップ ファイルの先頭からこのビューの開始位置までのオフセットを表すバイト数を取得します。</summary>
+      <returns>このビューの開始位置とメモリ マップ ファイルの先頭との間のバイト数です。</returns>
+      <exception cref="T:System.InvalidOperationException">このインスタンスの作成元のオブジェクトが null です。</exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewStream.SafeMemoryMappedViewHandle">
+      <summary>メモリ マップト ファイルのビューへのハンドルを取得します。</summary>
+      <returns>ファイルのビューに対するオペレーティング システムのハンドルのラッパー。</returns>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewStream.SetLength(System.Int64)">
+      <summary>現在のストリームの長さを設定します。</summary>
+      <param name="value">現在のストリームの希望の長さ (バイト数)。</param>
+      <exception cref="T:System.NotSupportedException">このメソッドはサポートされていません。</exception>
+    </member>
+  </members>
+</doc>

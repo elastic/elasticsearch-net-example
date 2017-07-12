@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Nest;
 
 namespace NuSearch.Domain.Model
 {
 	public class Package
 	{
-		private static DateTime SpecialUnlistedDate = new DateTime(1901, 01, 01);
+		private static readonly DateTime SpecialUnlistedDate = new DateTime(1901, 01, 01);
 
 		public Package() { }
 
@@ -23,7 +21,7 @@ namespace NuSearch.Domain.Model
 			this.Summary = latestVersion.Summary;
 			this.DownloadCount = latestVersion.DownloadCount;
 			this.Authors = latestVersion.Authors.Split('|').Select(author => new PackageAuthor { Name = author }).ToList();
-			this.Versions = feeds.Select(f=>new PackageVersion(f)).ToList();
+			this.Versions = feeds.Select(f => new PackageVersion(f)).ToList();
 			this.AllVersionsUnlisted = feeds.All(f => f.Published < SpecialUnlistedDate);
 
 			this.Suggest = new CompletionField

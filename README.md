@@ -1433,7 +1433,7 @@ When we now look at our results:
 `NEST` and `Elasticsearch.Net` have succesfully surfaced to the top we can also see that this is not simply a sort on downloadcount because
 `Elasticsearch.Net` is the number one result despite the fact it has less downloads then `NEST`.
 
-##Combining multiple queries
+## Combining multiple queries
 
 Elasticsearch exposes [bool queries and filters](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html), but these do not quite equate to the boolean logic you are use to in C#. NEST allows you
 to [use the operators `&&` `||`, `!` and `+`](https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/bool-queries.html) to combine queries into Elasticsearch boolean queries but NEST will combine them in such a way that they do follow the exact same boolean logic you are use to in C#.
@@ -1449,7 +1449,7 @@ Having fixed surfacing popular packages for keywords, we've broken exact matches
 		.Functions(ff => ff
 			.FieldValueFactor(fvf => fvf
 				.Field(p => p.DownloadCount)
-	//snipp
+	//snip
 ```
 
 Here we use the binary `||` operator to create a bool query to match either on our keyword multi_field and if it does, give it a ridiculous boost,
@@ -1462,9 +1462,13 @@ or otherwise it will have to match with our function score query. Note that you 
 `NEST` has a feature turned on by default called **conditionless queries** which will rewrite incomplete queries out of the actual query that is sent to Elasticsearch. Given that our query now looks like this:
 
 ```csharp
-.Query(q =>
-	q.Match(m=>m.Field(p=>p.Id.Suffix("keyword")).Boost(1000).Query(form.Query))
-	|| q.FunctionScore(fs => fs
+.Query(q => q
+	.Match(m => m
+		.Field(p => p.Id.Suffix("keyword"))
+		.Boost(1000)
+		.Query(form.Query)
+	) || q
+	.FunctionScore(fs => fs
 		.Functions(ff => ff
 			.FieldValueFactor(fvf => fvf
 				.Field(p => p.DownloadCount)
@@ -1516,13 +1520,17 @@ Empty strings and all, or IsStrict which would cause an error to be thrown if a 
 
 
 ```csharp
-.Query(q =>
-	q.Verbatim(true).Match(m => m.Field(p => p.Id.Suffix("keyword")).Boost(1000).Query(form.Query))
-	|| q.Strict().FunctionScore(fs => fs
+.Query(q => q
+	.Verbatim(true)
+	.Match(m => m
+		.Field(p => p.Id.Suffix("keyword"))
+		.Boost(1000)
+		.Query(form.Query)
+	) || q
+	.Strict()
+	.FunctionScore(fs => fs
 ```
-
 As a final reminder that if the fluent syntax is not working out for you here would be the equivalent in a more classical object initializer syntax
-
 
 ```csharp
 var result = client.Search<Package>(new SearchRequest<Package>
@@ -1629,7 +1637,6 @@ You should now see the following options in the search criteria box:
 The JavaScript to listen to selection changes should already be in place.
 
 Happy exploring!
-
 
 ----
 
@@ -1868,8 +1875,12 @@ We can add the author facet selection to our query as followed
 
 ```csharp
 .Query(q => 
-	(q.Match(m => m.Field(p => p.Id.Suffix("keyword")).Boost(1000).Query(form.Query))
-	|| q.FunctionScore(fs => fs
+	(q.Match(m => m
+		.Field(p => p.Id.Suffix("keyword"))
+		.Boost(1000)
+		.Query(form.Query)
+	) || q
+	.FunctionScore(fs => fs
 		.MaxBoost(10)
 		.Functions(ff => ff
 			.FieldValueFactor(fvf => fvf
@@ -1877,7 +1888,7 @@ We can add the author facet selection to our query as followed
 				.Factor(0.0001)
 			)
 		)
-		.Query(query => query
+		.Query(fq => fq
 			.MultiMatch(m => m
 				.Fields(f => f
 					.Field(p => p.Id.Suffix("keyword"), 1.5)
@@ -1888,10 +1899,12 @@ We can add the author facet selection to our query as followed
 				.Query(form.Query)
 			)
 		)
-	))
-	&& +q.Nested(n=>n
-	    .Path(p=>p.Authors)
-	    .Query(nq=>+nq.Term(p=>p.Authors.First().Name.Suffix("raw"), form.Author))
+	)) && +q
+	.Nested(n => n
+	    .Path(p => p.Authors)
+	    .Query(nq => +nq
+			.Term(p => p.Authors.First().Name.Suffix("raw"), form.Author)
+		)
 	)
 )
 ```

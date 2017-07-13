@@ -7991,13 +7991,13 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\russ\\source\\elasticsearch-net-example\\src\\packages": {}
+    "/Users/russ/src/elasticsearch-net-example/src/packages": {}
   },
   "project": {
     "restore": {
-      "projectUniqueName": "Microsoft.VisualStudio.Web.CodeGeneration.Tools-99e004de-3f9c-46fd-9c54-b496cd8aa761",
+      "projectUniqueName": "Microsoft.VisualStudio.Web.CodeGeneration.Tools-4695ca74-57bd-4170-83c6-b532b488e1ba",
       "projectName": "DotnetCliToolReference-Microsoft.VisualStudio.Web.CodeGeneration.Tools",
-      "projectPath": "C:\\Users\\russ\\source\\elasticsearch-net-example\\src\\NuSearch.Web\\NuSearch.Web.csproj",
+      "projectPath": "/Users/russ/src/elasticsearch-net-example/src/NuSearch.Web/NuSearch.Web.csproj",
       "projectStyle": "DotnetCliTool",
       "originalTargetFrameworks": [
         "netcoreapp1.0"

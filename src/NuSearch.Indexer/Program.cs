@@ -17,7 +17,8 @@ namespace NuSearch.Indexer
 		static void Main(string[] args)
 		{
 			Client = NuSearchConfiguration.GetClient();
-			DumpReader = new NugetDumpReader(@"C:\nuget-data");
+			string directory = string.IsNullOrEmpty(args[0]) ? NuSearchConfiguration.PackagePath : args[0];
+			DumpReader = new NugetDumpReader(directory);
 			CurrentIndexName = NuSearchConfiguration.CreateIndexName();
 
 			CreateIndex();
@@ -117,7 +118,7 @@ namespace NuSearch.Indexer
 			Console.WriteLine("Setting up a lazy xml files reader that yields packages...");
 			var packages = DumpReader.GetPackages();
 
-			Console.WriteLine("Indexing documents into elasticsearch...");
+			Console.Write("Indexing documents into elasticsearch...");
 			var waitHandle = new CountdownEvent(1);
 
 			var bulkAll = Client.BulkAll(packages, b => b

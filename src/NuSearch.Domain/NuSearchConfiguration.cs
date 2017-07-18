@@ -40,5 +40,7 @@ namespace NuSearch.Domain
 		public static ElasticClient GetClient() => new ElasticClient(_connectionSettings);
 
 		public static string CreateIndexName() => $"{LiveIndexAlias}-{DateTime.UtcNow:dd-MM-yyyy-HH-mm-ss}";
+
+		public static string PackagePath => @"C:\nuget-data";
 	}
 }

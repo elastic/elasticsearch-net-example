@@ -7,31 +7,36 @@ using System.Xml;
 using System.Xml.Serialization;
 using NuSearch.Domain.Data;
 using NuSearch.Domain.Model;
+using NuSearch.Domain;
 using Simple.OData.Client;
 
 namespace NuSearch.Harvester
 {
 	class Program
 	{
+		private const string NugetODataFeedUrl = "https://www.nuget.org/api/v2/";
+
 		//// args[0] = Dump path
 		//// args[1] = Number of packages to fetch
 		//// args[2] = Dump partition size
 		static void Main(string[] args)
 		{
-			var client = new ODataClient("https://www.nuget.org/api/v2/");
-
+			var client = new ODataClient(NugetODataFeedUrl);
 			var totalPackageCount = client.For<FeedPackage>("packages").Count().FindScalarAsync<int>().Result;
+			var dumpPath = string.IsNullOrEmpty(args[0]) ? NuSearchConfiguration.PackagePath : args[0];
 
-			var dumpPath = string.IsNullOrEmpty(args[0]) ? @"C:\nuget-data2" : args[0];
+			Console.WriteLine($"Downloading packages from {NugetODataFeedUrl} to {dumpPath}");
+
 			var numberOfPackages = args[1] == "0" ? totalPackageCount : Convert.ToInt32(args[1]);
 			var partitionSize = args[2] == "0" ? totalPackageCount : Convert.ToInt32(args[2]);
-
 			var startTime = DateTime.Now;
 			var take = Math.Min(100, numberOfPackages);
 			var numberOfPages = (int)Math.Ceiling((double)numberOfPackages / take);
 
+			Console.WriteLine($"Total {numberOfPages} pages to download");
+
 			var sync = new object();
-			var packages = new List<FeedPackage>();
+			var packages = new List<FeedPackage>(partitionSize);
 			int page = 0, partition = 0;
 			var parallelOptions = new ParallelOptions { MaxDegreeOfParallelism = 4 };
 
@@ -49,7 +54,7 @@ namespace NuSearch.Harvester
 					{
 						WritePackages(packages, dumpPath, partition);
 						partition++;
-						packages = new List<FeedPackage>();
+						packages = new List<FeedPackage>(partitionSize);
 					}
 				}
 				Interlocked.Increment(ref page);
@@ -57,7 +62,7 @@ namespace NuSearch.Harvester
 			});
 
 			var span = DateTime.Now - startTime;
-			Console.WriteLine("Harvesting completed in: {0}.", span);
+			Console.WriteLine($"Harvesting completed in: {span}");
 			Console.WriteLine("Press any key to quit");
 			Console.Read();
 		}
@@ -69,7 +74,6 @@ namespace NuSearch.Harvester
 
 			var dump = new NugetDump { NugetPackages = packages };
 			var dumpFile = Path.Combine(dumpPath, $"nugetdump-{partition}.xml");
-
 			var serializer = new XmlSerializer(typeof(NugetDump));
 
 			using (var stream = File.OpenWrite(dumpFile))

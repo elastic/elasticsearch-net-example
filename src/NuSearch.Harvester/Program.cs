@@ -5,10 +5,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using NuGet.Common;
+using NuGet.Protocol;
+using NuGet.Protocol.Core.Types;
 using NuSearch.Domain.Data;
 using NuSearch.Domain.Model;
 using NuSearch.Domain;
-using Simple.OData.Client;
+using NuSearch.Harvester.Nuget;
 
 namespace NuSearch.Harvester
 {
@@ -21,14 +24,18 @@ namespace NuSearch.Harvester
 		//// args[2] = Dump partition size
 		static void Main(string[] args)
 		{
-			var client = new ODataClient(NugetODataFeedUrl);
-			var totalPackageCount = client.For<FeedPackage>("packages").Count().FindScalarAsync<int>().Result;
+			var repo = Repository.Factory.GetCoreV3(NugetODataFeedUrl);
+			var httpSource = HttpSource.Create(repo);
+			var reader = new NugetFeedReader(httpSource, NugetODataFeedUrl);
+			var logger = NullLogger.Instance;
+			var totalPackageCount = reader.GetCountAsync(logger, CancellationToken.None).Result;
+
 			var dumpPath = string.IsNullOrEmpty(args[0]) ? NuSearchConfiguration.PackagePath : args[0];
+			var numberOfPackages = args[1] == "0" ? totalPackageCount : Convert.ToInt32(args[1]);
+			var partitionSize = args[2] == "0" ? 1000 : Convert.ToInt32(args[2]);
 
 			Console.WriteLine($"Downloading packages from {NugetODataFeedUrl} to {dumpPath}");
 
-			var numberOfPackages = args[1] == "0" ? totalPackageCount : Convert.ToInt32(args[1]);
-			var partitionSize = args[2] == "0" ? totalPackageCount : Convert.ToInt32(args[2]);
 			var startTime = DateTime.Now;
 			var take = Math.Min(100, numberOfPackages);
 			var numberOfPages = (int)Math.Ceiling((double)numberOfPackages / take);
@@ -39,13 +46,11 @@ namespace NuSearch.Harvester
 			var packages = new List<FeedPackage>(partitionSize);
 			int page = 0, partition = 0;
 			var parallelOptions = new ParallelOptions { MaxDegreeOfParallelism = 4 };
+			var searchFilter = new SearchFilter(true, null) { OrderBy = SearchOrderBy.Id };
 
 			Parallel.For(0, numberOfPages, parallelOptions, (i, state) =>
 			{
-				var foundPackages = client.For<FeedPackage>("packages")
-					.Skip(i * take)
-					.Top(take)
-					.FindEntriesAsync().Result;
+				var foundPackages = reader.GetPackagesAsync(null, searchFilter, i * take, take, logger, CancellationToken.None).Result;
 
 				lock (sync)
 				{
@@ -63,7 +68,7 @@ namespace NuSearch.Harvester
 
 			var span = DateTime.Now - startTime;
 			Console.WriteLine($"Harvesting completed in: {span}");
-			Console.WriteLine("Press any key to quit");
+			Console.WriteLine("Press Enter to continue");
 			Console.Read();
 		}
 

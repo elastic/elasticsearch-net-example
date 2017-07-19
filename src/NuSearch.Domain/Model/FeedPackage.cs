@@ -17,7 +17,6 @@ namespace NuSearch.Domain.Model
 		public bool IsLatestVersion { get; set; }
 		public bool IsAbsoluteLatestVersion { get; set; }
 		public bool IsPreRelease { get; set; }
-
 		public string Language { get; set; }
 		public DateTime LastUpdated { get; set; }
 		public DateTime Published { get; set; }
@@ -33,10 +32,11 @@ namespace NuSearch.Domain.Model
 		public string Title { get; set; }
 		public int VersionDownloadCount { get; set; }
 		public string MinClientVersion { get; set; }
-		public DateTime LastEdited { get; set; }
-
 		public string LicenseUrl { get; set; }
 		public string LicenseNames { get; set; }
 		public string LicenseReportUrl { get; set; }
+		public string DownloadUrl { get; set; }
+		public string ProjectUrl { get; set; }
+		public DateTime LastEdited { get; set; }
 	}
 }

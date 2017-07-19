@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "NuSearch.HarvesterCore": {
-      "commandName": "Project",
-      "commandLineArgs": "downloads 1000 100"
-    }
-  }
-}

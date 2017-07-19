@@ -6,7 +6,8 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Simple.OData.Client" Version="5.0.0-alpha3" />
+    <PackageReference Include="NuGet.Protocol" Version="4.3.0-preview4" />
+    <PackageReference Include="System.Net.Http" Version="4.3.2" />
   </ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\NuSearch.Domain\NuSearch.Domain.csproj" />

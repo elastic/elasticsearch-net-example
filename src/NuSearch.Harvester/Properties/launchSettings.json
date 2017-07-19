@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "NuSearch.Harvester": {
+      "commandName": "Project"
+    }
+  }
+}

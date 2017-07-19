@@ -30,9 +30,9 @@ namespace NuSearch.Harvester
 			var logger = NullLogger.Instance;
 			var totalPackageCount = reader.GetCountAsync(logger, CancellationToken.None).Result;
 
-			var dumpPath = string.IsNullOrEmpty(args[0]) ? NuSearchConfiguration.PackagePath : args[0];
-			var numberOfPackages = args[1] == "0" ? totalPackageCount : Convert.ToInt32(args[1]);
-			var partitionSize = args[2] == "0" ? 1000 : Convert.ToInt32(args[2]);
+			var dumpPath = args.Length > 0 && !string.IsNullOrEmpty(args[0]) ? args[0] : NuSearchConfiguration.PackagePath;
+			var numberOfPackages = args.Length > 1 && int.TryParse(args[1], out int n) ? n : totalPackageCount;
+			var partitionSize = args.Length > 2 && int.TryParse(args[2], out int p) ? p : 1000;
 
 			Console.WriteLine($"Downloading packages from {NugetODataFeedUrl} to {dumpPath}");
 
@@ -65,6 +65,13 @@ namespace NuSearch.Harvester
 				Interlocked.Increment(ref page);
 				Console.WriteLine($"Downloaded {page}/{numberOfPages} pages, written {partition} files");
 			});
+
+			if (packages.Count > 0)
+			{
+				WritePackages(packages, dumpPath, partition);
+				partition++;
+				Console.WriteLine($"Downloaded {page}/{numberOfPages} pages, written {partition} files");
+			}
 
 			var span = DateTime.Now - startTime;
 			Console.WriteLine($"Harvesting completed in: {span}");

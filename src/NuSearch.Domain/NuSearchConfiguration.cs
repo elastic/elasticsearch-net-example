@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Nest;
 using NuSearch.Domain.Model;
 
@@ -41,6 +42,7 @@ namespace NuSearch.Domain
 
 		public static string CreateIndexName() => $"{LiveIndexAlias}-{DateTime.UtcNow:dd-MM-yyyy-HH-mm-ss}";
 
-		public static string PackagePath => @"C:\nuget-data";
+		public static string PackagePath => 
+			RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? @"C:\nuget-data" : "/nuget-data";
 	}
 }

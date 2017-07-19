@@ -50,7 +50,6 @@ namespace NuSearch.Harvester.Nuget
 		private static readonly XName _xnamePackageHash = XName.Get("PackageHash", DataServicesNS);
 		private static readonly XName _xnamePackageHashAlgorithm = XName.Get("PackageHashAlgorithm", DataServicesNS);
 		private static readonly XName _xnameMinClientVersion = XName.Get("MinClientVersion", DataServicesNS);
-
 		private static readonly XName _xnamePackageSize = XName.Get("PackageSize", DataServicesNS);
 		private static readonly XName _xnameVersionDownloadCount = XName.Get("VersionDownloadCount", DataServicesNS);
 		private static readonly XName _xnameCopyright = XName.Get("Copyright", DataServicesNS);
@@ -59,6 +58,7 @@ namespace NuSearch.Harvester.Nuget
 		private static readonly XName _xnameGalleryDetailsUrl = XName.Get("GalleryDetailsUrl", DataServicesNS);
 		private static readonly XName _xnameReleaseNotes = XName.Get("ReleaseNotes", DataServicesNS);
 		private static readonly XName _xnameLastUpdated = XName.Get("LastUpdated", DataServicesNS);
+		private static readonly XName _xnameLastEdited = XName.Get("LastEdited", DataServicesNS);
 		private static readonly XName _xnameIsAbsoluteLatestVersion = XName.Get("IsAbsoluteLatestVersion", DataServicesNS);
 		private static readonly XName _xnameIsLatestVersion = XName.Get("IsLatestVersion", DataServicesNS);
 		private static readonly XName _xnameIsPrelease = XName.Get("IsPrerelease", DataServicesNS);
@@ -163,6 +163,7 @@ namespace NuSearch.Harvester.Nuget
 			var created = GetDate(properties, _xnameCreated);
 			var published = GetDate(properties, _xnamePublished);
 			var lastUpdated = GetDate(properties, _xnameLastUpdated);
+			var lastEdited = GetDate(properties, _xnameLastEdited);
 			var isAbsoluteLatestVersion = StringComparer.OrdinalIgnoreCase.Equals(bool.TrueString, GetString(properties, _xnameIsAbsoluteLatestVersion));
 			var isLatestVersion = StringComparer.OrdinalIgnoreCase.Equals(bool.TrueString, GetString(properties, _xnameIsLatestVersion));
 			var isPrerelease = StringComparer.OrdinalIgnoreCase.Equals(bool.TrueString, GetString(properties, _xnameIsPrelease));
@@ -197,6 +198,7 @@ namespace NuSearch.Harvester.Nuget
 				IsPreRelease = isPrerelease,
 				Language = language,
 				LastUpdated = lastUpdated,
+				LastEdited = lastEdited,
 				LicenseNames = licenseNames,
 				LicenseReportUrl = licenseReportUrl,
 				LicenseUrl = licenseUrl,

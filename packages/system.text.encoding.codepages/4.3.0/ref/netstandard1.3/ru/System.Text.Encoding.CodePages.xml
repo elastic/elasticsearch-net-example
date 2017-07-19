@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Text.Encoding.CodePages</name>
+  </assembly>
+  <members>
+    <member name="T:System.Text.CodePagesEncodingProvider">
+      <summary>Предоставляет доступ к поставщику кодирования для кодовые страницы, поддерживаемые в .NET Framework рабочего стола, но не в Версия-кандидат .NET Framework 4.6. </summary>
+    </member>
+    <member name="P:System.Text.CodePagesEncodingProvider.Instance">
+      <summary>Возвращает поставщик кодировки для кодовых страниц поддерживается в .NET Framework рабочего стола, но не в текущей платформы .NET Framework. </summary>
+      <returns>Поставщик кодирования, который позволяет получить доступ к кодирование не поддерживается в Версия-кандидат .NET Framework 4.6. </returns>
+    </member>
+  </members>
+</doc>

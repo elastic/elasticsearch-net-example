@@ -1,0 +1,2625 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Linq.Parallel</name>
+  </assembly>
+  <members>
+    <member name="T:System.Linq.OrderedParallelQuery`1">
+      <summary>表示已排序的平行序列。</summary>
+      <typeparam name="TSource">來源集合中的項目型別。</typeparam>
+    </member>
+    <member name="M:System.Linq.OrderedParallelQuery`1.GetEnumerator">
+      <summary>傳回會逐一查看序列的列舉程式。</summary>
+      <returns>可逐一查看序列的列舉程式。</returns>
+    </member>
+    <member name="T:System.Linq.ParallelEnumerable">
+      <summary>提供一組方法，這些方法會用於查詢實作 ParallelQuery{TSource} 的物件。在平行查詢方面，這些方法相當於 <see cref="T:System.Linq.Enumerable" />。</summary>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Aggregate``3(System.Linq.ParallelQuery{``0},System.Func{``1},System.Func{``1,``0,``1},System.Func{``1,``1,``1},System.Func{``1,``2})">
+      <summary>將累加函式同時套用到序列。這個多載不能用於循序實作。</summary>
+      <returns>轉換後的最終累加值。</returns>
+      <param name="source">所要彙總的序列。</param>
+      <param name="seedFactory">傳回初始累加值的函式。</param>
+      <param name="updateAccumulatorFunc">要在分割中每個項目上叫用的累加函式。</param>
+      <param name="combineAccumulatorsFunc">累加函式，要從每個分割上所產生累加結果上叫用。</param>
+      <param name="resultSelector">用來將最終累加值轉換成結果值的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TAccumulate">累積值的類型。</typeparam>
+      <typeparam name="TResult">結果值的類型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="seedFactory" /> 或 <paramref name="updateAccumulatorFunc" /> 或 <paramref name="combineAccumulatorsFunc" /> 或 <paramref name="resultSelector" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Aggregate``1(System.Linq.ParallelQuery{``0},System.Func{``0,``0,``0})">
+      <summary>將累加函式同時套用到序列。</summary>
+      <returns>最終累積值。</returns>
+      <param name="source">所要彙總的序列。</param>
+      <param name="func">要在每個項目上叫用 (Invoke) 的累加函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="func" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Aggregate``2(System.Linq.ParallelQuery{``0},``1,System.Func{``1,``0,``1})">
+      <summary>將累加函式同時套用到序列。使用指定的初始值做為初始累加值。</summary>
+      <returns>最終累積值。</returns>
+      <param name="source">所要彙總的序列。</param>
+      <param name="seed">初始累積值。</param>
+      <param name="func">要在每個項目上叫用 (Invoke) 的累加函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TAccumulate">累積值的類型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="func" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Aggregate``3(System.Linq.ParallelQuery{``0},``1,System.Func{``1,``0,``1},System.Func{``1,``2})">
+      <summary>將累加函式同時套用到序列。使用指定的值做為初始累加值，並使用指定的函式來選取結果值。</summary>
+      <returns>轉換後的最終累加值。</returns>
+      <param name="source">所要彙總的序列。</param>
+      <param name="seed">初始累積值。</param>
+      <param name="func">要在每個項目上叫用 (Invoke) 的累加函式。</param>
+      <param name="resultSelector">用來將最終累加值轉換成結果值的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TAccumulate">累積值的類型。</typeparam>
+      <typeparam name="TResult">結果值的類型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="func" /> 或 <paramref name="resultSelector" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Aggregate``3(System.Linq.ParallelQuery{``0},``1,System.Func{``1,``0,``1},System.Func{``1,``1,``1},System.Func{``1,``2})">
+      <summary>將累加函式同時套用到序列。這個多載不能用於循序實作。</summary>
+      <returns>轉換後的最終累加值。</returns>
+      <param name="source">所要彙總的序列。</param>
+      <param name="seed">初始累積值。</param>
+      <param name="updateAccumulatorFunc">要在分割中每個項目上叫用的累加函式。</param>
+      <param name="combineAccumulatorsFunc">累加函式，要從每個分割上所產生累加結果上叫用。</param>
+      <param name="resultSelector">用來將最終累加值轉換成結果值的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TAccumulate">累積值的類型。</typeparam>
+      <typeparam name="TResult">結果值的類型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="updateAccumulatorFunc" /> 或 <paramref name="combineAccumulatorsFunc" /> 或 <paramref name="resultSelector" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.All``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>以平行方式判斷序列的所有項目是否都滿足條件。</summary>
+      <returns>如果來源序列的每個項目都通過以指定之述詞進行的測試，或序列是空的，則為 true，否則為 false。</returns>
+      <param name="source">要對其中項目套用述詞的序列。</param>
+      <param name="predicate">用來測試每個項目是否符合條件的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Any``1(System.Linq.ParallelQuery{``0})">
+      <summary>判斷平行序列是否包含任何項目。</summary>
+      <returns>如果來源序列包含任何項目則為 true，否則為 false。</returns>
+      <param name="source">要檢查是否為空的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Any``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>以平行方式判斷是否有任何序列項目滿足條件。</summary>
+      <returns>如果來源序列中有任何項目通過指定述詞的測試則為 true，否則為 false。</returns>
+      <param name="source">將對其中項目套用述詞的序列。</param>
+      <param name="predicate">用來測試每個項目是否符合條件的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.AsEnumerable``1(System.Linq.ParallelQuery{``0})">
+      <summary>將 <see cref="T:System.Linq.ParallelQuery`1" /> 轉換為 <see cref="T:System.Collections.Generic.IEnumerable`1" />，以便強制進行查詢的循序評估。</summary>
+      <returns>型別為 <see cref="T:System.Collections.Generic.IEnumerable`1" /> 的輸入序列。</returns>
+      <param name="source">轉換為 <see cref="T:System.Collections.Generic.IEnumerable`1" /> 的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.AsOrdered(System.Linq.ParallelQuery)">
+      <summary>覆寫未排序的預設值，將資料來源當做已排序來處理。只有在由 AsParallel、ParallelEnumerable.Range 和 ParallelEnumerable.Repeat 傳回的非泛型序列上，才可叫用 AsOrdered。</summary>
+      <returns>將維持後續查詢運算子內原始順序的來源序列。</returns>
+      <param name="source">輸入序列。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.InvalidOperationException">如果 <paramref name="source" /> 未包含任何項目時擲回。-或-如果在查詢途中呼叫 AsOrdered。可在 <see cref="M:System.Linq.ParallelEnumerable.AsParallel(System.Collections.IEnumerable)" />, <see cref="M:System.Linq.ParallelEnumerable.Range(System.Int32,System.Int32)" /> 或 <see cref="M:System.Linq.ParallelEnumerable.Repeat``1(``0,System.Int32)" /> 之後立即呼叫。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.AsOrdered``1(System.Linq.ParallelQuery{``0})">
+      <summary>覆寫未排序的預設值，將資料來源當做已排序來處理。只有在由 AsParallel、ParallelEnumerable.Range 和 ParallelEnumerable.Repeat 傳回的泛型序列上，才可叫用 AsOrdered。</summary>
+      <returns>將維持後續查詢運算子內原始順序的來源序列。</returns>
+      <param name="source">輸入序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.InvalidOperationException">如果 <paramref name="source" /> 未包含任何項目時擲回。-或-如果 <paramref name="source" /> 不是 AsParallel、ParallelEnumerable.Range 或 ParallelEnumerable.Repeat。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.AsParallel``1(System.Collections.Concurrent.Partitioner{``0})">
+      <summary>啟用查詢的平行化作業，此時則指定負責將輸入序列分成多個分割的自訂 Partitioner 處理來源。</summary>
+      <returns>當 ParallelQuery 繫結到 ParallelEnumerable 擴充方法時的 <paramref name="source" />。</returns>
+      <param name="source">輸入序列的 Partitioner。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.AsParallel``1(System.Collections.Generic.IEnumerable{``0})">
+      <summary>啟用查詢的平行化作業。</summary>
+      <returns>將來源 <see cref="T:System.Linq.ParallelQuery`1" /> 繫結到 ParallelEnumerable 擴充方法。</returns>
+      <param name="source">
+        <see cref="T:System.Collections.Generic.IEnumerable`1" />，要轉換成 <see cref="T:System.Linq.ParallelQuery`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.AsParallel(System.Collections.IEnumerable)">
+      <summary>啟用查詢的平行化作業。</summary>
+      <returns>當 ParallelQuery 繫結到 ParallelEnumerable 擴充方法時的來源。</returns>
+      <param name="source">
+        <see cref="T:System.Collections.Generic.IEnumerable`1" />，要轉換成 <see cref="T:System.Linq.ParallelQuery" />。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.AsSequential``1(System.Linq.ParallelQuery{``0})">
+      <summary>將 <see cref="T:System.Linq.ParallelQuery`1" /> 轉換為 <see cref="T:System.Collections.Generic.IEnumerable`1" />，以便強制進行查詢的循序評估。</summary>
+      <returns>當 <see cref="T:System.Collections.Generic.IEnumerable`1" /> 繫結到循序擴充方法時的來源。</returns>
+      <param name="source">
+        <see cref="T:System.Linq.ParallelQuery`1" />，要轉換成 <see cref="T:System.Collections.Generic.IEnumerable`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.AsUnordered``1(System.Linq.ParallelQuery{``0})">
+      <summary>允許將中繼查詢當做項目之中未套用順序的方式來進行處理。</summary>
+      <returns>具有任意順序的來源序列。</returns>
+      <param name="source">輸入序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Decimal})">
+      <summary>同時計算值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Double})">
+      <summary>同時計算值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Int32})">
+      <summary>同時計算值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">序列中項目的總和或計數大於 <see cref="F:System.Int32.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Int64})">
+      <summary>同時計算值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">序列中項目的總和或計數大於 <see cref="F:System.Int32.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Nullable{System.Decimal}})">
+      <summary>同時計算值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Nullable{System.Double}})">
+      <summary>同時計算值序列的平均值。</summary>
+      <returns>傳回值序列的平均值。</returns>
+      <param name="source">來源序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">用來計算平均值的序列。值序列的平均值。<paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Nullable{System.Int32}})">
+      <summary>同時計算值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">序列中項目的總和或計數大於 <see cref="F:System.Int32.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Nullable{System.Int64}})">
+      <summary>同時計算值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">序列中項目的總和或計數大於 <see cref="F:System.Int32.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Nullable{System.Single}})">
+      <summary>同時計算值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Single})">
+      <summary>同時計算值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Decimal})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+      <exception cref="T:System.OverflowException">(做為 <see cref="T:System.AggregateException" /> 中的內部例外狀況擲回)。<paramref name="selector" /> 函式傳回大於項目類型之 MaxValue 的値。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Double})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+      <exception cref="T:System.OverflowException">(做為 <see cref="T:System.AggregateException" /> 中的內部例外狀況擲回)。<paramref name="selector" /> 函式傳回大於項目類型之 MaxValue 的値。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">序列中項目的總和或計數大於 <see cref="F:System.Int32.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+      <exception cref="T:System.OverflowException">(做為 <see cref="T:System.AggregateException" /> 中的內部例外狀況擲回)。<paramref name="selector" /> 函式傳回大於項目類型之 MaxValue 的値。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int64})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">序列中項目的總和或計數大於 <see cref="F:System.Int32.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+      <exception cref="T:System.OverflowException">(做為 <see cref="T:System.AggregateException" /> 中的內部例外狀況擲回)。<paramref name="selector" /> 函式傳回大於項目類型之 MaxValue 的値。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Decimal}})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+      <exception cref="T:System.OverflowException">(做為 <see cref="T:System.AggregateException" /> 中的內部例外狀況擲回)。<paramref name="selector" /> 函式傳回大於項目類型之 MaxValue 的値。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Double}})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+      <exception cref="T:System.OverflowException">(做為 <see cref="T:System.AggregateException" /> 中的內部例外狀況擲回)。<paramref name="selector" /> 函式傳回大於項目類型之 MaxValue 的値。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Int32}})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">序列中項目的總和或計數大於 <see cref="F:System.Int32.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+      <exception cref="T:System.OverflowException">(做為 <see cref="T:System.AggregateException" /> 中的內部例外狀況擲回)。<paramref name="selector" /> 函式傳回大於項目類型之 MaxValue 的値。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Int64}})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">序列中項目的總和或計數大於 <see cref="F:System.Int64.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+      <exception cref="T:System.OverflowException">(做為 <see cref="T:System.AggregateException" /> 中的內部例外狀況擲回)。<paramref name="selector" /> 函式傳回大於項目類型之 MaxValue 的値。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Single}})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+      <exception cref="T:System.OverflowException">(做為 <see cref="T:System.AggregateException" /> 中的內部例外狀況擲回)。<paramref name="selector" /> 函式傳回大於項目類型之 MaxValue 的値。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Single})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的平均值。</summary>
+      <returns>值序列的平均。</returns>
+      <param name="source">用來計算平均值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+      <exception cref="T:System.OverflowException">(做為 <see cref="T:System.AggregateException" /> 中的內部例外狀況擲回)。<paramref name="selector" /> 函式傳回大於項目類型之 MaxValue 的値。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Cast``1(System.Linq.ParallelQuery)">
+      <summary>將 ParallelQuery 的項目轉換為指定的類型。</summary>
+      <returns>序列，包含已轉換成指定之類型的每個來源序列項目。</returns>
+      <param name="source">序列，包含要轉換的項目。</param>
+      <typeparam name="TResult">要將 <paramref name="source" /> 之項目轉換成的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.InvalidCastException">無法將來源序列的型別轉換為 <paramref name="TResult" />。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Concat``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0})">
+      <summary>永遠不可叫用這個 Concat 多載。此方法已標記為過時，呼叫它時永遠會擲回 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>這個多載一定會擲回 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">不使用這個參數。</param>
+      <param name="second">不使用這個參數。</param>
+      <typeparam name="TSource">不使用這個類型參數。</typeparam>
+      <exception cref="T:System.NotSupportedException">當呼叫這個方法時所發生的例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Concat``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0})">
+      <summary>串連兩個平行序列。</summary>
+      <returns>序列，包含兩個輸入序列的串連項目。</returns>
+      <param name="first">要串連的第一個序列。</param>
+      <param name="second">要串連到第一個序列的序列。</param>
+      <typeparam name="TSource">輸入序列之項目的類型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="first" /> 或 <paramref name="second" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Contains``1(System.Linq.ParallelQuery{``0},``0)">
+      <summary>使用預設等號比較子來比較值，以平行方式來判斷序列是否包含指定的項目。</summary>
+      <returns>如果來源序列包含具有指定值的項目，則為 true，否則為 false。</returns>
+      <param name="source">要在其中尋找值的序列。</param>
+      <param name="value">要在序列中尋找的值。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Contains``1(System.Linq.ParallelQuery{``0},``0,System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>使用指定的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />，以平行方式來判斷序列是否包含指定的項目。</summary>
+      <returns>如果來源序列包含具有指定值的項目，則為 true，否則為 false。</returns>
+      <param name="source">要在其中尋找值的序列。</param>
+      <param name="value">要在序列中尋找的值。</param>
+      <param name="comparer">用來比較值的相等比較子。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Count``1(System.Linq.ParallelQuery{``0})">
+      <summary>傳回平行序列中的項目數目。</summary>
+      <returns>輸入序列中的項目數目。</returns>
+      <param name="source">包含要計算之項目的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">來源中的項目數目大於 <see cref="F:System.Int32.MaxValue" />。(在這種情況下，InnerException 是 <see cref="T:System.OverflowException" />)-或-查詢的評估期間發生的一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Count``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>傳回數字，表示指定之平行序列中滿足條件的項目數目。</summary>
+      <returns>數字，代表序列中符合述詞函式之條件的項目數目。</returns>
+      <param name="source">包含要計算之項目的序列。</param>
+      <param name="predicate">用來測試每個項目是否符合條件的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">來源中的項目數目大於 <see cref="F:System.Int32.MaxValue" />。(在這種情況下，InnerException 是 <see cref="T:System.OverflowException" />)-或-查詢的評估期間發生的一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.DefaultIfEmpty``1(System.Linq.ParallelQuery{``0})">
+      <summary>傳回指定之平行序列的項目，如果序列是空的，則傳回單一集合中泛型類型的預設值。</summary>
+      <returns>如果 <paramref name="source" /> 是空的，則傳回包含 default(TSource) 的序列，否則傳回 <paramref name="source" />。</returns>
+      <param name="source">序列，若此序列空白，便傳回預設值。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.DefaultIfEmpty``1(System.Linq.ParallelQuery{``0},``0)">
+      <summary>傳回指定之平行序列的項目，如果序列是空的，則傳回單一集合中泛型類型的預設值。</summary>
+      <returns>如果 <paramref name="source" /> 是空的，則傳回包含 defaultValue 的序列，否則傳回 <paramref name="source" />。</returns>
+      <param name="source">序列，若此序列空白，便傳回指定的值。</param>
+      <param name="defaultValue">在序列空白時所要傳回的值。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Distinct``1(System.Linq.ParallelQuery{``0})">
+      <summary>使用預設的等號比較子來比較值，以便從平行序列傳回不同的項目。</summary>
+      <returns>序列，包含來源序列中的不同項目。</returns>
+      <param name="source">要移除重複項目的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Distinct``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>使用指定的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> 來比較值，以便從平行序列傳回獨特的項目。</summary>
+      <returns>序列，包含來源序列中的不同項目。</returns>
+      <param name="source">要移除重複項目的序列。</param>
+      <param name="comparer">用來比較值的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ElementAt``1(System.Linq.ParallelQuery{``0},System.Int32)">
+      <summary>傳回位於平行序列中指定之索引處的項目。</summary>
+      <returns>位於來源序列中指定位置的項目。</returns>
+      <param name="source">要從其中傳回項目的序列。</param>
+      <param name="index">要擷取的項目之以零為起始索引。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="index" /> 小於 0 或大於或等於 <paramref name="source" /> 中的項目數目。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ElementAtOrDefault``1(System.Linq.ParallelQuery{``0},System.Int32)">
+      <summary>傳回位於平行序列中指定索引處的項目，如果索引超出範圍，則傳回預設值。</summary>
+      <returns>如果索引位於來源序列的界限之外，則為 default(TSource)，否則為位於來源序列中指定索引處的項目。</returns>
+      <param name="source">要從其中傳回項目的序列。</param>
+      <param name="index">要擷取的項目之以零為起始索引。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Empty``1">
+      <summary>傳回具有指定之類型引數的空白 ParallelQuery{TResult}。</summary>
+      <returns>其型別引數為 <paramref name="TResult" /> 的空白序列。</returns>
+      <typeparam name="TResult">類型，用來指派給傳回之泛型序列的泛型類型。</typeparam>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Except``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0})">
+      <summary>永遠不可叫用這個 Except 多載。此方法已標記為過時，呼叫它時永遠會擲回 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>這個多載一定會擲回 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">不使用這個參數。</param>
+      <param name="second">不使用這個參數。</param>
+      <typeparam name="TSource">不使用這個類型參數。</typeparam>
+      <exception cref="T:System.NotSupportedException">當呼叫這個方法時所發生的例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Except``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>永遠不可叫用這個 Except 多載。此方法已標記為過時，呼叫它時永遠會擲回 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>這個多載一定會擲回 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">不使用這個參數。</param>
+      <param name="second">不使用這個參數。</param>
+      <param name="comparer">不使用這個參數。</param>
+      <typeparam name="TSource">不使用這個類型參數。</typeparam>
+      <exception cref="T:System.NotSupportedException">當呼叫這個方法時所發生的例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Except``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0})">
+      <summary>使用預設相等比較子來比較值，以便產生兩個平行序列的集合差異。</summary>
+      <returns>序列，其中包含兩個序列之項目的差異。</returns>
+      <param name="first">序列，其中同時不在 <paramref name="second" /> 內的項目將會傳回。</param>
+      <param name="second">項目，若其項目同時出現在第一個序列中，便會從傳回的序列中移除這些項目。</param>
+      <typeparam name="TSource">輸入序列之項目的類型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="first" /> 或 <paramref name="second" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Except``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>使用指定的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> 來比較值，以便產生兩個平行序列的差異。</summary>
+      <returns>序列，其中包含兩個序列之項目的差異。</returns>
+      <param name="first">序列，其中同時不在 <paramref name="second" /> 內的項目將會傳回。</param>
+      <param name="second">項目，若其項目同時出現在第一個序列中，便會從傳回的序列中移除這些項目。 </param>
+      <param name="comparer">用來比較值的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">輸入序列之項目的類型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="first" /> 或 <paramref name="second" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.First``1(System.Linq.ParallelQuery{``0})">
+      <summary>傳回平行序列的第一個項目。</summary>
+      <returns>指定之序列中的第一個項目。</returns>
+      <param name="source">要傳回其第一個項目的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.First``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>傳回平行序列中符合指定之條件的第一個項目。</summary>
+      <returns>序列中通過指定之述詞函式所做測試的第一個項目。</returns>
+      <param name="source">要從傳回其項目的序列。</param>
+      <param name="predicate">用來測試每個項目是否符合條件的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中沒有任何項目符合 <paramref name="predicate" /> 中的條件。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.FirstOrDefault``1(System.Linq.ParallelQuery{``0})">
+      <summary>傳回平行序列的第一個項目，如果序列中沒有包含任何項目，則傳回預設值。</summary>
+      <returns>如果 <paramref name="source" /> 是空的，則為 default(TSource)，否則為 <paramref name="source" /> 中的第一個項目。</returns>
+      <param name="source">要傳回其第一個項目的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.FirstOrDefault``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>傳回平行序列中符合條件的第一個項目，如果找不到這類項目，則傳回預設值。</summary>
+      <returns>如果 <paramref name="source" /> 為空或所有項目皆未通過述詞指定的測試，則為 default(TSource)，否則為 <paramref name="source" /> 中通過述詞指定測試的第一個項目。</returns>
+      <param name="source">要從傳回其項目的序列。</param>
+      <param name="predicate">用來測試每個項目是否符合條件的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ForAll``1(System.Linq.ParallelQuery{``0},System.Action{``0})">
+      <summary>以平行方式，叫用 <paramref name="source" /> 中每個項目的指定動作。</summary>
+      <param name="source">
+        <see cref="T:System.Linq.ParallelQuery`1" />，其項目將由 <paramref name="action" /> 處理。</param>
+      <param name="action">要在每個項目上叫用的動作。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupBy``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1})">
+      <summary>依據指定的索引鍵選取器函式，以平行方式來分組序列的項目。</summary>
+      <returns>已根據 <paramref name="TKey" /> 經過遞減排序的群組序列。</returns>
+      <param name="source">包含要排序之項目的 OrderedParallelQuery{TSource}。</param>
+      <param name="keySelector">用來從項目擷取索引鍵的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupBy``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
+      <summary>依據指定的索引鍵選取器函式，以平行方式來分組序列的項目，並使用指定的 <see cref="T:System.Collections.Generic.IComparer`1" /> 來比較索引鍵。</summary>
+      <returns>已根據 <paramref name="TKey" /> 經過遞減排序的群組序列。</returns>
+      <param name="source">包含要排序之項目的 <see cref="T:System.Linq.OrderedParallelQuery`1" />。</param>
+      <param name="keySelector">用來從項目擷取索引鍵的函式。</param>
+      <param name="comparer">用來比較索引鍵的 <see cref="T:System.Collections.Generic.IComparer`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">由 <paramref name="keySelector" />&gt; 傳回之索引鍵的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupBy``3(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``0,``2})">
+      <summary>依據指定的索引鍵選取器函式，以平行方式分組序列的項目，並使用指定的函式來規劃每個群組的項目。</summary>
+      <returns>已根據 <paramref name="TKey" /> 經過遞減排序的群組序列。</returns>
+      <param name="source">包含要排序之項目的 <see cref="T:System.Linq.OrderedParallelQuery`1" />。</param>
+      <param name="keySelector">用來從項目擷取索引鍵的函式。</param>
+      <param name="elementSelector">用來將每個來源項目對應至 <see cref="T:System.Linq.IGrouping`2" /> 之項目的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <typeparam name="TElement">
+        <see cref="T:System.Linq.IGrouping`2" /> 中的項目型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupBy``3(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1})">
+      <summary>依據索引鍵選取器函式，以平行方式來分組序列的項目。索引鍵是使用比較子來進行比較，而每個群組的項目都是利用指定的函式進行投影。</summary>
+      <returns>已根據 <paramref name="TKey" /> 經過遞減排序的群組序列。</returns>
+      <param name="source">包含要排序之項目的 OrderedParallelQuery{TSource}。</param>
+      <param name="keySelector">用來從項目擷取索引鍵的函式。</param>
+      <param name="elementSelector">函式，用來將每個來源項目對應至 IGrouping 的項目。</param>
+      <param name="comparer">要比較索引鍵的 IComparer{TSource}。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <typeparam name="TElement">IGrouping 中項目的類型</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupBy``4(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``0,``2},System.Func{``1,System.Collections.Generic.IEnumerable{``2},``3})">
+      <summary>依據指定的索引鍵選取器函式來同時群組序列的項目，並從每個群組及其索引鍵建立結果值。每個群組的項目都是利用指定的函式進行投影。</summary>
+      <returns>
+        <paramref name="TResult" /> 型別項目的序列，其中每個項目都代表群組及其索引鍵的投影。</returns>
+      <param name="source">其中的項目要進行分組的序列。</param>
+      <param name="keySelector">用來擷取各項目之索引鍵的函式。</param>
+      <param name="elementSelector">函式，用來將每個來源項目對應至 IGrouping&lt;TKey, TElement&gt; 的項目。</param>
+      <param name="resultSelector">用來從各個群組建立結果值的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <typeparam name="TElement">每個 IGrouping{TKey, TElement} 中項目的類型。</typeparam>
+      <typeparam name="TResult">
+        <paramref name="resultSelector" /> 所傳回之結果值的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupBy``4(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``0,``2},System.Func{``1,System.Collections.Generic.IEnumerable{``2},``3},System.Collections.Generic.IEqualityComparer{``1})">
+      <summary>依據指定的索引鍵選取器函式來群組序列的項目，並從每個群組及其索引鍵建立結果值。索引鍵值是使用指定的比較子來進行比較，而每個群組的項目則都是利用指定的函式進行投影。</summary>
+      <returns>
+        <paramref name="TResult" /> 型別項目的序列，其中每個項目都代表群組及其索引鍵的投影。</returns>
+      <param name="source">其中的項目要進行分組的序列。</param>
+      <param name="keySelector">用來擷取各項目之索引鍵的函式。</param>
+      <param name="elementSelector">函式，用來將每個來源項目對應至 IGrouping{Key, TElement} 的項目。</param>
+      <param name="resultSelector">用來從各個群組建立結果值的函式。</param>
+      <param name="comparer">用來比較索引鍵的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <typeparam name="TElement">每個 IGrouping{TKey, TElement} 中項目的類型。</typeparam>
+      <typeparam name="TResult">
+        <paramref name="resultSelector" /> 所傳回之結果值的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupBy``3(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``1,System.Collections.Generic.IEnumerable{``0},``2})">
+      <summary>依據指定的索引鍵選取器函式來同時群組序列的項目，並從每個群組及其索引鍵建立結果值。</summary>
+      <returns>
+        <paramref name="TResult" /> 型別項目的序列，其中每個項目都代表群組及其索引鍵的投影。</returns>
+      <param name="source">其中的項目要進行分組的序列。</param>
+      <param name="keySelector">用來擷取各項目之索引鍵的函式。</param>
+      <param name="resultSelector">用來從各個群組建立結果值的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <typeparam name="TResult">
+        <paramref name="resultSelector" /> 所傳回之結果值的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupBy``3(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``1,System.Collections.Generic.IEnumerable{``0},``2},System.Collections.Generic.IEqualityComparer{``1})">
+      <summary>依據指定的索引鍵選取器函式來同時群組序列的項目，並從每個群組及其索引鍵建立結果值。索引鍵是使用指定的比較子來進行比較。</summary>
+      <returns>群組序列。</returns>
+      <param name="source">其中的項目要進行分組的序列。</param>
+      <param name="keySelector">用來擷取各項目之索引鍵的函式。</param>
+      <param name="resultSelector">用來從各個群組建立結果值的函式。</param>
+      <param name="comparer">用來比較索引鍵的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <typeparam name="TResult">
+        <paramref name="resultSelector" /> 所傳回之結果值的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupJoin``4(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,System.Collections.Generic.IEnumerable{``1},``3})">
+      <summary>永遠不可叫用這個 GroupJoin 多載。此方法已標記為過時，呼叫它時永遠會擲回 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>這個多載一定會擲回 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="outer">不使用這個參數。</param>
+      <param name="inner">不使用這個參數。</param>
+      <param name="outerKeySelector">不使用這個參數。</param>
+      <param name="innerKeySelector">不使用這個參數。</param>
+      <param name="resultSelector">不使用這個參數。</param>
+      <typeparam name="TOuter">不使用這個類型參數。</typeparam>
+      <typeparam name="TInner">不使用這個類型參數。</typeparam>
+      <typeparam name="TKey">不使用這個類型參數。</typeparam>
+      <typeparam name="TResult">不使用這個類型參數。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupJoin``4(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,System.Collections.Generic.IEnumerable{``1},``3},System.Collections.Generic.IEqualityComparer{``2})">
+      <summary>永遠不可叫用這個 GroupJoin 多載。此方法已標記為過時，呼叫它時永遠會擲回 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>這個多載一定會擲回 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="outer">不使用這個參數。</param>
+      <param name="inner">不使用這個參數。</param>
+      <param name="outerKeySelector">不使用這個參數。</param>
+      <param name="innerKeySelector">不使用這個參數。</param>
+      <param name="resultSelector">不使用這個參數。</param>
+      <param name="comparer">不使用這個參數。</param>
+      <typeparam name="TOuter">不使用這個類型參數。</typeparam>
+      <typeparam name="TInner">不使用這個類型參數。</typeparam>
+      <typeparam name="TKey">不使用這個類型參數。</typeparam>
+      <typeparam name="TResult">不使用這個類型參數。</typeparam>
+      <exception cref="T:System.NotSupportedException">當呼叫這個方法時所發生的例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupJoin``4(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,System.Collections.Generic.IEnumerable{``1},``3})">
+      <summary>根據索引鍵相等與否，以平行方式將兩個序列的項目相互關聯，並分組產生的結果。預設的相等比較子是用於比較索引鍵。</summary>
+      <returns>序列，其中具有透過對兩個序列執行群組聯結所取得之型別 <paramref name="TResult" /> 的項目。</returns>
+      <param name="outer">要聯結的第一個序列。</param>
+      <param name="inner">要加入第一個序列的序列。</param>
+      <param name="outerKeySelector">用來從第一個序列各個項目擷取聯結索引鍵的函式。</param>
+      <param name="innerKeySelector">用來從第二個序列各個項目擷取聯結索引鍵的函式。</param>
+      <param name="resultSelector">函式，用來從第一個序列的項目以及第二個序列的相符項目集合建立結果項目。</param>
+      <typeparam name="TOuter">第二個序列之項目的類型。</typeparam>
+      <typeparam name="TInner">第一個序列之項目的類型。</typeparam>
+      <typeparam name="TKey">索引鍵選取器函式所傳回之索引鍵的類型。</typeparam>
+      <typeparam name="TResult">結果項目的類型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupJoin``4(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,System.Collections.Generic.IEnumerable{``1},``3},System.Collections.Generic.IEqualityComparer{``2})">
+      <summary>根據索引鍵相等與否，以平行方式將兩個序列的項目相互關聯，並分組產生的結果。指定的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> 是用於比較索引鍵。</summary>
+      <returns>序列，其中具有透過對兩個序列執行群組聯結所取得之型別 <paramref name="TResult" /> 的項目。</returns>
+      <param name="outer">要聯結的第一個序列。</param>
+      <param name="inner">要加入第一個序列的序列。</param>
+      <param name="outerKeySelector">用來從第一個序列各個項目擷取聯結索引鍵的函式。</param>
+      <param name="innerKeySelector">用來從第二個序列各個項目擷取聯結索引鍵的函式。</param>
+      <param name="resultSelector">函式，用來從第一個序列的項目以及第二個序列的相符項目集合建立結果項目。</param>
+      <param name="comparer">用來雜湊及比較索引鍵的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TOuter">第二個序列之項目的類型。</typeparam>
+      <typeparam name="TInner">第一個序列之項目的類型。</typeparam>
+      <typeparam name="TKey">索引鍵選取器函式所傳回之索引鍵的類型。</typeparam>
+      <typeparam name="TResult">結果項目的類型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Intersect``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0})">
+      <summary>永遠不可叫用這個 Intersect 多載。此方法已標記為過時，呼叫它時永遠會擲回 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>這個多載一定會擲回 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">不使用這個參數。</param>
+      <param name="second">不使用這個參數。</param>
+      <typeparam name="TSource">不使用這個類型參數。</typeparam>
+      <exception cref="T:System.NotSupportedException">當呼叫這個方法時所發生的例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Intersect``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>永遠不可叫用這個 Intersect 多載。此方法已標記為過時，呼叫它時永遠會擲回 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>這個多載一定會擲回 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">不使用這個參數。</param>
+      <param name="second">不使用這個參數。</param>
+      <param name="comparer">不使用這個參數。</param>
+      <typeparam name="TSource">不使用這個類型參數。</typeparam>
+      <exception cref="T:System.NotSupportedException">當呼叫這個方法時所發生的例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Intersect``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0})">
+      <summary>使用預設相等比較子來比較值，以便產生兩個平行序列的集合交集。</summary>
+      <returns>序列，其中包含形成兩個序列之交集的項目。</returns>
+      <param name="first">序列，其同時出現在 <paramref name="second" /> 的不同項目將會傳回。</param>
+      <param name="second">序列，其同時出現在第一個序列中的不同項目將會傳回。</param>
+      <typeparam name="TSource">輸入序列之項目的類型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Intersect``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>使用指定的 IEqualityComparer{T} 來比較值，以便產生兩個平行序列的集合交集。</summary>
+      <returns>序列，其中包含形成兩個序列之交集的項目。</returns>
+      <param name="first">序列，其同時出現在 <paramref name="second" /> 的不同項目將會傳回。</param>
+      <param name="second">序列，其同時出現在第一個序列中的不同項目將會傳回。</param>
+      <param name="comparer">用來比較值的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">輸入序列之項目的類型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Join``4(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,``1,``3})">
+      <summary>永遠不可叫用這個 Join 多載。此方法已標記為過時，叫用它時永遠會擲回 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>這個多載一定會擲回 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="outer">不使用這個參數。</param>
+      <param name="inner">不使用這個參數。</param>
+      <param name="outerKeySelector">不使用這個參數。</param>
+      <param name="innerKeySelector">不使用這個參數。</param>
+      <param name="resultSelector">不使用這個參數。</param>
+      <typeparam name="TOuter">不使用這個類型參數。</typeparam>
+      <typeparam name="TInner">不使用這個類型參數。</typeparam>
+      <typeparam name="TKey">不使用這個類型參數。</typeparam>
+      <typeparam name="TResult">不使用這個類型參數。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Join``4(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,``1,``3},System.Collections.Generic.IEqualityComparer{``2})">
+      <summary>永遠不可叫用這個 Join 多載。此方法已標記為過時，叫用它時永遠會擲回 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>這個多載一定會擲回 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="outer">不使用這個參數。</param>
+      <param name="inner">不使用這個參數。</param>
+      <param name="outerKeySelector">不使用這個參數。</param>
+      <param name="innerKeySelector">不使用這個參數。</param>
+      <param name="resultSelector">不使用這個參數。</param>
+      <param name="comparer">不使用這個參數。</param>
+      <typeparam name="TOuter">不使用這個類型參數。</typeparam>
+      <typeparam name="TInner">不使用這個類型參數。</typeparam>
+      <typeparam name="TKey">不使用這個類型參數。</typeparam>
+      <typeparam name="TResult">不使用這個類型參數。</typeparam>
+      <exception cref="T:System.NotSupportedException">當呼叫這個方法時所發生的例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Join``4(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,``1,``3})">
+      <summary>根據相符索引鍵，以平行方式將兩個序列的項目相互關聯。預設的相等比較子是用於比較索引鍵。</summary>
+      <returns>序列，其中具有透過對兩個序列執行內部聯結所取得之型別 <paramref name="TResult" /> 的項目。</returns>
+      <param name="outer">要聯結的第一個序列。</param>
+      <param name="inner">要加入第一個序列的序列。</param>
+      <param name="outerKeySelector">用來從第一個序列各個項目擷取聯結索引鍵的函式。</param>
+      <param name="innerKeySelector">用來從第二個序列各個項目擷取聯結索引鍵的函式。</param>
+      <param name="resultSelector">用來從兩個相符項目建立結果項目的函式。</param>
+      <typeparam name="TOuter">第二個序列之項目的類型。</typeparam>
+      <typeparam name="TInner">第一個序列之項目的類型。</typeparam>
+      <typeparam name="TKey">索引鍵選取器函式所傳回之索引鍵的類型。</typeparam>
+      <typeparam name="TResult">結果項目的類型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Join``4(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,``1,``3},System.Collections.Generic.IEqualityComparer{``2})">
+      <summary>根據相符索引鍵，以平行方式將兩個序列的項目相互關聯。指定的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> 是用於比較索引鍵。</summary>
+      <returns>序列，其中具有透過對兩個序列執行內部聯結所取得之型別 <paramref name="TResult" /> 的項目。</returns>
+      <param name="outer">要聯結的第一個序列。</param>
+      <param name="inner">要加入第一個序列的序列。</param>
+      <param name="outerKeySelector">用來從第一個序列各個項目擷取聯結索引鍵的函式。</param>
+      <param name="innerKeySelector">用來從第二個序列各個項目擷取聯結索引鍵的函式。</param>
+      <param name="resultSelector">用來從兩個相符項目建立結果項目的函式。</param>
+      <param name="comparer">用來雜湊及比較索引鍵的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TOuter">第二個序列之項目的類型。</typeparam>
+      <typeparam name="TInner">第一個序列之項目的類型。</typeparam>
+      <typeparam name="TKey">索引鍵選取器函式所傳回之索引鍵的類型。</typeparam>
+      <typeparam name="TResult">結果項目的類型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Last``1(System.Linq.ParallelQuery{``0})">
+      <summary>傳回平行序列的最後一個項目。</summary>
+      <returns>位於來源序列中最後一個位置的值。</returns>
+      <param name="source">要傳回其最後一個項目的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Last``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>傳回平行序列中符合指定之條件的最後一個項目。</summary>
+      <returns>序列中通過指定之述詞函式所做測試的最後一個項目。</returns>
+      <param name="source">要從傳回其項目的序列。</param>
+      <param name="predicate">用來測試每個項目是否符合條件的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中沒有任何項目符合 <paramref name="predicate" /> 中的條件。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.LastOrDefault``1(System.Linq.ParallelQuery{``0})">
+      <summary>傳回平行序列的最後一個項目，如果序列中沒有包含任何項目，則傳回預設值。</summary>
+      <returns>如果來源序列是空的，則為 default()，否則為序列中的最後一個項目。</returns>
+      <param name="source">要從傳回其項目的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.LastOrDefault``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>傳回平行序列中符合條件的最後一個項目，如果找不到這類項目，則傳回預設值。</summary>
+      <returns>如果序列是空的，或是沒有任何項目通過述詞函式中的測試，則為 default()，否則為通過述詞函式之測試的最後一個項目。</returns>
+      <param name="source">要從傳回其項目的序列。</param>
+      <param name="predicate">用來測試每個項目是否符合條件的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.LongCount``1(System.Linq.ParallelQuery{``0})">
+      <summary>傳回平行序列中表示項目總數的 Int64。</summary>
+      <returns>輸入序列中的項目數目。</returns>
+      <param name="source">包含要計算之項目的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">來源中的項目數目大於 <see cref="F:System.Int64.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.OverflowException">計算的結果大於 <see cref="F:System.Int64.MaxValue" />。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.LongCount``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>傳回 Int64，其表示平行序列中滿足條件的項目數量。</summary>
+      <returns>數字，代表序列中符合述詞函式之條件的項目數目。</returns>
+      <param name="source">包含要計算之項目的序列。</param>
+      <param name="predicate">用來測試每個項目是否符合條件的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">來源中的項目數目大於 <see cref="F:System.Int64.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.OverflowException">計算的結果大於 <see cref="F:System.Int64.MaxValue" />。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Decimal})">
+      <summary>傳回平行值序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Double})">
+      <summary>傳回平行值序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Int32})">
+      <summary>傳回平行值序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Int64})">
+      <summary>傳回平行值序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Nullable{System.Decimal}})">
+      <summary>傳回平行值序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Nullable{System.Double}})">
+      <summary>傳回平行值序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Nullable{System.Int32}})">
+      <summary>傳回平行值序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Nullable{System.Int64}})">
+      <summary>傳回平行值序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Nullable{System.Single}})">
+      <summary>傳回平行值序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Single})">
+      <summary>傳回平行值序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0})">
+      <summary>傳回平行值序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <typeparam name="TSource">來源序列中項目的類型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Decimal})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Double})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int64})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Decimal}})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Double}})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Int32}})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Int64}})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Single}})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Single})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要判斷最大值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TResult">
+        <paramref name="selector" /> 所傳回值的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Decimal})">
+      <summary>傳回平行值序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Double})">
+      <summary>傳回平行值序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Int32})">
+      <summary>傳回平行值序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Int64})">
+      <summary>傳回平行值序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Nullable{System.Decimal}})">
+      <summary>傳回平行值序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Nullable{System.Double}})">
+      <summary>傳回平行值序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Nullable{System.Int32}})">
+      <summary>傳回平行值序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Nullable{System.Int64}})">
+      <summary>傳回平行值序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Nullable{System.Single}})">
+      <summary>傳回平行值序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Single})">
+      <summary>傳回平行值序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0})">
+      <summary>傳回平行值序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Decimal})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Double})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int64})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Decimal}})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Double}})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Int32}})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Int64}})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Single}})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Single})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1})">
+      <summary>在序列的每個項目上同時叫用轉換函式，並傳回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要判斷最小值的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TResult">
+        <paramref name="selector" /> 所傳回值的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 沒有包含任何項目，而且 <paramref name="TSource" /> 是不可為 Null 的實值型別。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.OfType``1(System.Linq.ParallelQuery)">
+      <summary>根據指定類型，篩選 ParallelQuery 的項目。</summary>
+      <returns>序列，其中包含類型之輸入序列的項目。</returns>
+      <param name="source">要篩選其項目的序列。</param>
+      <typeparam name="TResult">用來做為序列項目之篩選依據的類型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.OrderBy``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1})">
+      <summary>依據索引鍵，以平行方式來排序按遞增順序之序列中的項目。</summary>
+      <returns>其項目已根據索引鍵經過排序的 OrderedParallelQuery{TSource}。</returns>
+      <param name="source">要排序的值序列。</param>
+      <param name="keySelector">用來從項目擷取索引鍵的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.OrderBy``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+      <summary>使用指定的比較子來比較值，以平行方式來排序按遞增順序之序列中的項目。</summary>
+      <returns>其項目已根據索引鍵經過排序的 OrderedParallelQuery{TSource}。</returns>
+      <param name="source">要排序的值序列。</param>
+      <param name="keySelector">用來從項目擷取索引鍵的函式。</param>
+      <param name="comparer">用來比較索引鍵的 IComparer{TKey}。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.OrderByDescending``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1})">
+      <summary>依據索引鍵，以平行方式來排序按遞減順序之序列中的項目。</summary>
+      <returns>其項目已根據索引鍵經過遞減排序的 OrderedParallelQuery{TSource}。</returns>
+      <param name="source">要排序的值序列。</param>
+      <param name="keySelector">用來從項目擷取索引鍵的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.OrderByDescending``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+      <summary>使用指定的比較子，依遞減順序排序序列中的項目。</summary>
+      <returns>其項目已根據索引鍵經過遞減排序的 OrderedParallelQuery{TSource}。</returns>
+      <param name="source">要排序的值序列。</param>
+      <param name="keySelector">用來從項目擷取索引鍵的函式。</param>
+      <param name="comparer">用來比較索引鍵的 IComparer{TKey}。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="KeySelector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Range(System.Int32,System.Int32)">
+      <summary>產生在指定之範圍內的整數平行序列。</summary>
+      <returns>C# 的 IEnumerable&lt;Int32&gt; 或 Visual Basic 的 IEnumerable(Of Int32)，其中包含一個循序整數範圍。</returns>
+      <param name="start">序列中第一個整數的值。</param>
+      <param name="count">要產生的循序整數數目。</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="count" /> 小於 0 或 <paramref name="start" /> + <paramref name="count" /> - 1 大於 <see cref="F:System.Int32.MaxValue" />。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Repeat``1(``0,System.Int32)">
+      <summary>產生包含一個重複值的平行序列。</summary>
+      <returns>包含重複值的序列。</returns>
+      <param name="element">要重複的值。</param>
+      <param name="count">這個值要在產生的序列中重複出現的次數。</param>
+      <typeparam name="TResult">要在結果序列中重複出現的值之類型。</typeparam>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="count" /> 小於 0。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Reverse``1(System.Linq.ParallelQuery{``0})">
+      <summary>反轉平行序列中項目的排序方向。</summary>
+      <returns>其項目對應於輸入序列中反向排序之項目的序列。</returns>
+      <param name="source">要反轉方向的值序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Select``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1})">
+      <summary>以平行方式，將序列的每個項目規劃成一個新的表單。</summary>
+      <returns>序列，其中的項目是對每個 <paramref name="source" /> 項目叫用轉換函式所得到的結果。</returns>
+      <param name="source">要對於叫用轉換函式的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TResult">由選取器傳回之項目的類型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Select``2(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32,``1})">
+      <summary>透過加入項目的索引，以平行方式將序列的每個項目規劃成新的表單。</summary>
+      <returns>序列，其項目是按照提供給 <paramref name="selector" /> 的索引，對 <paramref name="source" /> 的每個項目叫用轉換函式所得到的結果。</returns>
+      <param name="source">要對於叫用轉換函式的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TResult">由選取器傳回之項目的類型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.OverflowException">查詢已列舉超過 <see cref="F:System.Int32.MaxValue" /> 個項目。在資料流案例中可能會發生這種情況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SelectMany``3(System.Linq.ParallelQuery{``0},System.Func{``0,System.Collections.Generic.IEnumerable{``1}},System.Func{``0,``1,``2})">
+      <summary>將序列的每個項目投影為 <see cref="T:System.Collections.Generic.IEnumerable`1" />、將產生的序列簡化成單一序列，並對其中的每個項目叫用結果選取器函式。</summary>
+      <returns>序列，其項目是對 <paramref name="source" /> (以提供給 <paramref name="collectionSelector" /> 的索引為基礎) 上每個項目叫用一對多轉換函式 <paramref name="collectionSelector" />，然後再將每個序列項目及其相關的來源項目對應到結果項目所得到的結果。 </returns>
+      <param name="source">要投影的值序列。</param>
+      <param name="collectionSelector">要套用到每個來源項目的轉換函式；此函式的第二個參數代表來源項目的索引。</param>
+      <param name="resultSelector">函式，用來從第一個序列的項目以及第二個序列的相符項目集合建立結果項目。</param>
+      <typeparam name="TSource">
+        <paramref name="collectionSelector" /> 所收集之中繼項目的型別。</typeparam>
+      <typeparam name="TCollection">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TResult">結果序列中之項目的類型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.OverflowException">查詢已列舉超過 <see cref="F:System.Int32.MaxValue" /> 個項目。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SelectMany``2(System.Linq.ParallelQuery{``0},System.Func{``0,System.Collections.Generic.IEnumerable{``1}})">
+      <summary>將序列的每個項目平行投射至 <see cref="T:System.Collections.Generic.IEnumerable`1" />，並將產生的序列簡化成單一序列。</summary>
+      <returns>序列，其項目是在對輸入序列上每個項目叫用一對多轉換函式所得到的結果。</returns>
+      <param name="source">要投影的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TResult">由選取器傳回之序列項目的類型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SelectMany``3(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32,System.Collections.Generic.IEnumerable{``1}},System.Func{``0,``1,``2})">
+      <summary>將序列的每個項目投影為 <see cref="T:System.Collections.Generic.IEnumerable`1" />、將產生的序列簡化成單一序列，並對其中的每個項目叫用結果選取器函式。各來源項目的索引是在該項目的中繼投影表單中使用。</summary>
+      <returns>序列，其項目是對 <paramref name="source" /> (以提供給 <paramref name="collectionSelector" /> 的索引為基礎) 上每個項目叫用一對多轉換函式 <paramref name="collectionSelector" />，然後再將每個序列項目及其相關的來源項目對應到結果項目所得到的結果。</returns>
+      <param name="source">要投影的值序列。</param>
+      <param name="collectionSelector">要套用到每個來源項目的轉換函式；此函式的第二個參數代表來源項目的索引。</param>
+      <param name="resultSelector">函式，用來從第一個序列的項目以及第二個序列的相符項目集合建立結果項目。</param>
+      <typeparam name="TSource">
+        <paramref name="collectionSelector" /> 所收集之中繼項目的型別。</typeparam>
+      <typeparam name="TCollection">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TResult">要傳回之項目的類型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.OverflowException">查詢已列舉超過 <see cref="F:System.Int32.MaxValue" /> 個項目。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SelectMany``2(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32,System.Collections.Generic.IEnumerable{``1}})">
+      <summary>將序列的每個項目平行投射至 <see cref="T:System.Collections.Generic.IEnumerable`1" />，並將產生的序列簡化成單一序列。各來源項目的索引是在該項目的投影表單中使用。</summary>
+      <returns>序列，其項目是在對輸入序列上每個項目叫用一對多轉換函式所得到的結果。</returns>
+      <param name="source">要投影的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TResult">由選取器傳回之序列項目的類型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.OverflowException">查詢已列舉超過 <see cref="F:System.Int32.MaxValue" /> 個項目。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SequenceEqual``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0})">
+      <summary>永遠不可叫用這個 SequenceEqual 多載。此方法已標記為過時，呼叫它時永遠會擲回 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>這個多載一定會擲回 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">不使用這個參數。</param>
+      <param name="second">不使用這個參數。</param>
+      <typeparam name="TSource">不使用這個類型參數。</typeparam>
+      <exception cref="T:System.NotSupportedException">每次呼叫這個方法會擲回。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SequenceEqual``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>永遠不可叫用這個 SequenceEqual 多載。此方法已標記為過時，呼叫它時永遠會擲回 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>這個多載一定會擲回 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">不使用這個參數。</param>
+      <param name="second">不使用這個參數。</param>
+      <param name="comparer">不使用這個參數。</param>
+      <typeparam name="TSource">不使用這個類型參數。</typeparam>
+      <exception cref="T:System.NotSupportedException">每次呼叫這個方法會擲回。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SequenceEqual``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0})">
+      <summary>使用項目之類型的預設相等比較子來比較項目，判斷兩個平行序列是否相等。</summary>
+      <returns>如果根據其類型的預設相等比較子判斷，兩個來源序列的長度相等，而且其對應項目也相等，則為 true，否則為 false。</returns>
+      <param name="first">要和第二個序列比較的序列。</param>
+      <param name="second">要和第一個輸入序列比較的序列。</param>
+      <typeparam name="TSource">輸入序列之項目的類型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="first" /> 或 <paramref name="second" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SequenceEqual``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>使用指定的 IEqualityComparer{T} 來比較其項目，判斷兩個平行序列是否相等。</summary>
+      <returns>如果根據其類型的預設相等比較子判斷，兩個來源序列的長度相等，而且其對應項目也相等，則為 true，否則為 false。</returns>
+      <param name="first">要和 <paramref name="second" /> 比較的序列。</param>
+      <param name="second">要和第一個輸入序列比較的序列。</param>
+      <param name="comparer">用來比較項目的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">輸入序列之項目的類型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="first" /> 或 <paramref name="second" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Single``1(System.Linq.ParallelQuery{``0})">
+      <summary>傳回平行序列的唯一一個項目，如果序列中不是正好一個項目，則擲回例外狀況。</summary>
+      <returns>輸入序列的單一項目。</returns>
+      <param name="source">要傳回其單一項目的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">輸入序列包含一個以上的項目。或輸入序列是空的。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Single``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>傳回平行序列中符合指定之條件的唯一一個項目，如果有一個以上這類項目，則擲回例外狀況。</summary>
+      <returns>輸入序列中符合條件的單一項目。</returns>
+      <param name="source">要傳回其單一項目的序列。</param>
+      <param name="predicate">用來測試項目是否符合條件的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">沒有任何項目符合 <paramref name="predicate" /> 中的條件。或有超過一個項目符合 <paramref name="predicate" /> 中的條件。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SingleOrDefault``1(System.Linq.ParallelQuery{``0})">
+      <summary>傳回平行序列的唯一一個項目，如果序列是空白，則為預設值，如果序列中有一個以上的項目，這個方法就會擲回例外狀況。</summary>
+      <returns>輸入序列的單一項目，如果序列沒有包含任何項目，則為 default()。</returns>
+      <param name="source">要傳回其單一項目的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SingleOrDefault``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>傳回平行序列中符合指定之條件的唯一一個項目，如果沒有這類項目，則為預設值，如果有一個以上的項目符合條件，這個方法就會擲回例外狀況。</summary>
+      <returns>輸入序列中符合條件的單一項目，如果找不到這類項目，則為 default()。</returns>
+      <param name="source">要傳回其單一項目的序列。</param>
+      <param name="predicate">用來測試項目是否符合條件的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 是空的或傳回多個項目。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Skip``1(System.Linq.ParallelQuery{``0},System.Int32)">
+      <summary>略過平行序列中指定的項目數目，然後傳回其餘項目。</summary>
+      <returns>序列，其中包含出現在輸入序列指定索引處後面的項目。</returns>
+      <param name="source">傳回項目的序列。</param>
+      <param name="count">傳回其餘項目之前要略過的項目數目。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.OverflowException">計數大於 <see cref="F:System.Int32.MaxValue" /></exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SkipWhile``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>只要指定的條件為 true，便略過平行序列中的項目，然後傳回其餘項目。</summary>
+      <returns>包含輸入序列項目的序列，從線性系列中未通過述詞指定測試的第一個項目開始。</returns>
+      <param name="source">傳回項目的序列。</param>
+      <param name="predicate">用來測試每個項目是否符合條件的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SkipWhile``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32,System.Boolean})">
+      <summary>只要指定的條件為 true，便略過平行序列中的項目，然後傳回其餘項目。項目的索引是用於述詞功能的邏輯中。</summary>
+      <returns>包含輸入序列項目的序列，從線性系列中未通過述詞指定測試的第一個項目開始。</returns>
+      <param name="source">傳回項目的序列。</param>
+      <param name="predicate">用來測試各來源項目是否符合條件的函式；此函式的第二個參數代表來源項目的索引。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.OverflowException">查詢已列舉超過 <see cref="F:System.Int32.MaxValue" /> 個項目。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Decimal})">
+      <summary>同時計算值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Decimal.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Double})">
+      <summary>同時計算值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Double.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Int32})">
+      <summary>同時計算值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Int32.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Int64})">
+      <summary>同時計算值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Int64.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Nullable{System.Decimal}})">
+      <summary>同時計算值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Decimal.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Nullable{System.Double}})">
+      <summary>同時計算值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Double.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Nullable{System.Int32}})">
+      <summary>同時計算值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Int32.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Nullable{System.Int64}})">
+      <summary>同時計算值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Int64.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Nullable{System.Single}})">
+      <summary>同時計算值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Single.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Single})">
+      <summary>同時計算值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Single.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Decimal})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Decimal.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Double})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Double.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">來源序列中項目的類型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Int32.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int64})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Int64.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Decimal}})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Decimal.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Double}})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Double.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Int32}})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Int32.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Int64}})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Int64.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Single}})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Single.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Single})">
+      <summary>同時計算在輸入序列中各項目上叫用轉換函式後所取得之值序列的總和。</summary>
+      <returns>序列中預計值的總合。</returns>
+      <param name="source">要計算總和的值序列。</param>
+      <param name="selector">要套用至每個項目的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">總和大於 <see cref="F:System.Single.MaxValue" />。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Take``1(System.Linq.ParallelQuery{``0},System.Int32)">
+      <summary>從平行序列開頭傳回指定的連續項目數目。</summary>
+      <returns>序列，其中包含輸入序列開頭處指定的項目數目。</returns>
+      <param name="source">傳回項目的序列。</param>
+      <param name="count">要傳回的項目數目。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.TakeWhile``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>只要指定的條件為 true，就會傳回平行序列中的項目。</summary>
+      <returns>序列，其中包含輸入序列中的項目，而這些項目出現在已無法通過測試的項目前面。</returns>
+      <param name="source">傳回項目的序列。</param>
+      <param name="predicate">用來測試每個項目是否符合條件的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.TakeWhile``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32,System.Boolean})">
+      <summary>只要指定的條件為 true，就會傳回平行序列中的項目。項目的索引是用於述詞功能的邏輯中。</summary>
+      <returns>序列，其中包含輸入序列中的項目，而這些項目出現在已無法通過測試的項目前面。</returns>
+      <param name="source">傳回項目的序列。</param>
+      <param name="predicate">用來測試各來源項目是否符合條件的函式；此函式的第二個參數代表來源項目的索引。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.OverflowException">此查詢已列舉超過 <see cref="F:System.Int32.MaxValue" /> 個項目。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ThenBy``2(System.Linq.OrderedParallelQuery{``0},System.Func{``0,``1})">
+      <summary>依據索引鍵，以平行方式執行按遞增順序之序列中的後續排序作業。</summary>
+      <returns>其項目已根據索引鍵經過排序的 OrderedParallelQuery{TSource}。</returns>
+      <param name="source">包含要排序之項目的 OrderedParallelQuery{TSource}。</param>
+      <param name="keySelector">用來從項目擷取索引鍵的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ThenBy``2(System.Linq.OrderedParallelQuery{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+      <summary>使用指定的比較子來比較值，以平行方式執行按遞增順序之序列中項目的後續排序作業。</summary>
+      <returns>其項目已根據索引鍵經過排序的 OrderedParallelQuery{TSource}。</returns>
+      <param name="source">包含要排序之項目的 OrderedParallelQuery{TSource}。</param>
+      <param name="keySelector">用來從項目擷取索引鍵的函式。</param>
+      <param name="comparer">用來比較索引鍵的 IComparer{TKey}。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ThenByDescending``2(System.Linq.OrderedParallelQuery{``0},System.Func{``0,``1})">
+      <summary>依據索引鍵，以平行方式執行按遞減順序之序列中的後續排序作業。</summary>
+      <returns>其項目已根據索引鍵經過遞減排序的的序列。</returns>
+      <param name="source">包含要排序之項目的 OrderedParallelQuery{TSource}。</param>
+      <param name="keySelector">用來從項目擷取索引鍵的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ThenByDescending``2(System.Linq.OrderedParallelQuery{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+      <summary>使用指定的比較子來比較值，以平行方式執行按遞減順序之序列中項目的後續排序作業。</summary>
+      <returns>其項目已根據索引鍵經過遞減排序的的序列。</returns>
+      <param name="source">包含要排序之項目的 OrderedParallelQuery{TSource}。</param>
+      <param name="keySelector">用來從項目擷取索引鍵的函式。</param>
+      <param name="comparer">用來比較索引鍵的 IComparer{TKey}。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToArray``1(System.Linq.ParallelQuery{``0})">
+      <summary>從 <see cref="T:System.Linq.ParallelQuery`1" /> 建立陣列。</summary>
+      <returns>陣列，其中包含輸入序列中的項目。</returns>
+      <param name="source">要建立陣列的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToDictionary``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1})">
+      <summary>根據指定的索引鍵選取器函式，從 <see cref="T:System.Linq.ParallelQuery`1" /> 建立 <see cref="T:System.Collections.Generic.Dictionary`2" />。</summary>
+      <returns>包含索引鍵和值的 <see cref="T:System.Collections.Generic.Dictionary`2" />。</returns>
+      <param name="source">要從其中建立 <see cref="T:System.Collections.Generic.Dictionary`2" /> 的序列。</param>
+      <param name="keySelector">用來從各個項目擷取索引鍵的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">
+        <paramref name="keySelector" /> 會產生是一個為 Null 參考的索引鍵 (在 Visual Basic 中為 Nothing)。或 <paramref name="keySelector" /> 產生兩個項目的重複索引鍵。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToDictionary``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
+      <summary>根據指定的索引鍵選取器函式和索引鍵比較子，從 <see cref="T:System.Linq.ParallelQuery`1" /> 建立 <see cref="T:System.Collections.Generic.Dictionary`2" />。</summary>
+      <returns>包含索引鍵和值的 <see cref="T:System.Collections.Generic.Dictionary`2" />。</returns>
+      <param name="source">要從其中建立 <see cref="T:System.Collections.Generic.Dictionary`2" /> 的序列。</param>
+      <param name="keySelector">用來從各個項目擷取索引鍵的函式。</param>
+      <param name="comparer">用來比較索引鍵的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">
+        <paramref name="keySelector" /> 會產生是一個為 Null 參考的索引鍵 (在 Visual Basic 中為 Nothing)。或 <paramref name="keySelector" /> 產生兩個項目的重複索引鍵。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToDictionary``3(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``0,``2})">
+      <summary>根據指定的索引鍵選取器和項目選取器函式，從 <see cref="T:System.Linq.ParallelQuery`1" /> 建立 <see cref="T:System.Collections.Generic.Dictionary`2" />。</summary>
+      <returns>
+        <see cref="T:System.Collections.Generic.Dictionary`2" />，其中包含從輸入序列選取之型別 <paramref name="TElement" /> 的值</returns>
+      <param name="source">要從其中建立 <see cref="T:System.Collections.Generic.Dictionary`2" /> 的序列。</param>
+      <param name="keySelector">用來從各個項目擷取索引鍵的函式。</param>
+      <param name="elementSelector">用來從每個項目產生結果項目值的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <typeparam name="TElement">
+        <paramref name="elementSelector" /> 所傳回值的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 或 <paramref name="elementSelector" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">
+        <paramref name="keySelector" /> 會產生是一個為 Null 參考的索引鍵 (在 Visual Basic 中為 Nothing)。或 <paramref name="keySelector" /> 產生兩個項目的重複索引鍵。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToDictionary``3(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1})">
+      <summary>根據指定的索引鍵選取器函式、比較子和項目選取器函式，從 <see cref="T:System.Linq.ParallelQuery`1" /> 建立 <see cref="T:System.Collections.Generic.Dictionary`2" />。</summary>
+      <returns>
+        <see cref="T:System.Collections.Generic.Dictionary`2" />，其中包含從輸入序列選取之型別 <paramref name="TElement" /> 的值</returns>
+      <param name="source">要從其中建立 <see cref="T:System.Collections.Generic.Dictionary`2" /> 的序列。</param>
+      <param name="keySelector">用來從各個項目擷取索引鍵的函式。</param>
+      <param name="elementSelector">用來從每個項目產生結果項目值的轉換函式。</param>
+      <param name="comparer">用來比較索引鍵的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <typeparam name="TElement">
+        <paramref name="elementSelector" /> 所傳回值的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 或 <paramref name="elementSelector" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">
+        <paramref name="keySelector" /> 會產生是一個為 Null 參考的索引鍵 (在 Visual Basic 中為 Nothing)。或 <paramref name="keySelector" /> 產生兩個項目的重複索引鍵。-或者-查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToList``1(System.Linq.ParallelQuery{``0})">
+      <summary>從 <see cref="T:System.Linq.ParallelQuery`1" /> 建立 <see cref="T:System.Collections.Generic.List`1" />。</summary>
+      <returns>
+        <see cref="T:System.Collections.Generic.List`1" />，其中包含輸入序列中的項目。</returns>
+      <param name="source">要從其中建立 <see cref="T:System.Collections.Generic.List`1" /> 的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToLookup``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1})">
+      <summary>根據指定的索引鍵選取器函式，從 <see cref="T:System.Linq.ParallelQuery`1" /> 建立 <see cref="T:System.Linq.ILookup`2" />。</summary>
+      <returns>包含索引鍵和值的 <see cref="T:System.Linq.ILookup`2" />。</returns>
+      <param name="source">要從其中建立 <see cref="T:System.Linq.ILookup`2" /> 的序列。</param>
+      <param name="keySelector">用來從各個項目擷取索引鍵的函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToLookup``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
+      <summary>根據指定的索引鍵選取器函式和索引鍵比較子，從 <see cref="T:System.Linq.ParallelQuery`1" /> 建立 <see cref="T:System.Linq.ILookup`2" />。</summary>
+      <returns>包含索引鍵和值的 <see cref="T:System.Linq.ILookup`2" />。</returns>
+      <param name="source">要從其中建立 <see cref="T:System.Linq.ILookup`2" /> 的序列。</param>
+      <param name="keySelector">用來從各個項目擷取索引鍵的函式。</param>
+      <param name="comparer">用來比較索引鍵的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToLookup``3(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``0,``2})">
+      <summary>根據指定的索引鍵選取器和項目選取器函式，從 <see cref="T:System.Linq.ParallelQuery`1" /> 建立 <see cref="T:System.Linq.ILookup`2" />。</summary>
+      <returns>
+        <see cref="T:System.Linq.ILookup`2" />，其中包含從輸入序列選取之型別 <paramref name="TElement" /> 的值。</returns>
+      <param name="source">要從其中建立 <see cref="T:System.Linq.ILookup`2" /> 的序列。</param>
+      <param name="keySelector">用來從各個項目擷取索引鍵的函式。</param>
+      <param name="elementSelector">用來從每個項目產生結果項目值的轉換函式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <typeparam name="TElement">
+        <paramref name="elementSelector" /> 所傳回值的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 或 <paramref name="elementSelector" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToLookup``3(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1})">
+      <summary>根據指定的索引鍵選取器函式、比較子和項目選取器函式，從 <see cref="T:System.Linq.ParallelQuery`1" /> 建立 <see cref="T:System.Linq.ILookup`2" />。</summary>
+      <returns>Lookup&lt;(Of &lt;(TKey, TElement&gt;)&gt;)，包含從輸入序列中選取之 TElement 類型的值。</returns>
+      <param name="source">要從其中建立 <see cref="T:System.Linq.ILookup`2" /> 的序列。</param>
+      <param name="keySelector">用來從各個項目擷取索引鍵的函式。</param>
+      <param name="elementSelector">用來從每個項目產生結果項目值的轉換函式。</param>
+      <param name="comparer">用來比較索引鍵的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 所傳回之索引鍵的型別。</typeparam>
+      <typeparam name="TElement">
+        <paramref name="elementSelector" /> 所傳回值的型別。</typeparam>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 或 <paramref name="elementSelector" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Union``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0})">
+      <summary>永遠不可叫用這個 Union 多載。此方法已標記為過時，呼叫它時永遠會擲回 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>這個多載一定會擲回 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">不使用這個參數。</param>
+      <param name="second">不使用這個參數。</param>
+      <typeparam name="TSource">不使用這個類型參數。</typeparam>
+      <exception cref="T:System.NotSupportedException">當呼叫這個方法時所發生的例外狀況。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Union``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>永遠不可叫用這個 Union 多載。此方法已標記為過時，呼叫它時永遠會擲回 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>這個多載一定會擲回 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">不使用這個參數。</param>
+      <param name="second">不使用這個參數。</param>
+      <param name="comparer">不使用這個參數。</param>
+      <typeparam name="TSource">不使用這個類型參數。</typeparam>
+      <exception cref="T:System.NotSupportedException">當呼叫這個方法時所發生的例外狀況。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Union``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0})">
+      <summary>使用預設相等比較子來比較值，以便產生兩個平行序列的集合等位。</summary>
+      <returns>序列，其中包含來自兩個輸入序列的項目，但不包括重複的項目。</returns>
+      <param name="first">序列，其不同的項目構成等位作業的第一個集合。</param>
+      <param name="second">序列，其不同的項目構成等位作業的第二個集合。</param>
+      <typeparam name="TSource">輸入序列之項目的類型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="first" /> 或 <paramref name="second" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Union``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>使用指定的 IEqualityComparer{T} 來比較值，以便產生兩個平行序列的集合等位。</summary>
+      <returns>序列，其中包含來自兩個輸入序列的項目，但不包括重複的項目。</returns>
+      <param name="first">序列，其不同的項目構成等位作業的第一個集合。</param>
+      <param name="second">序列，其不同的項目構成等位作業的第二個集合。</param>
+      <param name="comparer">用來比較值的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">輸入序列之項目的類型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="first" /> 或 <paramref name="second" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Where``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>根據述詞，以平行方式來篩選值的序列。</summary>
+      <returns>序列，包含輸入序列中滿足條件的項目。</returns>
+      <param name="source">要篩選的序列。</param>
+      <param name="predicate">用來測試每個項目是否符合條件的函式。</param>
+      <typeparam name="TSource">來源之項目的類型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Where``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32,System.Boolean})">
+      <summary>根據述詞，以平行方式來篩選值的序列。述詞函式的邏輯中使用各項目的索引。</summary>
+      <returns>序列，包含輸入序列中滿足條件的項目。</returns>
+      <param name="source">要篩選的序列。</param>
+      <param name="predicate">用來測試每個項目是否符合條件的函式。</param>
+      <typeparam name="TSource">來源之項目的類型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 為 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.OverflowException">查詢已列舉超過 <see cref="F:System.Int32.MaxValue" /> 個項目。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.WithCancellation``1(System.Linq.ParallelQuery{``0},System.Threading.CancellationToken)">
+      <summary>設定要與查詢產生關聯的 <see cref="T:System.Threading.CancellationToken" />。</summary>
+      <returns>ParallelQuery 表示與來源相同的查詢，但是具有已註冊的取消語彙基元。</returns>
+      <param name="source">要對其設定選項的 ParallelQuery。</param>
+      <param name="cancellationToken">取消語彙基元。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ObjectDisposedException">已處置與 <paramref name="cancellationToken" /> 相關聯的 <see cref="T:System.Threading.CancellationTokenSource" />。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.InvalidOperationException">查詢中多次使用 <paramref name="WithCancellation" />。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.WithDegreeOfParallelism``1(System.Linq.ParallelQuery{``0},System.Int32)">
+      <summary>設定於查詢中使用的平行處理原則程度。平行處理原則的程度，就是可在處理查詢時同步執行的最大作業數目。</summary>
+      <returns>ParallelQuery 表示與來源相同的查詢，已設定平行處理原則程度的限制。</returns>
+      <param name="source">ParallelQuery，在其上面可設定平行處理原則程度的限制。</param>
+      <param name="degreeOfParallelism">查詢的平行處理原則程度。預設值是 Math.Min (<see cref="P:System.Environment.ProcessorCount" />， MAX_SUPPORTED_DOP) 其中MAX_SUPPORTED_DOP為 512。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="degreeOfParallelism" /> 小於 1 或大於 511。</exception>
+      <exception cref="T:System.InvalidOperationException">在查詢中使用多次 WithDegreeOfParallelism。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.WithExecutionMode``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelExecutionMode)">
+      <summary>設定查詢的執行模式。</summary>
+      <returns>ParallelQuery 表示與來源相同的查詢，但是具有已註冊的執行模式。</returns>
+      <param name="source">要對其設定選項的 ParallelQuery。</param>
+      <param name="executionMode">執行查詢時所使用的模式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="executionMode" /> 不是有效的 <see cref="T:System.Linq.ParallelExecutionMode" /> 值。</exception>
+      <exception cref="T:System.InvalidOperationException">在查詢中使用多次 WithExecutionMode。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.WithMergeOptions``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelMergeOptions)">
+      <summary>設定這個查詢的合併選項，此選項會指定查詢將如何緩衝輸出。</summary>
+      <returns>ParallelQuery 表示與來源相同的查詢，但是具有已註冊的合併選項。</returns>
+      <param name="source">要對其設定選項的 ParallelQuery。</param>
+      <param name="mergeOptions">要為這個查詢設定的合併選項。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 之項目的型別。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mergeOptions" /> 不是有效的 <see cref="T:System.Linq.ParallelMergeOptions" /> 值。</exception>
+      <exception cref="T:System.InvalidOperationException">查詢中多次使用 <paramref name="WithMergeOptions" />。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Zip``3(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,``2})">
+      <summary>永遠不可叫用這個 Zip 多載。此方法已標記為過時，叫用它時永遠會擲回 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>這個多載一定會擲回 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">不使用這個參數。</param>
+      <param name="second">不使用這個參數。</param>
+      <param name="resultSelector">不使用這個參數。</param>
+      <typeparam name="TFirst">不使用這個類型參數。</typeparam>
+      <typeparam name="TSecond">不使用這個類型參數。</typeparam>
+      <typeparam name="TResult">不使用這個類型參數。</typeparam>
+      <exception cref="T:System.NotSupportedException">當呼叫這個方法時所發生的例外狀況。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Zip``3(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``1},System.Func{``0,``1,``2})">
+      <summary>使用指定的述詞函式，以平行方式來合併兩個序列。</summary>
+      <returns>序列，其中具有透過對兩個序列執行 <paramref name="resultSelector" /> 配對所取得之型別 <paramref name="TResult" /> 的項目。如果序列長度不相等，這個序列會截斷成為較短序列的長度。</returns>
+      <param name="first">要壓縮的第一個序列。</param>
+      <param name="second">要壓縮的第二個序列。</param>
+      <param name="resultSelector">用來從兩個相符項目建立結果項目的函式。</param>
+      <typeparam name="TFirst">第一個序列之項目的類型。</typeparam>
+      <typeparam name="TSecond">第二個序列之項目的類型。</typeparam>
+      <typeparam name="TResult">傳回項目的類型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="first" /> 或 <paramref name="second" /> 或 <paramref name="resultSelector" /> 是 Null 參考 (在 Visual Basic 中為 Nothing)。</exception>
+      <exception cref="T:System.OperationCanceledException">已通過 <paramref name="WithCancellation" /> 傳遞語彙基元並取消查詢。</exception>
+      <exception cref="T:System.AggregateException">查詢的評估期間發生一或多個例外狀況。</exception>
+    </member>
+    <member name="T:System.Linq.ParallelExecutionMode">
+      <summary>查詢執行模式是一種提示，可指定在平行查詢時系統應該如何處理效能取捨。</summary>
+    </member>
+    <member name="F:System.Linq.ParallelExecutionMode.Default">
+      <summary>這是預設值。PLINQ 會檢查查詢的結構，並且只有在平行處理可加快查詢速度時，才會平行處理查詢。如果查詢結構顯示平行處理無法加速查詢速度，則 PLINQ 會將查詢當成一般 LINQ to Objects 查詢來執行。</summary>
+    </member>
+    <member name="F:System.Linq.ParallelExecutionMode.ForceParallelism">
+      <summary>平行處理所有的查詢，即使必須使用高額外負荷的演算法亦然。如果知道平行執行查詢可加快查詢速度，但預設模式的 PLINQ 會循序執行查詢，請使用這個旗標。</summary>
+    </member>
+    <member name="T:System.Linq.ParallelMergeOptions">
+      <summary>指定查詢中慣用的「輸出合併」(Output Merge) 型別。換句話說，它表示 PLINQ 應如何將不同資料分割的結果合併回單一結果序列。這只是提示，而不代表系統會在平行處理所有查詢時採取這種型別。</summary>
+    </member>
+    <member name="F:System.Linq.ParallelMergeOptions.AutoBuffered">
+      <summary>在配合系統選擇的輸出緩衝區大小情況下，使用合併。結果將累積到輸出緩衝區內，直到查詢消費者可使用這些結果為止。</summary>
+    </member>
+    <member name="F:System.Linq.ParallelMergeOptions.Default">
+      <summary>使用預設的合併型別，也就是 AutoBuffered。</summary>
+    </member>
+    <member name="F:System.Linq.ParallelMergeOptions.FullyBuffered">
+      <summary>在配合完整輸出緩衝區情況下，使用合併。系統會先累積所有的結果，直到出現可供查詢消費者使用的結果為止。</summary>
+    </member>
+    <member name="F:System.Linq.ParallelMergeOptions.NotBuffered">
+      <summary>在不配合輸出緩衝區情況下，使用合併。只要一算出結果項目，即可向查詢消費者提供該項目。</summary>
+    </member>
+    <member name="T:System.Linq.ParallelQuery">
+      <summary>表示平行的序列。</summary>
+    </member>
+    <member name="M:System.Linq.ParallelQuery.System#Collections#IEnumerable#GetEnumerator">
+      <summary>傳回會逐一查看序列的列舉程式。</summary>
+      <returns>可逐一查看序列的列舉程式。</returns>
+    </member>
+    <member name="T:System.Linq.ParallelQuery`1">
+      <summary>表示平行的序列。</summary>
+      <typeparam name="TSource">來源序列中項目的型別。</typeparam>
+    </member>
+    <member name="M:System.Linq.ParallelQuery`1.GetEnumerator">
+      <summary>傳回會逐一查看序列的列舉程式。</summary>
+      <returns>可逐一查看序列的列舉程式。</returns>
+    </member>
+  </members>
+</doc>

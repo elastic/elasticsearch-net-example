@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.UnmanagedMemoryStream</name>
+  </assembly>
+  <members>
+    <member name="T:System.IO.UnmanagedMemoryAccessor">
+      <summary>Proporciona acceso aleatorio a bloques de memoria no administrada desde código administrado.</summary>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.#ctor">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.UnmanagedMemoryAccessor" />. </summary>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.UnmanagedMemoryAccessor" /> con un búfer, un desplazamiento y una capacidad especificados.</summary>
+      <param name="buffer">Búfer que va a contener el descriptor de acceso.</param>
+      <param name="offset">Byte en el que se va a iniciar el descriptor de acceso.</param>
+      <param name="capacity">Tamaño, en bytes, de la memoria que se va a asignar.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="offset" /> Además de <paramref name="capacity" /> es mayor que <paramref name="buffer" />.</exception>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="buffer" /> es null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> o <paramref name="capacity" /> es menor que cero.</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="offset" /> Además de <paramref name="capacity" /> se ajustaría alrededor del extremo final del espacio de direcciones.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.UnmanagedMemoryAccessor" /> con un búfer, un desplazamiento, una capacidad y un derecho de acceso especificados.</summary>
+      <param name="buffer">Búfer que va a contener el descriptor de acceso.</param>
+      <param name="offset">Byte en el que se va a iniciar el descriptor de acceso.</param>
+      <param name="capacity">Tamaño, en bytes, de la memoria que se va a asignar.</param>
+      <param name="access">Tipo de acceso permitido a la memoria.De manera predeterminada, es <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="offset" /> Además de <paramref name="capacity" /> es mayor que <paramref name="buffer" />.</exception>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="buffer" /> es null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> o <paramref name="capacity" /> es menor que cero.o bien<paramref name="access" /> no es válida <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> valor de enumeración.</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="offset" /> Además de <paramref name="capacity" /> se ajustaría alrededor del extremo final del espacio de direcciones.</exception>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.CanRead">
+      <summary>Determina si el descriptor de acceso es legible.</summary>
+      <returns>Es true si el descriptor de acceso es legible; de lo contrario, es false. </returns>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.CanWrite">
+      <summary>Determina si el descriptor de acceso es grabable.</summary>
+      <returns>Es true si el descriptor de acceso es grabable; de lo contrario, es false. </returns>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.Capacity">
+      <summary>Obtiene la capacidad del descriptor de acceso.</summary>
+      <returns>Capacidad del descriptor de acceso.</returns>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Dispose">
+      <summary>Libera todos los recursos usados por <see cref="T:System.IO.UnmanagedMemoryAccessor" />. </summary>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Dispose(System.Boolean)">
+      <summary>Libera los recursos no administrados que usa <see cref="T:System.IO.UnmanagedMemoryAccessor" /> y libera los recursos administrados de forma opcional. </summary>
+      <param name="disposing">Es true para liberar tanto recursos administrados como no administrados; es false para liberar únicamente recursos no administrados. </param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Initialize(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>Establece los valores iniciales para el descriptor de acceso.</summary>
+      <param name="buffer">Búfer que va a contener el descriptor de acceso.</param>
+      <param name="offset">Byte en el que se va a iniciar el descriptor de acceso.</param>
+      <param name="capacity">Tamaño, en bytes, de la memoria que se va a asignar.</param>
+      <param name="access">Tipo de acceso permitido a la memoria.De manera predeterminada, es <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="offset" /> Además de <paramref name="capacity" /> es mayor que <paramref name="buffer" />.</exception>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="buffer" /> es null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> o <paramref name="capacity" /> es menor que cero.o bien<paramref name="access" /> no es válida <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> valor de enumeración.</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="offset" /> Además de <paramref name="capacity" /> se ajustaría alrededor del extremo final del espacio de direcciones.</exception>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.IsOpen">
+      <summary>Determina si el descriptor de acceso está abierto actualmente por un proceso.</summary>
+      <returns>Es true si el descriptor de acceso está abierto; de lo contrario, es false. </returns>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadBoolean(System.Int64)">
+      <summary>Lee un valor booleano del descriptor de acceso.</summary>
+      <returns>true o false.</returns>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la lectura. </param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para leer un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la lectura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadByte(System.Int64)">
+      <summary>Lee un valor de byte del descriptor de acceso.</summary>
+      <returns>Valor que se leyó.</returns>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la lectura.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para leer un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la lectura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadChar(System.Int64)">
+      <summary>Lee un carácter del descriptor de acceso.</summary>
+      <returns>Valor que se leyó.</returns>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la lectura.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para leer un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la lectura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadDecimal(System.Int64)">
+      <summary>Lee un valor decimal del descriptor de acceso.</summary>
+      <returns>Valor que se leyó.</returns>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la lectura.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para leer un valor.o bienEl decimal que se desea leer no es válido.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la lectura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadDouble(System.Int64)">
+      <summary>Lee un valor de punto flotante de precisión doble del descriptor de acceso.</summary>
+      <returns>Valor que se leyó.</returns>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la lectura.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para leer un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la lectura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadInt16(System.Int64)">
+      <summary>Lee un entero de 16 bits del descriptor de acceso.</summary>
+      <returns>Valor que se leyó.</returns>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la lectura.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para leer un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la lectura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadInt32(System.Int64)">
+      <summary>Lee un entero de 32 bits del descriptor de acceso.</summary>
+      <returns>Valor que se leyó.</returns>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la lectura.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para leer un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la lectura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadInt64(System.Int64)">
+      <summary>Lee un entero de 64 bits del descriptor de acceso.</summary>
+      <returns>Valor que se leyó.</returns>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la lectura.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para leer un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la lectura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadSByte(System.Int64)">
+      <summary>Lee un entero de 8 bits con signo del descriptor de acceso.</summary>
+      <returns>Valor que se leyó.</returns>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la lectura.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para leer un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la lectura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadSingle(System.Int64)">
+      <summary>Lee un valor de punto flotante de precisión sencilla del descriptor de acceso.</summary>
+      <returns>Valor que se leyó.</returns>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la lectura.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para leer un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la lectura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadUInt16(System.Int64)">
+      <summary>Lee un entero de 16 bits sin signo del descriptor de acceso.</summary>
+      <returns>Valor que se leyó.</returns>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la lectura.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para leer un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la lectura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadUInt32(System.Int64)">
+      <summary>Lee un entero de 32 bits sin signo del descriptor de acceso.</summary>
+      <returns>Valor que se leyó.</returns>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la lectura.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para leer un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la lectura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadUInt64(System.Int64)">
+      <summary>Lee un entero de 64 bits sin signo del descriptor de acceso.</summary>
+      <returns>Valor que se leyó.</returns>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la lectura.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para leer un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la lectura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Boolean)">
+      <summary>Escribe un valor booleano en el descriptor de acceso.</summary>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la escritura.</param>
+      <param name="value">Valor que se va a escribir.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para escribir un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la escritura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Byte)">
+      <summary>Escribe un valor de byte en el descriptor de acceso.</summary>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la escritura.</param>
+      <param name="value">Valor que se va a escribir.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para escribir un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la escritura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Char)">
+      <summary>Escribe un carácter en el descriptor de acceso.</summary>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la escritura.</param>
+      <param name="value">Valor que se va a escribir.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para escribir un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la escritura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Decimal)">
+      <summary>Escribe un valor decimal en el descriptor de acceso.</summary>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la escritura.</param>
+      <param name="value">Valor que se va a escribir.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para escribir un valor.o bienEl decimal no es válido.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la escritura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Double)">
+      <summary>Escribe un valor Double en el descriptor de acceso.</summary>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la escritura.</param>
+      <param name="value">Valor que se va a escribir.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para escribir un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la escritura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Int16)">
+      <summary>Escribe un entero de 16 bits en el descriptor de acceso.</summary>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la escritura.</param>
+      <param name="value">Valor que se va a escribir.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para escribir un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la escritura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Int32)">
+      <summary>Escribe un entero de 32 bits en el descriptor de acceso.</summary>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la escritura.</param>
+      <param name="value">Valor que se va a escribir.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para escribir un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la escritura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Int64)">
+      <summary>Escribe un entero de 64 bits en el descriptor de acceso.</summary>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la escritura.</param>
+      <param name="value">Valor que se va a escribir.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de la posición para escribir un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la escritura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.SByte)">
+      <summary>Escribe un entero de 8 bits en el descriptor de acceso.</summary>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la escritura.</param>
+      <param name="value">Valor que se va a escribir.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para escribir un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la escritura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Single)">
+      <summary>Escribe un valor Single en el descriptor de acceso.</summary>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la escritura.</param>
+      <param name="value">Valor que se va a escribir.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para escribir un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la escritura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.UInt16)">
+      <summary>Escribe un entero de 16 bits sin signo en el descriptor de acceso.</summary>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la escritura.</param>
+      <param name="value">Valor que se va a escribir.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para escribir un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la escritura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.UInt32)">
+      <summary>Escribe un entero de 32 bits sin signo en el descriptor de acceso.</summary>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la escritura.</param>
+      <param name="value">Valor que se va a escribir.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para escribir un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la escritura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.UInt64)">
+      <summary>Escribe un entero de 64 bits sin signo en el descriptor de acceso.</summary>
+      <param name="position">Número de bytes del descriptor de acceso en el que va a comenzar la escritura.</param>
+      <param name="value">Valor que se va a escribir.</param>
+      <exception cref="T:System.ArgumentException">No hay suficientes bytes después de <paramref name="position" /> para escribir un valor.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> es menor que cero o mayor que la capacidad del descriptor de acceso.</exception>
+      <exception cref="T:System.NotSupportedException">El descriptor de acceso no admite la escritura.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha eliminado el descriptor de acceso.</exception>
+    </member>
+    <member name="T:System.IO.UnmanagedMemoryStream">
+      <summary>Proporciona acceso a los bloques de memoria no administrada desde el código administrado.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.UnmanagedMemoryStream" />.</summary>
+      <exception cref="T:System.Security.SecurityException">El usuario no dispone del permiso requerido.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Byte*,System.Int64)">
+      <summary>Inicializa una instancia nueva de la clase <see cref="T:System.IO.UnmanagedMemoryStream" /> utilizando la ubicación y la longitud de memoria especificadas.</summary>
+      <param name="pointer">Puntero a una ubicación de memoria no administrada.</param>
+      <param name="length">Longitud de la memoria que se va a utilizar.</param>
+      <exception cref="T:System.Security.SecurityException">El usuario no dispone del permiso requerido.</exception>
+      <exception cref="T:System.ArgumentNullException">El <paramref name="pointer" /> es el valor null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">El <paramref name="length" /> valor es menor que cero.o bienEl <paramref name="length" /> es lo suficientemente grande como para causar un desbordamiento.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Byte*,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>Inicializa una instancia nueva de la clase <see cref="T:System.IO.UnmanagedMemoryStream" /> utilizando los valores especificados de ubicación, longitud de memoria, cantidad total de memoria y acceso a archivos.</summary>
+      <param name="pointer">Puntero a una ubicación de memoria no administrada.</param>
+      <param name="length">Longitud de la memoria que se va a utilizar.</param>
+      <param name="capacity">Cantidad total de memoria asignada a la secuencia.</param>
+      <param name="access">Uno de los valores de <see cref="T:System.IO.FileAccess" />.</param>
+      <exception cref="T:System.Security.SecurityException">El usuario no dispone del permiso requerido.</exception>
+      <exception cref="T:System.ArgumentNullException">El <paramref name="pointer" /> es el valor null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">El <paramref name="length" /> valor es menor que cero.o bien El <paramref name="capacity" /> valor es menor que cero.o bienEl <paramref name="length" /> valor es mayor que el <paramref name="capacity" /> valor.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.UnmanagedMemoryStream" /> en un búfer seguro con un desplazamiento y una longitud especificados. </summary>
+      <param name="buffer">Búfer que va a contener la secuencia de memoria no administrada.</param>
+      <param name="offset">Posición de byte del búfer en la que va a comenzar la secuencia de memoria no administrada.</param>
+      <param name="length">Longitud de la secuencia de memoria no administrada.</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.UnmanagedMemoryStream" /> en un búfer seguro con un desplazamiento, una longitud y un acceso a archivo especificados. </summary>
+      <param name="buffer">Búfer que va a contener la secuencia de memoria no administrada.</param>
+      <param name="offset">Posición de byte del búfer en la que va a comenzar la secuencia de memoria no administrada.</param>
+      <param name="length">Longitud de la secuencia de memoria no administrada.</param>
+      <param name="access">Modo de acceso a archivos para la secuencia de memoria no administrada. </param>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.CanRead">
+      <summary>Obtiene un valor que indica si una secuencia admite operaciones de lectura.</summary>
+      <returns>false si un constructor creó el objeto con un parámetro <paramref name="access" /> que no incluía la lectura de la secuencia y si la secuencia está cerrada; en caso contrario, true.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.CanSeek">
+      <summary>Obtiene un valor que indica si una secuencia admite búsquedas.</summary>
+      <returns>false si la secuencia está cerrada; en caso contrario, true.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.CanWrite">
+      <summary>Obtiene un valor que indica si una secuencia admite operaciones de escritura.</summary>
+      <returns>false si el objeto fue creado por un constructor con un valor del parámetro <paramref name="access" /> que admite la escritura o fue creado por un constructor que no tenía ningún parámetro, o si la secuencia está cerrada; en caso contrario, true.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.Capacity">
+      <summary>Obtiene la longitud de la secuencia (tamaño) o la cantidad total de memoria asignada a una secuencia (capacidad).</summary>
+      <returns>El tamaño o la capacidad de la secuencia.</returns>
+      <exception cref="T:System.ObjectDisposedException">La secuencia está cerrada.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Dispose(System.Boolean)">
+      <summary>Libera los recursos no administrados que usa <see cref="T:System.IO.UnmanagedMemoryStream" /> y libera los recursos administrados de forma opcional.</summary>
+      <param name="disposing">Es true para liberar tanto recursos administrados como no administrados; es false para liberar únicamente recursos no administrados.</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Flush">
+      <summary>Reemplaza el método <see cref="M:System.IO.Stream.Flush" /> de modo que no se realice ninguna acción.</summary>
+      <exception cref="T:System.ObjectDisposedException">La secuencia está cerrada.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.FlushAsync(System.Threading.CancellationToken)">
+      <summary>Invalida el método <see cref="M:System.IO.Stream.FlushAsync(System.Threading.CancellationToken)" /> para que la operación se cancele si se especifica, pero no se realiza ninguna otra acción.Disponible a partir de .NET Framework 2015</summary>
+      <returns>Tarea que representa la operación de vaciado asincrónico.</returns>
+      <param name="cancellationToken">Token para supervisar solicitudes de cancelación.El valor predeterminado es <see cref="P:System.Threading.CancellationToken.None" />.</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Initialize(System.Byte*,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.UnmanagedMemoryStream" /> utilizando un puntero a una ubicación de memoria no administrada. </summary>
+      <param name="pointer">Puntero a una ubicación de memoria no administrada.</param>
+      <param name="length">Longitud de la memoria que se va a utilizar.</param>
+      <param name="capacity">Cantidad total de memoria asignada a la secuencia.</param>
+      <param name="access">Uno de los valores de <see cref="T:System.IO.FileAccess" />. </param>
+      <exception cref="T:System.Security.SecurityException">El usuario no dispone del permiso requerido.</exception>
+      <exception cref="T:System.ArgumentNullException">El <paramref name="pointer" /> es el valor null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">El <paramref name="length" /> valor es menor que cero.o bien El <paramref name="capacity" /> valor es menor que cero.o bienEl <paramref name="length" /> valor es lo suficientemente grande como para causar un desbordamiento.</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Initialize(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.UnmanagedMemoryStream" /> en un búfer seguro con un desplazamiento, una longitud y un acceso a archivo especificados. </summary>
+      <param name="buffer">Búfer que va a contener la secuencia de memoria no administrada.</param>
+      <param name="offset">Posición de byte del búfer en la que va a comenzar la secuencia de memoria no administrada.</param>
+      <param name="length">Longitud de la secuencia de memoria no administrada.</param>
+      <param name="access">Modo de acceso a archivos para la secuencia de memoria no administrada.</param>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.Length">
+      <summary>Obtiene la longitud de los datos de una secuencia.</summary>
+      <returns>La longitud de los datos de la secuencia.</returns>
+      <exception cref="T:System.ObjectDisposedException">La secuencia está cerrada.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.Position">
+      <summary>Obtiene o establece la posición actual en una secuencia.</summary>
+      <returns>La posición actual en la secuencia.</returns>
+      <exception cref="T:System.ObjectDisposedException">La secuencia está cerrada.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">La posición se establece en un valor que es menor que cero o es mayor que la posición <see cref="F:System.Int32.MaxValue" /> o genera un desbordamiento cuando se agrega al puntero actual.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.PositionPointer">
+      <summary>Obtiene o establece un puntero de byte a una secuencia basándose en la posición actual en la secuencia.</summary>
+      <returns>Un puntero de byte.</returns>
+      <exception cref="T:System.IndexOutOfRangeException">La posición actual es mayor que la capacidad de la secuencia.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">La posición que se establece no es una posición válida en la secuencia actual.</exception>
+      <exception cref="T:System.IO.IOException">El puntero se establece en un valor menor que la posición inicial de la secuencia.</exception>
+      <exception cref="T:System.NotSupportedException">La secuencia se inicializó para su uso con un <see cref="T:System.Runtime.InteropServices.SafeBuffer" />.El <see cref="P:System.IO.UnmanagedMemoryStream.PositionPointer" /> propiedad es válida sólo para las secuencias que se inicializan con un <see cref="T:System.Byte" /> puntero.</exception>
+      <filterpriority>2</filterpriority>
+      <PermissionSet>
+        <IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode" />
+      </PermissionSet>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Read(System.Byte[],System.Int32,System.Int32)">
+      <summary>Lee el número especificado de bytes y los introduce en la matriz especificada.</summary>
+      <returns>Número total de bytes leídos en el búfer.Puede ser menor que el número de bytes solicitado si dicho número no está disponible, o puede ser cero (0) si se alcanza el final de la secuencia.</returns>
+      <param name="buffer">Cuando este método devuelve un valor, contiene la matriz de bytes especificada con los valores entre <paramref name="offset" /> y (<paramref name="offset" /> + <paramref name="count" /> - 1 reemplazados por los bytes leídos desde el origen actual.Este parámetro se pasa sin inicializar.</param>
+      <param name="offset">Desplazamiento en bytes de base cero de <paramref name="buffer" /> donde se comienza a almacenar los datos leídos de la secuencia actual.</param>
+      <param name="count">Número máximo de bytes que se van a leer de la secuencia actual.</param>
+      <exception cref="T:System.ObjectDisposedException">La secuencia está cerrada.</exception>
+      <exception cref="T:System.NotSupportedException">La memoria subyacente no admite operaciones de lectura.o bien La propiedad <see cref="P:System.IO.UnmanagedMemoryStream.CanRead" /> se establece en false. </exception>
+      <exception cref="T:System.ArgumentNullException">El parámetro <paramref name="buffer" /> debe establecerse en null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">El <paramref name="offset" /> parámetro es menor que cero. o bien El <paramref name="count" /> parámetro es menor que cero.</exception>
+      <exception cref="T:System.ArgumentException">La longitud de la matriz de búferes menos el <paramref name="offset" /> parámetro es menor que el <paramref name="count" /> parámetro.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.ReadAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+      <summary>Lee de manera asincrónica el número especificado de bytes y los introduce en la matriz especificada.Disponible a partir de .NET Framework 2015</summary>
+      <returns>Tarea que representa la operación de lectura asincrónica.El valor del parámetro <paramref name="TResult" /> contiene el número total de bytes leídos en el búfer.El valor del resultado puede ser menor que el número de bytes solicitados si el número de bytes disponibles actualmente es menor que el número solicitado o puede ser 0 (cero) si se ha llegado al final de la secuencia.</returns>
+      <param name="buffer">Búfer en el que se escriben los datos.</param>
+      <param name="offset">Posición de desplazamiento en bytes de <paramref name="buffer" /> donde se comienza a escribir los datos del flujo.</param>
+      <param name="count">Número máximo de bytes que se pueden leer.</param>
+      <param name="cancellationToken">Token para supervisar solicitudes de cancelación.El valor predeterminado es <see cref="P:System.Threading.CancellationToken.None" />.</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.ReadByte">
+      <summary>Lee un byte de una secuencia y hace avanzar la posición dentro de la secuencia en un byte, o devuelve -1 si está al final de la secuencia.</summary>
+      <returns>Byte sin signo convertido en un objeto <see cref="T:System.Int32" />, o -1 si está al final de la secuencia.</returns>
+      <exception cref="T:System.ObjectDisposedException">La secuencia está cerrada.</exception>
+      <exception cref="T:System.NotSupportedException">La memoria subyacente no admite operaciones de lectura.o bienLa posición actual está al final de la secuencia.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Seek(System.Int64,System.IO.SeekOrigin)">
+      <summary>Establece la posición actual de la secuencia actual en el valor especificado.</summary>
+      <returns>Nueva posición en la secuencia.</returns>
+      <param name="offset">Punto relativo a <paramref name="origin" /> a partir del cual comienza la operación de búsqueda. </param>
+      <param name="loc">Especifica el comienzo, el final o la posición actual como un punto de referencia para <paramref name="origin" />, mediante el uso de un valor de tipo <see cref="T:System.IO.SeekOrigin" />. </param>
+      <exception cref="T:System.IO.IOException">Se realizó un intento de búsqueda antes del principio de la secuencia.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">El <paramref name="offset" /> valor es mayor que el tamaño máximo de la secuencia.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="loc" /> no es válido.</exception>
+      <exception cref="T:System.ObjectDisposedException">La secuencia está cerrada.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.SetLength(System.Int64)">
+      <summary>Establece la longitud de una secuencia en un valor especificado.</summary>
+      <param name="value">Longitud de la secuencia.</param>
+      <exception cref="T:System.IO.IOException">Se produjo un error de E/S. </exception>
+      <exception cref="T:System.ObjectDisposedException">La secuencia está cerrada.</exception>
+      <exception cref="T:System.NotSupportedException">La memoria subyacente no admite operaciones de escritura.o bienSe intenta escribir en la secuencia y el <see cref="P:System.IO.UnmanagedMemoryStream.CanWrite" /> propiedad es false.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">Especificado <paramref name="value" /> supera la capacidad de la secuencia.o bienEspecificado <paramref name="value" /> es negativo.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Write(System.Byte[],System.Int32,System.Int32)">
+      <summary>Escribe un bloque de bytes en la secuencia actual utilizando los datos de un búfer.</summary>
+      <param name="buffer">Matriz de bytes de la que se copian bytes a la secuencia actual.</param>
+      <param name="offset">Posición de desplazamiento en el búfer donde se comienzan a copiar bytes a la secuencia actual.</param>
+      <param name="count">Número de bytes que se van a escribir en la secuencia actual.</param>
+      <exception cref="T:System.ObjectDisposedException">La secuencia está cerrada.</exception>
+      <exception cref="T:System.NotSupportedException">La memoria subyacente no admite operaciones de escritura. o bienSe intenta escribir en la secuencia y el <see cref="P:System.IO.UnmanagedMemoryStream.CanWrite" /> propiedad es false.o bienEl <paramref name="count" /> valor es mayor que la capacidad de la secuencia.o bienLa posición está al final de la capacidad de la secuencia.</exception>
+      <exception cref="T:System.IO.IOException">Se produce un error de E/S. </exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">El valor de uno de los parámetros especificados es menor que cero.</exception>
+      <exception cref="T:System.ArgumentException">El <paramref name="offset" /> parámetro menos la longitud de la <paramref name="buffer" /> parámetro es menor que el <paramref name="count" /> parámetro.</exception>
+      <exception cref="T:System.ArgumentNullException">El parámetro <paramref name="buffer" /> es null.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.WriteAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+      <summary>Escribe de forma asincrónica una secuencia de bytes en la secuencia actual, se hace avanzar la posición actual dentro de la secuencia el número de bytes escritos y controla las solicitudes de cancelación.Disponible a partir de .NET Framework 2015</summary>
+      <returns>Tarea que representa la operación de escritura asincrónica.</returns>
+      <param name="buffer">Búfer del que se van a escribir datos.</param>
+      <param name="offset">Desplazamiento en bytes de base cero de <paramref name="buffer" /> desde donde se comienzan a copiar los bytes en la secuencia.</param>
+      <param name="count">Número máximo de bytes que se pueden escribir.</param>
+      <param name="cancellationToken">Token para supervisar solicitudes de cancelación.El valor predeterminado es <see cref="P:System.Threading.CancellationToken.None" />.</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.WriteByte(System.Byte)">
+      <summary>Escribe un byte en la posición actual de la secuencia de archivo.</summary>
+      <param name="value">Valor de byte que se escribe en la secuencia.</param>
+      <exception cref="T:System.ObjectDisposedException">La secuencia está cerrada.</exception>
+      <exception cref="T:System.NotSupportedException">La memoria subyacente no admite operaciones de escritura.o bienSe intenta escribir en la secuencia y el <see cref="P:System.IO.UnmanagedMemoryStream.CanWrite" /> propiedad es false.o bien La posición actual está al final de la capacidad de la secuencia.</exception>
+      <exception cref="T:System.IO.IOException">Suministrado <paramref name="value" /> hace que la secuencia supere su capacidad máxima.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+  </members>
+</doc>

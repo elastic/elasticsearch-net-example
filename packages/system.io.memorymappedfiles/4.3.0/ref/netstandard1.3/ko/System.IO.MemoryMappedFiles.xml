@@ -1,0 +1,416 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.MemoryMappedFiles</name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.Win32.SafeHandles.SafeMemoryMappedFileHandle">
+      <summary>순차적 액세스를 위한 메모리 매핑된 파일을 나타내는 SafeHandle을 제공합니다.</summary>
+    </member>
+    <member name="P:Microsoft.Win32.SafeHandles.SafeMemoryMappedFileHandle.IsInvalid"></member>
+    <member name="T:Microsoft.Win32.SafeHandles.SafeMemoryMappedViewHandle">
+      <summary>임의 액세스를 위한 관리되지 않는 메모리 블록의 뷰를 나타내는 SafeHandle을 제공합니다. </summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFile">
+      <summary>메모리 매핑된 파일을 나타냅니다. </summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.IO.FileStream,System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.HandleInheritability,System.Boolean)">
+      <summary>지정된 액세스 모드, 이름, 상속 및 용량을 사용하여 기존 파일에서 메모리 매핑된 파일을 만듭니다.</summary>
+      <returns>지정된 특성을 가진 메모리 매핑된 파일입니다.</returns>
+      <param name="fileStream">기존 파일의 파일 스트림입니다.</param>
+      <param name="mapName">메모리 매핑된 파일에 할당할 이름입니다.</param>
+      <param name="capacity">메모리 매핑된 파일에 할당할 최대 크기(바이트)입니다.크기에 용량을 설정 하려면 0을 지정 <paramref name="filestream" />.</param>
+      <param name="access">메모리 매핑된 파일에 허용되는 액세스 형식을 지정하는 열거형 값 중 하나입니다. 이 매개 변수 설정할 수 없습니다 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />. </param>
+      <param name="inheritability">메모리 매핑된 파일의 핸들을 자식 프로세스가 상속할 수 있는지 여부를 지정하는 열거형 값 중 하나입니다.기본값은 <see cref="F:System.IO.HandleInheritability.None" />입니다.</param>
+      <param name="leaveOpen">소스 파일을 닫을지 여부를 나타내는 값을 스트리밍할 때는 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" /> 삭제 됩니다. </param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" />이 null 또는 빈 문자열인 경우또는<paramref name="capacity" /> 및 파일 길이가 0입니다.또는<paramref name="access" />로 설정 된 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 또는 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 열거형 값, 허용 되지 않습니다.또는<paramref name="access" />로 설정 된 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read" /> 및 <paramref name="capacity" /> 의 길이 보다 크면 filestream.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="fileStream" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" />가 0보다 작은 경우또는<paramref name="capacity" />가 파일 크기보다 작습니다.또는<paramref name="access" />가 유효한 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 열거형 값이 아닌 경우또는<paramref name="inheritability" />가 유효한 <see cref="T:System.IO.HandleInheritability" /> 열거형 값이 아닌 경우</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String)">
+      <summary>디스크의 파일에서 메모리 매핑된 파일을 만듭니다.</summary>
+      <returns>메모리 매핑된 파일입니다.</returns>
+      <param name="path">매핑할 파일의 경로입니다.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" />가 길이가 빈 문자열이거나 공백만 포함하거나 <see cref="M:System.IO.Path.GetInvalidFileNameChars" /> 메서드에 정의된 하나 이상의 잘못된 문자를 포함하는 경우 또는<paramref name="path" />는 잘못된 장치로 간주합니다. </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" />가 null인 경우</exception>
+      <exception cref="T:System.IO.IOException">I/O 오류가 발생하는 경우</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" />가 운영 체제에 정의된 최대 길이를 초과하는 경우.Windows에서 경로에 248자 미만이 포함되어야 하며 파일 이름은 260자 미만을 포함해야 합니다.</exception>
+      <exception cref="T:System.Security.SecurityException">호출자에게 파일에 필요한 권한이 없습니다.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode)">
+      <summary>디스크의 파일에서 지정된 액세스 모드를 가진 메모리 매핑된 파일을 만듭니다. </summary>
+      <returns>지정된 액세스 모드를 가진 메모리 매핑된 파일입니다.</returns>
+      <param name="path">매핑할 파일의 경로입니다.</param>
+      <param name="mode">액세스 모드는 <see cref="F:System.IO.FileMode.Open" />이어야 합니다.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" />가 길이가 빈 문자열이거나 공백만 포함하거나 <see cref="M:System.IO.Path.GetInvalidFileNameChars" /> 메서드에 정의된 하나 이상의 잘못된 문자를 포함하는 경우 또는<paramref name="path" />는 잘못된 장치로 간주합니다.또는<paramref name="mode" />가 <see cref="F:System.IO.FileMode.Append" />인 경우</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" />가 null인 경우</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="mode" />가 <see cref="F:System.IO.FileMode.Create" />, <see cref="F:System.IO.FileMode.CreateNew" /> 또는 <see cref="F:System.IO.FileMode.Truncate" />인 경우또는<paramref name="mode" />가 <see cref="F:System.IO.FileMode.OpenOrCreate" />이고 디스크에 파일이 존재하지 않는 경우.또는I/O 오류가 발생하는 경우</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" />가 운영 체제에 정의된 최대 길이를 초과하는 경우.Windows에서 경로에 248자 미만이 포함되어야 하며 파일 이름은 260자 미만을 포함해야 합니다.</exception>
+      <exception cref="T:System.Security.SecurityException">호출자에게 파일에 필요한 권한이 없습니다.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String)">
+      <summary>디스크의 파일에서 지정된 액세스 모드와 이름을 가진 메모리 매핑된 파일을 만듭니다.</summary>
+      <returns>지정된 이름과 액세스 모드를 가진 메모리 매핑된 파일입니다.</returns>
+      <param name="path">매핑할 파일의 경로입니다.</param>
+      <param name="mode">액세스 모드는 <see cref="F:System.IO.FileMode.Open" />이어야 합니다.</param>
+      <param name="mapName">메모리 매핑된 파일에 할당할 이름입니다. </param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" />가 길이가 빈 문자열이거나 공백만 포함하거나 <see cref="M:System.IO.Path.GetInvalidFileNameChars" /> 메서드에 정의된 하나 이상의 잘못된 문자를 포함하는 경우 또는<paramref name="path" />는 잘못된 장치로 간주합니다.또는<paramref name="mapName" />이 빈 문자열인 경우또는<paramref name="mode" />가 <see cref="F:System.IO.FileMode.Append" />인 경우</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> 또는 <paramref name="mapName" />가 null인 경우</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="mode" />가 <see cref="F:System.IO.FileMode.Create" />, <see cref="F:System.IO.FileMode.CreateNew" /> 또는 <see cref="F:System.IO.FileMode.Truncate" />인 경우또는<paramref name="mode" />가 <see cref="F:System.IO.FileMode.OpenOrCreate" />이고 디스크에 파일이 존재하지 않는 경우.또는I/O 오류가 발생하는 경우</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" />가 운영 체제에 정의된 최대 길이를 초과하는 경우.Windows에서 경로에 248자 미만이 포함되어야 하며 파일 이름은 260자 미만을 포함해야 합니다.</exception>
+      <exception cref="T:System.Security.SecurityException">호출자에게 파일에 필요한 권한이 없습니다.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String,System.Int64)">
+      <summary>디스크의 파일에서 지정된 액세스 모드, 이름 및 용량을 가진 메모리 매핑된 파일을 만듭니다.</summary>
+      <returns>지정된 특성을 가진 메모리 매핑된 파일입니다.</returns>
+      <param name="path">매핑할 파일의 경로입니다.</param>
+      <param name="mode">액세스 모드는 <see cref="F:System.IO.FileMode.Append" />를 제외하고는 <see cref="T:System.IO.FileMode" /> 열거형이 될 수 있습니다.</param>
+      <param name="mapName">메모리 매핑된 파일에 할당할 이름입니다. </param>
+      <param name="capacity">메모리 매핑된 파일에 할당할 최대 크기(바이트)입니다.용량을 디스크에 있는 파일의 크기로 설정하려면 0을 지정합니다.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" />가 길이가 빈 문자열이거나 공백만 포함하거나 <see cref="M:System.IO.Path.GetInvalidFileNameChars" /> 메서드에 정의된 하나 이상의 잘못된 문자를 포함하는 경우 또는<paramref name="path" />는 잘못된 장치로 간주합니다.또는<paramref name="mapName" />이 빈 문자열인 경우또는<paramref name="mode" />가 <see cref="F:System.IO.FileMode.Append" />인 경우</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> 또는 <paramref name="mapName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" />는 논리 주소 공간의 크기보다 큽니다.또는<paramref name="capacity" />가 0보다 작은 경우또는<paramref name="capacity" />가 파일 크기보다 작습니다(0은 아님).또는<paramref name="capacity" />가 0 이고 디스크의 파일 크기도 0 입니다.</exception>
+      <exception cref="T:System.IO.IOException">I/O 오류가 발생하는 경우</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" />가 운영 체제에 정의된 최대 길이를 초과하는 경우.Windows에서 경로에 248자 미만이 포함되어야 하며 파일 이름은 260자 미만을 포함해야 합니다.</exception>
+      <exception cref="T:System.Security.SecurityException">호출자에게 파일에 필요한 권한이 없습니다.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>디스크의 파일에서 지정된 액세스 모드, 이름, 용량 및 액세스 형식을 가진 메모리 매핑된 파일을 만듭니다.</summary>
+      <returns>지정된 특성을 가진 메모리 매핑된 파일입니다.</returns>
+      <param name="path">매핑할 파일의 경로입니다.</param>
+      <param name="mode">액세스 모드는 <see cref="F:System.IO.FileMode.Append" />를 제외하고는 <see cref="T:System.IO.FileMode" /> 열거형이 될 수 있습니다.</param>
+      <param name="mapName">메모리 매핑된 파일에 할당할 이름입니다. </param>
+      <param name="capacity">메모리 매핑된 파일에 할당할 최대 크기(바이트)입니다.용량을 디스크에 있는 파일의 크기로 설정하려면 0을 지정합니다.</param>
+      <param name="access">메모리 매핑된 파일에 허용되는 액세스 형식을 지정하는 열거형 값 중 하나입니다.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" />이 빈 문자열인 경우또는<paramref name="access" />이 허용되는 값이 아닌 경우.또는<paramref name="path" />는 빈 파일을 지정합니다.또는<paramref name="access" />는 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read" />로 지정되고 용량이 <paramref name="path" />에 지정된 파일 크기보다 큽니다.또는<paramref name="mode" />가 <see cref="F:System.IO.FileMode.Append" />인 경우</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> 또는 <paramref name="mapName" />가 null인 경우 </exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" />는 논리 주소 공간의 크기보다 큽니다.또는<paramref name="capacity" />가 0보다 작은 경우또는<paramref name="capacity" />가 파일 크기보다 작습니다(0은 아님).또는<paramref name="capacity" />가 0 이고 디스크의 파일 크기도 0 입니다.또는<paramref name="access" />는 정의된 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 값이 아닙니다.또는<paramref name="path" />에 나타난 파일 크기가 <paramref name="capacity" />보다 큰 경우</exception>
+      <exception cref="T:System.IO.IOException">또는I/O 오류가 발생하는 경우</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" />가 운영 체제에 정의된 최대 길이를 초과하는 경우.Windows에서 경로에 248자 미만이 포함되어야 하며 파일 이름은 260자 미만을 포함해야 합니다.</exception>
+      <exception cref="T:System.Security.SecurityException">호출자에게 파일에 필요한 권한이 없습니다.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64)">
+      <summary>시스템 메모리에서 지정된 용량을 가진 메모리 매핑된 파일을 만듭니다. </summary>
+      <returns>지정된 이름과 용량을 가진 메모리 매핑된 파일입니다.</returns>
+      <param name="mapName">메모리 매핑된 파일에 할당할 이름입니다.</param>
+      <param name="capacity">메모리 매핑된 파일에 할당할 최대 크기(바이트)입니다.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" />이 빈 문자열인 경우 </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" />가 0보다 작거나 같은 경우</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>시스템 메모리에서 지정된 용량과 액세스 형식을 가진 메모리 매핑된 파일을 만듭니다. </summary>
+      <returns>지정된 특성을 가진 메모리 매핑된 파일입니다.</returns>
+      <param name="mapName">메모리 매핑된 파일에 할당할 이름입니다.</param>
+      <param name="capacity">메모리 매핑된 파일에 할당할 최대 크기(바이트)입니다.</param>
+      <param name="access">메모리 매핑된 파일에 허용되는 액세스 형식을 지정하는 열거형 값 중 하나입니다.기본값은 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />입니다.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" />이 빈 문자열인 경우또는<paramref name="access" />는 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 열거형 값이 있는 쓰기 전용으로 설정됩니다. </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" />가 0보다 작거나 같은 경우또는<paramref name="access" />가 유효한 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 열거형 값이 아닌 경우</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.MemoryMappedFiles.MemoryMappedFileOptions,System.IO.HandleInheritability)">
+      <summary>지정된 이름, 용량, 액세스 형식, 메모리 할당 옵션 및 상속을 가진 메모리 매핑된 파일을 만듭니다.</summary>
+      <returns>지정된 특성을 가진 메모리 매핑된 파일입니다.</returns>
+      <param name="mapName">메모리 매핑된 파일에 할당할 이름입니다.</param>
+      <param name="capacity">메모리 매핑된 파일에 할당할 최대 크기(바이트)입니다.</param>
+      <param name="access">메모리 매핑된 파일에 허용되는 액세스 형식을 지정하는 열거형 값 중 하나입니다.기본값은 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />입니다.</param>
+      <param name="options">메모리 매핑된 파일에 대한 메모리 할당 옵션을 지정하는 열거형 값의 비트 조합입니다.</param>
+      <param name="inheritability">메모리 매핑된 파일의 핸들을 자식 프로세스가 상속할 수 있는지 여부를 지정하는 값입니다.기본값은 <see cref="F:System.IO.HandleInheritability.None" />입니다.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" />이 빈 문자열인 경우또는<paramref name="access" />는 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 열거형 값이 있는 쓰기 전용으로 설정됩니다. </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" />가 0보다 작거나 같은 경우또는<paramref name="access" />가 유효한 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 열거형 값이 아닌 경우또는<paramref name="inheritability" />은(는) 올바른 <see cref="T:System.IO.HandleInheritability" /> 값이 아닙니다.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64)">
+      <summary>시스템 메모리에서 지정된 용량을 가진 메모리 매핑된 파일을 만들거나 엽니다.</summary>
+      <returns>지정된 이름과 크기를 가진 메모리 매핑된 파일입니다.</returns>
+      <param name="mapName">메모리 매핑된 파일에 할당할 이름입니다.</param>
+      <param name="capacity">메모리 매핑된 파일에 할당할 최대 크기(바이트)입니다.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" />이 빈 문자열인 경우</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" />는 논리 주소 공간의 크기보다 큽니다.또는<paramref name="capacity" />가 0보다 작거나 같은 경우</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>시스템 메모리에서 지정된 용량과 액세스 형식을 가진 메모리 매핑된 파일을 만들거나 엽니다. </summary>
+      <returns>지정된 특성을 가진 메모리 매핑된 파일입니다.</returns>
+      <param name="mapName">메모리 매핑된 파일에 할당할 이름입니다.</param>
+      <param name="capacity">메모리 매핑된 파일에 할당할 최대 크기(바이트)입니다.</param>
+      <param name="access">메모리 매핑된 파일에 허용되는 액세스 형식을 지정하는 열거형 값 중 하나입니다.기본값은 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />입니다.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" />이 빈 문자열인 경우또는<paramref name="access" />는 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 열거형 값이 있는 쓰기 전용으로 설정됩니다.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" />는 논리 주소 공간의 크기보다 큽니다.또는<paramref name="capacity" />가 0보다 작거나 같은 경우또는<paramref name="access" />가 유효한 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 열거형 값이 아닌 경우</exception>
+      <exception cref="T:System.UnauthorizedAccessException">운영 체제에서 파일에 지정된 액세스 권한을 거부했습니다. 예를 들어, 액세스 권한이 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 또는 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />로 설정되어 있지만 파일 또는 디렉터리가 읽기 전용입니다. </exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.MemoryMappedFiles.MemoryMappedFileOptions,System.IO.HandleInheritability)">
+      <summary>동일한 이름의 파일이 있는 경우 비어 있는 새 메모리 매핑된 파일을 만들거나 기존의 메모리 매핑된 파일을 엽니다.기존 파일을 여는 경우 용량, 옵션 및 메모리 인수가 무시됩니다.</summary>
+      <returns>지정된 특성을 가진 메모리 매핑된 파일입니다.</returns>
+      <param name="mapName">메모리 매핑된 파일에 할당할 이름입니다.</param>
+      <param name="capacity">메모리 매핑된 파일에 할당할 최대 크기(바이트)입니다.</param>
+      <param name="access">메모리 매핑된 파일에 허용되는 액세스 형식을 지정하는 열거형 값 중 하나입니다.기본값은 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />입니다.</param>
+      <param name="options">파일에 적용할 메모리 할당 옵션을 나타내는 값의 비트 조합입니다.</param>
+      <param name="inheritability">메모리 매핑된 파일의 핸들을 자식 프로세스가 상속할 수 있는지 여부를 지정하는 값입니다.기본값은 <see cref="F:System.IO.HandleInheritability.None" />입니다.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" />이 빈 문자열인 경우또는<paramref name="access" />는 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 열거형 값이 있는 쓰기 전용으로 설정됩니다.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" />는 논리 주소 공간의 크기보다 큽니다.또는<paramref name="capacity" />가 0보다 작거나 같은 경우또는<paramref name="access" />가 유효한 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 열거형 값이 아닌 경우또는<paramref name="inheritability" />가 유효한 <see cref="T:System.IO.HandleInheritability" /> 열거형 값이 아닌 경우</exception>
+      <exception cref="T:System.UnauthorizedAccessException">운영 체제에서 파일에 지정된 액세스 권한을 거부했습니다. 예를 들어, 액세스 권한이 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 또는 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />로 설정되어 있지만 파일 또는 디렉터리가 읽기 전용입니다. </exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor">
+      <summary>메모리 매핑된 파일의 뷰에 매핑되는 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" />를 만듭니다.</summary>
+      <returns>임의로 액세스 가능한 메모리 블록입니다.</returns>
+      <exception cref="T:System.UnauthorizedAccessException">메모리 매핑된 파일에 대한 액세스 권한이 없습니다.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor(System.Int64,System.Int64)">
+      <summary>지정된 오프셋과 크기를 가지고 메모리 매핑된 파일의 뷰에 매핑되는 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" />를 만듭니다.</summary>
+      <returns>임의로 액세스 가능한 메모리 블록입니다.</returns>
+      <param name="offset">뷰를 시작할 바이트입니다.</param>
+      <param name="size">뷰의 크기입니다.<paramref name="offset" />에서 시작하고 메모리 매핑된 파일의 끝에서 대략적으로 끝나는 뷰를 만들려면 0을 지정합니다.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 또는 <paramref name="size" />는 음수 값입니다.또는<paramref name="size" />가 논리 주소 공간보다 큽니다.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">메모리 매핑된 파일에 대한 액세스 권한이 없습니다.</exception>
+      <exception cref="T:System.IO.IOException">I/O 오류가 발생하는 경우</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor(System.Int64,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>지정된 오프셋, 크기 및 액세스 제한을 가지고 메모리 매핑된 파일의 뷰에 매핑되는 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" />를 만듭니다.</summary>
+      <returns>임의로 액세스 가능한 메모리 블록입니다.</returns>
+      <param name="offset">뷰를 시작할 바이트입니다.</param>
+      <param name="size">뷰의 크기입니다.<paramref name="offset" />에서 시작하고 메모리 매핑된 파일의 끝에서 대략적으로 끝나는 뷰를 만들려면 0을 지정합니다.</param>
+      <param name="access">메모리 매핑된 파일에 허용되는 액세스 형식을 지정하는 열거형 값 중 하나입니다.기본값은 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />입니다.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 또는 <paramref name="size" />는 음수 값입니다.또는<paramref name="size" />가 논리 주소 공간보다 큽니다.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">
+        <paramref name="access" />는 메모리 매핑된 파일에 사용할 수 없습니다.</exception>
+      <exception cref="T:System.IO.IOException">I/O 오류가 발생하는 경우</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream">
+      <summary>메모리 매핑된 파일의 뷰에 매핑되는 스트림을 만듭니다.  </summary>
+      <returns>메모리 스트림입니다.</returns>
+      <exception cref="T:System.UnauthorizedAccessException">메모리 매핑된 파일에 대한 액세스 권한이 없습니다.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream(System.Int64,System.Int64)">
+      <summary>지정된 오프셋과 크기를 가지고 메모리 매핑된 파일의 뷰에 매핑되는 스트림을 만듭니다.</summary>
+      <returns>지정된 오프셋과 크기를 가진 메모리 스트림입니다.</returns>
+      <param name="offset">뷰를 시작할 바이트입니다.</param>
+      <param name="size">뷰의 크기입니다.<paramref name="offset" />에서 시작하고 메모리 매핑된 파일의 끝에서 대략적으로 끝나는 뷰를 만들려면 0을 지정합니다.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 또는 <paramref name="size" />는 음수 값입니다.또는<paramref name="size" />가 논리 주소 공간보다 큽니다.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">메모리 매핑된 파일에 대한 액세스 권한이 없습니다.</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="size" />가 총 가상 메모리보다 큽니다.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream(System.Int64,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>지정된 오프셋, 크기 및 액세스 형식을 가지고 메모리 매핑된 파일의 뷰에 매핑되는 스트림을 만듭니다.</summary>
+      <returns>지정된 특성을 가진 메모리 스트림입니다.</returns>
+      <param name="offset">뷰를 시작할 바이트입니다.</param>
+      <param name="size">뷰의 크기입니다.<paramref name="offset" />에서 시작하고 메모리 매핑된 파일의 끝에서 대략적으로 끝나는 뷰를 만들려면 0을 지정합니다.</param>
+      <param name="access">메모리 매핑된 파일에 허용되는 액세스 형식을 지정하는 열거형 값 중 하나입니다.기본값은 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />입니다.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 또는 <paramref name="size" />는 음수 값입니다.또는<paramref name="size" />가 논리 주소 공간보다 큽니다.또는<paramref name="access " />가 유효한 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 열거형 값이 아닌 경우</exception>
+      <exception cref="T:System.UnauthorizedAccessException">
+        <paramref name="access" />는 메모리 매핑된 파일에 사용할 수 없습니다.</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="size" />가 총 가상 메모리보다 큽니다.또는<paramref name="access" />는 메모리 매핑된 파일에 사용할 수 없습니다.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.Dispose">
+      <summary>
+        <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" />에서 사용하는 모든 리소스를 해제합니다. </summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.Dispose(System.Boolean)">
+      <summary>
+        <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" />에서 사용하는 관리되지 않는 리소스를 해제하고, 관리되는 리소스를 선택적으로 해제할 수 있습니다. </summary>
+      <param name="disposing">관리되는 리소스와 관리되지 않는 리소스를 모두 해제하려면 true로 설정하고, 관리되지 않는 리소스만 해제하려면 false로 설정합니다. </param>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String)">
+      <summary>시스템 메모리에서 지정된 이름을 가진 기존의 메모리 매핑된 파일을 엽니다.</summary>
+      <returns>지정된 이름을 가진 메모리 매핑된 파일입니다. </returns>
+      <param name="mapName">열려는 메모리 매핑된 파일의 이름입니다.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" />이 빈 문자열인 경우</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />가 null인 경우</exception>
+      <exception cref="T:System.IO.FileNotFoundException">
+        <paramref name="mapName" />에 지정된 파일이 없는 경우</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String,System.IO.MemoryMappedFiles.MemoryMappedFileRights)">
+      <summary>시스템 메모리에서 지정된 이름과 액세스 권한을 가진 기존의 메모리 매핑된 파일을 엽니다.</summary>
+      <returns>지정된 특성을 가진 메모리 매핑된 파일입니다.</returns>
+      <param name="mapName">열려는 메모리 매핑된 파일의 이름입니다.</param>
+      <param name="desiredAccessRights">메모리 매핑된 파일에 적용할 액세스 권한을 지정하는 열거형 값 중 하나입니다.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" />이 빈 문자열인 경우</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="desiredAccessRights" />가 유효한 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights" /> 열거형 값이 아닌 경우</exception>
+      <exception cref="T:System.IO.FileNotFoundException">
+        <paramref name="mapName" />에 지정된 파일이 없는 경우</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String,System.IO.MemoryMappedFiles.MemoryMappedFileRights,System.IO.HandleInheritability)">
+      <summary>시스템 메모리에서 지정된 이름, 액세스 권한 및 상속 가능성을 가진 기존의 메모리 매핑된 파일을 엽니다.</summary>
+      <returns>지정된 특성을 가진 메모리 매핑된 파일입니다.</returns>
+      <param name="mapName">열려는 메모리 매핑된 파일의 이름입니다.</param>
+      <param name="desiredAccessRights">메모리 매핑된 파일에 적용할 액세스 권한을 지정하는 열거형 값 중 하나입니다.</param>
+      <param name="inheritability">메모리 매핑된 파일의 핸들을 자식 프로세스가 상속할 수 있는지 여부를 지정하는 열거형 값 중 하나입니다.기본값은 <see cref="F:System.IO.HandleInheritability.None" />입니다.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" />이 빈 문자열인 경우</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" />가 null인 경우</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="desiredAccessRights" />가 유효한 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights" /> 열거형 값이 아닌 경우또는<paramref name="inheritability" />가 유효한 <see cref="T:System.IO.HandleInheritability" /> 열거형 값이 아닌 경우</exception>
+      <exception cref="T:System.UnauthorizedAccessException">요청된 액세스는 메모리 매핑된 파일에 유효하지 않습니다.</exception>
+      <exception cref="T:System.IO.FileNotFoundException">
+        <paramref name="mapName" />에 지정된 파일이 없는 경우</exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedFile.SafeMemoryMappedFileHandle">
+      <summary>메모리 매핑된 파일의 파일 핸들을 가져옵니다.</summary>
+      <returns>메모리 매핑된 파일의 핸들입니다.</returns>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess">
+      <summary>메모리 매핑된 파일 또는 뷰에 대한 액세스 기능과 제한을 지정합니다. </summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.CopyOnWrite">
+      <summary>다른 프로세스에 쓰기 작업이 표시되지 않도록 하는 제한이 있는, 파일에 대한 읽기 및 쓰기 액세스입니다. </summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read">
+      <summary>파일에 대한 읽기 전용 액세스입니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadExecute">
+      <summary>실행 코드를 저장하고 실행할 수 있는 파일에 대한 읽기 액세스입니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite">
+      <summary>파일에 대한 읽기 및 쓰기 액세스입니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWriteExecute">
+      <summary>실행 코드를 저장하고 실행할 수 있는 파일에 대한 읽기 및 쓰기 액세스입니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write">
+      <summary>파일에 대한 쓰기 전용 액세스입니다.</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileOptions">
+      <summary>메모리 매핑된 파일에 대한 메모리 할당 옵션을 제공합니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileOptions.DelayAllocatePages">
+      <summary>
+        <see cref="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor" /> 또는 <see cref="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream" /> 메서드를 사용하여 뷰를 만들 때까지 메모리 할당이 지연됩니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileOptions.None">
+      <summary>메모리 할당 옵션이 적용되지 않습니다.</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights">
+      <summary>디스크의 파일에 연결되지 않은 메모리 매핑된 파일에 대한 액세스 권한을 지정합니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.AccessSystemSecurity">
+      <summary>파일의 사용 권한을 가져오거나 설정할 수 있는 권한입니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ChangePermissions">
+      <summary>파일에 연결된 보안 및 감사 규칙을 변경할 수 있는 권한입니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.CopyOnWrite">
+      <summary>다른 프로세스에 쓰기 작업이 표시되지 않도록 하는 제한을 사용하여 파일을 읽고 쓸 수 있는 권한입니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Delete">
+      <summary>파일을 삭제할 수 있는 권한입니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Execute">
+      <summary>응용 프로그램 파일을 실행할 수 있는 권한입니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.FullControl">
+      <summary>파일에 대한 모든 권한을 실행하고 액세스 제어 및 감사 규칙을 수정할 수 있는 권한입니다.이 값은 파일에 대해 모든 작업을 할 수 있는 권한을 나타내며 이 열거형의 모든 권한을 조합한 것입니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Read">
+      <summary>파일을 읽기 전용으로 열고 복사할 수 있는 권한입니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadExecute">
+      <summary>폴더나 파일을 읽기 전용으로 열고 복사하며, 응용 프로그램 파일을 실행할 수 있는 권한입니다.이 권한에는 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Read" /> 및 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Execute" /> 권한이 포함됩니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadPermissions">
+      <summary>파일에서 액세스 및 감사 규칙을 열고 복사할 수 있는 권한입니다.여기에는 데이터, 파일 시스템 특성 또는 확장된 파일 시스템 특성을 읽을 수 있는 권한이 포함되지 않습니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadWrite">
+      <summary>파일을 열고 복사할 수 있는 권한 및 파일에 데이터를 추가하거나 파일에서 데이터를 제거할 수 있는 권한입니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadWriteExecute">
+      <summary>파일을 열고 복사할 수 있는 권한, 파일에 데이터를 추가하거나 파일에서 데이터를 제거할 수 있는 권한 및 응용 프로그램 파일을 실행할 수 있는 권한입니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.TakeOwnership">
+      <summary>파일의 소유자를 변경할 수 있는 권한입니다.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Write">
+      <summary>파일에 데이터를 추가하거나 파일에서 데이터를 제거할 수 있는 권한입니다.</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor">
+      <summary>메모리 매핑된 파일의 임의 액세스 뷰를 나타냅니다.</summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.Flush">
+      <summary>이 뷰에 대한 모든 버퍼를 지우고 버퍼링된 모든 데이터가 기본 파일에 기록되도록 합니다.</summary>
+      <exception cref="T:System.ObjectDisposedException">접근자가 닫힌 후 메서드가 호출된 경우</exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.PointerOffset">
+      <summary>[.NET Framework 4.5.1 이상 버전에서 지원됨] 메모리 매핑된 파일의 시작 부분에서 이 보기의 시작 위치가 오프셋되는 바이트 수를 가져옵니다. </summary>
+      <returns>이 뷰의 시작 위치와 메모리 매핑 파일의 시작 위치 사이의 바이트 수입니다. </returns>
+      <exception cref="T:System.InvalidOperationException">이 인스턴스를 만든 개체는 null입니다. </exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.SafeMemoryMappedViewHandle">
+      <summary>메모리 매핑된 파일의 뷰에 대한 핸들을 가져옵니다.</summary>
+      <returns>파일 뷰에 대한 운영 체제 핸들의 래퍼입니다. </returns>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedViewStream">
+      <summary>메모리 매핑된 파일의 뷰를 순차적으로 액세스되는 스트림으로 나타냅니다.</summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewStream.Flush">
+      <summary>이 스트림에 대한 모든 버퍼를 지우고 버퍼링된 모든 데이터가 기본 파일에 기록되도록 합니다.</summary>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewStream.PointerOffset">
+      <summary>[.NET Framework 4.5.1 이상 버전에서 지원됨] 메모리 매핑된 파일의 시작 부분에서 이 보기의 시작 위치가 오프셋되는 바이트 수를 가져옵니다.</summary>
+      <returns>이 뷰의 시작 위치와 메모리 매핑 파일의 시작 위치 사이의 바이트 수입니다. </returns>
+      <exception cref="T:System.InvalidOperationException">이 인스턴스를 만든 개체는 null입니다. </exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewStream.SafeMemoryMappedViewHandle">
+      <summary>메모리 매핑된 파일의 뷰에 대한 핸들을 가져옵니다.</summary>
+      <returns>파일 뷰에 대한 운영 체제 핸들의 래퍼입니다. </returns>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewStream.SetLength(System.Int64)">
+      <summary>현재 스트림의 길이를 설정합니다.</summary>
+      <param name="value">원하는 현재 스트림의 길이(바이트)입니다.</param>
+      <exception cref="T:System.NotSupportedException">이 메서드는 지원되지 않습니다.</exception>
+    </member>
+  </members>
+</doc>

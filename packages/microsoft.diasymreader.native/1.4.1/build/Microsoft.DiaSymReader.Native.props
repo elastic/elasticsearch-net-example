@@ -1,0 +1,19 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Condition="Exists('packages.config') OR Exists('$(MSBuildProjectName).packages.config') OR Exists('packages.$(MSBuildProjectName).config')">
+    <Content Include="$(MSBuildThisFileDirectory)\..\runtimes\win\native\Microsoft.DiaSymReader.Native.x86.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+      <Link>Microsoft.DiaSymReader.Native.x86.dll</Link>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)\..\runtimes\win\native\Microsoft.DiaSymReader.Native.amd64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+      <Link>Microsoft.DiaSymReader.Native.amd64.dll</Link>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)\..\runtimes\win\native\Microsoft.DiaSymReader.Native.arm.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+      <Link>Microsoft.DiaSymReader.Native.arm.dll</Link>
+    </Content>
+  </ItemGroup>
+</Project>

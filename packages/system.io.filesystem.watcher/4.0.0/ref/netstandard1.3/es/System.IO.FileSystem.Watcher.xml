@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.FileSystem.Watcher</name>
+  </assembly>
+  <members>
+    <member name="T:System.IO.ErrorEventArgs">
+      <summary>Proporciona datos para el evento <see cref="E:System.IO.FileSystemWatcher.Error" />.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.ErrorEventArgs.#ctor(System.Exception)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.ErrorEventArgs" />.</summary>
+      <param name="exception">
+        <see cref="T:System.Exception" /> que representa el error que se ha producido. </param>
+    </member>
+    <member name="M:System.IO.ErrorEventArgs.GetException">
+      <summary>Obtiene el objeto <see cref="T:System.Exception" /> que representa el error que se ha producido.</summary>
+      <returns>
+        <see cref="T:System.Exception" /> que representa el error que se ha producido.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.ErrorEventHandler">
+      <summary>Representa el método que controlará el evento <see cref="E:System.IO.FileSystemWatcher.Error" /> de un objeto <see cref="T:System.IO.FileSystemWatcher" />.</summary>
+      <param name="sender">Origen del evento. </param>
+      <param name="e">Objeto <see cref="T:System.IO.ErrorEventArgs" /> que contiene los datos del evento. </param>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.FileSystemEventArgs">
+      <summary>Proporciona datos para los eventos de directorio <see cref="E:System.IO.FileSystemWatcher.Changed" />, <see cref="E:System.IO.FileSystemWatcher.Created" /> y <see cref="E:System.IO.FileSystemWatcher.Deleted" />.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.FileSystemEventArgs.#ctor(System.IO.WatcherChangeTypes,System.String,System.String)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.FileSystemEventArgs" />.</summary>
+      <param name="changeType">Uno de los valores <see cref="T:System.IO.WatcherChangeTypes" />, que representa la clase de cambio detectado en el sistema de archivos. </param>
+      <param name="directory">Directorio raíz del directorio o archivo afectado. </param>
+      <param name="name">El nombre del directorio o archivo afectado. </param>
+    </member>
+    <member name="P:System.IO.FileSystemEventArgs.ChangeType">
+      <summary>Obtiene el tipo de evento de directorio que se ha producido.</summary>
+      <returns>Uno de los valores <see cref="T:System.IO.WatcherChangeTypes" />, que representa la clase de cambio detectado en el sistema de archivos.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemEventArgs.FullPath">
+      <summary>Obtiene la ruta de acceso completa del directorio o el archivo afectado.</summary>
+      <returns>Ruta de acceso del directorio o el archivo afectado.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemEventArgs.Name">
+      <summary>Obtiene el nombre del archivo o directorio afectado.</summary>
+      <returns>El nombre del directorio o archivo afectado.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.FileSystemEventHandler">
+      <summary>Representa el método que controlará el evento <see cref="E:System.IO.FileSystemWatcher.Changed" />, <see cref="E:System.IO.FileSystemWatcher.Created" /> o <see cref="E:System.IO.FileSystemWatcher.Deleted" /> de una clase <see cref="T:System.IO.FileSystemWatcher" />.</summary>
+      <param name="sender">Origen del evento. </param>
+      <param name="e">Objeto <see cref="T:System.IO.FileSystemEventArgs" /> que contiene los datos del evento. </param>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.FileSystemWatcher">
+      <summary>Escucha las notificaciones de cambio del sistema de archivos y genera eventos cuando cambia un directorio o un archivo de un directorio.Para examinar el código fuente de .NET Framework para este tipo, consulte el Reference Source.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.#ctor">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.FileSystemWatcher" />.</summary>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.#ctor(System.String)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.FileSystemWatcher" />, dado el directorio especificado que se va a supervisar.</summary>
+      <param name="path">El directorio que se va a supervisar, en notación de Convención de nomenclatura universal (Universal Naming Convention, UNC) o estándar. </param>
+      <exception cref="T:System.ArgumentNullException">El parámetro <paramref name="path" /> es null. </exception>
+      <exception cref="T:System.ArgumentException">El <paramref name="path" /> parámetro es una cadena vacía ("").o bien La ruta de acceso especificada a través de la <paramref name="path" /> el parámetro no existe. </exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> es demasiado largo.</exception>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.#ctor(System.String,System.String)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.FileSystemWatcher" />, dado el directorio especificado y el tipo de archivos que se van a supervisar.</summary>
+      <param name="path">El directorio que se va a supervisar, en notación de Convención de nomenclatura universal (Universal Naming Convention, UNC) o estándar. </param>
+      <param name="filter">El tipo de archivos que se van a inspeccionar.Por ejemplo, "*.txt" inspecciona cambios en todos los archivos de texto.</param>
+      <exception cref="T:System.ArgumentNullException">El parámetro <paramref name="path" /> es null.o bien El parámetro <paramref name="filter" /> es null. </exception>
+      <exception cref="T:System.ArgumentException">El <paramref name="path" /> parámetro es una cadena vacía ("").o bien La ruta de acceso especificada a través de la <paramref name="path" /> el parámetro no existe. </exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> es demasiado largo.</exception>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Changed">
+      <summary>Se produce cuando cambia un archivo o un directorio en la ruta de acceso <see cref="P:System.IO.FileSystemWatcher.Path" /> especificada.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Created">
+      <summary>Se produce cuando se crea un archivo o un directorio en la ruta de acceso <see cref="P:System.IO.FileSystemWatcher.Path" /> especificada.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Deleted">
+      <summary>Se produce cuando se elimina un archivo o un directorio en la ruta de acceso <see cref="P:System.IO.FileSystemWatcher.Path" /> especificada.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.Dispose"></member>
+    <member name="M:System.IO.FileSystemWatcher.Dispose(System.Boolean)">
+      <summary>Libera los recursos no administrados que usa <see cref="T:System.IO.FileSystemWatcher" /> y libera los recursos administrados de forma opcional.</summary>
+      <param name="disposing">Es true para liberar tanto recursos administrados como no administrados; es false para liberar únicamente recursos no administrados.</param>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.EnableRaisingEvents">
+      <summary>Obtiene o establece un valor que indica si el componente está habilitado.</summary>
+      <returns>Es true si el componente está habilitado; de lo contrario, es false.De manera predeterminada, es false.Si se utiliza el componente en un diseñador de Visual Studio 2005, el valor predeterminado es true.</returns>
+      <exception cref="T:System.ObjectDisposedException">La <see cref="T:System.IO.FileSystemWatcher" /> objeto se ha eliminado.</exception>
+      <exception cref="T:System.PlatformNotSupportedException">El sistema operativo actual no es Microsoft Windows NT o posterior.</exception>
+      <exception cref="T:System.IO.FileNotFoundException">El directorio especificado en <see cref="P:System.IO.FileSystemWatcher.Path" /> no se pudo encontrar.</exception>
+      <exception cref="T:System.ArgumentException">
+        <see cref="P:System.IO.FileSystemWatcher.Path" /> no se ha establecido o no es válido.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Error">
+      <summary>Se produce cuando la instancia de <see cref="T:System.IO.FileSystemWatcher" /> no puede continuar supervisando los cambios o cuando el búfer interno se desborda.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.Filter">
+      <summary>Obtiene o establece la cadena de filtro utilizada para determinar qué archivos se supervisan en un directorio.</summary>
+      <returns>La cadena de filtro.El valor predeterminado es "*.*" (inspecciona todos los archivos).</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.IncludeSubdirectories">
+      <summary>Obtiene o establece un valor que indica si se deben supervisar los subdirectorios de la ruta de acceso especificada.</summary>
+      <returns>Es true si desea supervisar subdirectorios; de lo contrario, es false.De manera predeterminada, es false.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.InternalBufferSize">
+      <summary>Obtiene o establece el tamaño (en bytes) del búfer interno.</summary>
+      <returns>Tamaño del búfer interno en bytes.El valor predeterminado es 8192 (8 KB).</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.NotifyFilter">
+      <summary>Obtiene o establece el tipo de cambios que se van a inspeccionar.</summary>
+      <returns>Uno de los valores de <see cref="T:System.IO.NotifyFilters" />.El valor predeterminado es la combinación OR bit a bit de LastWrite, FileName y DirectoryName.</returns>
+      <exception cref="T:System.ArgumentException">El valor no es una combinación OR bit a bit de los <see cref="T:System.IO.NotifyFilters" /> valores. </exception>
+      <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">El valor que se está estableciendo no es válido.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnChanged(System.IO.FileSystemEventArgs)">
+      <summary>Genera el evento <see cref="E:System.IO.FileSystemWatcher.Changed" />.</summary>
+      <param name="e">Objeto <see cref="T:System.IO.FileSystemEventArgs" /> que contiene los datos del evento. </param>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnCreated(System.IO.FileSystemEventArgs)">
+      <summary>Genera el evento <see cref="E:System.IO.FileSystemWatcher.Created" />.</summary>
+      <param name="e">Objeto <see cref="T:System.IO.FileSystemEventArgs" /> que contiene los datos del evento. </param>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnDeleted(System.IO.FileSystemEventArgs)">
+      <summary>Genera el evento <see cref="E:System.IO.FileSystemWatcher.Deleted" />.</summary>
+      <param name="e">Objeto <see cref="T:System.IO.FileSystemEventArgs" /> que contiene los datos del evento. </param>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnError(System.IO.ErrorEventArgs)">
+      <summary>Genera el evento <see cref="E:System.IO.FileSystemWatcher.Error" />.</summary>
+      <param name="e">Objeto <see cref="T:System.IO.ErrorEventArgs" /> que contiene los datos del evento. </param>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnRenamed(System.IO.RenamedEventArgs)">
+      <summary>Genera el evento <see cref="E:System.IO.FileSystemWatcher.Renamed" />.</summary>
+      <param name="e">Objeto <see cref="T:System.IO.RenamedEventArgs" /> que contiene los datos del evento. </param>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.Path">
+      <summary>Obtiene o establece la ruta de acceso del directorio que se va a inspeccionar.</summary>
+      <returns>La ruta de acceso que se va a supervisar.El valor predeterminado es una cadena vacía ("").</returns>
+      <exception cref="T:System.ArgumentException">La ruta de acceso especificada no existe o no se encuentra.o bien La ruta de acceso especificada contiene caracteres comodín.o bien La ruta de acceso especificada contiene caracteres de ruta de acceso no válidos.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Renamed">
+      <summary>Se produce cuando se cambia de nombre un archivo o un directorio de la ruta de acceso <see cref="P:System.IO.FileSystemWatcher.Path" /> especificada.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.NotifyFilters">
+      <summary>Especifica los cambios que se van a buscar en un archivo o una carpeta.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="F:System.IO.NotifyFilters.Attributes">
+      <summary>Atributos del archivo o la carpeta.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.CreationTime">
+      <summary>Hora en la que se creó el archivo o la carpeta.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.DirectoryName">
+      <summary>Nombre del directorio.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.FileName">
+      <summary>Nombre del archivo.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.LastAccess">
+      <summary>Fecha en la que se abrió el archivo o la carpeta por última vez.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.LastWrite">
+      <summary>Fecha en la que se escribió algo en el archivo o la carpeta por última vez.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.Security">
+      <summary>Configuración de seguridad del archivo o la carpeta.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.Size">
+      <summary>Tamaño del archivo o la carpeta.</summary>
+    </member>
+    <member name="T:System.IO.RenamedEventArgs">
+      <summary>Proporciona datos para el evento <see cref="E:System.IO.FileSystemWatcher.Renamed" />.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.RenamedEventArgs.#ctor(System.IO.WatcherChangeTypes,System.String,System.String,System.String)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.RenamedEventArgs" />.</summary>
+      <param name="changeType">Uno de los valores de <see cref="T:System.IO.WatcherChangeTypes" />. </param>
+      <param name="directory">El nombre del directorio o archivo afectado. </param>
+      <param name="name">El nombre del directorio o archivo afectado. </param>
+      <param name="oldName">Nombre antiguo del directorio o archivo afectado. </param>
+    </member>
+    <member name="P:System.IO.RenamedEventArgs.OldFullPath">
+      <summary>Obtiene la ruta de acceso completa anterior del directorio o archivo afectado.</summary>
+      <returns>La ruta de acceso completa anterior del directorio o archivo afectado.</returns>
+      <filterpriority>2</filterpriority>
+      <PermissionSet>
+        <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true" />
+      </PermissionSet>
+    </member>
+    <member name="P:System.IO.RenamedEventArgs.OldName">
+      <summary>Obtiene el nombre antiguo del directorio o archivo afectado.</summary>
+      <returns>El nombre anterior del directorio o archivo afectado.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.RenamedEventHandler">
+      <summary>Representa el método que controlará el evento <see cref="E:System.IO.FileSystemWatcher.Renamed" /> de una clase <see cref="T:System.IO.FileSystemWatcher" />.</summary>
+      <param name="sender">Origen del evento. </param>
+      <param name="e">Objeto <see cref="T:System.IO.RenamedEventArgs" /> que contiene los datos del evento. </param>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.WatcherChangeTypes">
+      <summary>Cambios que pueden producirse en un archivo o directorio.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.All">
+      <summary>Cambio, creación, eliminación o cambio de nombre de un archivo o carpeta.</summary>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.Changed">
+      <summary>Cambio de un archivo o carpeta.Los tipos de cambios que se producen son cambios en el tamaño, los atributos, la configuración de seguridad, la hora de última escritura y la hora de último acceso.</summary>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.Created">
+      <summary>Creación de un archivo o carpeta.</summary>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.Deleted">
+      <summary>Eliminación de un archivo o carpeta.</summary>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.Renamed">
+      <summary>Cambio de nombre de un archivo o carpeta.</summary>
+    </member>
+  </members>
+</doc>

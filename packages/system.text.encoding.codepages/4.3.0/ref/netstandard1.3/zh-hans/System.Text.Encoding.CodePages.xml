@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Text.Encoding.CodePages</name>
+  </assembly>
+  <members>
+    <member name="T:System.Text.CodePagesEncodingProvider">
+      <summary>提供对编码的提供程序用于桌面的.NET Framework 中但不是能在支持的代码页访问.NET Framework 4.6 RC。</summary>
+    </member>
+    <member name="P:System.Text.CodePagesEncodingProvider.Instance">
+      <summary>获取支持桌面.NET Framework 中但不是在当前的.NET Framework 平台的代码页编码的提供程序。</summary>
+      <returns>允许访问编码中不受支持的编码提供.NET Framework 4.6 RC。</returns>
+    </member>
+  </members>
+</doc>

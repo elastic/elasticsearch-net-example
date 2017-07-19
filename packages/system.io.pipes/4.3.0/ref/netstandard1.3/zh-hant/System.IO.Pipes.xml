@@ -1,0 +1,608 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.Pipes</name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.Win32.SafeHandles.SafePipeHandle">
+      <summary>代表管道控制碼的包裝函式類別。</summary>
+    </member>
+    <member name="M:Microsoft.Win32.SafeHandles.SafePipeHandle.#ctor(System.IntPtr,System.Boolean)">
+      <summary>初始化 <see cref="T:Microsoft.Win32.SafeHandles.SafePipeHandle" /> 類別的新執行個體。</summary>
+      <param name="preexistingHandle">
+        <see cref="T:System.IntPtr" /> 物件，表示要使用的既有控制代碼。</param>
+      <param name="ownsHandle">true 表示在結束階段確實地釋放控制代碼，而 false 表示不要確實地釋放 (不建議)。</param>
+    </member>
+    <member name="P:Microsoft.Win32.SafeHandles.SafePipeHandle.IsInvalid"></member>
+    <member name="T:System.IO.Pipes.AnonymousPipeClientStream">
+      <summary>公開匿名管道資料流的用戶端，這個資料流兼具同步與非同步讀取與寫入操作的支援。</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.IO.Pipes.PipeDirection,Microsoft.Win32.SafeHandles.SafePipeHandle)">
+      <summary>從指定的控制代碼初始化 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 類別的新執行個體。</summary>
+      <param name="direction">其中一個列舉值，決定管道的方向。因為匿名管線只能用於單一方向，所以 <paramref name="direction" /> 無法設定為 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />。</param>
+      <param name="safePipeHandle">安全控制代碼，用於這個 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 物件將會封裝的管道。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="safePipeHandle " /> 不是有效的控制代碼。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="safePipeHandle" /> 為 null。</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="direction" /> 設定為 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />。</exception>
+      <exception cref="T:System.IO.IOException">發生 I/O 錯誤，例如磁碟錯誤。-或-已關閉資料流。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.IO.Pipes.PipeDirection,System.String)">
+      <summary>使用指定的管道方向以及管道控制碼的字串表示，初始化 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 類別的新執行個體。</summary>
+      <param name="direction">其中一個列舉值，決定管道的方向。因為匿名管線只能用於單一方向，所以 <paramref name="direction" /> 無法設定為 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />。</param>
+      <param name="pipeHandleAsString">表示管道控制碼的字串。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeHandleAsString" /> 不是有效的控制代碼。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeHandleAsString" /> 為 null。</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="direction" /> 設定為 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.String)">
+      <summary>使用代表管道控制碼的指定字串，初始化 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 類別的新執行個體。</summary>
+      <param name="pipeHandleAsString">表示管道控制碼的字串。</param>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="pipeHandleAsString" /> 不是有效的管道控制碼。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeClientStream.Finalize">
+      <summary>釋放 unmanaged 的資源並執行其他清除作業之前<see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />執行個體由記憶體回收收回。</summary>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeClientStream.ReadMode">
+      <summary>設定 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 物件的讀取模式。</summary>
+      <returns>
+        <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 物件的 <see cref="T:System.IO.Pipes.PipeTransmissionMode" />。</returns>
+      <exception cref="T:System.ArgumentOutOfRangeException">傳輸模式不正確。匿名管道只支援 <see cref="F:System.IO.Pipes.PipeTransmissionMode.Byte" />。</exception>
+      <exception cref="T:System.NotSupportedException">傳輸模式是 <see cref="F:System.IO.Pipes.PipeTransmissionMode.Message" />。</exception>
+      <exception cref="T:System.IO.IOException">連線已中斷，或發生其他 I/O 錯誤。</exception>
+      <exception cref="T:System.ObjectDisposedException">管道已關閉。</exception>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeClientStream.TransmissionMode">
+      <summary>取得目前管道支援的管道傳輸模式。</summary>
+      <returns>目前管道支援的 <see cref="T:System.IO.Pipes.PipeTransmissionMode" />。</returns>
+    </member>
+    <member name="T:System.IO.Pipes.AnonymousPipeServerStream">
+      <summary>公開匿名管道的資料流，這個資料流兼具同步與非同步讀取與寫入操作的支援。</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor">
+      <summary>初始化 <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 類別的新執行個體。</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection)">
+      <summary>使用指定的管道方向，初始化 <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 類別的新執行個體。</summary>
+      <param name="direction">其中一個列舉值，決定管道的方向。因為匿名管線只能用於單一方向，所以 <paramref name="direction" /> 無法設定為 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />。</param>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="direction" /> 設定為 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,Microsoft.Win32.SafeHandles.SafePipeHandle,Microsoft.Win32.SafeHandles.SafePipeHandle)">
+      <summary>從指定的管道控制碼初始化 <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 類別的新執行個體。</summary>
+      <param name="direction">其中一個列舉值，決定管道的方向。因為匿名管線只能用於單一方向，所以 <paramref name="direction" /> 無法設定為 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />。</param>
+      <param name="serverSafePipeHandle">安全控制代碼，用於這個 <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 物件將會封裝的管道。</param>
+      <param name="clientSafePipeHandle">
+        <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 物件的安全控制代碼。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="serverSafePipeHandle" /> 或 <paramref name="clientSafePipeHandle" /> 是無效的控制代碼。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="serverSafePipeHandle" /> 或 <paramref name="clientSafePipeHandle" /> 為 null。</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="direction" /> 設定為 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />。</exception>
+      <exception cref="T:System.IO.IOException">發生 I/O 錯誤，例如磁碟錯誤。-或-已關閉資料流。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,System.IO.HandleInheritability)">
+      <summary>使用指定的管道方向與繼承模式，初始化 <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 類別的新執行個體。</summary>
+      <param name="direction">其中一個列舉值，決定管道的方向。因為匿名管線只能用於單一方向，所以 <paramref name="direction" /> 無法設定為 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />。</param>
+      <param name="inheritability">其中一個列舉值，決定子處理序是否可以繼承基礎控制代碼。必須設定為 <see cref="F:System.IO.HandleInheritability.None" /> 或 <see cref="F:System.IO.HandleInheritability.Inheritable" />。</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="inheritability" /> 不是設定為 <see cref="F:System.IO.HandleInheritability.None" /> 或 <see cref="F:System.IO.HandleInheritability.Inheritable" />。</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="direction" /> 設定為 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,System.IO.HandleInheritability,System.Int32)">
+      <summary>使用指定的管道方向、繼承模式及緩衝區大小，初始化 <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 類別的新執行個體。</summary>
+      <param name="direction">其中一個列舉值，決定管道的方向。因為匿名管線只能用於單一方向，所以 <paramref name="direction" /> 無法設定為 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />。</param>
+      <param name="inheritability">其中一個列舉值，決定子處理序是否可以繼承基礎控制代碼。必須設定為 <see cref="F:System.IO.HandleInheritability.None" /> 或 <see cref="F:System.IO.HandleInheritability.Inheritable" />。</param>
+      <param name="bufferSize">緩衝區的大小。這個值必須大於或等於 0。</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="inheritability" /> 不是設定為 <see cref="F:System.IO.HandleInheritability.None" /> 或 <see cref="F:System.IO.HandleInheritability.Inheritable" />。-或-<paramref name="bufferSize" /> 小於 0。</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="direction" /> 設定為 <see cref="F:System.IO.Pipes.PipeDirection.InOut" />。</exception>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeServerStream.ClientSafePipeHandle">
+      <summary>取得 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 物件的安全控制碼，此物件目前連接到 <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 物件。</summary>
+      <returns>
+        <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 物件的控制代碼，此物件目前連接到 <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 物件。</returns>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.DisposeLocalCopyOfClientHandle">
+      <summary>關閉 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 物件控制碼的本機複本。</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.Finalize">
+      <summary>釋放 unmanaged 的資源並執行其他清除作業之前<see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />執行個體由記憶體回收收回。</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.GetClientHandleAsString">
+      <summary>取得已連接 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 物件的控制碼，做為字串。</summary>
+      <returns>字串，表示已連接 <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> 物件的控制代碼。</returns>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeServerStream.ReadMode">
+      <summary>設定 <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 物件的讀取模式。匿名管道的傳輸模式必須是 <see cref="F:System.IO.Pipes.PipeTransmissionMode.Byte" />。</summary>
+      <returns>
+        <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> 物件的讀取模式。</returns>
+      <exception cref="T:System.ArgumentOutOfRangeException">傳輸模式不正確。匿名管道只支援 <see cref="F:System.IO.Pipes.PipeTransmissionMode.Byte" />。</exception>
+      <exception cref="T:System.NotSupportedException">屬性設定為匿名管道不支援的 <see cref="F:System.IO.Pipes.PipeTransmissionMode.Message" />。</exception>
+      <exception cref="T:System.IO.IOException">連線已中斷，或發生其他 I/O 錯誤。</exception>
+      <exception cref="T:System.ObjectDisposedException">管道已關閉。</exception>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeServerStream.TransmissionMode">
+      <summary>取得目前管道支援的管道傳輸模式。</summary>
+      <returns>目前管道支援的 <see cref="T:System.IO.Pipes.PipeTransmissionMode" />。</returns>
+    </member>
+    <member name="T:System.IO.Pipes.NamedPipeClientStream">
+      <summary>公開具名管道的 <see cref="T:System.IO.Stream" />，兼具同步與非同步讀取與寫入操作的支援。</summary>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.IO.Pipes.PipeDirection,System.Boolean,System.Boolean,Microsoft.Win32.SafeHandles.SafePipeHandle)">
+      <summary>使用具有指定管道方向的管道控制碼，初始化 <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> 類別的新執行個體。</summary>
+      <param name="direction">其中一個列舉值，決定管道的方向。</param>
+      <param name="isAsync">true 表示控制碼為非同步開啟，否則就是 false。</param>
+      <param name="isConnected">true 表示管道已連接，否則就是 false。</param>
+      <param name="safePipeHandle">安全控制代碼，用於這個 <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> 物件將會封裝的管道。</param>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="safePipeHandle" /> 不是有效的控制代碼。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="safePipeHandle" /> 不是有效的控制代碼。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="safePipeHandle" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="direction" /> 不是有效的 <see cref="T:System.IO.Pipes.PipeDirection" /> 值。</exception>
+      <exception cref="T:System.IO.IOException">已關閉資料流。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String)">
+      <summary>使用指定的管道名稱，初始化 <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> 類別的新執行個體。</summary>
+      <param name="pipeName">管道的名稱。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> 是長度為零的字串。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> 設定為「匿名」。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String,System.String)">
+      <summary>使用指定的管道及伺服器名稱，初始化 <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> 類別的新執行個體。</summary>
+      <param name="serverName">要連接的遠端電腦名稱，或 "." 表示要指定本機電腦。</param>
+      <param name="pipeName">管道的名稱。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> 或 <paramref name="serverName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> 或 <paramref name="serverName" /> 是長度為零的字串。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> 設定為「匿名」。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String,System.String,System.IO.Pipes.PipeDirection)">
+      <summary>使用指定的管道與伺服器名稱，以及指定的管道方向，初始化 <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> 類別的新執行個體。</summary>
+      <param name="serverName">要連接的遠端電腦名稱，或 "." 表示要指定本機電腦。</param>
+      <param name="pipeName">管道的名稱。</param>
+      <param name="direction">其中一個列舉值，決定管道的方向。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> 或 <paramref name="serverName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> 或 <paramref name="serverName" /> 是長度為零的字串。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> 設定為「匿名」。-或-<paramref name="direction" /> 不是有效的 <see cref="T:System.IO.Pipes.PipeDirection" /> 值。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String,System.String,System.IO.Pipes.PipeDirection,System.IO.Pipes.PipeOptions)">
+      <summary>使用指定的管道與伺服器名稱，以及指定的管道方向與管道選項，初始化 <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> 類別的新執行個體。</summary>
+      <param name="serverName">要連接的遠端電腦名稱，或 "." 表示要指定本機電腦。</param>
+      <param name="pipeName">管道的名稱。</param>
+      <param name="direction">其中一個列舉值，決定管道的方向。</param>
+      <param name="options">其中一個列舉值，決定如何開啟或建立管道。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> 或 <paramref name="serverName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> 或 <paramref name="serverName" /> 是長度為零的字串。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> 設定為「匿名」。-或-<paramref name="direction" /> 不是有效的 <see cref="T:System.IO.Pipes.PipeDirection" /> 值。-或-<paramref name="options" /> 不是有效的 <see cref="T:System.IO.Pipes.PipeOptions" /> 值。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String,System.String,System.IO.Pipes.PipeDirection,System.IO.Pipes.PipeOptions,System.Security.Principal.TokenImpersonationLevel)">
+      <summary>使用指定的管道與伺服器名稱，以及指定的管道方向、管道選項及安全性模擬等級，初始化 <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> 類別的新執行個體。</summary>
+      <param name="serverName">要連接的遠端電腦名稱，或 "." 表示要指定本機電腦。</param>
+      <param name="pipeName">管道的名稱。</param>
+      <param name="direction">其中一個列舉值，決定管道的方向。</param>
+      <param name="options">其中一個列舉值，決定如何開啟或建立管道。</param>
+      <param name="impersonationLevel">其中一個列舉值，決定安全性模擬等級。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> 或 <paramref name="serverName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> 或 <paramref name="serverName" /> 是長度為零的字串。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> 設定為「匿名」。-或-<paramref name="direction" /> 不是有效的 <see cref="T:System.IO.Pipes.PipeDirection" /> 值。-或-<paramref name="options" /> 不是有效的 <see cref="T:System.IO.Pipes.PipeOptions" /> 值。-或-<paramref name="impersonationLevel" /> 不是有效的 <see cref="T:System.Security.Principal.TokenImpersonationLevel" /> 值。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.Connect">
+      <summary>以無限的逾時值連接至等候中伺服器。</summary>
+      <exception cref="T:System.InvalidOperationException">已連接用戶端。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.Connect(System.Int32)">
+      <summary>在指定的逾時限制期間內，連接到等候中的伺服器。</summary>
+      <param name="timeout">等候伺服器回應的毫秒數，經過這段時間即為連線逾時。</param>
+      <exception cref="T:System.TimeoutException">無法在指定的 <paramref name="timeout" /> 期間內連接伺服器。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="timeout" /> 小於 0 且未設定為 <see cref="F:System.Threading.Timeout.Infinite" />。</exception>
+      <exception cref="T:System.InvalidOperationException">已連接用戶端。</exception>
+      <exception cref="T:System.IO.IOException">伺服器連接至另一個用戶端，而且逾時期限已過期。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.ConnectAsync">
+      <summary>以無限的逾時期限非同步連接至等候中伺服器。</summary>
+      <returns>表示非同步作業的工作。</returns>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.ConnectAsync(System.Int32)">
+      <summary>在指定的逾時期限內非同步連接至等候中伺服器。</summary>
+      <returns>表示非同步作業的工作。</returns>
+      <param name="timeout">等候伺服器回應的毫秒數，經過這段時間即為連線逾時。</param>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.ConnectAsync(System.Int32,System.Threading.CancellationToken)">
+      <summary>在指定的逾時期限內非同步連接至等候中伺服器，並且監視取消要求。</summary>
+      <returns>表示非同步作業的工作。</returns>
+      <param name="timeout">等候伺服器回應的毫秒數，經過這段時間即為連線逾時。</param>
+      <param name="cancellationToken">用來監視是否有取消要求的語彙基元。預設值是 <see cref="P:System.Threading.CancellationToken.None" />。</param>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.ConnectAsync(System.Threading.CancellationToken)">
+      <summary>非同步連接至等候中伺服器，並且監視取消要求。</summary>
+      <returns>表示非同步作業的工作。</returns>
+      <param name="cancellationToken">用來監視是否有取消要求的語彙基元。預設值是 <see cref="P:System.Threading.CancellationToken.None" />。</param>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.Finalize">
+      <summary>釋放 unmanaged 的資源並執行其他清除作業之前<see cref="T:System.IO.Pipes.NamedPipeClientStream" />執行個體由記憶體回收收回。</summary>
+    </member>
+    <member name="P:System.IO.Pipes.NamedPipeClientStream.NumberOfServerInstances">
+      <summary>取得共用相同管道名稱的伺服器執行個體數目。</summary>
+      <returns>共用相同管道名稱的伺服器執行個體數目。</returns>
+      <exception cref="T:System.InvalidOperationException">管道控制碼尚未設定。-或-目前的 <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> 物件尚未連接到 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 物件。</exception>
+      <exception cref="T:System.IO.IOException">管道中斷或發生 I/O 錯誤。</exception>
+      <exception cref="T:System.ObjectDisposedException">基礎的管道控制代碼已關閉。</exception>
+    </member>
+    <member name="T:System.IO.Pipes.NamedPipeServerStream">
+      <summary>公開具名管道的 <see cref="T:System.IO.Stream" />，兼具同步與非同步讀取與寫入操作的支援。</summary>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,System.Boolean,System.Boolean,Microsoft.Win32.SafeHandles.SafePipeHandle)">
+      <summary>從指定的管道控制碼初始化 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 類別的新執行個體。</summary>
+      <param name="direction">其中一個列舉值，決定管道的方向。</param>
+      <param name="isAsync">true 表示控制碼為非同步開啟，否則就是 false。</param>
+      <param name="isConnected">true 表示管道已連接，否則就是 false。</param>
+      <param name="safePipeHandle">安全控制代碼，用於這個 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 物件將會封裝的管道。</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="direction" /> 不是有效的 <see cref="T:System.IO.Pipes.PipeDirection" /> 值。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="safePipeHandle" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="safePipeHandle" /> 不是有效的控制代碼。</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="safePipeHandle" /> 不是有效的管道控制碼。-或-超過伺服器執行個體的數目上限。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String)">
+      <summary>使用指定的管道名稱，初始化 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 類別的新執行個體。</summary>
+      <param name="pipeName">管道的名稱。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> 是長度為零的字串。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> 設定為「匿名」。</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> 包含冒號 (「:」)。</exception>
+      <exception cref="T:System.PlatformNotSupportedException">作業系統是不受支援的 Windows Millennium Edition、Windows 98 或 Windows 95。</exception>
+      <exception cref="T:System.IO.IOException">超過伺服器執行個體的數目上限。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection)">
+      <summary>使用指定的管道名稱與管道方向，初始化 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 類別的新執行個體。</summary>
+      <param name="pipeName">管道的名稱。</param>
+      <param name="direction">其中一個列舉值，決定管道的方向。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> 是長度為零的字串。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> 設定為「匿名」。-或-<paramref name="direction" /> 不是有效的 <see cref="T:System.IO.Pipes.PipeDirection" /> 值。</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> 包含冒號 (「:」)。</exception>
+      <exception cref="T:System.PlatformNotSupportedException">作業系統是不受支援的 Windows Millennium Edition、Windows 98 或 Windows 95。</exception>
+      <exception cref="T:System.IO.IOException">超過伺服器執行個體的數目上限。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32)">
+      <summary>使用指定的管道名稱、管道方向以及伺服器執行個體數目上限，初始化 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 類別的新執行個體。</summary>
+      <param name="pipeName">管道的名稱。</param>
+      <param name="direction">其中一個列舉值，決定管道的方向。</param>
+      <param name="maxNumberOfServerInstances">可共用相同名稱的最大伺服器執行個體數目。您可以為這個值傳入 <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> 是長度為零的字串。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> 設定為「匿名」。-或-<paramref name="direction" /> 不是有效的 <see cref="T:System.IO.Pipes.PipeDirection" /> 值。-或-必須是非負數。-或-<paramref name="maxNumberofServerInstances" /> 小於 -1 或大於 254 (-1 表示 <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />)-或-<see cref="F:System.IO.HandleInheritability.None" /> 或 <see cref="F:System.IO.HandleInheritability.Inheritable" /> 是必要的。-或-存取權限僅限於 <see cref="F:System.IO.Pipes.PipeAccessRights.ChangePermissions" />、<see cref="F:System.IO.Pipes.PipeAccessRights.TakeOwnership" /> 和 <see cref="F:System.IO.Pipes.PipeAccessRights.AccessSystemSecurity" /> 旗標。</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> 包含冒號 (「:」)。</exception>
+      <exception cref="T:System.PlatformNotSupportedException">作業系統是不受支援的 Windows Millennium Edition、Windows 98 或 Windows 95。</exception>
+      <exception cref="T:System.IO.IOException">超過伺服器執行個體的數目上限。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode)">
+      <summary>使用指定的管道名稱、管道方向、伺服器執行個體數目上限以及傳輸模式，初始化 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 類別的新執行個體。</summary>
+      <param name="pipeName">管道的名稱。</param>
+      <param name="direction">其中一個列舉值，決定管道的方向。</param>
+      <param name="maxNumberOfServerInstances">可共用相同名稱的最大伺服器執行個體數目。您可以為這個值傳入 <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />。</param>
+      <param name="transmissionMode">其中一個列舉值，決定管道的傳輸模式。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> 是長度為零的字串。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> 設定為「匿名」。-或-<paramref name="direction" /> 不是有效的 <see cref="T:System.IO.Pipes.PipeDirection" /> 值。-或-<paramref name="maxNumberofServerInstances" /> 小於 -1 或大於 254 (-1 表示 <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />)</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> 包含冒號 (「:」)。</exception>
+      <exception cref="T:System.PlatformNotSupportedException">作業系統是不受支援的 Windows Millennium Edition、Windows 98 或 Windows 95。</exception>
+      <exception cref="T:System.IO.IOException">超過伺服器執行個體的數目上限。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions)">
+      <summary>使用指定的管道名稱、管道方向、伺服器執行個體數目上限、傳輸模式，以及管道選項，初始化 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 類別的新執行個體。</summary>
+      <param name="pipeName">管道的名稱。</param>
+      <param name="direction">其中一個列舉值，決定管道的方向。</param>
+      <param name="maxNumberOfServerInstances">可共用相同名稱的最大伺服器執行個體數目。您可以為這個值傳入 <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />。</param>
+      <param name="transmissionMode">其中一個列舉值，決定管道的傳輸模式。</param>
+      <param name="options">其中一個列舉值，決定如何開啟或建立管道。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> 是長度為零的字串。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> 設定為「匿名」。-或-<paramref name="direction" /> 不是有效的 <see cref="T:System.IO.Pipes.PipeDirection" /> 值。-或-<paramref name="maxNumberofServerInstances" /> 小於 -1 或大於 254 (-1 表示 <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />)-或-<paramref name="options" /> 不是有效的 <see cref="T:System.IO.Pipes.PipeOptions" /> 值。</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> 包含冒號 (「:」)。</exception>
+      <exception cref="T:System.PlatformNotSupportedException">作業系統是不受支援的 Windows Millennium Edition、Windows 98 或 Windows 95。</exception>
+      <exception cref="T:System.IO.IOException">超過伺服器執行個體的數目上限。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32)">
+      <summary>使用指定的管道名稱、管道方向、伺服器執行個體數目上限、傳輸模式、管道選項，以及建議的輸入與輸出緩衝區大小，初始化 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 類別的新執行個體。</summary>
+      <param name="pipeName">管道的名稱。</param>
+      <param name="direction">其中一個列舉值，決定管道的方向。</param>
+      <param name="maxNumberOfServerInstances">可共用相同名稱的最大伺服器執行個體數目。您可以為這個值傳入 <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />。</param>
+      <param name="transmissionMode">其中一個列舉值，決定管道的傳輸模式。</param>
+      <param name="options">其中一個列舉值，決定如何開啟或建立管道。</param>
+      <param name="inBufferSize">大於零的正值，指出輸入緩衝區大小。</param>
+      <param name="outBufferSize">大於零的正值，指出輸出緩衝區大小。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pipeName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> 是長度為零的字串。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> 設定為「匿名」。-或-<paramref name="direction" /> 不是有效的 <see cref="T:System.IO.Pipes.PipeDirection" /> 值。-或-<paramref name="maxNumberofServerInstances" /> 小於 -1 或大於 254 (-1 表示 <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />)-或-<paramref name="options" /> 不是有效的 <see cref="T:System.IO.Pipes.PipeOptions" /> 值。-或-<paramref name="inBufferSize" /> 為負值。</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> 包含冒號 (「:」)。</exception>
+      <exception cref="T:System.PlatformNotSupportedException">作業系統是不受支援的 Windows Millennium Edition、Windows 98 或 Windows 95。</exception>
+      <exception cref="T:System.IO.IOException">超過伺服器執行個體的數目上限。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.Disconnect">
+      <summary>中斷目前的連接。</summary>
+      <exception cref="T:System.InvalidOperationException">尚未建立管道連線。-或-連接的管道已中斷連接。-或-管道控制碼尚未設定。</exception>
+      <exception cref="T:System.ObjectDisposedException">管道已關閉。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.Finalize">
+      <summary>釋放 unmanaged 的資源並執行其他清除作業之前<see cref="T:System.IO.Pipes.NamedPipeServerStream" />執行個體由記憶體回收收回。</summary>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.GetImpersonationUserName">
+      <summary>取得管道另一端的用戶端之使用者名稱。</summary>
+      <returns>管道另一端的用戶端之使用者名稱。</returns>
+      <exception cref="T:System.InvalidOperationException">尚未建立管道連線。-或-連接的管道已中斷連接。-或-管道控制碼尚未設定。</exception>
+      <exception cref="T:System.ObjectDisposedException">管道已關閉。</exception>
+      <exception cref="T:System.IO.IOException">管道連線已中斷。-或-用戶端的使用者名稱超過 19 個字元。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.WaitForConnection">
+      <summary>等候用戶端連接到這個 <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> 物件。</summary>
+      <exception cref="T:System.InvalidOperationException">管道連接已經建立。-或-管道控制碼尚未設定。</exception>
+      <exception cref="T:System.ObjectDisposedException">管道已關閉。</exception>
+      <exception cref="T:System.IO.IOException">管道連線已中斷。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync">
+      <summary>以非同步方式等候用戶端連接至這個<see cref="T:System.IO.Pipes.NamedPipeServerStream" />物件。</summary>
+      <returns>表示非同步等候作業的工作。</returns>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync(System.Threading.CancellationToken)">
+      <summary>以非同步方式等候用戶端連接至這個<see cref="T:System.IO.Pipes.NamedPipeServerStream" />物件及監視取消要求。</summary>
+      <returns>表示非同步等候作業的工作。</returns>
+      <param name="cancellationToken">用來監視是否有取消要求的語彙基元。</param>
+    </member>
+    <member name="T:System.IO.Pipes.PipeDirection">
+      <summary>指定管道的方向。</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeDirection.In">
+      <summary>指定向內的管道方向。</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeDirection.InOut">
+      <summary>指定雙向的管道方向。</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeDirection.Out">
+      <summary>指定向外的管道方向。</summary>
+    </member>
+    <member name="T:System.IO.Pipes.PipeOptions">
+      <summary>提供建立 <see cref="T:System.IO.Pipes.PipeStream" /> 物件的選項。這個列舉型別的 <see cref="T:System.FlagsAttribute" /> 屬性 (Attribute) 允許成員值的位元組合。</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeOptions.Asynchronous">
+      <summary>表示管道可用於非同步讀取和寫入。</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeOptions.None">
+      <summary>表示沒有其他參數。</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeOptions.WriteThrough">
+      <summary>表示系統應透過中繼快取直接寫入管道。</summary>
+    </member>
+    <member name="T:System.IO.Pipes.PipeStream">
+      <summary>公開管道的 <see cref="T:System.IO.Stream" /> 物件，其兼具匿名與具名管道的支援。</summary>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.#ctor(System.IO.Pipes.PipeDirection,System.Int32)">
+      <summary>使用指定的 <see cref="T:System.IO.Pipes.PipeDirection" /> 值和緩衝區大小，初始化 <see cref="T:System.IO.Pipes.PipeStream" /> 類別的新執行個體。</summary>
+      <param name="direction">其中一個 <see cref="T:System.IO.Pipes.PipeDirection" /> 值，表示管道物件的方向。</param>
+      <param name="bufferSize">表示緩衝區大小且大於或等於 0 的正數 <see cref="T:System.Int32" /> 值。</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="direction" /> 不是有效的 <see cref="T:System.IO.Pipes.PipeDirection" /> 值。-或-<paramref name="bufferSize" /> 小於 0。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.#ctor(System.IO.Pipes.PipeDirection,System.IO.Pipes.PipeTransmissionMode,System.Int32)">
+      <summary>使用指定的 <see cref="T:System.IO.Pipes.PipeDirection" />、<see cref="T:System.IO.Pipes.PipeTransmissionMode" /> 和緩衝區大小，初始化 <see cref="T:System.IO.Pipes.PipeStream" /> 類別的新執行個體。</summary>
+      <param name="direction">其中一個 <see cref="T:System.IO.Pipes.PipeDirection" /> 值，表示管道物件的方向。</param>
+      <param name="transmissionMode">其中一個 <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> 值，表示管道物件的傳輸模式。</param>
+      <param name="outBufferSize">表示緩衝區大小且大於或等於 0 的正數 <see cref="T:System.Int32" /> 值。</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="direction" /> 不是有效的 <see cref="T:System.IO.Pipes.PipeDirection" /> 值。-或-<paramref name="transmissionMode" /> 不是有效的 <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> 值。-或-<paramref name="bufferSize" /> 小於 0。</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.CanRead">
+      <summary>取得值，表示目前的資料流是否支援讀取作業。</summary>
+      <returns>如果資料流支援讀取作業則為 true，否則為 false。</returns>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.CanSeek">
+      <summary>取得值，表示目前的資料流是否支援搜尋作業。</summary>
+      <returns>所有情況下都是 false。</returns>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.CanWrite">
+      <summary>取得值，表示目前的資料流是否支援寫入作業。</summary>
+      <returns>如果資料流支援寫入作業則為 true；否則為 false。</returns>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Dispose(System.Boolean)">
+      <summary>釋放 <see cref="T:System.IO.Pipes.PipeStream" /> 類別所使用的 Unmanaged 資源，並選擇性地釋放 Managed 資源。</summary>
+      <param name="disposing">true 表示釋放 Managed 和 Unmanaged 資源，false 則表示只釋放 Unmanaged 資源。</param>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Flush">
+      <summary>清除目前資料流的緩衝區，並讓所有的緩衝資料全部寫入基礎裝置。</summary>
+      <exception cref="T:System.ObjectDisposedException">管道已關閉。</exception>
+      <exception cref="T:System.NotSupportedException">管道不支援寫入作業。</exception>
+      <exception cref="T:System.IO.IOException">管道中斷或發生另一個 I/O 錯誤。</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.InBufferSize">
+      <summary>取得管道的傳入緩衝區大小 (以位元組為單位)。</summary>
+      <returns>整數值，表示傳入緩衝區的大小 (以位元組為單位)。</returns>
+      <exception cref="T:System.NotSupportedException">無法讀取資料流。</exception>
+      <exception cref="T:System.InvalidOperationException">管道正在等候連線。</exception>
+      <exception cref="T:System.IO.IOException">管道中斷或發生另一個 I/O 錯誤。</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.IsAsync">
+      <summary>取得值，指出 <see cref="T:System.IO.Pipes.PipeStream" /> 物件是非同步開啟還是同步開啟。</summary>
+      <returns>如果 <see cref="T:System.IO.Pipes.PipeStream" /> 物件是非同步開啟則為 true；否則為 false。</returns>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.IsConnected">
+      <summary>取得或定值，指出是否已連接 <see cref="T:System.IO.Pipes.PipeStream" /> 物件。</summary>
+      <returns>如果已連接 <see cref="T:System.IO.Pipes.PipeStream" /> 物件則為 true；否則為 false。</returns>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.IsMessageComplete">
+      <summary>取得值，指出最近一次讀取作業傳回的訊息中是否有更多資料。</summary>
+      <returns>如果訊息中已無其他字元可供讀取則為 true；否則為 false。</returns>
+      <exception cref="T:System.InvalidOperationException">未連接管道。-或-管道控制碼尚未設定。-或-管道的 <see cref="P:System.IO.Pipes.PipeStream.ReadMode" /> 屬性值不是 <see cref="F:System.IO.Pipes.PipeTransmissionMode.Message" />。</exception>
+      <exception cref="T:System.ObjectDisposedException">管道已關閉。</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.Length">
+      <summary>取得資料流的長度 (以位元組為單位)。</summary>
+      <returns>所有情況下都是 0。</returns>
+      <exception cref="T:System.NotSupportedException">一定會擲回。</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.OutBufferSize">
+      <summary>取得管道的傳出緩衝區大小 (以位元組為單位)。</summary>
+      <returns>傳出緩衝區的大小 (以位元組為單位)。</returns>
+      <exception cref="T:System.NotSupportedException">無法寫入資料流。</exception>
+      <exception cref="T:System.InvalidOperationException">管道正在等候連線。</exception>
+      <exception cref="T:System.IO.IOException">管道中斷或發生另一個 I/O 錯誤。</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.Position">
+      <summary>取得或設定目前資料流目前的位置。</summary>
+      <returns>所有情況下都是 0。</returns>
+      <exception cref="T:System.NotSupportedException">一定會擲回。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Read(System.Byte[],System.Int32,System.Int32)">
+      <summary>讀取資料流的位元組區塊，並將資料寫入指定的緩衝區。</summary>
+      <returns>讀入 <paramref name="buffer" /> 中的位元組總數。如果目前無法取得要求的位元組數目，此數目可能小於該位元組數目；如果已到達資料流結尾，則此數目為 0。</returns>
+      <param name="buffer">當這個方法傳回時，會包含指定的位元組陣列，這個陣列具有介於 <paramref name="offset" /> 到 (<paramref name="offset" /> + <paramref name="count" /> - 1) 之間的值，已由讀取自目前來源的位元組所取代。</param>
+      <param name="offset">要將讀取位元組放入其中之 <paramref name="buffer" /> 陣列中的位元組位移。</param>
+      <param name="count">要讀取的最大位元組數。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 小於 0。-或-<paramref name="count" /> 小於 0。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="count" /> 大於 <paramref name="buffer" /> 中可用的位元組數目。</exception>
+      <exception cref="T:System.ObjectDisposedException">管道已關閉。</exception>
+      <exception cref="T:System.NotSupportedException">管道不支援讀取作業。</exception>
+      <exception cref="T:System.InvalidOperationException">管道中斷連線、等候連線，或是尚未設定控制代碼。</exception>
+      <exception cref="T:System.IO.IOException">發生任何 I/O 錯誤。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.ReadAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)"></member>
+    <member name="M:System.IO.Pipes.PipeStream.ReadByte">
+      <summary>從管道讀取位元組。</summary>
+      <returns>轉型為 <see cref="T:System.Int32" /> 的位元組或 -1 表示資料流末端 (管道已經關閉)。</returns>
+      <exception cref="T:System.ObjectDisposedException">管道已關閉。</exception>
+      <exception cref="T:System.NotSupportedException">管道不支援讀取作業。</exception>
+      <exception cref="T:System.InvalidOperationException">管道中斷連線、等候連線，或是尚未設定控制代碼。</exception>
+      <exception cref="T:System.IO.IOException">發生任何 I/O 錯誤。</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.ReadMode">
+      <summary>取得或設定 <see cref="T:System.IO.Pipes.PipeStream" /> 物件的讀取模式。</summary>
+      <returns>其中一個 <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> 值，表示 <see cref="T:System.IO.Pipes.PipeStream" /> 物件讀取管道的方式。</returns>
+      <exception cref="T:System.ArgumentOutOfRangeException">提供的值不是有效的 <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> 值。</exception>
+      <exception cref="T:System.NotSupportedException">提供的值不是這個管道資料流支援的 <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> 值。</exception>
+      <exception cref="T:System.InvalidOperationException">尚未設定控制代碼。-或-管道正在等候與具名用戶端連線。</exception>
+      <exception cref="T:System.IO.IOException">管道中斷或具名用戶端發生 I/O 錯誤。</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.SafePipeHandle">
+      <summary>取得目前 <see cref="T:System.IO.Pipes.PipeStream" /> 物件封裝之管道的本機端的安全控制代碼。</summary>
+      <returns>目前 <see cref="T:System.IO.Pipes.PipeStream" /> 物件封裝之管道的 <see cref="T:Microsoft.Win32.SafeHandles.SafePipeHandle" /> 物件。</returns>
+      <exception cref="T:System.InvalidOperationException">管道控制碼尚未設定。</exception>
+      <exception cref="T:System.ObjectDisposedException">管道已關閉。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Seek(System.Int64,System.IO.SeekOrigin)">
+      <summary>將目前資料流目前的位置設定為指定的值。</summary>
+      <returns>資料流中的新位置。</returns>
+      <param name="offset">相對於 <paramref name="origin" /> 的搜尋起點。</param>
+      <param name="origin">使用 <paramref name="offset" /> 類型的值，指定開頭、結尾或目前位置做為 <see cref="T:System.IO.SeekOrigin" /> 的參考點。</param>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.SetLength(System.Int64)">
+      <summary>將目前資料流的長度設定為指定的數值。</summary>
+      <param name="value">資料流的新長度。</param>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.TransmissionMode">
+      <summary>取得目前管道支援的管道傳輸模式。</summary>
+      <returns>其中一個 <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> 值，表示目前管道支援的傳輸模式。</returns>
+      <exception cref="T:System.ObjectDisposedException">管道已關閉。</exception>
+      <exception cref="T:System.InvalidOperationException">尚未設定控制代碼。-或-管道正在等候以匿名用戶端/伺服器作業進行連線或與具名用戶端連線。</exception>
+      <exception cref="T:System.IO.IOException">管道中斷或發生另一個 I/O 錯誤。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.WaitForPipeDrain">
+      <summary>等待管道另一端讀取已傳送的所有位元組。</summary>
+      <exception cref="T:System.ObjectDisposedException">管道已關閉。</exception>
+      <exception cref="T:System.NotSupportedException">管道不支援寫入作業。</exception>
+      <exception cref="T:System.IO.IOException">管道中斷或發生另一個 I/O 錯誤。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Write(System.Byte[],System.Int32,System.Int32)">
+      <summary>使用緩衝區的資料，將位元組區塊寫入目前的資料流。</summary>
+      <param name="buffer">緩衝區，其中包含要寫入管道的資料。</param>
+      <param name="offset">
+        <paramref name="buffer" /> 中以零起始的位元組位移，即開始將位元組複製到目前資料流的位置。</param>
+      <param name="count">要寫入目前資料流的位元組數目上限。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 小於 0。-或-<paramref name="count" /> 小於 0。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="count" /> 大於 <paramref name="buffer" /> 中可用的位元組數目。</exception>
+      <exception cref="T:System.ObjectDisposedException">管道已關閉。</exception>
+      <exception cref="T:System.NotSupportedException">管道不支援寫入作業。</exception>
+      <exception cref="T:System.IO.IOException">管道中斷或發生另一個 I/O 錯誤。</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.WriteAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)"></member>
+    <member name="M:System.IO.Pipes.PipeStream.WriteByte(System.Byte)">
+      <summary>將位元組寫入目前的資料流。</summary>
+      <param name="value">寫入資料流的位元組。</param>
+      <exception cref="T:System.ObjectDisposedException">管道已關閉。</exception>
+      <exception cref="T:System.NotSupportedException">管道不支援寫入作業。</exception>
+      <exception cref="T:System.InvalidOperationException">管道中斷連線、等候連線，或是尚未設定控制代碼。</exception>
+      <exception cref="T:System.IO.IOException">管道中斷或發生另一個 I/O 錯誤。</exception>
+    </member>
+    <member name="T:System.IO.Pipes.PipeTransmissionMode">
+      <summary>指定管道的傳輸模式。</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeTransmissionMode.Byte">
+      <summary>表示管道中的資料是以位元組資料流傳送及讀取。</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeTransmissionMode.Message">
+      <summary>表示管道中的資料是以訊息資料流傳送及讀取。</summary>
+    </member>
+  </members>
+</doc>

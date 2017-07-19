@@ -1,0 +1,548 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.UnmanagedMemoryStream</name>
+  </assembly>
+  <members>
+    <member name="T:System.IO.UnmanagedMemoryAccessor">
+      <summary>從 Managed 程式碼對 Unmanaged 記憶體區塊提供隨機存取。</summary>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.#ctor">
+      <summary>初始化 <see cref="T:System.IO.UnmanagedMemoryAccessor" /> 類別的新執行個體。</summary>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64)">
+      <summary>使用指定的緩衝區、位移和容量，初始化 <see cref="T:System.IO.UnmanagedMemoryAccessor" /> 類別的新執行個體。</summary>
+      <param name="buffer">包含存取子的緩衝區。</param>
+      <param name="offset">存取子會在此處開始的位元組。</param>
+      <param name="capacity">要配置的記憶體大小 (以位元組為單位)。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="offset" /> 加上 <paramref name="capacity" /> 大於 <paramref name="buffer" />。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 或 <paramref name="capacity" /> 小於零。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="offset" /> 加上 <paramref name="capacity" /> 會環繞高端的位址空間。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>使用指定的緩衝區、位移、容量和存取權限，初始化 <see cref="T:System.IO.UnmanagedMemoryAccessor" /> 類別的新執行個體。</summary>
+      <param name="buffer">包含存取子的緩衝區。</param>
+      <param name="offset">存取子會在此處開始的位元組。</param>
+      <param name="capacity">要配置的記憶體大小 (以位元組為單位)。</param>
+      <param name="access">允許的記憶體存取類型。預設值為 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="offset" /> 加上 <paramref name="capacity" /> 大於 <paramref name="buffer" />。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 或 <paramref name="capacity" /> 小於零。-或-<paramref name="access" /> 不是有效的 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 列舉值。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="offset" /> 加上 <paramref name="capacity" /> 會環繞高端的位址空間。</exception>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.CanRead">
+      <summary>判斷存取子是否可讀取。</summary>
+      <returns>如果存取子是可讀取的，則為 true；否則為 false。</returns>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.CanWrite">
+      <summary>判斷存取子是否可寫入。</summary>
+      <returns>如果存取子是可寫入的，則為 true；否則為 false。</returns>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.Capacity">
+      <summary>取得存取子的容量。</summary>
+      <returns>存取子的容量。</returns>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Dispose">
+      <summary>釋放 <see cref="T:System.IO.UnmanagedMemoryAccessor" /> 所使用的所有資源。</summary>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Dispose(System.Boolean)">
+      <summary>釋放 <see cref="T:System.IO.UnmanagedMemoryAccessor" /> 所使用的 Unmanaged 資源，並選擇性釋放 Managed 資源。</summary>
+      <param name="disposing">true 表示釋放 Managed 和 Unmanaged 資源，false 則表示只釋放 Unmanaged 資源。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Initialize(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>設定存取子的初始值。</summary>
+      <param name="buffer">包含存取子的緩衝區。</param>
+      <param name="offset">存取子會在此處開始的位元組。</param>
+      <param name="capacity">要配置的記憶體大小 (以位元組為單位)。</param>
+      <param name="access">允許的記憶體存取類型。預設值為 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="offset" /> 加上 <paramref name="capacity" /> 大於 <paramref name="buffer" />。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 或 <paramref name="capacity" /> 小於零。-或-<paramref name="access" /> 不是有效的 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 列舉值。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="offset" /> 加上 <paramref name="capacity" /> 會環繞高端的位址空間。</exception>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.IsOpen">
+      <summary>判斷存取子目前是否由處理程序開啟。</summary>
+      <returns>如果存取子已開啟，則為 true；否則為 false。</returns>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadBoolean(System.Int64)">
+      <summary>從存取子讀取布林值。</summary>
+      <returns>true 或 false。</returns>
+      <param name="position">會在此處開始讀取存取子的位元組數。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可讀取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援讀取。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadByte(System.Int64)">
+      <summary>從存取子讀取位元組值。</summary>
+      <returns>已讀取的值。</returns>
+      <param name="position">會在此處開始讀取存取子的位元組數。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可讀取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援讀取。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadChar(System.Int64)">
+      <summary>從存取子讀取位元組值。</summary>
+      <returns>已讀取的值。</returns>
+      <param name="position">會在此處開始讀取存取子的位元組數。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可讀取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援讀取。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadDecimal(System.Int64)">
+      <summary>從存取子讀取位元組值。</summary>
+      <returns>已讀取的值。</returns>
+      <param name="position">會在此處開始讀取存取子的位元組數。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可讀取值。-或-讀取的十進位無效。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援讀取。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadDouble(System.Int64)">
+      <summary>從存取子讀取雙精確度浮點數值。</summary>
+      <returns>已讀取的值。</returns>
+      <param name="position">會在此處開始讀取存取子的位元組數。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可讀取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援讀取。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadInt16(System.Int64)">
+      <summary>從存取子讀取 16 位元整數。</summary>
+      <returns>已讀取的值。</returns>
+      <param name="position">會在此處開始讀取存取子的位元組數。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可讀取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援讀取。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadInt32(System.Int64)">
+      <summary>從存取子讀取 32 位元整數。</summary>
+      <returns>已讀取的值。</returns>
+      <param name="position">會在此處開始讀取存取子的位元組數。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可讀取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援讀取。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadInt64(System.Int64)">
+      <summary>從存取子讀取 64 位元整數。</summary>
+      <returns>已讀取的值。</returns>
+      <param name="position">會在此處開始讀取存取子的位元組數。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可讀取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援讀取。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadSByte(System.Int64)">
+      <summary>從存取子讀取 8 位元帶正負號的整數。</summary>
+      <returns>已讀取的值。</returns>
+      <param name="position">會在此處開始讀取存取子的位元組數。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可讀取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援讀取。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadSingle(System.Int64)">
+      <summary>從存取子讀取單精確度浮點數值。</summary>
+      <returns>已讀取的值。</returns>
+      <param name="position">會在此處開始讀取存取子的位元組數。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可讀取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援讀取。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadUInt16(System.Int64)">
+      <summary>從存取子讀取不帶正負號的 16 位元整數。</summary>
+      <returns>已讀取的值。</returns>
+      <param name="position">會在此處開始讀取存取子的位元組數。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可讀取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援讀取。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadUInt32(System.Int64)">
+      <summary>從存取子讀取不帶正負號的 32 位元整數。</summary>
+      <returns>已讀取的值。</returns>
+      <param name="position">會在此處開始讀取存取子的位元組數。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可讀取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援讀取。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadUInt64(System.Int64)">
+      <summary>從存取子讀取不帶正負號的 64 位元整數。</summary>
+      <returns>已讀取的值。</returns>
+      <param name="position">會在此處開始讀取存取子的位元組數。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可讀取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援讀取。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Boolean)">
+      <summary>將布林值寫入至存取子。</summary>
+      <param name="position">會在此處開始寫入存取子的位元組數。</param>
+      <param name="value">要寫入的值。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可寫入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援寫入。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Byte)">
+      <summary>將位元組值寫入至存取子。</summary>
+      <param name="position">會在此處開始寫入存取子的位元組數。</param>
+      <param name="value">要寫入的值。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可寫入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援寫入。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Char)">
+      <summary>將字元寫入至存取子。</summary>
+      <param name="position">會在此處開始寫入存取子的位元組數。</param>
+      <param name="value">要寫入的值。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可寫入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援寫入。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Decimal)">
+      <summary>將十進位值寫入至存取子。</summary>
+      <param name="position">會在此處開始寫入存取子的位元組數。</param>
+      <param name="value">要寫入的值。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可寫入值。-或-十進位無效。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援寫入。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Double)">
+      <summary>將 Double 值寫入至存取子。</summary>
+      <param name="position">會在此處開始寫入存取子的位元組數。</param>
+      <param name="value">要寫入的值。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可寫入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援寫入。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Int16)">
+      <summary>將 16 位元整數寫入至存取子。</summary>
+      <param name="position">會在此處開始寫入存取子的位元組數。</param>
+      <param name="value">要寫入的值。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可寫入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援寫入。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Int32)">
+      <summary>將 32 位元整數寫入至存取子。</summary>
+      <param name="position">會在此處開始寫入存取子的位元組數。</param>
+      <param name="value">要寫入的值。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可寫入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援寫入。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Int64)">
+      <summary>將 64 位元整數寫入至存取子。</summary>
+      <param name="position">會在此處開始寫入存取子的位元組數。</param>
+      <param name="value">要寫入的值。</param>
+      <exception cref="T:System.ArgumentException">在位置之後沒有足夠的位元組可寫入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援寫入。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.SByte)">
+      <summary>將 8 位元整數寫入至存取子。</summary>
+      <param name="position">會在此處開始寫入存取子的位元組數。</param>
+      <param name="value">要寫入的值。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可寫入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援寫入。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Single)">
+      <summary>將 Single 寫入至存取子。</summary>
+      <param name="position">會在此處開始寫入存取子的位元組數。</param>
+      <param name="value">要寫入的值。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可寫入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援寫入。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.UInt16)">
+      <summary>將不帶正負號的 16 位元整數寫入至存取子。</summary>
+      <param name="position">會在此處開始寫入存取子的位元組數。</param>
+      <param name="value">要寫入的值。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可寫入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援寫入。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.UInt32)">
+      <summary>將不帶正負號的 32 位元整數寫入至存取子。</summary>
+      <param name="position">會在此處開始寫入存取子的位元組數。</param>
+      <param name="value">要寫入的值。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可寫入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援寫入。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.UInt64)">
+      <summary>將不帶正負號的 64 位元整數寫入至存取子。</summary>
+      <param name="position">會在此處開始寫入存取子的位元組數。</param>
+      <param name="value">要寫入的值。</param>
+      <exception cref="T:System.ArgumentException">在 <paramref name="position" /> 之後，沒有足夠的位元組可寫入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小於零或大於這個存取子的容量。</exception>
+      <exception cref="T:System.NotSupportedException">存取子不支援寫入。</exception>
+      <exception cref="T:System.ObjectDisposedException">存取子已經被處置。</exception>
+    </member>
+    <member name="T:System.IO.UnmanagedMemoryStream">
+      <summary>從 Managed 程式碼對 Unmanaged 記憶體區塊提供存取。</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor">
+      <summary>初始化 <see cref="T:System.IO.UnmanagedMemoryStream" /> 類別的新執行個體。</summary>
+      <exception cref="T:System.Security.SecurityException">使用者沒有所需要的使用權限。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Byte*,System.Int64)">
+      <summary>使用指定的位置和記憶體長度，初始化 <see cref="T:System.IO.UnmanagedMemoryStream" /> 類別的新執行個體。</summary>
+      <param name="pointer">Unmanaged 記憶體位置的指標。</param>
+      <param name="length">要使用的記憶體長度。</param>
+      <exception cref="T:System.Security.SecurityException">使用者沒有所需要的使用權限。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pointer" /> 值為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="length" /> 值小於 0。-或-<paramref name="length" /> 的大小足以造成溢位。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Byte*,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>使用指定的位置、記憶體長度、記憶體總數和檔案存取值，初始化 <see cref="T:System.IO.UnmanagedMemoryStream" /> 類別的新執行個體。</summary>
+      <param name="pointer">Unmanaged 記憶體位置的指標。</param>
+      <param name="length">要使用的記憶體長度。</param>
+      <param name="capacity">指派給資料流的記憶體總量。</param>
+      <param name="access">其中一個 <see cref="T:System.IO.FileAccess" /> 值。</param>
+      <exception cref="T:System.Security.SecurityException">使用者沒有所需要的使用權限。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pointer" /> 值為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="length" /> 值小於 0。-或- <paramref name="capacity" /> 值小於 0。-或-<paramref name="length" /> 值大於 <paramref name="capacity" /> 值。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64)">
+      <summary>在安全緩衝區中使用指定的位移和長度，初始化 <see cref="T:System.IO.UnmanagedMemoryStream" /> 類別的新執行個體。</summary>
+      <param name="buffer">包含 Unmanaged 記憶體資料流的緩衝區。</param>
+      <param name="offset">緩衝區中的位元組位置，Unmanaged 記憶體資料流會在此處開始。</param>
+      <param name="length">Unmanaged 記憶體資料流的長度。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>在安全緩衝區中使用指定的位移、長度和檔案存取，初始化 <see cref="T:System.IO.UnmanagedMemoryStream" /> 類別的新執行個體。</summary>
+      <param name="buffer">包含 Unmanaged 記憶體資料流的緩衝區。</param>
+      <param name="offset">緩衝區中的位元組位置，Unmanaged 記憶體資料流會在此處開始。</param>
+      <param name="length">Unmanaged 記憶體資料流的長度。</param>
+      <param name="access">Unmanaged 記憶體資料流的檔案存取模式。</param>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.CanRead">
+      <summary>取得值，指出資料流是否支援讀取。</summary>
+      <returns>如果物件由具有 <paramref name="access" /> 參數之不包括讀取資料流的建構函式建立，或者如果資料流已關閉，則為 false；否則為 true。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.CanSeek">
+      <summary>取得值，指出資料流是否支援搜尋。</summary>
+      <returns>如果資料流已關閉，則為 false；否則為 true。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.CanWrite">
+      <summary>取得值，指出物件是否支援寫入。</summary>
+      <returns>如果物件由具有 <paramref name="access" /> 參數值之支援寫入的建構函式或由不具有參數的建構函式建立，或者如果資料流已關閉，則為 false；否則為 true。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.Capacity">
+      <summary>取得資料流長度 (大小) 或指派給資料流的記憶體總量 (容量)。</summary>
+      <returns>資料流的大小或容量。</returns>
+      <exception cref="T:System.ObjectDisposedException">已關閉資料流。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Dispose(System.Boolean)">
+      <summary>釋放 <see cref="T:System.IO.UnmanagedMemoryStream" /> 所使用的 Unmanaged 資源，並選擇性釋放 Managed 資源。</summary>
+      <param name="disposing">true 表示釋放 Managed 和 Unmanaged 資源，false 則表示只釋放 Unmanaged 資源。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Flush">
+      <summary>覆寫 <see cref="M:System.IO.Stream.Flush" /> 方法，以便不執行任何動作。</summary>
+      <exception cref="T:System.ObjectDisposedException">已關閉資料流。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.FlushAsync(System.Threading.CancellationToken)">
+      <summary>覆寫 <see cref="M:System.IO.Stream.FlushAsync(System.Threading.CancellationToken)" /> 方法，以取消指定的作業，但不執行其他任何動作。從 .NET Framework 2015 開始提供</summary>
+      <returns>表示非同步排清作業的工作。</returns>
+      <param name="cancellationToken">用來監視是否有取消要求的語彙基元。預設值是 <see cref="P:System.Threading.CancellationToken.None" />。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Initialize(System.Byte*,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>使用 Unmanaged 記憶體位置的指標，初始化 <see cref="T:System.IO.UnmanagedMemoryStream" /> 類別的新執行個體。</summary>
+      <param name="pointer">Unmanaged 記憶體位置的指標。</param>
+      <param name="length">要使用的記憶體長度。</param>
+      <param name="capacity">指派給資料流的記憶體總量。</param>
+      <param name="access">其中一個 <see cref="T:System.IO.FileAccess" /> 值。</param>
+      <exception cref="T:System.Security.SecurityException">使用者沒有所需要的使用權限。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pointer" /> 值為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="length" /> 值小於 0。-或- <paramref name="capacity" /> 值小於 0。-或-<paramref name="length" /> 值的大小足以造成溢位。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Initialize(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>在安全緩衝區中使用指定的位移、長度和檔案存取，初始化 <see cref="T:System.IO.UnmanagedMemoryStream" /> 類別的新執行個體。</summary>
+      <param name="buffer">包含 Unmanaged 記憶體資料流的緩衝區。</param>
+      <param name="offset">緩衝區中的位元組位置，Unmanaged 記憶體資料流會在此處開始。</param>
+      <param name="length">Unmanaged 記憶體資料流的長度。</param>
+      <param name="access">Unmanaged 記憶體資料流的檔案存取模式。</param>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.Length">
+      <summary>取得資料流中資料的長度。</summary>
+      <returns>資料流中資料的長度。</returns>
+      <exception cref="T:System.ObjectDisposedException">已關閉資料流。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.Position">
+      <summary>取得或設定資料流中目前的位置。</summary>
+      <returns>在資料流中的目前位置。</returns>
+      <exception cref="T:System.ObjectDisposedException">已關閉資料流。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">位置設為小於零的值，或位置大於 <see cref="F:System.Int32.MaxValue" />，或加入目前的指標時導致溢位。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.PositionPointer">
+      <summary>依據資料流中的目前位置，取得或設定資料流的位元組指標。</summary>
+      <returns>位元組指標。</returns>
+      <exception cref="T:System.IndexOutOfRangeException">目前位置大於資料流容量。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">正在設定的位置不是目前資料流中的有效位置。</exception>
+      <exception cref="T:System.IO.IOException">正在將指標設為低於資料流起始位置的值。</exception>
+      <exception cref="T:System.NotSupportedException">資料流已初始化，以搭配 <see cref="T:System.Runtime.InteropServices.SafeBuffer" /> 使用。<see cref="P:System.IO.UnmanagedMemoryStream.PositionPointer" /> 屬性只適用於以 <see cref="T:System.Byte" /> 指標初始化的資料流。</exception>
+      <filterpriority>2</filterpriority>
+      <PermissionSet>
+        <IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode" />
+      </PermissionSet>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Read(System.Byte[],System.Int32,System.Int32)">
+      <summary>將指定的位元組數讀入指定的陣列。</summary>
+      <returns>緩衝區所讀取的總位元組數。如果目前無法取得足夠的位元組，則這個數目可能小於所要求的位元組數，如果已經到達資料流末端，則為零 (0)。</returns>
+      <param name="buffer">當這個方法傳回時，會包含指定的位元組陣列，這個陣列具有介於 <paramref name="offset" /> 到 (<paramref name="offset" /> + <paramref name="count" /> - 1) 之間的值，已由讀取自目前來源的位元組所取代。這個參數會以未初始化的狀態傳遞。</param>
+      <param name="offset">
+        <paramref name="buffer" /> 中以零起始的位元組位移，即開始儲存讀取自目前資料流之資料的位置。</param>
+      <param name="count">自目前資料流讀取的最大位元組數。</param>
+      <exception cref="T:System.ObjectDisposedException">已關閉資料流。</exception>
+      <exception cref="T:System.NotSupportedException">基礎記憶體不支援讀取。-或- <see cref="P:System.IO.UnmanagedMemoryStream.CanRead" /> 屬性設定為 false。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> 參數設定為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 參數小於零。-或- <paramref name="count" /> 參數小於零。</exception>
+      <exception cref="T:System.ArgumentException">緩衝區陣列的長度減去 <paramref name="offset" /> 參數，小於 <paramref name="count" /> 參數。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.ReadAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+      <summary>將指定的位元組數以非同步方式讀入指定的陣列。從 .NET Framework 2015 開始提供</summary>
+      <returns>表示非同步讀取作業的工作。<paramref name="TResult" /> 參數的值會包含讀取至緩衝區的位元組總數。如果目前可供使用的位元組數目少於所要求的數目，結果值可能會小於所要求的位元組數目，或者如果已經到達資料流末端，則可能為 0 (零)。</returns>
+      <param name="buffer">寫入資料的緩衝區。</param>
+      <param name="offset">開始於此處自資料流寫入資料的 <paramref name="buffer" /> 中的位元組位移。</param>
+      <param name="count">要讀取的最大位元組數。</param>
+      <param name="cancellationToken">用來監視是否有取消要求的語彙基元。預設值是 <see cref="P:System.Threading.CancellationToken.None" />。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.ReadByte">
+      <summary>從資料流讀取一個位元組，並將資料流的位置推進一個位元組；如果在資料流結尾，則傳回 -1。</summary>
+      <returns>轉換成 <see cref="T:System.Int32" /> 物件的不帶正負號位元組；如果在資料流結尾，則為 -1。</returns>
+      <exception cref="T:System.ObjectDisposedException">已關閉資料流。</exception>
+      <exception cref="T:System.NotSupportedException">基礎記憶體不支援讀取。-或-目前位置位於資料流結尾。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Seek(System.Int64,System.IO.SeekOrigin)">
+      <summary>將目前資料流的目前位置設為指定值。</summary>
+      <returns>資料流中的新位置。</returns>
+      <param name="offset">相對於 <paramref name="origin" /> 的搜尋起點。</param>
+      <param name="loc">使用 <paramref name="origin" /> 類型的值，指定開頭、結尾或目前位置做為 <see cref="T:System.IO.SeekOrigin" /> 的參考點。</param>
+      <exception cref="T:System.IO.IOException">嘗試進行資料流開端前的搜尋。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 值大於資料流的最大值。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="loc" /> 無效。</exception>
+      <exception cref="T:System.ObjectDisposedException">已關閉資料流。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.SetLength(System.Int64)">
+      <summary>將資料流長度設為指定值。</summary>
+      <param name="value">資料流的長度。</param>
+      <exception cref="T:System.IO.IOException">發生 I/O 錯誤。</exception>
+      <exception cref="T:System.ObjectDisposedException">已關閉資料流。</exception>
+      <exception cref="T:System.NotSupportedException">基礎記憶體不支援寫入。-或-嘗試進行資料流寫入，且 <see cref="P:System.IO.UnmanagedMemoryStream.CanWrite" /> 屬性為 false。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">指定的 <paramref name="value" /> 超過資料流容量。-或-指定的 <paramref name="value" /> 為負數。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Write(System.Byte[],System.Int32,System.Int32)">
+      <summary>使用緩衝區的資料，將位元組區塊寫入目前的資料流。</summary>
+      <param name="buffer">從中複製位元組至目前資料流的位元組陣列。</param>
+      <param name="offset">在此要開始複製位元組到目前資料流的緩衝區中位移。</param>
+      <param name="count">要寫入目前資料流的位元組數目。</param>
+      <exception cref="T:System.ObjectDisposedException">已關閉資料流。</exception>
+      <exception cref="T:System.NotSupportedException">基礎記憶體不支援寫入。-或-嘗試進行資料流寫入，且 <see cref="P:System.IO.UnmanagedMemoryStream.CanWrite" /> 屬性為 false。-或-<paramref name="count" /> 值大於資料流容量。-或-位置位於資料流容量結尾。</exception>
+      <exception cref="T:System.IO.IOException">發生 I/O 錯誤。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">其中一個指定的參數小於零。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="offset" /> 參數減去 <paramref name="buffer" /> 參數的長度小於 <paramref name="count" /> 參數。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> 參數為 null。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.WriteAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+      <summary>以非同步的方式將一連串的位元組寫入目前的資料流，由這個資料流中目前的位置前移寫入的位元組數目，並且監視取消要求。從 .NET Framework 2015 開始提供</summary>
+      <returns>表示非同步寫入作業的工作。</returns>
+      <param name="buffer">寫入資料的來源緩衝區。</param>
+      <param name="offset">
+        <paramref name="buffer" /> 中以零起始的位元組位移，要從其中開始將位元組複製至資料流。</param>
+      <param name="count">寫入的最大位元組數。</param>
+      <param name="cancellationToken">用來監視是否有取消要求的語彙基元。預設值是 <see cref="P:System.Threading.CancellationToken.None" />。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.WriteByte(System.Byte)">
+      <summary>寫入一個位元組到檔案資料流中的目前位置。</summary>
+      <param name="value">寫入資料流的位元組值。</param>
+      <exception cref="T:System.ObjectDisposedException">已關閉資料流。</exception>
+      <exception cref="T:System.NotSupportedException">基礎記憶體不支援寫入。-或-嘗試進行資料流寫入，且 <see cref="P:System.IO.UnmanagedMemoryStream.CanWrite" /> 屬性為 false。-或- 目前位置位於資料流容量的結尾。</exception>
+      <exception cref="T:System.IO.IOException">所提供的 <paramref name="value" /> 導致資料流超出最大容量。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+  </members>
+</doc>

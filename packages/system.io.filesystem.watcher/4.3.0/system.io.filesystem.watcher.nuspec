@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata minClientVersion="2.12">
+    <id>System.IO.FileSystem.Watcher</id>
+    <version>4.3.0</version>
+    <title>System.IO.FileSystem.Watcher</title>
+    <authors>Microsoft</authors>
+    <owners>microsoft,dotnetframework</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>http://go.microsoft.com/fwlink/?LinkId=329770</licenseUrl>
+    <projectUrl>https://dot.net/</projectUrl>
+    <iconUrl>http://go.microsoft.com/fwlink/?LinkID=288859</iconUrl>
+    <description>Provides the System.IO.FileSystemWather class, which listens to the file system change notifications and raises events when a directory, or a file in a directory, changes.
+
+Commonly Used Types:
+System.IO.FileSystemWatcher
+System.IO.WatcherChangeTypes
+System.IO.FileSystemEventArgs
+System.IO.RenamedEventArgs
+System.IO.FileSystemEventHandler
+System.IO.RenamedEventHandler
+System.IO.NotifyFilters
+System.IO.ErrorEventArgs
+System.IO.ErrorEventHandler
+System.IO.WaitForChangedResult
+ 
+When using NuGet 3.x this package requires at least version 3.4.</description>
+    <releaseNotes>https://go.microsoft.com/fwlink/?LinkID=799421</releaseNotes>
+    <copyright>© Microsoft Corporation.  All rights reserved.</copyright>
+    <serviceable>true</serviceable>
+    <dependencies>
+      <group targetFramework="MonoAndroid1.0" />
+      <group targetFramework="MonoTouch1.0" />
+      <group targetFramework=".NETFramework4.6" />
+      <group targetFramework=".NETCore5.0" />
+      <group targetFramework=".NETStandard1.3">
+        <dependency id="Microsoft.NETCore.Platforms" version="1.1.0" />
+        <dependency id="Microsoft.Win32.Primitives" version="4.3.0" exclude="Compile" />
+        <dependency id="runtime.native.System" version="4.3.0" exclude="Compile" />
+        <dependency id="System.Collections" version="4.3.0" exclude="Compile" />
+        <dependency id="System.IO.FileSystem" version="4.3.0" exclude="Compile" />
+        <dependency id="System.IO.FileSystem.Primitives" version="4.3.0" exclude="Compile" />
+        <dependency id="System.Resources.ResourceManager" version="4.3.0" exclude="Compile" />
+        <dependency id="System.Runtime" version="4.3.0" />
+        <dependency id="System.Runtime.Extensions" version="4.3.0" exclude="Compile" />
+        <dependency id="System.Runtime.Handles" version="4.3.0" exclude="Compile" />
+        <dependency id="System.Runtime.InteropServices" version="4.3.0" exclude="Compile" />
+        <dependency id="System.Text.Encoding" version="4.3.0" exclude="Compile" />
+        <dependency id="System.Threading" version="4.3.0" exclude="Compile" />
+        <dependency id="System.Threading.Overlapped" version="4.3.0" exclude="Compile" />
+        <dependency id="System.Threading.Tasks" version="4.3.0" exclude="Compile" />
+        <dependency id="System.Threading.Thread" version="4.3.0" exclude="Compile" />
+      </group>
+      <group targetFramework="Xamarin.iOS1.0" />
+      <group targetFramework="Xamarin.Mac2.0" />
+      <group targetFramework="Xamarin.TVOS1.0" />
+      <group targetFramework="Xamarin.WatchOS1.0" />
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="mscorlib" targetFramework=".NETFramework4.6" />
+      <frameworkAssembly assemblyName="System" targetFramework=".NETFramework4.6" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

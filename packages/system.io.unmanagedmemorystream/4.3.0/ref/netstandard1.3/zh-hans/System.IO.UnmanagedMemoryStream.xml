@@ -1,0 +1,576 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.UnmanagedMemoryStream</name>
+  </assembly>
+  <members>
+    <member name="T:System.IO.UnmanagedMemoryAccessor">
+      <summary>提供从托管代码随机访问非托管内存块的能力。</summary>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.#ctor">
+      <summary>初始化 <see cref="T:System.IO.UnmanagedMemoryAccessor" /> 类的新实例。</summary>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64)">
+      <summary>使用指定的缓冲区、偏移量和容量初始化 <see cref="T:System.IO.UnmanagedMemoryAccessor" /> 类的新实例。</summary>
+      <param name="buffer">要包含访问器的缓冲区。</param>
+      <param name="offset">启动访问器的字节位置。</param>
+      <param name="capacity">要分配的内存大小（以字节为单位）。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="offset" /> 与 <paramref name="capacity" /> 之和大于 <paramref name="buffer" />。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> 为 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 或 <paramref name="capacity" /> 小于零。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="offset" /> 与 <paramref name="capacity" /> 之和将环绕地址空间的高端。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>使用指定的缓冲区、偏移量、容量和访问权限初始化 <see cref="T:System.IO.UnmanagedMemoryAccessor" /> 类的新实例。</summary>
+      <param name="buffer">要包含访问器的缓冲区。</param>
+      <param name="offset">启动访问器的字节位置。</param>
+      <param name="capacity">要分配的内存大小（以字节为单位）。</param>
+      <param name="access">内存允许的访问类型。默认值为 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="offset" /> 与 <paramref name="capacity" /> 之和大于 <paramref name="buffer" />。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> 为 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 或 <paramref name="capacity" /> 小于零。- 或 -<paramref name="access" /> 不是有效的 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 枚举值。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="offset" /> 与 <paramref name="capacity" /> 之和将环绕地址空间的高端。</exception>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.CanRead">
+      <summary>确定访问器是否可读。</summary>
+      <returns>如果访问器可读，则为 true；否则为 false。</returns>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.CanWrite">
+      <summary>确定访问器是否可写。</summary>
+      <returns>如果访问器可写，则为 true；否则为 false。</returns>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.Capacity">
+      <summary>获取访问器的容量。</summary>
+      <returns>访问器的容量。</returns>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Dispose">
+      <summary>释放由 <see cref="T:System.IO.UnmanagedMemoryAccessor" /> 使用的所有资源。</summary>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Dispose(System.Boolean)">
+      <summary>释放由 <see cref="T:System.IO.UnmanagedMemoryAccessor" /> 占用的非托管资源，还可以另外再释放托管资源。</summary>
+      <param name="disposing">若要释放托管资源和非托管资源，则为 true；若仅释放非托管资源，则为 false。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Initialize(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>设置访问器的初始值。</summary>
+      <param name="buffer">要包含访问器的缓冲区。</param>
+      <param name="offset">启动访问器的字节位置。</param>
+      <param name="capacity">要分配的内存大小（以字节为单位）。</param>
+      <param name="access">内存允许的访问类型。默认值为 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="offset" /> 与 <paramref name="capacity" /> 之和大于 <paramref name="buffer" />。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> 为 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 或 <paramref name="capacity" /> 小于零。- 或 -<paramref name="access" /> 不是有效的 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 枚举值。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="offset" /> 与 <paramref name="capacity" /> 之和将环绕地址空间的高端。</exception>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.IsOpen">
+      <summary>确定访问器当前是否由进程打开。</summary>
+      <returns>如果访问器已打开，则为 true；否则为 false。</returns>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadBoolean(System.Int64)">
+      <summary>从访问器读取一个布尔值。</summary>
+      <returns>true 或 false。</returns>
+      <param name="position">访问器中起始读取位置的字节偏移量。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供读取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持读取。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadByte(System.Int64)">
+      <summary>从访问器读取一个字节值。</summary>
+      <returns>读取的值。</returns>
+      <param name="position">访问器中起始读取位置的字节偏移量。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供读取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持读取。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadChar(System.Int64)">
+      <summary>从访问器读取一个字符。</summary>
+      <returns>读取的值。</returns>
+      <param name="position">访问器中起始读取位置的字节偏移量。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供读取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持读取。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadDecimal(System.Int64)">
+      <summary>从访问器读取一个小数值。</summary>
+      <returns>读取的值。</returns>
+      <param name="position">访问器中起始读取位置的字节偏移量。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供读取值。- 或 -要读取的小数无效。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持读取。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadDouble(System.Int64)">
+      <summary>从访问器读取一个双精度浮点值。</summary>
+      <returns>读取的值。</returns>
+      <param name="position">访问器中起始读取位置的字节偏移量。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供读取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持读取。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadInt16(System.Int64)">
+      <summary>从访问器读取一个 16 位整数。</summary>
+      <returns>读取的值。</returns>
+      <param name="position">访问器中起始读取位置的字节偏移量。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供读取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持读取。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadInt32(System.Int64)">
+      <summary>从访问器读取一个 32 位整数。</summary>
+      <returns>读取的值。</returns>
+      <param name="position">访问器中起始读取位置的字节偏移量。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供读取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持读取。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadInt64(System.Int64)">
+      <summary>从访问器读取一个 64 位整数。</summary>
+      <returns>读取的值。</returns>
+      <param name="position">访问器中起始读取位置的字节偏移量。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供读取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持读取。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadSByte(System.Int64)">
+      <summary>从访问器读取一个 8 位带符号整数。</summary>
+      <returns>读取的值。</returns>
+      <param name="position">访问器中起始读取位置的字节偏移量。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供读取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持读取。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadSingle(System.Int64)">
+      <summary>从访问器读取一个单精度浮点值。</summary>
+      <returns>读取的值。</returns>
+      <param name="position">访问器中起始读取位置的字节偏移量。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供读取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持读取。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadUInt16(System.Int64)">
+      <summary>从访问器读取一个 16 位无符号整数。</summary>
+      <returns>读取的值。</returns>
+      <param name="position">访问器中起始读取位置的字节偏移量。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供读取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持读取。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadUInt32(System.Int64)">
+      <summary>从访问器读取一个 32 位无符号整数。</summary>
+      <returns>读取的值。</returns>
+      <param name="position">访问器中起始读取位置的字节偏移量。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供读取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持读取。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadUInt64(System.Int64)">
+      <summary>从访问器读取一个 64 位无符号整数。</summary>
+      <returns>读取的值。</returns>
+      <param name="position">访问器中起始读取位置的字节偏移量。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供读取值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持读取。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Boolean)">
+      <summary>将一个布尔值写入访问器。</summary>
+      <param name="position">访问器中起始写入位置的字节偏移量。</param>
+      <param name="value">要写入的值。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供写入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持写入。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Byte)">
+      <summary>将一个字节值写入访问器。</summary>
+      <param name="position">访问器中起始写入位置的字节偏移量。</param>
+      <param name="value">要写入的值。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供写入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持写入。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Char)">
+      <summary>将一个字符写入访问器。</summary>
+      <param name="position">访问器中起始写入位置的字节偏移量。</param>
+      <param name="value">要写入的值。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供写入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持写入。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Decimal)">
+      <summary>将一个小数值写入访问器。</summary>
+      <param name="position">访问器中起始写入位置的字节偏移量。</param>
+      <param name="value">要写入的值。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供写入值。- 或 -小数无效。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持写入。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Double)">
+      <summary>将一个 Double 值写入访问器。</summary>
+      <param name="position">访问器中起始写入位置的字节偏移量。</param>
+      <param name="value">要写入的值。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供写入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持写入。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Int16)">
+      <summary>将一个 16 位整数写入访问器。</summary>
+      <param name="position">访问器中起始写入位置的字节偏移量。</param>
+      <param name="value">要写入的值。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供写入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持写入。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Int32)">
+      <summary>将一个 32 位整数写入访问器。</summary>
+      <param name="position">访问器中起始写入位置的字节偏移量。</param>
+      <param name="value">要写入的值。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供写入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持写入。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Int64)">
+      <summary>将一个 64 位整数写入访问器。</summary>
+      <param name="position">访问器中起始写入位置的字节偏移量。</param>
+      <param name="value">要写入的值。</param>
+      <exception cref="T:System.ArgumentException">position 后面没有足够的字节数可供写入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持写入。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.SByte)">
+      <summary>将一个 8 位整数写入访问器。</summary>
+      <param name="position">访问器中起始写入位置的字节偏移量。</param>
+      <param name="value">要写入的值。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供写入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持写入。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Single)">
+      <summary>将一个 Single 写入访问器。</summary>
+      <param name="position">访问器中起始写入位置的字节偏移量。</param>
+      <param name="value">要写入的值。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供写入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持写入。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.UInt16)">
+      <summary>将一个 16 位无符号整数写入访问器。</summary>
+      <param name="position">访问器中起始写入位置的字节偏移量。</param>
+      <param name="value">要写入的值。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供写入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持写入。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.UInt32)">
+      <summary>将一个 32 位无符号整数写入访问器。</summary>
+      <param name="position">访问器中起始写入位置的字节偏移量。</param>
+      <param name="value">要写入的值。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供写入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持写入。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.UInt64)">
+      <summary>将一个 64 位无符号整数写入访问器。</summary>
+      <param name="position">访问器中起始写入位置的字节偏移量。</param>
+      <param name="value">要写入的值。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="position" /> 后面没有足够的字节数可供写入值。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> 小于零或大于访问器的容量。</exception>
+      <exception cref="T:System.NotSupportedException">访问器不支持写入。</exception>
+      <exception cref="T:System.ObjectDisposedException">已释放访问器。</exception>
+    </member>
+    <member name="T:System.IO.UnmanagedMemoryStream">
+      <summary>提供从托管代码访问非托管内存块的能力。</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor">
+      <summary>初始化 <see cref="T:System.IO.UnmanagedMemoryStream" /> 类的新实例。</summary>
+      <exception cref="T:System.Security.SecurityException">用户没有必需的权限。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Byte*,System.Int64)">
+      <summary>用指定的位置和内存长度初始化 <see cref="T:System.IO.UnmanagedMemoryStream" /> 类的新实例。</summary>
+      <param name="pointer">指向非托管内存位置的指针。</param>
+      <param name="length">要使用的内存的长度。</param>
+      <exception cref="T:System.Security.SecurityException">用户没有必需的权限。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pointer" /> 值为 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="length" /> 值小于零。- 或 -<paramref name="length" /> 太大，引起溢出。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Byte*,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>使用指定的位置、内存长度、内存总量和文件访问值初始化 <see cref="T:System.IO.UnmanagedMemoryStream" /> 类的新实例。</summary>
+      <param name="pointer">指向非托管内存位置的指针。</param>
+      <param name="length">要使用的内存的长度。</param>
+      <param name="capacity">分配给流的内存总量。</param>
+      <param name="access">
+        <see cref="T:System.IO.FileAccess" /> 值之一。</param>
+      <exception cref="T:System.Security.SecurityException">用户没有必需的权限。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pointer" /> 值为 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="length" /> 值小于零。- 或 - <paramref name="capacity" /> 值小于零。- 或 -<paramref name="length" /> 值大于 <paramref name="capacity" /> 值。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64)">
+      <summary>在具有指定的偏移量和长度的安全缓冲区中初始化 <see cref="T:System.IO.UnmanagedMemoryStream" /> 类的新实例。</summary>
+      <param name="buffer">要包含非托管内存流的缓冲区。</param>
+      <param name="offset">启动非托管内存流的缓冲区字节位置。</param>
+      <param name="length">非托管内存流的长度。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>在具有指定的偏移量、长度和文件访问的安全缓冲区中初始化 <see cref="T:System.IO.UnmanagedMemoryStream" /> 类的新实例。</summary>
+      <param name="buffer">要包含非托管内存流的缓冲区。</param>
+      <param name="offset">启动非托管内存流的缓冲区字节位置。</param>
+      <param name="length">非托管内存流的长度。</param>
+      <param name="access">非托管内存流的文件访问模式。</param>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.CanRead">
+      <summary>获取一个值，该值指示流是否支持读取。</summary>
+      <returns>如果对象是用一个构造函数创建的，而该构造函数的 <paramref name="access" /> 参数不包括读取流，或者如果流已关闭，则为 false，否则为 true。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.CanSeek">
+      <summary>获取一个值，该值指示流是否支持查找。</summary>
+      <returns>如果流已关闭，则为 false；否则为 true。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.CanWrite">
+      <summary>获取一个值，该值指示流是否支持写入。</summary>
+      <returns>如果对象是用一个构造函数创建的，而该构造函数的 <paramref name="access" /> 参数值支持写入，或者对象是用一个不带参数的构造函数创建的，或者如果流已关闭，则为 false，否则为 true。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.Capacity">
+      <summary>获取流的长度（大小）或分配给流的内存总量（容量）。</summary>
+      <returns>流的大小或容量。</returns>
+      <exception cref="T:System.ObjectDisposedException">流已关闭。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Dispose(System.Boolean)">
+      <summary>释放由 <see cref="T:System.IO.UnmanagedMemoryStream" /> 占用的非托管资源，还可以释放托管资源。</summary>
+      <param name="disposing">若要释放托管资源和非托管资源，则为 true；若仅释放非托管资源，则为 false。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Flush">
+      <summary>重写 <see cref="M:System.IO.Stream.Flush" /> 方法以便不执行任何操作。</summary>
+      <exception cref="T:System.ObjectDisposedException">流已关闭。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.FlushAsync(System.Threading.CancellationToken)">
+      <summary>重写 <see cref="M:System.IO.Stream.FlushAsync(System.Threading.CancellationToken)" /> 方法，以便取消操作（如果已指定），但不执行其他任何操作。可以开始于 .NET Framework 2015</summary>
+      <returns>表示异步刷新操作的任务。</returns>
+      <param name="cancellationToken">要监视取消请求的标记。默认值为 <see cref="P:System.Threading.CancellationToken.None" />。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Initialize(System.Byte*,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>使用指向非托管内存位置的指针初始化 <see cref="T:System.IO.UnmanagedMemoryStream" /> 类的新实例。</summary>
+      <param name="pointer">指向非托管内存位置的指针。</param>
+      <param name="length">要使用的内存的长度。</param>
+      <param name="capacity">分配给流的内存总量。</param>
+      <param name="access">
+        <see cref="T:System.IO.FileAccess" /> 值之一。</param>
+      <exception cref="T:System.Security.SecurityException">用户没有必需的权限。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pointer" /> 值为 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="length" /> 值小于零。- 或 - <paramref name="capacity" /> 值小于零。- 或 -<paramref name="length" /> 值太大，导致溢出。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Initialize(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>在具有指定的偏移量、长度和文件访问的安全缓冲区中初始化 <see cref="T:System.IO.UnmanagedMemoryStream" /> 类的新实例。</summary>
+      <param name="buffer">要包含非托管内存流的缓冲区。</param>
+      <param name="offset">启动非托管内存流的缓冲区字节位置。</param>
+      <param name="length">非托管内存流的长度。</param>
+      <param name="access">非托管内存流的文件访问模式。</param>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.Length">
+      <summary>获取流中数据的长度。</summary>
+      <returns>流中数据的长度。</returns>
+      <exception cref="T:System.ObjectDisposedException">流已关闭。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.Position">
+      <summary>获取或设置流中的当前位置。</summary>
+      <returns>流中的当前新位置。</returns>
+      <exception cref="T:System.ObjectDisposedException">流已关闭。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">位置被设置为小于 0 的值，或者位置大于 <see cref="F:System.Int32.MaxValue" /> 或在添加到当前指针时导致溢出。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.PositionPointer">
+      <summary>获取或设置基于流中当前位置的指向流的字节指针。</summary>
+      <returns>字节指针。</returns>
+      <exception cref="T:System.IndexOutOfRangeException">当前位置大于流的容量。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">所设置的位置不是当前流中的有效位置。</exception>
+      <exception cref="T:System.IO.IOException">指针被设置为比流的开始位置小的值。</exception>
+      <exception cref="T:System.NotSupportedException">流已初始化，可用于 <see cref="T:System.Runtime.InteropServices.SafeBuffer" />。<see cref="P:System.IO.UnmanagedMemoryStream.PositionPointer" /> 属性仅对使用 <see cref="T:System.Byte" /> 指针初始化的流有效。</exception>
+      <filterpriority>2</filterpriority>
+      <PermissionSet>
+        <IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode" />
+      </PermissionSet>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Read(System.Byte[],System.Int32,System.Int32)">
+      <summary>将指定数量的字节读入指定的数组。</summary>
+      <returns>读入缓冲区中的总字节数。如果很多字节当前不可用，则总字节数可能小于请求的字节数；如果已到达流结尾，则为零 (0)。</returns>
+      <param name="buffer">此方法返回时包含指定的字节数组，数组中 <paramref name="offset" /> 和 (<paramref name="offset" /> + <paramref name="count" /> - 1) 之间的值被从当前源中读取的字节替换。此参数未经初始化即被传递。</param>
+      <param name="offset">
+        <paramref name="buffer" /> 中的从零开始的字节偏移量，从此处开始存储从当前流中读取的数据。</param>
+      <param name="count">要从当前流中读取的最大字节数。</param>
+      <exception cref="T:System.ObjectDisposedException">流已关闭。</exception>
+      <exception cref="T:System.NotSupportedException">基础内存不支持读取。- 或 - <see cref="P:System.IO.UnmanagedMemoryStream.CanRead" /> 属性设置为 false。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> 参数设置为 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 参数小于零。- 或 - <paramref name="count" /> 参数小于零。</exception>
+      <exception cref="T:System.ArgumentException">缓冲区数组的长度减去 <paramref name="offset" /> 参数小于 <paramref name="count" /> 参数。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.ReadAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+      <summary>将指定数量的字节异步读入指定的数组。可以开始于 .NET Framework 2015</summary>
+      <returns>表示异步读取操作的任务。<paramref name="TResult" /> 参数的值包含读入缓冲区的总字节数。如果当前可用字节数少于所请求的字节数，则该结果值可小于所请求的字节数；如果已到达流结尾时，则为 0（零）。</returns>
+      <param name="buffer">数据写入的缓冲区。</param>
+      <param name="offset">
+        <paramref name="buffer" /> 中的字节偏移量，从该偏移量开始写入从流中读取的数据。</param>
+      <param name="count">最多读取的字节数。</param>
+      <param name="cancellationToken">要监视取消请求的标记。默认值为 <see cref="P:System.Threading.CancellationToken.None" />。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.ReadByte">
+      <summary>从流中读取一个字节，并将流内的位置前移一个字节，或者如果已到达流的末尾，则返回 -1。</summary>
+      <returns>转换为 <see cref="T:System.Int32" /> 对象的无符号字节，或者如果到达流的末尾，则为 -1。</returns>
+      <exception cref="T:System.ObjectDisposedException">流已关闭。</exception>
+      <exception cref="T:System.NotSupportedException">基础内存不支持读取。- 或 -当前位置在流的末尾。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Seek(System.Int64,System.IO.SeekOrigin)">
+      <summary>将当前流的当前位置设置为给定值。</summary>
+      <returns>流中的新位置。</returns>
+      <param name="offset">相对于 <paramref name="origin" /> 的点，从此处开始查找。</param>
+      <param name="loc">使用 <see cref="T:System.IO.SeekOrigin" /> 类型的值，将开始位置、结束位置或当前位置指定为 <paramref name="origin" /> 的参考点。</param>
+      <exception cref="T:System.IO.IOException">尝试在流的开始位置之前查找。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 值大于流的最大大小。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="loc" /> 无效。</exception>
+      <exception cref="T:System.ObjectDisposedException">流已关闭。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.SetLength(System.Int64)">
+      <summary>将流的长度设置为指定的值。</summary>
+      <param name="value">流的长度。</param>
+      <exception cref="T:System.IO.IOException">出现 I/O 错误。</exception>
+      <exception cref="T:System.ObjectDisposedException">流已关闭。</exception>
+      <exception cref="T:System.NotSupportedException">基础内存不支持写入。- 或 -尝试写入流，但 <see cref="P:System.IO.UnmanagedMemoryStream.CanWrite" /> 属性为 false。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">指定的 <paramref name="value" /> 超出流的容量。- 或 -指定的 <paramref name="value" /> 是负数。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Write(System.Byte[],System.Int32,System.Int32)">
+      <summary>使用缓冲区中的数据将字节块写入当前流。</summary>
+      <param name="buffer">字节数组，从该字节数组将字节复制到当前流中。</param>
+      <param name="offset">缓冲区中的偏移量，从此处开始将字节复制到当前流中。</param>
+      <param name="count">要写入当前流的字节数。</param>
+      <exception cref="T:System.ObjectDisposedException">流已关闭。</exception>
+      <exception cref="T:System.NotSupportedException">基础内存不支持写入。- 或 -尝试写入流，但 <see cref="P:System.IO.UnmanagedMemoryStream.CanWrite" /> 属性为 false。- 或 -<paramref name="count" /> 值大于流的容量。- 或 -位置在流容量的末尾。</exception>
+      <exception cref="T:System.IO.IOException">发生 I/O 错误。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">其中一个指定的参数小于 0。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="offset" /> 参数减去 <paramref name="buffer" /> 参数的长度小于 <paramref name="count" /> 参数。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> 参数为 null。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.WriteAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+      <summary>将字节的序列异步写入当前流，将该流中的当前位置向前移动写入的字节数，并监视取消请求。可以开始于 .NET Framework 2015</summary>
+      <returns>表示异步写入操作的任务。</returns>
+      <param name="buffer">从中写入数据的缓冲区。</param>
+      <param name="offset">
+        <paramref name="buffer" /> 中的从零开始的字节偏移量，从此处开始将字节复制到该流。</param>
+      <param name="count">最多写入的字节数。</param>
+      <param name="cancellationToken">要监视取消请求的标记。默认值为 <see cref="P:System.Threading.CancellationToken.None" />。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.WriteByte(System.Byte)">
+      <summary>一个字节写入文件流中的当前位置。</summary>
+      <param name="value">写入流的字节值。</param>
+      <exception cref="T:System.ObjectDisposedException">流已关闭。</exception>
+      <exception cref="T:System.NotSupportedException">基础内存不支持写入。- 或 -尝试写入流，但 <see cref="P:System.IO.UnmanagedMemoryStream.CanWrite" /> 属性为 false。- 或 - 当前位置在流容量的末尾。</exception>
+      <exception cref="T:System.IO.IOException">提供的 <paramref name="value" /> 导致流超出它的最大容量。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+  </members>
+</doc>

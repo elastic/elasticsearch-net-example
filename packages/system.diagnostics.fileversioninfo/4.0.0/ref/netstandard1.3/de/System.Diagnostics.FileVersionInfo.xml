@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Diagnostics.FileVersionInfo</name>
+  </assembly>
+  <members>
+    <member name="T:System.Diagnostics.FileVersionInfo">
+      <summary>Stellt Versionsinformationen für eine physikalische Datei auf einem Datenträger bereit.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.Comments">
+      <summary>Ruft die der Datei zugeordneten Kommentare ab.</summary>
+      <returns>Die der Datei zugeordneten Kommentare oder null, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.CompanyName">
+      <summary>Ruft den Namen des Unternehmens ab, das die Datei erstellt hat.</summary>
+      <returns>Der Name des Unternehmens, dass die Datei erstellt hat, oder null, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileBuildPart">
+      <summary>Ruft die Buildnummer der Datei ab.</summary>
+      <returns>Ein Wert, der die Buildnummer der Datei darstellt, oder null, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileDescription">
+      <summary>Ruft die Beschreibung der Datei ab.</summary>
+      <returns>Die Beschreibung der Datei oder null, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileMajorPart">
+      <summary>Ruft den Hauptteil der Versionsnummer ab.</summary>
+      <returns>Ein Wert, der den Hauptteil der Versionsnummer darstellt, oder 0, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileMinorPart">
+      <summary>Ruft den zweiten Teil der Versionsnummer (Nebenversionsnummer) der Datei ab.</summary>
+      <returns>Ein Wert, der den Nebenteil der Versionsnummer der Datei darstellt, oder 0, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileName">
+      <summary>Ruft den Namen der Datei ab, die diese Instanz von <see cref="T:System.Diagnostics.FileVersionInfo" /> beschreibt.</summary>
+      <returns>Der Name der Datei, die durch diese Instanz von <see cref="T:System.Diagnostics.FileVersionInfo" /> beschrieben wird.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FilePrivatePart">
+      <summary>Ruft die Einzelteilnummer der Datei ab.</summary>
+      <returns>Ein Wert, der die Einzelteilnummer der Datei darstellt, oder null, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.FileVersion">
+      <summary>Ruft die Versionsnummer der Datei ab.</summary>
+      <returns>Die Versionsnummer von der Datei oder null, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.Diagnostics.FileVersionInfo.GetVersionInfo(System.String)">
+      <summary>Gibt eine <see cref="T:System.Diagnostics.FileVersionInfo" /> zurück, die die Versionsinformationen darstellt, die der angegebenen Datei zugeordnet sind.</summary>
+      <returns>Eine <see cref="T:System.Diagnostics.FileVersionInfo" /> mit Informationen über die Datei.Wenn in der Datei keine Versionsinformationen vorhanden sind, enthält <see cref="T:System.Diagnostics.FileVersionInfo" /> nur den Namen der angeforderten Datei.</returns>
+      <param name="fileName">Der voll gekennzeichnete Pfad und Name der Datei, für die die Versionsinformationen abgerufen werden sollen. </param>
+      <exception cref="T:System.IO.FileNotFoundException">Die angegebene Datei kann nicht gefunden werden. </exception>
+      <filterpriority>1</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.InternalName">
+      <summary>Ruft den internen Namen der Datei ab, sofern vorhanden.</summary>
+      <returns>Der interne Name der Datei.Wenn kein interner Name vorhanden ist, enthält diese Eigenschaft den ursprünglichen Namen der Datei ohne die Erweiterung.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsDebug">
+      <summary>Ruft einen Wert ab, der angibt, ob die Datei Debuginformationen enthält oder mit aktivierten Debugfeatures kompiliert wurde.</summary>
+      <returns>true, wenn die Datei Debuginformationen enthält oder mit aktivierten Debugfeatures kompiliert wurde, andernfalls false.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsPatched">
+      <summary>Ruft einen Wert ab, der angibt, ob die Datei geändert wurde und von der Originaldatei mit derselben Versionsnummer abweicht.</summary>
+      <returns>true, wenn die Datei geändert wurde, andernfalls false.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsPreRelease">
+      <summary>Ruft einen Wert ab, der angibt, ob die Datei eine Entwicklungsversion und kein kommerziell vertriebenes Produkt ist.</summary>
+      <returns>true, wenn die Datei eine Vorabversion ist, andernfalls false.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsPrivateBuild">
+      <summary>Ruft einen Wert ab, der angibt, ob die Datei mithilfe von Standardverfahren zur Veröffentlichung erstellt wurde.</summary>
+      <returns>true, wenn die Datei ein privater Build ist; false, wenn die Datei mit Standardverfahren zur Veröffentlichung erstellt wurde oder keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.IsSpecialBuild">
+      <summary>Ruft einen Wert ab, der angibt, ob die Datei ein besonderes Build ist.</summary>
+      <returns>true, wenn die Datei ein besonderes Build ist, andernfalls false.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.Language">
+      <summary>Ruft die Zeichenfolge der Standardsprache für den Versionsinformationsblock ab.</summary>
+      <returns>Die Beschreibungszeichenfolge für den Microsoft-Sprachbezeichner in der Versionsressource oder null, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.LegalCopyright">
+      <summary>Ruft alle Copyrighthinweise ab, die für die angegebene Datei gültig sind.</summary>
+      <returns>Die Copyrighthinweise, die für die angegebene Datei gültig sind.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.LegalTrademarks">
+      <summary>Ruft die Marken und eingetragenen Marken ab, die die Datei betreffen.</summary>
+      <returns>Die für die Datei gültigen Marken und eingetragenen Marken oder null, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.OriginalFilename">
+      <summary>Ruft den Namen ab, mit dem die Datei erstellt wurde.</summary>
+      <returns>Der Name, mit dem die Datei erstellt wurde, oder null, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.PrivateBuild">
+      <summary>Ruft Informationen über eine private Version der Datei ab.</summary>
+      <returns>Informationen zu einer privaten Version der Datei oder null, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductBuildPart">
+      <summary>Ruft die Buildnummer des Produkts ab, dem diese Datei zugeordnet ist.</summary>
+      <returns>Ein Wert, der die Buildnummer des Produkts darstellt, dem diese Datei zugeordnet ist, oder null, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductMajorPart">
+      <summary>Ruft den Hauptteil der Versionsnummer des Produkts ab, dem diese Datei zugeordnet ist.</summary>
+      <returns>Ein Wert, der den Hauptteil der Produktversionsnummer darstellt, oder null, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductMinorPart">
+      <summary>Ruft den zweiten Teil der Versionsnummer (Nebenversionsnummer) des Produkts ab, dem diese Datei zugeordnet ist.</summary>
+      <returns>Ein Wert, der den Nebenteil der Produktversionsnummer darstellt, oder null, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductName">
+      <summary>Ruft den Namen des Produkts ab, mit dem diese Datei geliefert wird.</summary>
+      <returns>Der Name des Produkts, mit dem diese Datei verteilt wird, oder null, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductPrivatePart">
+      <summary>Ruft die Einzelteilnummer des Produkts ab, dem diese Datei zugeordnet ist.</summary>
+      <returns>Ein Wert, der die Einzelteilnummer des Produkts darstellt, dem diese Datei zugeordnet ist, oder null, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.ProductVersion">
+      <summary>Ruft die Version des Produkts ab, mit dem diese Datei geliefert wird.</summary>
+      <returns>Die Version des Produkts, mit dem diese Datei verteilt wird, oder null, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.Diagnostics.FileVersionInfo.SpecialBuild">
+      <summary>Ruft die Informationen über das besondere Build für die Datei ab.</summary>
+      <returns>Die besonderen Buildinformationen für die Datei oder null, wenn die Datei keine Versionsinformationen enthielt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.Diagnostics.FileVersionInfo.ToString">
+      <summary>Gibt eine unvollständige Liste der Eigenschaften in <see cref="T:System.Diagnostics.FileVersionInfo" /> und deren Werte zurück.</summary>
+      <returns>Eine Liste der folgenden Eigenschaften in dieser Klasse und deren Werte: <see cref="P:System.Diagnostics.FileVersionInfo.FileName" />, <see cref="P:System.Diagnostics.FileVersionInfo.InternalName" />, <see cref="P:System.Diagnostics.FileVersionInfo.OriginalFilename" />, <see cref="P:System.Diagnostics.FileVersionInfo.FileVersion" />, <see cref="P:System.Diagnostics.FileVersionInfo.FileDescription" />, <see cref="P:System.Diagnostics.FileVersionInfo.ProductName" />, <see cref="P:System.Diagnostics.FileVersionInfo.ProductVersion" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsDebug" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsPatched" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsPreRelease" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsPrivateBuild" />, <see cref="P:System.Diagnostics.FileVersionInfo.IsSpecialBuild" />,<see cref="P:System.Diagnostics.FileVersionInfo.Language" />.Wenn in der Datei keine Versionsinformationen vorhanden sind, enthält diese Liste nur den Namen der angeforderten Datei.Boolesche Werte sind auf false und alle anderen Einträge auf null festgelegt.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+  </members>
+</doc>

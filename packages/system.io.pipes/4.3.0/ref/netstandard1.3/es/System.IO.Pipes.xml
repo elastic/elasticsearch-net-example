@@ -1,0 +1,578 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.Pipes</name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.Win32.SafeHandles.SafePipeHandle">
+      <summary>Representa una clase contenedora de un identificador de canalización. </summary>
+    </member>
+    <member name="M:Microsoft.Win32.SafeHandles.SafePipeHandle.#ctor(System.IntPtr,System.Boolean)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:Microsoft.Win32.SafeHandles.SafePipeHandle" />.</summary>
+      <param name="preexistingHandle">Objeto <see cref="T:System.IntPtr" /> que representa el identificador preexistente que se va a utilizar.</param>
+      <param name="ownsHandle">Se establece en true para liberar de forma confiable el identificador durante la fase de finalización; se establece en false para impedir que se libere de forma confiable (no se recomienda).</param>
+    </member>
+    <member name="P:Microsoft.Win32.SafeHandles.SafePipeHandle.IsInvalid"></member>
+    <member name="T:System.IO.Pipes.AnonymousPipeClientStream">
+      <summary>Expone el lado cliente de una secuencia de canalización anónima, que admite operaciones sincrónicas y asincrónicas de escritura y lectura.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.IO.Pipes.PipeDirection,Microsoft.Win32.SafeHandles.SafePipeHandle)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> a partir del identificador especificado.</summary>
+      <param name="direction">Uno de los valores de enumeración que determina la dirección de la canalización.Las canalizaciones anónimas solo pueden ser en una dirección, por lo que <paramref name="direction" /> no se puede establecer en <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</param>
+      <param name="safePipeHandle">Controlador seguro para la canalización que este objeto <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> encapsulará.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="safePipeHandle " /> no es un controlador válido.</exception>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="safePipeHandle" /> es null.</exception>
+      <exception cref="T:System.NotSupportedException">El valor de <paramref name="direction" /> está establecido en <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</exception>
+      <exception cref="T:System.IO.IOException">Se ha producido un error de E/S, como un error de disco.o bienSe ha cerrado la secuencia.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.IO.Pipes.PipeDirection,System.String)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> con la dirección de canalización especificada y una representación de cadena del identificador de canalización.</summary>
+      <param name="direction">Uno de los valores de enumeración que determina la dirección de la canalización.Las canalizaciones anónimas solo pueden ser en una dirección, por lo que <paramref name="direction" /> no se puede establecer en <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</param>
+      <param name="pipeHandleAsString">Una cadena que representa el identificador de canalización.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeHandleAsString" /> es un controlador no válido.</exception>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="pipeHandleAsString" /> es null.</exception>
+      <exception cref="T:System.NotSupportedException">El valor de <paramref name="direction" /> está establecido en <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.String)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> con la representación de cadena especificada para el identificador de canalización.</summary>
+      <param name="pipeHandleAsString">Una cadena que representa el identificador de canalización.</param>
+      <exception cref="T:System.IO.IOException">El valor de <paramref name="pipeHandleAsString" /> no es un identificador de canalización válido.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeClientStream.Finalize">
+      <summary>Libera los recursos no administrados y realiza otras operaciones de limpieza antes de la <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> la recolección de elementos no utilizados reclame instancia.</summary>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeClientStream.ReadMode">
+      <summary>Establece el modo de lectura para el objeto <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />.</summary>
+      <returns>
+        <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> del objeto <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />.</returns>
+      <exception cref="T:System.ArgumentOutOfRangeException">El modo de transmisión no es válido.Solo se admite <see cref="F:System.IO.Pipes.PipeTransmissionMode.Byte" /> para canalizaciones anónimas.</exception>
+      <exception cref="T:System.NotSupportedException">El modo de transmisión es <see cref="F:System.IO.Pipes.PipeTransmissionMode.Message" />.</exception>
+      <exception cref="T:System.IO.IOException">La conexión se ha roto o se produce otro error de E/S.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha cerrado la canalización.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeClientStream.TransmissionMode">
+      <summary>Obtiene el modo de transmisión de canalización compatible con la canalización actual.</summary>
+      <returns>El <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> que admite la canalización actual.</returns>
+    </member>
+    <member name="T:System.IO.Pipes.AnonymousPipeServerStream">
+      <summary>Expone una secuencia alrededor de una canalización anónima, que admite operaciones de lectura y escritura tanto sincrónicas como asincrónicas.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> con la dirección de canalización especificada.</summary>
+      <param name="direction">Uno de los valores de enumeración que determina la dirección de la canalización.Las canalizaciones anónimas solo pueden ser en una dirección, por lo que <paramref name="direction" /> no se puede establecer en <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</param>
+      <exception cref="T:System.NotSupportedException">El valor de <paramref name="direction" /> está establecido en <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,Microsoft.Win32.SafeHandles.SafePipeHandle,Microsoft.Win32.SafeHandles.SafePipeHandle)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> a partir de los identificadores de canalización especificados.</summary>
+      <param name="direction">Uno de los valores de enumeración que determina la dirección de la canalización.Las canalizaciones anónimas solo pueden ser en una dirección, por lo que <paramref name="direction" /> no se puede establecer en <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</param>
+      <param name="serverSafePipeHandle">Controlador seguro para la canalización que este objeto <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> encapsulará.</param>
+      <param name="clientSafePipeHandle">Controlador seguro para el objeto <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="serverSafePipeHandle" /> o <paramref name="clientSafePipeHandle" /> es un controlador no válido.</exception>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="serverSafePipeHandle" /> o <paramref name="clientSafePipeHandle" /> es null.</exception>
+      <exception cref="T:System.NotSupportedException">El valor de <paramref name="direction" /> está establecido en <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</exception>
+      <exception cref="T:System.IO.IOException">Se ha producido un error de E/S, como un error de disco.o bienSe ha cerrado la secuencia.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,System.IO.HandleInheritability)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> con las características dirección de canalización y modo de herencia especificadas.</summary>
+      <param name="direction">Uno de los valores de enumeración que determina la dirección de la canalización.Las canalizaciones anónimas solo pueden ser en una dirección, por lo que <paramref name="direction" /> no se puede establecer en <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</param>
+      <param name="inheritability">Uno de los valores de enumeración que determina si los procesos secundarios pueden heredar el identificador subyacente.Se debe establecer en <see cref="F:System.IO.HandleInheritability.None" /> o en <see cref="F:System.IO.HandleInheritability.Inheritable" />.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="inheritability" /> no está establecido en <see cref="F:System.IO.HandleInheritability.None" /> o <see cref="F:System.IO.HandleInheritability.Inheritable" />.</exception>
+      <exception cref="T:System.NotSupportedException">El valor de <paramref name="direction" /> está establecido en <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,System.IO.HandleInheritability,System.Int32)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> con las características dirección de canalización, modo de herencia y tamaño de búfer especificadas.</summary>
+      <param name="direction">Uno de los valores de enumeración que determina la dirección de la canalización.Las canalizaciones anónimas solo pueden ser en una dirección, por lo que <paramref name="direction" /> no se puede establecer en <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</param>
+      <param name="inheritability">Uno de los valores de enumeración que determina si los procesos secundarios pueden heredar el identificador subyacente.Se debe establecer en <see cref="F:System.IO.HandleInheritability.None" /> o en <see cref="F:System.IO.HandleInheritability.Inheritable" />.</param>
+      <param name="bufferSize">Tamaño del búfer.Este valor debe ser mayor o igual que 0.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="inheritability" /> no está establecido en <see cref="F:System.IO.HandleInheritability.None" /> o <see cref="F:System.IO.HandleInheritability.Inheritable" />.o bien<paramref name="bufferSize" /> es menor que 0.</exception>
+      <exception cref="T:System.NotSupportedException">El valor de <paramref name="direction" /> está establecido en <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeServerStream.ClientSafePipeHandle">
+      <summary>Obtiene el identificador seguro del objeto <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> que está conectado actualmente al objeto <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />.</summary>
+      <returns>Controlador para el objeto <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> que está conectado actualmente al objeto <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />.</returns>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.DisposeLocalCopyOfClientHandle">
+      <summary>Cierra la copia local del identificador del objeto <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.Finalize">
+      <summary>Libera los recursos no administrados y realiza otras operaciones de limpieza antes de la <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> la recolección de elementos no utilizados reclame instancia.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.AnonymousPipeServerStream.GetClientHandleAsString">
+      <summary>Obtiene el identificador del objeto <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> conectado como una cadena.</summary>
+      <returns>Cadena que representa el identificador del objeto <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> conectado.</returns>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeServerStream.ReadMode">
+      <summary>Establece el modo de lectura para el objeto <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />.Para las canalizaciones anónimas, el modo de transmisión debe ser <see cref="F:System.IO.Pipes.PipeTransmissionMode.Byte" />.</summary>
+      <returns>El modo de lectura para el objeto <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />.</returns>
+      <exception cref="T:System.ArgumentOutOfRangeException">El modo de transmisión no es válido.Solo se admite <see cref="F:System.IO.Pipes.PipeTransmissionMode.Byte" /> para canalizaciones anónimas.</exception>
+      <exception cref="T:System.NotSupportedException">La propiedad se establece en <see cref="F:System.IO.Pipes.PipeTransmissionMode.Message" />, que no se admite para canalizaciones anónimas.</exception>
+      <exception cref="T:System.IO.IOException">La conexión se ha roto o se produce otro error de E/S.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha cerrado la canalización.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.AnonymousPipeServerStream.TransmissionMode">
+      <summary>Obtiene el modo de transmisión de canalización compatible con la canalización actual.</summary>
+      <returns>
+        <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> compatible con la canalización actual.</returns>
+    </member>
+    <member name="T:System.IO.Pipes.NamedPipeClientStream">
+      <summary>Expone un <see cref="T:System.IO.Stream" /> alrededor de una canalización con nombre, que admite operaciones de lectura y escritura sincrónica y asincrónica.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.IO.Pipes.PipeDirection,System.Boolean,System.Boolean,Microsoft.Win32.SafeHandles.SafePipeHandle)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> para el identificador de canalización especificado con la dirección de canalización especificada.</summary>
+      <param name="direction">Uno de los valores de enumeración que determina la dirección de la canalización.</param>
+      <param name="isAsync">Es true para indicar que se abrió el identificador de forma asincrónica; en caso contrario, es false.</param>
+      <param name="isConnected">Es true para indicar que la canalización está conectada; en caso contrario, es false.</param>
+      <param name="safePipeHandle">Controlador seguro para la canalización que este objeto <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> encapsulará.</param>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="safePipeHandle" /> no es un controlador válido.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="safePipeHandle" /> no es un controlador válido.</exception>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="safePipeHandle" /> es null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="direction" /> no es un valor válido de <see cref="T:System.IO.Pipes.PipeDirection" />.</exception>
+      <exception cref="T:System.IO.IOException">Se ha cerrado la secuencia. </exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> con el nombre de canalización especificado.</summary>
+      <param name="pipeName">Nombre de la canalización.</param>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="pipeName" /> es null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> es una cadena de longitud cero.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> se establece en "anónimo".</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String,System.String)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> con los nombres de canalización y servidor especificados.</summary>
+      <param name="serverName">Nombre del equipo remoto al que se va a conectar; o bien, "." para especificar el equipo local.</param>
+      <param name="pipeName">Nombre de la canalización.</param>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="pipeName" /> o <paramref name="serverName" /> es null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> o <paramref name="serverName" /> es una cadena de longitud cero.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> se establece en "anónimo".</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String,System.String,System.IO.Pipes.PipeDirection)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> con los nombres de canalización y servidor especificados y la dirección de canalización especificada.</summary>
+      <param name="serverName">Nombre del equipo remoto al que se va a conectar; o bien, "." para especificar el equipo local.</param>
+      <param name="pipeName">Nombre de la canalización.</param>
+      <param name="direction">Uno de los valores de enumeración que determina la dirección de la canalización.</param>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="pipeName" /> o <paramref name="serverName" /> es null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> o <paramref name="serverName" /> es una cadena de longitud cero.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> se establece en "anónimo".o bien<paramref name="direction" /> no es un valor válido de <see cref="T:System.IO.Pipes.PipeDirection" />.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String,System.String,System.IO.Pipes.PipeDirection,System.IO.Pipes.PipeOptions)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> con los nombres de canalización y servidor especificados, y la dirección y opciones de canalización especificadas.</summary>
+      <param name="serverName">Nombre del equipo remoto al que se va a conectar; o bien, "." para especificar el equipo local.</param>
+      <param name="pipeName">Nombre de la canalización.</param>
+      <param name="direction">Uno de los valores de enumeración que determina la dirección de la canalización.</param>
+      <param name="options">Uno de los valores de enumeración que determina cómo abrir o crear la canalización.</param>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="pipeName" /> o <paramref name="serverName" /> es null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> o <paramref name="serverName" /> es una cadena de longitud cero.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> se establece en "anónimo".o bien<paramref name="direction" /> no es un valor válido de <see cref="T:System.IO.Pipes.PipeDirection" />.o bien<paramref name="options" /> no es un valor válido de <see cref="T:System.IO.Pipes.PipeOptions" />.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.#ctor(System.String,System.String,System.IO.Pipes.PipeDirection,System.IO.Pipes.PipeOptions,System.Security.Principal.TokenImpersonationLevel)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> con los nombres de canalización y servidor especificados, y las características dirección de canalización, opciones de canalización y nivel de suplantación de seguridad especificadas.</summary>
+      <param name="serverName">Nombre del equipo remoto al que se va a conectar; o bien, "." para especificar el equipo local.</param>
+      <param name="pipeName">Nombre de la canalización.</param>
+      <param name="direction">Uno de los valores de enumeración que determina la dirección de la canalización.</param>
+      <param name="options">Uno de los valores de enumeración que determina cómo abrir o crear la canalización.</param>
+      <param name="impersonationLevel">Uno de los valores de enumeración que determina el nivel de suplantación de seguridad.</param>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="pipeName" /> o <paramref name="serverName" /> es null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> o <paramref name="serverName" /> es una cadena de longitud cero.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> se establece en "anónimo".o bien<paramref name="direction" /> no es un valor válido de <see cref="T:System.IO.Pipes.PipeDirection" />.o bien<paramref name="options" /> no es un valor válido de <see cref="T:System.IO.Pipes.PipeOptions" />.o bien<paramref name="impersonationLevel" /> no es un valor válido de <see cref="T:System.Security.Principal.TokenImpersonationLevel" />.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.Connect">
+      <summary>Conecta a un servidor de espera con un valor de tiempo de espera infinito.</summary>
+      <exception cref="T:System.InvalidOperationException">El cliente ya está conectado.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.Connect(System.Int32)">
+      <summary>Conecta con un servidor de espera dentro del período de tiempo de espera especificado.</summary>
+      <param name="timeout">El número de milisegundos a la espera de que el servidor responda antes de que se supere el tiempo de espera de la conexión.</param>
+      <exception cref="T:System.TimeoutException">No se ha podido conectar al servidor en el tiempo de espera especificado por el período <paramref name="timeout" />.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="timeout" /> es menor que 0 y no se establece en <see cref="F:System.Threading.Timeout.Infinite" />.</exception>
+      <exception cref="T:System.InvalidOperationException">El cliente ya está conectado.</exception>
+      <exception cref="T:System.IO.IOException">El servidor se conecta a otro cliente y el tiempo de espera ha expirado.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.ConnectAsync">
+      <summary>Conecta de forma asincrónica a un servidor de espera con un período de tiempo de espera infinito.</summary>
+      <returns>Tarea que representa la operación de conexión asincrónica.</returns>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.ConnectAsync(System.Int32)">
+      <summary>Conecta de forma asincrónica a un servidor de espera dentro del período de tiempo de espera especificado.</summary>
+      <returns>Tarea que representa la operación de conexión asincrónica.</returns>
+      <param name="timeout">El número de milisegundos a la espera de que el servidor responda antes de que se supere el tiempo de espera de la conexión.</param>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.ConnectAsync(System.Int32,System.Threading.CancellationToken)">
+      <summary>Conecta de forma asincrónica a un servidor de espera dentro del período de tiempo de espera especificado y supervisa las solicitudes de cancelación.</summary>
+      <returns>Tarea que representa la operación de conexión asincrónica.</returns>
+      <param name="timeout">El número de milisegundos a la espera de que el servidor responda antes de que se supere el tiempo de espera de la conexión.</param>
+      <param name="cancellationToken">Token para supervisar solicitudes de cancelación.El valor predeterminado es <see cref="P:System.Threading.CancellationToken.None" />.</param>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.ConnectAsync(System.Threading.CancellationToken)">
+      <summary>Conecta de forma asincrónica a un servidor de espera y supervisa las solicitudes de cancelación.</summary>
+      <returns>Tarea que representa la operación de conexión asincrónica.</returns>
+      <param name="cancellationToken">Token para supervisar solicitudes de cancelación.El valor predeterminado es <see cref="P:System.Threading.CancellationToken.None" />.</param>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeClientStream.Finalize">
+      <summary>Libera los recursos no administrados y realiza otras operaciones de limpieza antes de la <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> la recolección de elementos no utilizados reclame instancia.</summary>
+    </member>
+    <member name="P:System.IO.Pipes.NamedPipeClientStream.NumberOfServerInstances">
+      <summary>Obtiene el número máximo de instancias de servidor que comparten el mismo nombre de canalización.</summary>
+      <returns>El número máximo de instancias de servidor que comparten el mismo nombre de canalización.</returns>
+      <exception cref="T:System.InvalidOperationException">No se ha establecido el identificador de la canalización.o bienEl objeto <see cref="T:System.IO.Pipes.NamedPipeClientStream" /> actual no se ha conectado todavía a un objeto <see cref="T:System.IO.Pipes.NamedPipeServerStream" />.</exception>
+      <exception cref="T:System.IO.IOException">La canalización se ha roto o se ha producido un error de E/S.</exception>
+      <exception cref="T:System.ObjectDisposedException">El controlador de la canalización subyacente está cerrado.</exception>
+    </member>
+    <member name="T:System.IO.Pipes.NamedPipeServerStream">
+      <summary>Expone un <see cref="T:System.IO.Stream" /> alrededor de una canalización con nombre, lo que permite operaciones de lectura y escritura sincrónica y asincrónica.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,System.Boolean,System.Boolean,Microsoft.Win32.SafeHandles.SafePipeHandle)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> a partir del identificador de canalización especificado.</summary>
+      <param name="direction">Uno de los valores de enumeración que determina la dirección de la canalización.</param>
+      <param name="isAsync">Es true para indicar que se abrió el identificador de forma asincrónica; en caso contrario, es false.</param>
+      <param name="isConnected">Es true para indicar que la canalización está conectada; en caso contrario, es false.</param>
+      <param name="safePipeHandle">Controlador seguro para la canalización que este objeto <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> encapsulará.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="direction" /> no es un valor válido de <see cref="T:System.IO.Pipes.PipeDirection" />.</exception>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="safePipeHandle" /> es null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="safePipeHandle" /> es un controlador no válido.</exception>
+      <exception cref="T:System.IO.IOException">El valor de <paramref name="safePipeHandle" /> no es un identificador de canalización válido.o bienSe ha superado el número máximo de instancias de servidor.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> con el nombre de canalización especificado.</summary>
+      <param name="pipeName">Nombre de la canalización.</param>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="pipeName" /> es null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> es una cadena de longitud cero.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> se establece en "anónimo".</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> contiene un carácter de dos puntos (":").</exception>
+      <exception cref="T:System.PlatformNotSupportedException">El sistema operativo no es Windows Millennium Edition, Windows 98 o Windows 95, los cuales no se admiten. </exception>
+      <exception cref="T:System.IO.IOException">Se ha superado el número máximo de instancias de servidor.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> con el nombre y dirección de canalización especificados.</summary>
+      <param name="pipeName">Nombre de la canalización.</param>
+      <param name="direction">Uno de los valores de enumeración que determina la dirección de la canalización.</param>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="pipeName" /> es null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> es una cadena de longitud cero.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> se establece en "anónimo".o bien<paramref name="direction" /> no es un valor válido de <see cref="T:System.IO.Pipes.PipeDirection" />.</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> contiene un carácter de dos puntos (":").</exception>
+      <exception cref="T:System.PlatformNotSupportedException">El sistema operativo no es Windows Millennium Edition, Windows 98 o Windows 95, los cuales no se admiten.</exception>
+      <exception cref="T:System.IO.IOException">Se ha superado el número máximo de instancias de servidor.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> con las características nombre de canalización, dirección de canalización y número máximo de instancias de servidor especificadas.</summary>
+      <param name="pipeName">Nombre de la canalización.</param>
+      <param name="direction">Uno de los valores de enumeración que determina la dirección de la canalización.</param>
+      <param name="maxNumberOfServerInstances">Número máximo de instancias de servidor que comparten el mismo nombre.Se puede pasar <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" /> para este valor.</param>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="pipeName" /> es null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> es una cadena de longitud cero.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> se establece en "anónimo".o bien<paramref name="direction" /> no es un valor válido de <see cref="T:System.IO.Pipes.PipeDirection" />.o bienSe requiere un número no negativo. o bienEl valor de <paramref name="maxNumberofServerInstances" /> es menor que -1 o mayor que 254 (-1 indica <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />)o bienEs necesario <see cref="F:System.IO.HandleInheritability.None" /> o <see cref="F:System.IO.HandleInheritability.Inheritable" />.o bienLos derechos de acceso se limitan a las marcas <see cref="F:System.IO.Pipes.PipeAccessRights.ChangePermissions" />, <see cref="F:System.IO.Pipes.PipeAccessRights.TakeOwnership" /> y <see cref="F:System.IO.Pipes.PipeAccessRights.AccessSystemSecurity" />.</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> contiene un carácter de dos puntos (":").</exception>
+      <exception cref="T:System.PlatformNotSupportedException">El sistema operativo no es Windows Millennium Edition, Windows 98 o Windows 95, los cuales no se admiten.</exception>
+      <exception cref="T:System.IO.IOException">Se ha superado el número máximo de instancias de servidor.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> con las características nombre de canalización, dirección de canalización, número máximo de instancias de servidor y modo de transmisión especificadas.</summary>
+      <param name="pipeName">Nombre de la canalización.</param>
+      <param name="direction">Uno de los valores de enumeración que determina la dirección de la canalización.</param>
+      <param name="maxNumberOfServerInstances">Número máximo de instancias de servidor que comparten el mismo nombre.Se puede pasar <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" /> para este valor.</param>
+      <param name="transmissionMode">Uno de los valores de enumeración que determina el modo de transmisión de la canalización.</param>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="pipeName" /> es null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> es una cadena de longitud cero.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> se establece en "anónimo".o bien<paramref name="direction" /> no es un valor válido de <see cref="T:System.IO.Pipes.PipeDirection" />.o bienEl valor de <paramref name="maxNumberofServerInstances" /> es menor que -1 o mayor que 254 (-1 indica <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />)</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> contiene un carácter de dos puntos (":").</exception>
+      <exception cref="T:System.PlatformNotSupportedException">El sistema operativo no es Windows Millennium Edition, Windows 98 o Windows 95, los cuales no se admiten.</exception>
+      <exception cref="T:System.IO.IOException">Se ha superado el número máximo de instancias de servidor.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> con las características nombre de canalización, dirección de canalización, número máximo de instancias de servidor, modo de transmisión y opciones de canalización especificadas.</summary>
+      <param name="pipeName">Nombre de la canalización.</param>
+      <param name="direction">Uno de los valores de enumeración que determina la dirección de la canalización.</param>
+      <param name="maxNumberOfServerInstances">Número máximo de instancias de servidor que comparten el mismo nombre.Se puede pasar <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" /> para este valor.</param>
+      <param name="transmissionMode">Uno de los valores de enumeración que determina el modo de transmisión de la canalización.</param>
+      <param name="options">Uno de los valores de enumeración que determina cómo abrir o crear la canalización.</param>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="pipeName" /> es null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> es una cadena de longitud cero.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> se establece en "anónimo".o bien<paramref name="direction" /> no es un valor válido de <see cref="T:System.IO.Pipes.PipeDirection" />.o bienEl valor de <paramref name="maxNumberofServerInstances" /> es menor que -1 o mayor que 254 (-1 indica <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />)o bien<paramref name="options" /> no es un valor válido de <see cref="T:System.IO.Pipes.PipeOptions" />.</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> contiene un carácter de dos puntos (":").</exception>
+      <exception cref="T:System.PlatformNotSupportedException">El sistema operativo no es Windows Millennium Edition, Windows 98 o Windows 95, los cuales no se admiten.</exception>
+      <exception cref="T:System.IO.IOException">Se ha superado el número máximo de instancias de servidor.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32)">
+      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> con las características nombre de canalización, dirección de canalización, número máximo de instancias de servidor, modo de transmisión y opciones de canalización especificadas, y los tamaños de búfer de entrada y salida recomendados.</summary>
+      <param name="pipeName">Nombre de la canalización.</param>
+      <param name="direction">Uno de los valores de enumeración que determina la dirección de la canalización.</param>
+      <param name="maxNumberOfServerInstances">Número máximo de instancias de servidor que comparten el mismo nombre.Se puede pasar <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" /> para este valor.</param>
+      <param name="transmissionMode">Uno de los valores de enumeración que determina el modo de transmisión de la canalización.</param>
+      <param name="options">Uno de los valores de enumeración que determina cómo abrir o crear la canalización.</param>
+      <param name="inBufferSize">Valor positivo mayor que 0 que indica el tamaño del búfer de entrada.</param>
+      <param name="outBufferSize">Valor positivo mayor que 0 que indica el tamaño del búfer de salida.</param>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="pipeName" /> es null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="pipeName" /> es una cadena de longitud cero.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="pipeName" /> se establece en "anónimo".o bien<paramref name="direction" /> no es un valor válido de <see cref="T:System.IO.Pipes.PipeDirection" />.o bienEl valor de <paramref name="maxNumberofServerInstances" /> es menor que -1 o mayor que 254 (-1 indica <see cref="F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances" />)o bien<paramref name="options" /> no es un valor válido de <see cref="T:System.IO.Pipes.PipeOptions" />.o bienEl valor de <paramref name="inBufferSize" /> es negativo.</exception>
+      <exception cref="T:System.NotSupportedException">
+        <paramref name="pipeName" /> contiene un carácter de dos puntos (":").</exception>
+      <exception cref="T:System.PlatformNotSupportedException">El sistema operativo no es Windows Millennium Edition, Windows 98 o Windows 95, los cuales no se admiten.</exception>
+      <exception cref="T:System.IO.IOException">Se ha superado el número máximo de instancias de servidor.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.Disconnect">
+      <summary>Desconecta la conexión actual.</summary>
+      <exception cref="T:System.InvalidOperationException">No se ha realizado aún ninguna conexión de canalización.o bienLa canalización conectada ya se ha desconectado.o bienNo se ha establecido el identificador de la canalización.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha cerrado la canalización.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.Finalize">
+      <summary>Libera los recursos no administrados y realiza otras operaciones de limpieza antes de la <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> la recolección de elementos no utilizados reclame instancia.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.GetImpersonationUserName">
+      <summary>Obtiene el nombre de usuario del cliente en el otro extremo de la canalización.</summary>
+      <returns>Nombre de usuario del cliente en el otro extremo de la canalización.</returns>
+      <exception cref="T:System.InvalidOperationException">No se ha realizado aún ninguna conexión de canalización.o bienLa canalización conectada ya se ha desconectado.o bienNo se ha establecido el identificador de la canalización.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha cerrado la canalización.</exception>
+      <exception cref="T:System.IO.IOException">Se ha interrumpido la conexión de canalización.o bienEl nombre de usuario del cliente es más largo de 19 caracteres.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.WaitForConnection">
+      <summary>Espera a que un cliente conecte con este objeto <see cref="T:System.IO.Pipes.NamedPipeServerStream" />.</summary>
+      <exception cref="T:System.InvalidOperationException">Ya se ha establecido una conexión de canalización.o bienNo se ha establecido el identificador de la canalización.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha cerrado la canalización.</exception>
+      <exception cref="T:System.IO.IOException">Se ha interrumpido la conexión de canalización.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync">
+      <summary>Espera de forma asincrónica a que un cliente conecte con este objeto <see cref="T:System.IO.Pipes.NamedPipeServerStream" />.</summary>
+      <returns>Tarea que representa la operación de espera asincrónica.</returns>
+    </member>
+    <member name="M:System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync(System.Threading.CancellationToken)">
+      <summary>Espera de forma asincrónica a que un cliente conecte con este objeto <see cref="T:System.IO.Pipes.NamedPipeServerStream" /> y supervise las solicitudes de cancelación.</summary>
+      <returns>Tarea que representa la operación de espera asincrónica.</returns>
+      <param name="cancellationToken">Token para supervisar solicitudes de cancelación.</param>
+    </member>
+    <member name="T:System.IO.Pipes.PipeDirection">
+      <summary>Especifica la dirección de la canalización.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeDirection.In">
+      <summary>Especifica que la dirección de la canalización es de entrada.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeDirection.InOut">
+      <summary>Especifica que la dirección de la canalización es bidireccional.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeDirection.Out">
+      <summary>Especifica que la dirección de la canalización es de salida.</summary>
+    </member>
+    <member name="T:System.IO.Pipes.PipeOptions">
+      <summary>Proporciona opciones para crear un objeto <see cref="T:System.IO.Pipes.PipeStream" />.Esta enumeración tiene un atributo <see cref="T:System.FlagsAttribute" /> que permite una combinación bit a bit de los valores de sus miembros.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeOptions.Asynchronous">
+      <summary>Indica que la canalización puede utilizarse en operaciones de lectura y escritura asincrónicas.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeOptions.None">
+      <summary>Indica que no hay ningún parámetro adicional.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeOptions.WriteThrough">
+      <summary>Indica que el sistema debe escribir en una caché intermedia e ir directamente a la canalización.</summary>
+    </member>
+    <member name="T:System.IO.Pipes.PipeStream">
+      <summary>Expone un objeto <see cref="T:System.IO.Stream" /> alrededor de una canalización, que admite tanto canalizaciones anónimas como canalizaciones con nombre.</summary>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.#ctor(System.IO.Pipes.PipeDirection,System.Int32)">
+      <summary>Inicializa una instancia nueva de la clase <see cref="T:System.IO.Pipes.PipeStream" /> con el valor de <see cref="T:System.IO.Pipes.PipeDirection" /> y el tamaño de búfer especificados.</summary>
+      <param name="direction">Uno de los valores de <see cref="T:System.IO.Pipes.PipeDirection" /> que indica la dirección del objeto de canalización.</param>
+      <param name="bufferSize">Valor <see cref="T:System.Int32" /> positivo mayor o igual que 0 que indica el tamaño del búfer.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="direction" /> no es válida <see cref="T:System.IO.Pipes.PipeDirection" /> valor.o bien<paramref name="bufferSize" /> es menor que 0.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.#ctor(System.IO.Pipes.PipeDirection,System.IO.Pipes.PipeTransmissionMode,System.Int32)">
+      <summary>Inicializa una instancia nueva de la clase <see cref="T:System.IO.Pipes.PipeStream" /> con el valor de <see cref="T:System.IO.Pipes.PipeDirection" />, <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> y el tamaño de búfer especificados.</summary>
+      <param name="direction">Uno de los valores de <see cref="T:System.IO.Pipes.PipeDirection" /> que indica la dirección del objeto de canalización.</param>
+      <param name="transmissionMode">Uno de los valores de <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> que indica el modo de transmisión del objeto de canalización.</param>
+      <param name="outBufferSize">Valor <see cref="T:System.Int32" /> positivo mayor o igual que 0 que indica el tamaño del búfer.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="direction" /> no es válida <see cref="T:System.IO.Pipes.PipeDirection" /> valor.o bien<paramref name="transmissionMode" /> no es válida <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> valor.o bien<paramref name="bufferSize" /> es menor que 0.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.CanRead">
+      <summary>Obtiene un valor que indica si la secuencia actual admite operaciones de lectura.</summary>
+      <returns>true si la secuencia admite operaciones de lectura; de lo contrario, false.</returns>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.CanSeek">
+      <summary>Obtiene un valor que indica si la secuencia actual admite operaciones de búsqueda.</summary>
+      <returns>false en todos los casos.</returns>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.CanWrite">
+      <summary>Obtiene un valor que indica si la secuencia actual admite operaciones de escritura.</summary>
+      <returns>true si la secuencia admite operaciones de escritura; de lo contrario, false.</returns>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Dispose(System.Boolean)">
+      <summary>Libera los recursos no administrados usados que usa la clase <see cref="T:System.IO.Pipes.PipeStream" /> y, de forma opcional, libera los recursos administrados.</summary>
+      <param name="disposing">Es true para liberar tanto recursos administrados como no administrados; es false para liberar únicamente recursos no administrados.</param>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Flush">
+      <summary>Borra el búfer de la secuencia actual y hace que todos los datos almacenados en el búfer se escriban en el dispositivo subyacente.</summary>
+      <exception cref="T:System.ObjectDisposedException">Se ha cerrado la canalización.</exception>
+      <exception cref="T:System.NotSupportedException">La canalización no admite operaciones de escritura.</exception>
+      <exception cref="T:System.IO.IOException">La canalización se ha roto o se ha producido otro error de E/S.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.InBufferSize">
+      <summary>Obtiene el tamaño en bytes del búfer de entrada de una canalización.</summary>
+      <returns>Un valor entero que representa el tamaño en bytes del búfer de entrada.</returns>
+      <exception cref="T:System.NotSupportedException">La secuencia no se puede leer.</exception>
+      <exception cref="T:System.InvalidOperationException">La canalización está a la espera de conectarse.</exception>
+      <exception cref="T:System.IO.IOException">La canalización se ha roto o se ha producido otro error de E/S.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.IsAsync">
+      <summary>Obtiene un valor que indica si un objeto <see cref="T:System.IO.Pipes.PipeStream" /> se abrió de forma sincrónica o asincrónica.</summary>
+      <returns>Es true si el objeto <see cref="T:System.IO.Pipes.PipeStream" /> se abrió de forma asincrónica; de lo contrario, es false.</returns>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.IsConnected">
+      <summary>Obtiene o establece un valor que indica si un objeto <see cref="T:System.IO.Pipes.PipeStream" /> está conectado.</summary>
+      <returns>Es true si el objeto <see cref="T:System.IO.Pipes.PipeStream" /> está conectado; en caso contrario, es  false.</returns>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.IsMessageComplete">
+      <summary>Obtiene un valor que indica si hay más datos en el mensaje devuelto desde la operación de lectura más reciente.</summary>
+      <returns>true si no hay más caracteres que leer en el mensaje; de lo contrario, false.</returns>
+      <exception cref="T:System.InvalidOperationException">La canalización no está conectada.o bienNo se ha establecido el identificador de la canalización.o bienLa canalización <see cref="P:System.IO.Pipes.PipeStream.ReadMode" /> no es el valor de la propiedad <see cref="F:System.IO.Pipes.PipeTransmissionMode.Message" />.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha cerrado la canalización.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.Length">
+      <summary>Devuelve la longitud en bytes de una secuencia.</summary>
+      <returns>0 en todos los casos.</returns>
+      <exception cref="T:System.NotSupportedException">Siempre se produce.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.OutBufferSize">
+      <summary>Obtiene el tamaño en bytes del búfer de salida de una canalización.</summary>
+      <returns>Tamaño en bytes del búfer de salida.</returns>
+      <exception cref="T:System.NotSupportedException">La secuencia no se puede escribir.</exception>
+      <exception cref="T:System.InvalidOperationException">La canalización está a la espera de conectarse.</exception>
+      <exception cref="T:System.IO.IOException">La canalización se ha roto o se ha producido otro error de E/S.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.Position">
+      <summary>Obtiene o establece la posición de la secuencia actual.</summary>
+      <returns>0 en todos los casos.</returns>
+      <exception cref="T:System.NotSupportedException">Siempre se produce.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Read(System.Byte[],System.Int32,System.Int32)">
+      <summary>Lee un bloque de bytes de una secuencia y escribe los datos en un búfer especificado.</summary>
+      <returns>El número total de bytes leídos en <paramref name="buffer" />.Puede ser menor que el número de bytes solicitado si ese número de bytes no está disponible actualmente o puede ser 0 si se alcanzó el final de la secuencia.</returns>
+      <param name="buffer">Cuando este método devuelve un valor, contiene la matriz de bytes especificada con los valores entre <paramref name="offset" /> y (<paramref name="offset" /> + <paramref name="count" /> - 1 reemplazados por los bytes leídos desde el origen actual.</param>
+      <param name="offset">Desplazamiento en bytes de la matriz de <paramref name="buffer" /> en la que se colocarán los bytes que se leen.</param>
+      <param name="count">Número máximo de bytes que se pueden leer.</param>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="buffer" /> es null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> es menor que 0.o bien<paramref name="count" /> es menor que 0.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="count" /> es mayor que el número de bytes disponibles en <paramref name="buffer" />.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha cerrado la canalización.</exception>
+      <exception cref="T:System.NotSupportedException">La canalización no admite operaciones de lectura.</exception>
+      <exception cref="T:System.InvalidOperationException">La canalización está desconectada, a la espera de conectarse, o bien, no se ha establecido el identificador.</exception>
+      <exception cref="T:System.IO.IOException">Se ha producido cualquier error de E/S.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.ReadAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)"></member>
+    <member name="M:System.IO.Pipes.PipeStream.ReadByte">
+      <summary>Lee un byte de una canalización.</summary>
+      <returns>El byte, convertido en un valor <see cref="T:System.Int32" />, o -1 indica el final de la secuencia (se cerró la canalización).</returns>
+      <exception cref="T:System.ObjectDisposedException">Se ha cerrado la canalización.</exception>
+      <exception cref="T:System.NotSupportedException">La canalización no admite operaciones de lectura.</exception>
+      <exception cref="T:System.InvalidOperationException">La canalización está desconectada, a la espera de conectarse, o bien, no se ha establecido el identificador.</exception>
+      <exception cref="T:System.IO.IOException">Se ha producido cualquier error de E/S.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.ReadMode">
+      <summary>Obtiene o establece el modo de lectura de un objeto <see cref="T:System.IO.Pipes.PipeStream" />.</summary>
+      <returns>Uno de los valores de <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> que indica de qué manera el objeto <see cref="T:System.IO.Pipes.PipeStream" /> lee de la canalización.</returns>
+      <exception cref="T:System.ArgumentOutOfRangeException">El valor proporcionado no es válido <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> valor.</exception>
+      <exception cref="T:System.NotSupportedException">El valor proporcionado no es compatible <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> valor para esta secuencia de canalización.</exception>
+      <exception cref="T:System.InvalidOperationException">No se ha establecido el identificador.o bienLa canalización está a la espera de conectarse con un cliente con nombre.</exception>
+      <exception cref="T:System.IO.IOException">La canalización se ha roto o se ha producido un error de E/S con un cliente con nombre.</exception>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.SafePipeHandle">
+      <summary>Obtiene el identificador seguro del extremo local de la canalización encapsulada por el objeto <see cref="T:System.IO.Pipes.PipeStream" /> actual.</summary>
+      <returns>Un objeto <see cref="T:Microsoft.Win32.SafeHandles.SafePipeHandle" /> de la canalización encapsulada por el objeto <see cref="T:System.IO.Pipes.PipeStream" /> actual.</returns>
+      <exception cref="T:System.InvalidOperationException">No se ha establecido el identificador de la canalización.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha cerrado la canalización.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Seek(System.Int64,System.IO.SeekOrigin)">
+      <summary>Establece la posición actual de esta secuencia en el valor especificado.</summary>
+      <returns>Nueva posición en la secuencia.</returns>
+      <param name="offset">Punto relativo a <paramref name="origin" /> a partir del cual comienza la operación de búsqueda.</param>
+      <param name="origin">Especifica el comienzo, el final o la posición actual como un punto de referencia para <paramref name="offset" />, mediante el uso de un valor de tipo <see cref="T:System.IO.SeekOrigin" />.</param>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.SetLength(System.Int64)">
+      <summary>Establece la longitud de la secuencia actual en el valor especificado.</summary>
+      <param name="value">La nueva longitud de la secuencia.</param>
+    </member>
+    <member name="P:System.IO.Pipes.PipeStream.TransmissionMode">
+      <summary>Obtiene el modo de transmisión de canalización compatible con la canalización actual.</summary>
+      <returns>Uno de los valores de <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> que indica el modo de transmisión admitido por la canalización actual.</returns>
+      <exception cref="T:System.ObjectDisposedException">Se ha cerrado la canalización.</exception>
+      <exception cref="T:System.InvalidOperationException">No se ha establecido el identificador.o bienLa canalización está a la espera de conectarse en una operación de cliente/servidor anónima o con un cliente con nombre. </exception>
+      <exception cref="T:System.IO.IOException">La canalización se ha roto o se ha producido otro error de E/S.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.WaitForPipeDrain">
+      <summary>Espera hasta que el otro final de la canalización lea todos los bytes enviados.</summary>
+      <exception cref="T:System.ObjectDisposedException">Se ha cerrado la canalización.</exception>
+      <exception cref="T:System.NotSupportedException">La canalización no admite operaciones de escritura.</exception>
+      <exception cref="T:System.IO.IOException">La canalización se ha roto o se ha producido otro error de E/S.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.Write(System.Byte[],System.Int32,System.Int32)">
+      <summary>Escribe un bloque de bytes en la secuencia actual utilizando los datos de un búfer.</summary>
+      <param name="buffer">Búfer que contiene los datos que se van a escribir en la canalización.</param>
+      <param name="offset">Desplazamiento en bytes de base cero en la <paramref name="buffer" /> en la que se comienzan a copiar los bytes en la secuencia actual.</param>
+      <param name="count">Número máximo de bytes que se van a escribir en la secuencia actual.</param>
+      <exception cref="T:System.ArgumentNullException">El valor de <paramref name="buffer" /> es null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> es menor que 0.o bien<paramref name="count" /> es menor que 0.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="count" /> es mayor que el número de bytes disponibles en <paramref name="buffer" />.</exception>
+      <exception cref="T:System.ObjectDisposedException">Se ha cerrado la canalización.</exception>
+      <exception cref="T:System.NotSupportedException">La canalización no admite operaciones de escritura.</exception>
+      <exception cref="T:System.IO.IOException">La canalización se ha roto o se ha producido otro error de E/S.</exception>
+    </member>
+    <member name="M:System.IO.Pipes.PipeStream.WriteAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)"></member>
+    <member name="M:System.IO.Pipes.PipeStream.WriteByte(System.Byte)">
+      <summary>Escribe un byte en la secuencia actual.</summary>
+      <param name="value">Byte que se debe escribir en la secuencia.</param>
+      <exception cref="T:System.ObjectDisposedException">Se ha cerrado la canalización.</exception>
+      <exception cref="T:System.NotSupportedException">La canalización no admite operaciones de escritura.</exception>
+      <exception cref="T:System.InvalidOperationException">La canalización está desconectada, a la espera de conectarse, o bien, no se ha establecido el identificador.</exception>
+      <exception cref="T:System.IO.IOException">La canalización se ha roto o se ha producido otro error de E/S.</exception>
+    </member>
+    <member name="T:System.IO.Pipes.PipeTransmissionMode">
+      <summary>Especifica el modo de transmisión de la canalización.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeTransmissionMode.Byte">
+      <summary>Indica que se transmiten los datos de la canalización y que se leyeron como secuencia de bytes.</summary>
+    </member>
+    <member name="F:System.IO.Pipes.PipeTransmissionMode.Message">
+      <summary>Indica que se transmiten los datos de la canalización y que se leyeron como secuencia de mensajes.</summary>
+    </member>
+  </members>
+</doc>

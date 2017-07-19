@@ -1,0 +1,410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.MemoryMappedFiles</name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.Win32.SafeHandles.SafeMemoryMappedFileHandle">
+      <summary>提供安全控制代碼，表示供循序存取的記憶體對應檔。</summary>
+    </member>
+    <member name="P:Microsoft.Win32.SafeHandles.SafeMemoryMappedFileHandle.IsInvalid"></member>
+    <member name="T:Microsoft.Win32.SafeHandles.SafeMemoryMappedViewHandle">
+      <summary>提供安全控制代碼，表示隨機存取的 Unmanaged 記憶體區塊檢視。</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFile">
+      <summary>表示記憶體對應檔。</summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.IO.FileStream,System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.HandleInheritability,System.Boolean)">
+      <summary>從現有的檔案建立記憶體對應檔，這個檔案具有指定的存取模式、名稱、可繼承性和容量。</summary>
+      <returns>記憶體對應檔，具有指定的特性。</returns>
+      <param name="fileStream">現有檔案的檔案資料流。</param>
+      <param name="mapName">指派給記憶體對應檔的名稱。</param>
+      <param name="capacity">要配置給記憶體對應檔的大小上限 (以位元組為單位)。指定的大小設定產能的 0 <paramref name="filestream" />。</param>
+      <param name="access">其中一個列舉值，指定記憶體對應檔允許的存取類型。此參數不能設為<see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />。</param>
+      <param name="inheritability">其中一個列舉值，決定記憶體對應檔的控制代碼是否可以由子處理序繼承。預設值為 <see cref="F:System.IO.HandleInheritability.None" />。</param>
+      <param name="leaveOpen">值，指出是否要關閉來源檔案資料流時<see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" />處置。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> 是 null 或空字串。-或-檔案的 <paramref name="capacity" /> 和長度都是零。-或-<paramref name="access" />設定為<see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />或<see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />列舉值，這不允許。-或-<paramref name="access" />設定為<see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read" />和<paramref name="capacity" />的長度大於filestream。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="fileStream" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> 小於零。-或-<paramref name="capacity" /> 小於檔案大小。-或-<paramref name="access" /> 不是有效的 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 列舉值。-或-<paramref name="inheritability" /> 不是有效的 <see cref="T:System.IO.HandleInheritability" /> 列舉值。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String)">
+      <summary>從磁碟上的檔案建立記憶體對應檔。</summary>
+      <returns>記憶體對應檔。</returns>
+      <param name="path">要對應之檔案的路徑。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> 為空字串，只包含空白字元或包含一個以上  <see cref="M:System.IO.Path.GetInvalidFileNameChars" /> 所定義的無效字元。-或-<paramref name="path" /> 是指不正確的裝置。 </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> 為 null。</exception>
+      <exception cref="T:System.IO.IOException">發生 I/O 錯誤。</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> 超過作業系統定義的長度上限。在 Windows 中，路徑必須包含 248 個字元以下，而且檔案名稱必須包含 260 個字元以下。</exception>
+      <exception cref="T:System.Security.SecurityException">呼叫端沒有所需的檔案權限。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode)">
+      <summary>從磁碟上的檔案建立記憶體對應檔，這個記憶體對應檔具有指定的存取模式。</summary>
+      <returns>記憶體對應檔，具有指定的存取模式。</returns>
+      <param name="path">要對應之檔案的路徑。</param>
+      <param name="mode">存取模式；必須是 <see cref="F:System.IO.FileMode.Open" />。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> 為空字串，只包含空白字元或包含一個以上  <see cref="M:System.IO.Path.GetInvalidFileNameChars" /> 所定義的無效字元。-或-<paramref name="path" /> 是指不正確的裝置。-或-<paramref name="mode" /> 為 <see cref="F:System.IO.FileMode.Append" />。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> 為 null。</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="mode" /> 是 <see cref="F:System.IO.FileMode.Create" />、<see cref="F:System.IO.FileMode.CreateNew" /> 或 <see cref="F:System.IO.FileMode.Truncate" />。-或-<paramref name="mode" /> 為 <see cref="F:System.IO.FileMode.OpenOrCreate" />，且磁碟中的檔案不存在。-或-發生 I/O 錯誤。</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> 超過作業系統定義的長度上限。在 Windows 中，路徑必須包含 248 個字元以下，而且檔案名稱必須包含 260 個字元以下。</exception>
+      <exception cref="T:System.Security.SecurityException">呼叫端沒有所需的檔案權限。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String)">
+      <summary>從磁碟上的檔案建立記憶體對應檔，這個記憶體對應檔具有指定的存取模式和名稱。</summary>
+      <returns>記憶體對應檔，具有指定的名稱和存取模式。</returns>
+      <param name="path">要對應之檔案的路徑。</param>
+      <param name="mode">存取模式；必須是 <see cref="F:System.IO.FileMode.Open" />。</param>
+      <param name="mapName">指派給記憶體對應檔的名稱。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> 為空字串，只包含空白字元或包含一個以上  <see cref="M:System.IO.Path.GetInvalidFileNameChars" /> 所定義的無效字元。-或-<paramref name="path" /> 是指不正確的裝置。-或-<paramref name="mapName" /> 為空字串。-或-<paramref name="mode" /> 為 <see cref="F:System.IO.FileMode.Append" />。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> 或 <paramref name="mapName" /> 是 null。</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="mode" /> 是 <see cref="F:System.IO.FileMode.Create" />、<see cref="F:System.IO.FileMode.CreateNew" /> 或 <see cref="F:System.IO.FileMode.Truncate" />。-或-<paramref name="mode" /> 為 <see cref="F:System.IO.FileMode.OpenOrCreate" />，且磁碟中的檔案不存在。-或-發生 I/O 錯誤。</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> 超過作業系統定義的長度上限。在 Windows 中，路徑必須包含 248 個字元以下，而且檔案名稱必須包含 260 個字元以下。</exception>
+      <exception cref="T:System.Security.SecurityException">呼叫端沒有所需的檔案權限。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String,System.Int64)">
+      <summary>從磁碟上的檔案建立記憶體對應檔，這個記憶體對應檔具有指定的存取模式、名稱和大小。</summary>
+      <returns>記憶體對應檔，具有指定的特性。</returns>
+      <param name="path">要對應之檔案的路徑。</param>
+      <param name="mode">存取模式，可以是除了 <see cref="F:System.IO.FileMode.Append" /> 之外的任何 <see cref="T:System.IO.FileMode" /> 列舉值。</param>
+      <param name="mapName">指派給記憶體對應檔的名稱。</param>
+      <param name="capacity">要配置給記憶體對應檔的大小上限 (以位元組為單位)。指定 0 會將大小設定為磁碟上檔案的大小。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> 為空字串，只包含空白字元或包含一個以上  <see cref="M:System.IO.Path.GetInvalidFileNameChars" /> 所定義的無效字元。-或-<paramref name="path" /> 是指不正確的裝置。-或-<paramref name="mapName" /> 為空字串。-或-<paramref name="mode" /> 為 <see cref="F:System.IO.FileMode.Append" />。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> 或 <paramref name="mapName" /> 是 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> 大於邏輯位址空間的大小。-或-<paramref name="capacity" /> 小於零。-或-<paramref name="capacity" /> 小於檔案大小 (但不為零)。-或-<paramref name="capacity" /> 是零，而且磁碟上檔案的大小也是零。</exception>
+      <exception cref="T:System.IO.IOException">發生 I/O 錯誤。</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> 超過作業系統定義的長度上限。在 Windows 中，路徑必須包含 248 個字元以下，而且檔案名稱必須包含 260 個字元以下。</exception>
+      <exception cref="T:System.Security.SecurityException">呼叫端沒有所需的檔案權限。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>從磁碟上的檔案建立記憶體對應檔，這個記憶體對應檔具有指定的存取模式、名稱、大小和存取類型。</summary>
+      <returns>記憶體對應檔，具有指定的特性。</returns>
+      <param name="path">要對應之檔案的路徑。</param>
+      <param name="mode">存取模式，可以是除了 <see cref="F:System.IO.FileMode.Append" /> 之外的任何 <see cref="T:System.IO.FileMode" /> 列舉值。</param>
+      <param name="mapName">指派給記憶體對應檔的名稱。</param>
+      <param name="capacity">要配置給記憶體對應檔的大小上限 (以位元組為單位)。指定 0 會將大小設定為磁碟上檔案的大小。</param>
+      <param name="access">其中一個列舉值，指定記憶體對應檔允許的存取類型。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> 為空字串。-或-<paramref name="access" /> 不是允許的值。-或-<paramref name="path" /> 會指定空檔案。-或-<paramref name="access" /> 已指定為 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read" />，而且容量大於 <paramref name="path" /> 所指示的檔案大小。-或-<paramref name="mode" /> 為 <see cref="F:System.IO.FileMode.Append" />。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> 或 <paramref name="mapName" /> 是 null。 </exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> 大於邏輯位址空間的大小。-或-<paramref name="capacity" /> 小於零。-或-<paramref name="capacity" /> 小於檔案大小 (但不為零)。-或-<paramref name="capacity" /> 是零，而且磁碟上檔案的大小也是零。-或-<paramref name="access" /> 不是已定義的 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 值。-或-<paramref name="path" /> 所指示的檔案大小大於 <paramref name="capacity" />。</exception>
+      <exception cref="T:System.IO.IOException">-或-發生 I/O 錯誤。</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> 超過作業系統定義的長度上限。在 Windows 中，路徑必須包含 248 個字元以下，而且檔案名稱必須包含 260 個字元以下。</exception>
+      <exception cref="T:System.Security.SecurityException">呼叫端沒有所需的檔案權限。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64)">
+      <summary>建立記憶體對應檔案，此檔案在系統記憶體中具有指定的大小。</summary>
+      <returns>記憶體對應檔，具有指定的名稱與大小。</returns>
+      <param name="mapName">指派給記憶體對應檔的名稱。</param>
+      <param name="capacity">要配置給記憶體對應檔的大小上限 (以位元組為單位)。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> 為空字串。 </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> 小於或等於零值。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>建立記憶體對應檔案，此檔案在系統記憶體中具有指定的大小和存取類型。</summary>
+      <returns>記憶體對應檔，具有指定的特性。</returns>
+      <param name="mapName">指派給記憶體對應檔的名稱。</param>
+      <param name="capacity">要配置給記憶體對應檔的大小上限 (以位元組為單位)。</param>
+      <param name="access">其中一個列舉值，指定記憶體對應檔允許的存取類型。預設值為 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> 為空字串。-或-<paramref name="access" /> 設為唯寫，且具有 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 列舉值。 </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> 小於或等於零值。-或-<paramref name="access" /> 不是有效的 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 列舉值。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.MemoryMappedFiles.MemoryMappedFileOptions,System.IO.HandleInheritability)">
+      <summary>建立記憶體對應檔，這個檔案具有指定的名稱、容量、存取類型、記憶體配置選項和可繼承性。</summary>
+      <returns>記憶體對應檔，具有指定的特性。</returns>
+      <param name="mapName">指派給記憶體對應檔的名稱。</param>
+      <param name="capacity">要配置給記憶體對應檔的大小上限 (以位元組為單位)。</param>
+      <param name="access">其中一個列舉值，指定記憶體對應檔允許的存取類型。預設值為 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />。</param>
+      <param name="options">列舉值的位元組合，指定記憶體對應檔的記憶體配置選項。</param>
+      <param name="inheritability">決定記憶體對應檔的控制代碼是否可以由子處理序繼承的值。預設值為 <see cref="F:System.IO.HandleInheritability.None" />。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> 為空字串。-或-<paramref name="access" /> 設為唯寫，且具有 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 列舉值。 </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> 小於或等於零值。-或-<paramref name="access" /> 不是有效的 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 列舉值。-或-<paramref name="inheritability" /> 不是有效的 <see cref="T:System.IO.HandleInheritability" /> 值。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64)">
+      <summary>建立或開啟記憶體對應檔案，此檔案在系統記憶體中具有指定的大小。</summary>
+      <returns>記憶體對應檔，具有指定的名稱與大小。</returns>
+      <param name="mapName">指派給記憶體對應檔的名稱。</param>
+      <param name="capacity">要配置給記憶體對應檔的大小上限 (以位元組為單位)。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> 為空字串。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> 大於邏輯位址空間的大小。-或-<paramref name="capacity" /> 小於或等於零值。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>建立或開啟記憶體對應檔案，此檔案在系統記憶體中具有指定的大小和存取類型。</summary>
+      <returns>記憶體對應檔，具有指定的特性。</returns>
+      <param name="mapName">指派給記憶體對應檔的名稱。</param>
+      <param name="capacity">要配置給記憶體對應檔的大小上限 (以位元組為單位)。</param>
+      <param name="access">其中一個列舉值，指定記憶體對應檔允許的存取類型。預設值為 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> 為空字串。-或-<paramref name="access" /> 設為唯寫，且具有 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 列舉值。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> 大於邏輯位址空間的大小。-或-<paramref name="capacity" /> 小於或等於零值。-或-<paramref name="access" /> 不是有效的 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 列舉值。</exception>
+      <exception cref="T:System.UnauthorizedAccessException">作業系統拒絕對檔案進行指定之存取，例如，存取設定為 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 或 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />，但是檔案或目錄是唯讀的。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.MemoryMappedFiles.MemoryMappedFileOptions,System.IO.HandleInheritability)">
+      <summary>建立新的空白記憶體對應檔，或開啟現有的記憶體對應檔 (如果存在相同名稱的檔案)。如果開啟現有的檔案，則會忽略容量、選項和記憶體引數。</summary>
+      <returns>記憶體對應檔，具有指定的特性。</returns>
+      <param name="mapName">指派給記憶體對應檔的名稱。</param>
+      <param name="capacity">要配置給記憶體對應檔的大小上限 (以位元組為單位)。</param>
+      <param name="access">其中一個列舉值，指定記憶體對應檔允許的存取類型。預設值為 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />。</param>
+      <param name="options">值的位元組合，表示要套用至檔案的記憶體配置選項。</param>
+      <param name="inheritability">決定記憶體對應檔的控制代碼是否可以由子處理序繼承的值。預設值為 <see cref="F:System.IO.HandleInheritability.None" />。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> 為空字串。-或-<paramref name="access" /> 設為唯寫，且具有 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 列舉值。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> 大於邏輯位址空間的大小。-或-<paramref name="capacity" /> 小於或等於零值。-或-<paramref name="access" /> 不是有效的 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 列舉值。-或-<paramref name="inheritability" /> 不是有效的 <see cref="T:System.IO.HandleInheritability" /> 列舉值。</exception>
+      <exception cref="T:System.UnauthorizedAccessException">作業系統拒絕對檔案進行指定之存取，例如，存取設定為 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> 或 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />，但是檔案或目錄是唯讀的。 </exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor">
+      <summary>建立對應於記憶體對應檔檢視的 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" />。</summary>
+      <returns>記憶體隨機存取區塊。</returns>
+      <exception cref="T:System.UnauthorizedAccessException">未授權存取記憶體對應檔案。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor(System.Int64,System.Int64)">
+      <summary>建立 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" />，此存取子可對應到記憶體對應檔案的檢視，並且有指定的位移和大小。</summary>
+      <returns>記憶體隨機存取區塊。</returns>
+      <param name="offset">檢視會在此處開始的位元組。</param>
+      <param name="size">檢視的大小。指定 0 (零)，建立在 <paramref name="offset" /> 開始，而大約在記憶體對應檔結尾結束的檢視。</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 或 <paramref name="size" /> 為負值。-或-<paramref name="size" /> 大於邏輯位址空間。</exception>
+      <exception cref="T:System.UnauthorizedAccessException">未授權存取記憶體對應檔案。</exception>
+      <exception cref="T:System.IO.IOException">發生 I/O 錯誤。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor(System.Int64,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>建立 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" />，此存取子可對應到記憶體對應檔案的檢視，並且有指定位移、大小和存取限制。</summary>
+      <returns>記憶體隨機存取區塊。</returns>
+      <param name="offset">檢視會在此處開始的位元組。</param>
+      <param name="size">檢視的大小。指定 0 (零)，建立在 <paramref name="offset" /> 開始，而大約在記憶體對應檔結尾結束的檢視。</param>
+      <param name="access">其中一個列舉值，指定記憶體對應檔允許的存取類型。預設值為 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />。</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 或 <paramref name="size" /> 為負值。-或-<paramref name="size" /> 大於邏輯位址空間。</exception>
+      <exception cref="T:System.UnauthorizedAccessException">
+        <paramref name="access" /> 是無效的記憶體對應檔案。</exception>
+      <exception cref="T:System.IO.IOException">發生 I/O 錯誤。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream">
+      <summary>建立對應於記憶體對應檔檢視的資料流。</summary>
+      <returns>記憶體資料流。</returns>
+      <exception cref="T:System.UnauthorizedAccessException">未授權存取記憶體對應檔案。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream(System.Int64,System.Int64)">
+      <summary>建立資料流，此資料流可對應到記憶體對應檔案的檢視，並且有指定的位移和大小。</summary>
+      <returns>記憶體資料流，具有指定的位移和大小。</returns>
+      <param name="offset">檢視會在此處開始的位元組。</param>
+      <param name="size">檢視的大小。指定 0 (零)，建立在 <paramref name="offset" /> 開始，而大約在記憶體對應檔結尾結束的檢視。</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 或 <paramref name="size" /> 為負值。-或-<paramref name="size" /> 大於邏輯位址空間。</exception>
+      <exception cref="T:System.UnauthorizedAccessException">未授權存取記憶體對應檔案。</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="size" /> 大於總虛擬記憶體。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream(System.Int64,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>建立資料流，此資料流可對應到記憶體對應檔案的檢視，並且有指定位移、大小和存取類型。</summary>
+      <returns>記憶體資料流，具有指定的特性。</returns>
+      <param name="offset">檢視會在此處開始的位元組。</param>
+      <param name="size">檢視的大小。指定 0 (零)，建立在 <paramref name="offset" /> 開始，而大約在記憶體對應檔結尾結束的檢視。</param>
+      <param name="access">其中一個列舉值，指定記憶體對應檔允許的存取類型。預設值為 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />。</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 或 <paramref name="size" /> 為負值。-或-<paramref name="size" /> 大於邏輯位址空間。-或-<paramref name="access " /> 不是有效的 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 列舉值。</exception>
+      <exception cref="T:System.UnauthorizedAccessException">
+        <paramref name="access" /> 是無效的記憶體對應檔案。</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="size" /> 大於總虛擬記憶體。-或-<paramref name="access" /> 是無效的記憶體對應檔案。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.Dispose">
+      <summary>釋放 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" /> 所使用的所有資源。</summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.Dispose(System.Boolean)">
+      <summary>釋放 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" /> 所使用的 Unmanaged 資源，並選擇性釋放 Managed 資源。 </summary>
+      <param name="disposing">true 表示釋放 Managed 和 Unmanaged 資源，false 則表示只釋放 Unmanaged 資源。</param>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String)">
+      <summary>開啟現有的記憶體對應檔案，此檔案在系統記憶體中具有指定的名稱。</summary>
+      <returns>有指定之名稱的記憶體對應檔。 </returns>
+      <param name="mapName">要開啟之記憶體對應檔的名稱。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> 為空字串。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> 為 null。</exception>
+      <exception cref="T:System.IO.FileNotFoundException">針對 <paramref name="mapName" /> 指定的檔案不存在。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String,System.IO.MemoryMappedFiles.MemoryMappedFileRights)">
+      <summary>開啟現有的記憶體對應檔案，此檔案在系統記憶體中具有指定的名稱和存取權限。</summary>
+      <returns>記憶體對應檔，具有指定的特性。</returns>
+      <param name="mapName">要開啟之記憶體對應檔的名稱。</param>
+      <param name="desiredAccessRights">其中一個列舉值，指定要套用至記憶體對應檔的存取權限。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> 為空字串。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="desiredAccessRights" /> 不是有效的 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights" /> 列舉值。</exception>
+      <exception cref="T:System.IO.FileNotFoundException">針對 <paramref name="mapName" /> 指定的檔案不存在。</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String,System.IO.MemoryMappedFiles.MemoryMappedFileRights,System.IO.HandleInheritability)">
+      <summary>開啟現有的記憶體對應檔案，此檔案在系統記憶體中具有指定的名稱、存取權限和可繼承性。</summary>
+      <returns>記憶體對應檔，具有指定的特性。</returns>
+      <param name="mapName">要開啟之記憶體對應檔的名稱。</param>
+      <param name="desiredAccessRights">其中一個列舉值，指定要套用至記憶體對應檔的存取權限。</param>
+      <param name="inheritability">其中一個列舉值，決定記憶體對應檔的控制代碼是否可以由子處理序繼承。預設值為 <see cref="F:System.IO.HandleInheritability.None" />。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> 為空字串。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="desiredAccessRights" /> 不是有效的 <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights" /> 列舉值。-或-<paramref name="inheritability" /> 不是有效的 <see cref="T:System.IO.HandleInheritability" /> 列舉值。</exception>
+      <exception cref="T:System.UnauthorizedAccessException">要求的存取是無效的記憶體對應檔案。</exception>
+      <exception cref="T:System.IO.FileNotFoundException">針對 <paramref name="mapName" /> 指定的檔案不存在。</exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedFile.SafeMemoryMappedFileHandle">
+      <summary>取得記憶體對應檔的檔案控制代碼。</summary>
+      <returns>記憶體對應檔的控制代碼。</returns>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess">
+      <summary>指定記憶體對應檔或檢視的存取能力和限制。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.CopyOnWrite">
+      <summary>讀取及寫入檔案的存取權限，並且限制其他處理序看不到任何寫入作業。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read">
+      <summary>檔案的唯讀權限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadExecute">
+      <summary>檔案的讀取權限，該檔案可以儲存及執行可執行的程式碼。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite">
+      <summary>讀取和寫入檔案的存取權限，</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWriteExecute">
+      <summary>讀取及寫入檔案的存取權限，該檔案可以儲存及執行可執行的程式碼。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write">
+      <summary>檔案的唯寫權限。</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileOptions">
+      <summary>為記憶體對應檔提供記憶體配置選項。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileOptions.DelayAllocatePages">
+      <summary>記憶體配置延遲到已使用 <see cref="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor" /> 或 <see cref="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream" /> 方法建立檢視時才進行。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileOptions.None">
+      <summary>不套用任何記憶體配置選項。</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights">
+      <summary>指定記憶體對應檔的存取權限，這個檔案不會與磁碟上的檔案相關聯。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.AccessSystemSecurity">
+      <summary>取得或設定檔案使用權限的權限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ChangePermissions">
+      <summary>變更與檔案相關聯之安全性和稽核規則的權限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.CopyOnWrite">
+      <summary>讀取及寫入檔案的權限，並且限制其他處理序看不到寫入作業。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Delete">
+      <summary>刪除檔案的權限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Execute">
+      <summary>執行應用程式檔案的權限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.FullControl">
+      <summary>對檔案執行完全控制以及修改存取控制和稽核規則的權限。這個值表示對檔案執行任何作業的權限，其為這個列舉型別中所有權限的組合。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Read">
+      <summary>以唯讀方式開啟和複製檔案的權限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadExecute">
+      <summary>以唯讀方式開啟和複製資料夾或檔案，以及執行應用程式檔案的權限。這個權限包括 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Read" /> 權限和 <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Execute" /> 權限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadPermissions">
+      <summary>開啟並複製檔案之存取和稽核規則的權限。這不包括讀取資料、檔案系統屬性或擴充之檔案系統屬性的權限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadWrite">
+      <summary>開啟和複製檔案的權限，以及對檔案加入或移除資料的權限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadWriteExecute">
+      <summary>開啟和複製檔案的權限、對檔案加入或移除資料的權限，以及執行應用程式檔案的權限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.TakeOwnership">
+      <summary>變更檔案擁有人的權限。</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Write">
+      <summary>對檔案加入或移除資料的權限。</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor">
+      <summary>表示記憶體對應檔的隨機存取檢視。</summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.Flush">
+      <summary>清除這個檢視的所有緩衝區，並造成任何緩衝資料都寫入基礎檔案。</summary>
+      <exception cref="T:System.ObjectDisposedException">在關閉存取子後，會呼叫方法。</exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.PointerOffset">
+      <summary>[支援 .NET Framework 4.5.1 (含) 以後版本]取得這個檢視起始位置與記憶體對應檔案開頭的位移位元組數目。</summary>
+      <returns>這個檢視開始位置和記憶體對應檔案開頭之間的位元組數。</returns>
+      <exception cref="T:System.InvalidOperationException">從這個執行個體建立的物件是 null。</exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.SafeMemoryMappedViewHandle">
+      <summary>取得記憶體對應檔檢視的控制代碼。</summary>
+      <returns>檔案檢視之作業系統控制代碼的包裝函式。</returns>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedViewStream">
+      <summary>將記憶體對應檔檢視表示為循序存取的資料流。</summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewStream.Flush">
+      <summary>清除這個資料流的所有緩衝區，並造成任何緩衝資料都寫入基礎檔案。</summary>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewStream.PointerOffset">
+      <summary>[支援 .NET Framework 4.5.1 (含) 以後版本]取得這個檢視起始位置與記憶體對應檔案開頭的位移位元組數目。</summary>
+      <returns>這個檢視開始位置和記憶體對應檔案開頭之間的位元組數。</returns>
+      <exception cref="T:System.InvalidOperationException">從這個執行個體建立的物件是 null。</exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewStream.SafeMemoryMappedViewHandle">
+      <summary>取得記憶體對應檔檢視的控制代碼。</summary>
+      <returns>檔案檢視之作業系統控制代碼的包裝函式。</returns>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewStream.SetLength(System.Int64)">
+      <summary>設定目前資料流的長度。</summary>
+      <param name="value">目前資料流所需位元組長度。</param>
+      <exception cref="T:System.NotSupportedException">不支援這個方法。</exception>
+    </member>
+  </members>
+</doc>

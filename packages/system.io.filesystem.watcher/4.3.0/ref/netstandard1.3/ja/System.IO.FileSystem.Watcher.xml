@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.FileSystem.Watcher</name>
+  </assembly>
+  <members>
+    <member name="T:System.IO.ErrorEventArgs">
+      <summary>
+        <see cref="E:System.IO.FileSystemWatcher.Error" /> イベントにデータを提供します。</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.ErrorEventArgs.#ctor(System.Exception)">
+      <summary>
+        <see cref="T:System.IO.ErrorEventArgs" /> クラスの新しいインスタンスを初期化します。</summary>
+      <param name="exception">発生したエラーを表す <see cref="T:System.Exception" />。</param>
+    </member>
+    <member name="M:System.IO.ErrorEventArgs.GetException">
+      <summary>発生したエラーを表す <see cref="T:System.Exception" /> を取得します。</summary>
+      <returns>発生したエラーを表す <see cref="T:System.Exception" />。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.ErrorEventHandler">
+      <summary>
+        <see cref="T:System.IO.FileSystemWatcher" /> オブジェクトの <see cref="E:System.IO.FileSystemWatcher.Error" /> イベントを処理するメソッドを表します。</summary>
+      <param name="sender">イベントのソース。</param>
+      <param name="e">イベント データを格納している <see cref="T:System.IO.ErrorEventArgs" /> オブジェクト。 </param>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.FileSystemEventArgs">
+      <summary>ディレクトリ イベントの <see cref="E:System.IO.FileSystemWatcher.Changed" />、<see cref="E:System.IO.FileSystemWatcher.Created" />、<see cref="E:System.IO.FileSystemWatcher.Deleted" /> にデータを提供します。</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.FileSystemEventArgs.#ctor(System.IO.WatcherChangeTypes,System.String,System.String)">
+      <summary>
+        <see cref="T:System.IO.FileSystemEventArgs" /> クラスの新しいインスタンスを初期化します。</summary>
+      <param name="changeType">ファイル システムで検出する変更の種類を表す <see cref="T:System.IO.WatcherChangeTypes" /> 値の 1 つ。</param>
+      <param name="directory">影響を受けるファイルまたはディレクトリのルート ディレクトリ。</param>
+      <param name="name">影響を受けるファイルまたはディレクトリの名前。</param>
+    </member>
+    <member name="P:System.IO.FileSystemEventArgs.ChangeType">
+      <summary>発生したディレクトリ イベントの種類を取得します。</summary>
+      <returns>ファイル システムで検出する変更の種類を表す <see cref="T:System.IO.WatcherChangeTypes" /> 値の 1 つ。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemEventArgs.FullPath">
+      <summary>影響を受けるファイルまたはディレクトリの絶対パスを取得します。</summary>
+      <returns>影響を受けるファイルまたはディレクトリのパス。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemEventArgs.Name">
+      <summary>影響を受けるファイルまたはディレクトリの名前を取得します。</summary>
+      <returns>影響を受けるファイルまたはディレクトリの名前。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.FileSystemEventHandler">
+      <summary>
+        <see cref="T:System.IO.FileSystemWatcher" /> クラスの <see cref="E:System.IO.FileSystemWatcher.Changed" />、<see cref="E:System.IO.FileSystemWatcher.Created" />、または <see cref="E:System.IO.FileSystemWatcher.Deleted" /> イベントを処理するメソッドを表します。</summary>
+      <param name="sender">イベントのソース。</param>
+      <param name="e">イベント データを格納している <see cref="T:System.IO.FileSystemEventArgs" />。 </param>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.FileSystemWatcher">
+      <summary>ファイル システムの変更通知を待機し、ディレクトリまたはディレクトリ内のファイルが変更されたときにイベントを発生させます。この種類の .NET Framework ソース コードを参照して、次を参照してください。、 Reference Sourceです。</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.#ctor">
+      <summary>
+        <see cref="T:System.IO.FileSystemWatcher" /> クラスの新しいインスタンスを初期化します。</summary>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.#ctor(System.String)">
+      <summary>監視するディレクトリを指定して、<see cref="T:System.IO.FileSystemWatcher" /> クラスの新しいインスタンスを初期化します。</summary>
+      <param name="path">標準表記または UNC (Universal Naming Convention) 表記での監視するディレクトリ。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> パラメーターが null です。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> パラメーターが空の文字列 ("") です。または <paramref name="path" /> パラメーターで指定されたパスが存在しません。</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> が長すぎます。</exception>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.#ctor(System.String,System.String)">
+      <summary>
+        <see cref="T:System.IO.FileSystemWatcher" /> クラスの新しいインスタンスを、監視するディレクトリとファイルの種類を指定して初期化します。</summary>
+      <param name="path">標準表記または UNC (Universal Naming Convention) 表記での監視するディレクトリ。</param>
+      <param name="filter">ウォッチするファイルの種類。たとえば、すべてのテキスト ファイルの変更をウォッチするには、"*.txt" に設定します。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> パラメーターが null です。または <paramref name="filter" /> パラメーターが null です。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> パラメーターが空の文字列 ("") です。または <paramref name="path" /> パラメーターで指定されたパスが存在しません。</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> が長すぎます。</exception>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Changed">
+      <summary>指定した <see cref="P:System.IO.FileSystemWatcher.Path" /> のファイルまたはディレクトリが変更されたときに発生します。</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Created">
+      <summary>指定した <see cref="P:System.IO.FileSystemWatcher.Path" /> のファイルまたはディレクトリが作成されたときに発生します。</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Deleted">
+      <summary>指定した <see cref="P:System.IO.FileSystemWatcher.Path" /> のファイルまたはディレクトリが削除されたときに発生します。</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.Dispose"></member>
+    <member name="M:System.IO.FileSystemWatcher.Dispose(System.Boolean)">
+      <summary>
+        <see cref="T:System.IO.FileSystemWatcher" /> で使用されているアンマネージ リソースを解放し、オプションでマネージ リソースを解放します。</summary>
+      <param name="disposing">マネージ リソースとアンマネージ リソースの両方を解放する場合は true。アンマネージ リソースだけを解放する場合は false。</param>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.EnableRaisingEvents">
+      <summary>コンポーネントが有効かどうかを示す値を取得または設定します。</summary>
+      <returns>コンポーネントが有効な場合は true。それ以外の場合は false。既定値は、false です。Visual Studio 2005 のデザイナーでコンポーネントを使用している場合、既定値は true です。</returns>
+      <exception cref="T:System.ObjectDisposedException">
+        <see cref="T:System.IO.FileSystemWatcher" /> オブジェクトは破棄されています。</exception>
+      <exception cref="T:System.PlatformNotSupportedException">現在のオペレーティング システムは Microsoft Windows NT 以降ではありません。</exception>
+      <exception cref="T:System.IO.FileNotFoundException">
+        <see cref="P:System.IO.FileSystemWatcher.Path" /> で指定したディレクトリが見つかりませんでした。</exception>
+      <exception cref="T:System.ArgumentException">
+        <see cref="P:System.IO.FileSystemWatcher.Path" /> が設定されていないか、無効です。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Error">
+      <summary>
+        <see cref="T:System.IO.FileSystemWatcher" /> のインスタンスが変更の監視を続けられない場合、または内部バッファー オーバーフローの場合に発生します。</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.Filter">
+      <summary>ディレクトリで監視するファイルを決定するために使用するフィルター文字列を取得または設定します。</summary>
+      <returns>フィルター文字列。既定値は "*.*" です (すべてのファイルをウォッチします)。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.IncludeSubdirectories">
+      <summary>指定したパスのサブディレクトリを監視するかどうかを示す値を取得または設定します。</summary>
+      <returns>サブディレクトリを監視する場合は true。それ以外の場合は false。既定値は、false です。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.InternalBufferSize">
+      <summary>内部バッファーのサイズ (バイト単位) を取得または設定します。</summary>
+      <returns>内部バッファー サイズ (バイト単位)。既定値は 8192 (8 KB) です。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.NotifyFilter">
+      <summary>ウォッチする変更の種類を取得または設定します。</summary>
+      <returns>
+        <see cref="T:System.IO.NotifyFilters" /> 値の 1 つ。既定値は LastWrite、FileName、および DirectoryName のビットごとの OR の組み合わせです。</returns>
+      <exception cref="T:System.ArgumentException">値が、<see cref="T:System.IO.NotifyFilters" /> 値の有効なビットごとの OR の組み合わせになっていません。</exception>
+      <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">設定されようとしている値が無効です。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnChanged(System.IO.FileSystemEventArgs)">
+      <summary>
+        <see cref="E:System.IO.FileSystemWatcher.Changed" /> イベントを発生させます。</summary>
+      <param name="e">イベント データを格納している <see cref="T:System.IO.FileSystemEventArgs" />。</param>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnCreated(System.IO.FileSystemEventArgs)">
+      <summary>
+        <see cref="E:System.IO.FileSystemWatcher.Created" /> イベントを発生させます。</summary>
+      <param name="e">イベント データを格納している <see cref="T:System.IO.FileSystemEventArgs" />。</param>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnDeleted(System.IO.FileSystemEventArgs)">
+      <summary>
+        <see cref="E:System.IO.FileSystemWatcher.Deleted" /> イベントを発生させます。</summary>
+      <param name="e">イベント データを格納している <see cref="T:System.IO.FileSystemEventArgs" />。</param>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnError(System.IO.ErrorEventArgs)">
+      <summary>
+        <see cref="E:System.IO.FileSystemWatcher.Error" /> イベントを発生させます。</summary>
+      <param name="e">イベント データを格納している <see cref="T:System.IO.ErrorEventArgs" />。</param>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnRenamed(System.IO.RenamedEventArgs)">
+      <summary>
+        <see cref="E:System.IO.FileSystemWatcher.Renamed" /> イベントを発生させます。</summary>
+      <param name="e">イベント データを格納している <see cref="T:System.IO.RenamedEventArgs" />。</param>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.Path">
+      <summary>ウォッチするディレクトリのパスを取得または設定します。</summary>
+      <returns>監視するパス。既定値は、空の文字列 ("") です。</returns>
+      <exception cref="T:System.ArgumentException">指定されたパスが存在しないか、見つかりませんでした。または 指定したパスにワイルドカード文字が含まれています。または 指定したパスに無効なパス文字が含まれています。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Renamed">
+      <summary>指定した <see cref="P:System.IO.FileSystemWatcher.Path" /> のファイルまたはディレクトリの名前が変更されたときに発生します。</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.NotifyFilters">
+      <summary>ファイルまたはフォルダーでウォッチする変更を指定します。</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="F:System.IO.NotifyFilters.Attributes">
+      <summary>ファイルまたはフォルダーの属性。</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.CreationTime">
+      <summary>ファイルまたはフォルダーが作成された時刻。</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.DirectoryName">
+      <summary>ディレクトリ名。</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.FileName">
+      <summary>ファイルの名前。</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.LastAccess">
+      <summary>ファイルまたはフォルダーを最後に開いた日付。</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.LastWrite">
+      <summary>ファイルまたはフォルダーへの最終書き込み日付。</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.Security">
+      <summary>ファイルまたはフォルダーのセキュリティ設定。</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.Size">
+      <summary>ファイルまたはフォルダーのサイズ。</summary>
+    </member>
+    <member name="T:System.IO.RenamedEventArgs">
+      <summary>
+        <see cref="E:System.IO.FileSystemWatcher.Renamed" /> イベントにデータを提供します。</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.RenamedEventArgs.#ctor(System.IO.WatcherChangeTypes,System.String,System.String,System.String)">
+      <summary>
+        <see cref="T:System.IO.RenamedEventArgs" /> クラスの新しいインスタンスを初期化します。</summary>
+      <param name="changeType">
+        <see cref="T:System.IO.WatcherChangeTypes" /> 値のいずれか。</param>
+      <param name="directory">影響を受けるファイルまたはディレクトリの名前。</param>
+      <param name="name">影響を受けるファイルまたはディレクトリの名前。</param>
+      <param name="oldName">影響を受けるファイルまたはディレクトリの以前の名前。</param>
+    </member>
+    <member name="P:System.IO.RenamedEventArgs.OldFullPath">
+      <summary>影響を受けるファイルまたはディレクトリの前回の絶対パスを取得します。</summary>
+      <returns>影響を受けるファイルまたはディレクトリの前回の絶対パス。</returns>
+      <filterpriority>2</filterpriority>
+      <PermissionSet>
+        <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true" />
+      </PermissionSet>
+    </member>
+    <member name="P:System.IO.RenamedEventArgs.OldName">
+      <summary>影響を受けるファイルまたはディレクトリの以前の名前を取得します。</summary>
+      <returns>影響を受けるファイルまたはディレクトリの前回の名前。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.RenamedEventHandler">
+      <summary>
+        <see cref="T:System.IO.FileSystemWatcher" /> クラスの <see cref="E:System.IO.FileSystemWatcher.Renamed" /> イベントを処理するメソッドを表します。</summary>
+      <param name="sender">イベントのソース。</param>
+      <param name="e">イベント データを格納している <see cref="T:System.IO.RenamedEventArgs" />。 </param>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.WatcherChangeTypes">
+      <summary>ファイルまたはディレクトリに発生する可能性がある変更。</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.All">
+      <summary>ファイルまたはフォルダーの作成、削除、変更、または名前の変更。</summary>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.Changed">
+      <summary>ファイルまたはフォルダーの変更。変更の種類には、サイズ、属性、セキュリティ設定、最後の書き込み時刻、最後のアクセス時刻などの変更があります。</summary>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.Created">
+      <summary>ファイルまたはフォルダーの作成。</summary>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.Deleted">
+      <summary>ファイルまたはフォルダーの削除。</summary>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.Renamed">
+      <summary>ファイル名またはフォルダー名の変更。</summary>
+    </member>
+  </members>
+</doc>

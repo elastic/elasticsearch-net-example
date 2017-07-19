@@ -1,0 +1,410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.MemoryMappedFiles</name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.Win32.SafeHandles.SafeMemoryMappedFileHandle">
+      <summary>Stellt ein sicheres Handle bereit, das eine Speicherabbilddatei für sequentiellen Zugriff darstellt.</summary>
+    </member>
+    <member name="P:Microsoft.Win32.SafeHandles.SafeMemoryMappedFileHandle.IsInvalid"></member>
+    <member name="T:Microsoft.Win32.SafeHandles.SafeMemoryMappedViewHandle">
+      <summary>Stellt ein sicheres Handle bereit, das eine Ansicht eines nicht verwalteten Arbeitsspeicherblocks für einen zufälligen Zugriff darstellt. </summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFile">
+      <summary>Stellt eine Speicherabbilddatei dar. </summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.IO.FileStream,System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.HandleInheritability,System.Boolean)">
+      <summary>Erstellt eine im Speicher abgebildete Datei aus einer vorhandenen Datei mit dem angegebenen Zugriffsmodus, Namen, Vererbbarkeit und Kapazität.</summary>
+      <returns>Eine Speicherabbilddatei, die die angegebenen Merkmale aufweist.</returns>
+      <param name="fileStream">Der Dateistream der angegebenen Datei.</param>
+      <param name="mapName">Ein Name, der der Speicherabbilddatei zugewiesen werden soll.</param>
+      <param name="capacity">Die maximale Größe (in Bytes), die für die Speicherabbilddatei reserviert werden soll.Geben Sie 0 an, um die Kapazität auf die Größe von <paramref name="filestream" /> festzulegen.</param>
+      <param name="access">Einer der Enumerationswerte, der den zulässigen Zugriffstyp für die Speicherabbilddatei angibt. Dieser Parameter kann nicht auf <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> festgelegt werden. </param>
+      <param name="inheritability">Einer der Enumerationswerte, der angibt, ob ein Handle auf die Speicherabbilddatei von einem untergeordneten Prozess geerbt werden kann.Die Standardeinstellung ist <see cref="F:System.IO.HandleInheritability.None" />.</param>
+      <param name="leaveOpen">Dieser Wert gibt an, ob der Stream der Quelldatei geschlossen werden soll, wenn <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" /> freigegeben wird. </param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> ist null oder eine leere Zeichenfolge.- oder - <paramref name="capacity" /> und die Länge der Datei sind 0 (null).- oder - <paramref name="access" />minFreeThreads auf <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> oder <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> -Enumerationswert, der nicht zulässig ist.- oder - <paramref name="access" />minFreeThreads auf <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read" /> und <paramref name="capacity" /> ist größer als die Länge des filestream.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="fileStream" /> ist null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> ist kleiner als 0.- oder - <paramref name="capacity" /> ist kleiner als die Dateigröße.- oder - <paramref name="access" /> ist kein gültiger <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" />-Enumerationswert.- oder - <paramref name="inheritability" /> ist kein gültiger <see cref="T:System.IO.HandleInheritability" />-Enumerationswert.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String)">
+      <summary>Erstellt eine Speicherabbilddatei aus einer Datei auf dem Datenträger.</summary>
+      <returns>Eine Speicherabbilddatei.</returns>
+      <param name="path">Der Pfad der abzubildenden Datei.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> ist eine leere Zeichenfolge, enthält nur Leerraum oder mindestens ein gemäß der Definition von <see cref="M:System.IO.Path.GetInvalidFileNameChars" />-Methode ungültiges Zeichen. - oder - <paramref name="path" /> verweist auf ein ungültiges Gerät. </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> ist null.</exception>
+      <exception cref="T:System.IO.IOException">Ein E/A-Fehler ist aufgetreten.</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> übersteigt die vom Betriebssystem definierte maximale Länge.In Windows müssen Pfade weniger als 248 Zeichen enthalten, und Dateinamen müssen weniger als 260 Zeichen enthalten.</exception>
+      <exception cref="T:System.Security.SecurityException">Der Aufrufer verfügt nicht über die erforderlichen Berechtigungen für die Datei.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode)">
+      <summary>Erstellt eine im Speicher abgebildete Datei mit dem angegebenen Zugriffsmodus aus einer Datei auf dem Datenträger. </summary>
+      <returns>Eine im Speicher abgebildete Datei mit dem angegebenen Zugriffsmodus.</returns>
+      <param name="path">Der Pfad der abzubildenden Datei.</param>
+      <param name="mode">Der Zugriffsmodus. Muss <see cref="F:System.IO.FileMode.Open" /> sein.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> ist eine leere Zeichenfolge, enthält nur Leerraum oder mindestens ein gemäß der Definition von <see cref="M:System.IO.Path.GetInvalidFileNameChars" />-Methode ungültiges Zeichen. - oder - <paramref name="path" /> verweist auf ein ungültiges Gerät.- oder - <paramref name="mode" /> ist <see cref="F:System.IO.FileMode.Append" />.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> ist null.</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="mode" /> ist <see cref="F:System.IO.FileMode.Create" />, <see cref="F:System.IO.FileMode.CreateNew" /> oder <see cref="F:System.IO.FileMode.Truncate" />.- oder - <paramref name="mode" /> ist <see cref="F:System.IO.FileMode.OpenOrCreate" /> und die Datei auf dem Datenträger nicht vorhanden ist.- oder - Ein E/A-Fehler ist aufgetreten.</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> übersteigt die vom Betriebssystem definierte maximale Länge.In Windows müssen Pfade weniger als 248 Zeichen enthalten, und Dateinamen müssen weniger als 260 Zeichen enthalten.</exception>
+      <exception cref="T:System.Security.SecurityException">Der Aufrufer verfügt nicht über die erforderlichen Berechtigungen für die Datei.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String)">
+      <summary>Erstellt eine im Speicher abgebildete Datei mit den angegebenen Werten für Zugriffsmodus und Name aus einer Datei auf dem Datenträger.</summary>
+      <returns>Eine im Speicher abgebildete Datei mit den angegebenen Werten für Name und Zugriffsmodus.</returns>
+      <param name="path">Der Pfad der abzubildenden Datei.</param>
+      <param name="mode">Der Zugriffsmodus. Muss <see cref="F:System.IO.FileMode.Open" /> sein.</param>
+      <param name="mapName">Ein Name, der der Speicherabbilddatei zugewiesen werden soll. </param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> ist eine leere Zeichenfolge, enthält nur Leerraum oder mindestens ein gemäß der Definition von <see cref="M:System.IO.Path.GetInvalidFileNameChars" />-Methode ungültiges Zeichen. - oder - <paramref name="path" /> verweist auf ein ungültiges Gerät.- oder - <paramref name="mapName" /> ist eine leere Zeichenfolge.- oder - <paramref name="mode" /> ist <see cref="F:System.IO.FileMode.Append" />.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> oder <paramref name="mapName" /> ist null.</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="mode" /> ist <see cref="F:System.IO.FileMode.Create" />, <see cref="F:System.IO.FileMode.CreateNew" /> oder <see cref="F:System.IO.FileMode.Truncate" />.- oder - <paramref name="mode" /> ist <see cref="F:System.IO.FileMode.OpenOrCreate" /> und die Datei auf dem Datenträger nicht vorhanden ist.- oder - Ein E/A-Fehler ist aufgetreten.</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> übersteigt die vom Betriebssystem definierte maximale Länge.In Windows müssen Pfade weniger als 248 Zeichen enthalten, und Dateinamen müssen weniger als 260 Zeichen enthalten.</exception>
+      <exception cref="T:System.Security.SecurityException">Der Aufrufer verfügt nicht über die erforderlichen Berechtigungen für die Datei.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String,System.Int64)">
+      <summary>Erstellt eine im Speicher abgebildete Datei mit den angegebenen Werten für Zugriffsmodus, Name und Kapazität aus einer Datei auf dem Datenträger.</summary>
+      <returns>Eine Speicherabbilddatei, die die angegebenen Merkmale aufweist.</returns>
+      <param name="path">Der Pfad der abzubildenden Datei.</param>
+      <param name="mode">Zugriffsmodus; kann einer der <see cref="T:System.IO.FileMode" />-Enumerationswerte, außer <see cref="F:System.IO.FileMode.Append" />, sein.</param>
+      <param name="mapName">Ein Name, der der Speicherabbilddatei zugewiesen werden soll. </param>
+      <param name="capacity">Die maximale Größe (in Bytes), die für die Speicherabbilddatei reserviert werden soll.Geben Sie 0 an, um die Kapazität auf die Größe der Datei auf dem Datenträger festzulegen.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="path" /> ist eine leere Zeichenfolge, enthält nur Leerraum oder mindestens ein gemäß der Definition von <see cref="M:System.IO.Path.GetInvalidFileNameChars" />-Methode ungültiges Zeichen. - oder - <paramref name="path" /> verweist auf ein ungültiges Gerät.- oder - <paramref name="mapName" /> ist eine leere Zeichenfolge.- oder - <paramref name="mode" /> ist <see cref="F:System.IO.FileMode.Append" />.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> oder <paramref name="mapName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> ist größer als die Größe des logischen Adressbereichs.- oder - <paramref name="capacity" /> ist kleiner als 0.- oder - <paramref name="capacity" /> ist kleiner als die Dateigröße (aber nicht null).- oder - <paramref name="capacity" /> ist 0 (null), und die Größe der Datei auf dem Datenträger ist auch 0 (null).</exception>
+      <exception cref="T:System.IO.IOException">Ein E/A-Fehler ist aufgetreten.</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> übersteigt die vom Betriebssystem definierte maximale Länge.In Windows müssen Pfade weniger als 248 Zeichen enthalten, und Dateinamen müssen weniger als 260 Zeichen enthalten.</exception>
+      <exception cref="T:System.Security.SecurityException">Der Aufrufer verfügt nicht über die erforderlichen Berechtigungen für die Datei.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.String,System.IO.FileMode,System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>Erstellt eine im Speicher abgebildete Datei mit den angegebenen Werten für Zugriffsmodus, Name, Kapazität und Zugriffstyp aus einer Datei auf dem Datenträger.</summary>
+      <returns>Eine Speicherabbilddatei, die die angegebenen Merkmale aufweist.</returns>
+      <param name="path">Der Pfad der abzubildenden Datei.</param>
+      <param name="mode">Zugriffsmodus; kann einer der <see cref="T:System.IO.FileMode" />-Enumerationswerte, außer <see cref="F:System.IO.FileMode.Append" />, sein.</param>
+      <param name="mapName">Ein Name, der der Speicherabbilddatei zugewiesen werden soll. </param>
+      <param name="capacity">Die maximale Größe (in Bytes), die für die Speicherabbilddatei reserviert werden soll.Geben Sie 0 an, um die Kapazität auf die Größe der Datei auf dem Datenträger festzulegen.</param>
+      <param name="access">Einer der Enumerationswerte, der den zulässigen Zugriffstyp für die Speicherabbilddatei angibt.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> ist eine leere Zeichenfolge.- oder - <paramref name="access" /> ist kein zulässiger Wert.- oder - <paramref name="path" /> gibt eine leere Datei an.- oder - <paramref name="access" /> wird als <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read" /> angegeben und die Kapazität ist höer als die Größe der von <paramref name="path" /> angegebenen Datei.- oder - <paramref name="mode" /> ist <see cref="F:System.IO.FileMode.Append" />.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="path" /> oder <paramref name="mapName" /> ist null. </exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> ist größer als die Größe des logischen Adressbereichs.- oder - <paramref name="capacity" /> ist kleiner als 0.- oder - <paramref name="capacity" /> ist kleiner als die Dateigröße (aber nicht null).- oder - <paramref name="capacity" /> ist 0 (null), und die Größe der Datei auf dem Datenträger ist auch 0 (null).- oder - <paramref name="access" /> ist kein definierter <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" />-Wert.- oder - Die Größer der von <paramref name="path" /> angegebenen Datei ist größer als <paramref name="capacity" />.</exception>
+      <exception cref="T:System.IO.IOException">- oder - Ein E/A-Fehler ist aufgetreten.</exception>
+      <exception cref="T:System.IO.PathTooLongException">
+        <paramref name="path" /> übersteigt die vom Betriebssystem definierte maximale Länge.In Windows müssen Pfade weniger als 248 Zeichen enthalten, und Dateinamen müssen weniger als 260 Zeichen enthalten.</exception>
+      <exception cref="T:System.Security.SecurityException">Der Aufrufer verfügt nicht über die erforderlichen Berechtigungen für die Datei.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64)">
+      <summary>Erstellt eine im Speicher abgebildete Datei mit der angegebenen Kapazität im Systemspeicher. </summary>
+      <returns>Eine im Speicher abgebildete Datei mit den angegebenen Werten für Name und Kapazität.</returns>
+      <param name="mapName">Ein Name, der der Speicherabbilddatei zugewiesen werden soll.</param>
+      <param name="capacity">Die maximale Größe (in Bytes), die für die Speicherabbilddatei reserviert werden soll.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> ist eine leere Zeichenfolge. </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> ist kleiner oder gleich 0 (null).</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>Erstellt eine im Speicher abgebildete Datei mit den angegebenen Werten für Kapazität und Zugriffstyp im Systemspeicher. </summary>
+      <returns>Eine Speicherabbilddatei, die die angegebenen Merkmale aufweist.</returns>
+      <param name="mapName">Ein Name, der der Speicherabbilddatei zugewiesen werden soll.</param>
+      <param name="capacity">Die maximale Größe (in Bytes), die für die Speicherabbilddatei reserviert werden soll.</param>
+      <param name="access">Einer der Enumerationswerte, der den zulässigen Zugriffstyp für die Speicherabbilddatei angibt.Die Standardeinstellung ist <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> ist eine leere Zeichenfolge.- oder - <paramref name="access" /> wird mit dem <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />-Enumerationswert auf lesegeschützt festgelegt. </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> ist kleiner oder gleich 0 (null).- oder - <paramref name="access" /> ist kein gültiger <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" />-Enumerationswert.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.MemoryMappedFiles.MemoryMappedFileOptions,System.IO.HandleInheritability)">
+      <summary>Erstellt eine im Speicher abgebildete Datei mit den angegebenen Werten für Name, Kapazität, Zugriffstyp, Speicherbelegung und Vererbbarkeit.</summary>
+      <returns>Eine Speicherabbilddatei, die die angegebenen Merkmale aufweist.</returns>
+      <param name="mapName">Ein Name, der der Speicherabbilddatei zugewiesen werden soll.</param>
+      <param name="capacity">Die maximale Größe (in Bytes), die für die Speicherabbilddatei reserviert werden soll.</param>
+      <param name="access">Einer der Enumerationswerte, der den zulässigen Zugriffstyp für die Speicherabbilddatei angibt.Die Standardeinstellung ist <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <param name="options">Eine bitweise Kombination von Enumerationswerten, die Speicherbelegungsoptionen für die Speicherabbilddatei angeben.</param>
+      <param name="inheritability">Ein Wert, der angibt, ob ein Handle auf die Speicherabbilddatei von einem untergeordneten Prozess geerbt werden kann.Die Standardeinstellung ist <see cref="F:System.IO.HandleInheritability.None" />.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> ist eine leere Zeichenfolge.- oder - <paramref name="access" /> wird mit dem <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />-Enumerationswert auf lesegeschützt festgelegt. </exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> ist kleiner oder gleich 0 (null).- oder - <paramref name="access" /> ist kein gültiger <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" />-Enumerationswert.- oder - <paramref name="inheritability" /> ist kein gültiger <see cref="T:System.IO.HandleInheritability" />-Wert.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64)">
+      <summary>Erstellt oder öffnet eine im Speicher abgebildete Datei mit der angegebenen Kapazität im Systemspeicher.</summary>
+      <returns>Eine Speicherabbilddatei, die den angegebenen Namen und die angegebene Größe aufweist.</returns>
+      <param name="mapName">Ein Name, der der Speicherabbilddatei zugewiesen werden soll.</param>
+      <param name="capacity">Die maximale Größe (in Bytes), die für die Speicherabbilddatei reserviert werden soll.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> ist eine leere Zeichenfolge.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> ist größer als die Größe des logischen Adressbereichs.- oder - <paramref name="capacity" /> ist kleiner oder gleich 0 (null).</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>Erstellt oder öffnet eine im Speicher abgebildete Datei mit den angegebenen Werten für Kapazität und Zugriffstyp im Systemspeicher. </summary>
+      <returns>Eine Speicherabbilddatei, die die angegebenen Merkmale aufweist.</returns>
+      <param name="mapName">Ein Name, der der Speicherabbilddatei zugewiesen werden soll.</param>
+      <param name="capacity">Die maximale Größe (in Bytes), die für die Speicherabbilddatei reserviert werden soll.</param>
+      <param name="access">Einer der Enumerationswerte, der den zulässigen Zugriffstyp für die Speicherabbilddatei angibt.Die Standardeinstellung ist <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> ist eine leere Zeichenfolge.- oder - <paramref name="access" /> wird mit dem <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />-Enumerationswert auf lesegeschützt festgelegt.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> ist größer als die Größe des logischen Adressbereichs.- oder - <paramref name="capacity" /> ist kleiner oder gleich 0 (null).- oder - <paramref name="access" /> ist kein gültiger <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" />-Enumerationswert.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">Das Betriebssystem hat den angegebenen Zugriff auf die Datei verweigert. access ist z. B. auf <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> oder <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" /> festgelegt, aber die Datei oder das Verzeichnis ist schreibgeschützt. </exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.MemoryMappedFiles.MemoryMappedFileOptions,System.IO.HandleInheritability)">
+      <summary>Erstellt eine neue leere Speicherabbilddatei oder öffnet eine vorhandene Speicherabbilddatei, wenn eine Datei mit diesem Namen existiert.Wenn Sie eine vorhandene Datei angeben, werden die Werte für Kapazität, Optionen und Speicherargumente ignoriert.</summary>
+      <returns>Eine Speicherabbilddatei, die die angegebenen Merkmale aufweist.</returns>
+      <param name="mapName">Ein Name, der der Speicherabbilddatei zugewiesen werden soll.</param>
+      <param name="capacity">Die maximale Größe (in Bytes), die für die Speicherabbilddatei reserviert werden soll.</param>
+      <param name="access">Einer der Enumerationswerte, der den zulässigen Zugriffstyp für die Speicherabbilddatei angibt.Die Standardeinstellung ist <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <param name="options">Eine bitweise Kombination von Werten, die Speicherbelegungsoptionen für die Datei angeben.</param>
+      <param name="inheritability">Ein Wert, der angibt, ob ein Handle auf die Speicherabbilddatei von einem untergeordneten Prozess geerbt werden kann.Die Standardeinstellung ist <see cref="F:System.IO.HandleInheritability.None" />.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> ist eine leere Zeichenfolge.- oder - <paramref name="access" /> wird mit dem <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" />-Enumerationswert auf lesegeschützt festgelegt.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="capacity" /> ist größer als die Größe des logischen Adressbereichs.- oder - <paramref name="capacity" /> ist kleiner oder gleich 0 (null).- oder - <paramref name="access" /> ist kein gültiger <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" />-Enumerationswert.- oder - <paramref name="inheritability" /> ist kein gültiger <see cref="T:System.IO.HandleInheritability" />-Enumerationswert.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">Das Betriebssystem hat den angegebenen Zugriff auf die Datei verweigert. access ist z. B. auf <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write" /> oder <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" /> festgelegt, aber die Datei oder das Verzeichnis ist schreibgeschützt. </exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor">
+      <summary>Erstellt einen <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" />, der einer Ansicht der Speicherabbilddatei zugeordnet ist.</summary>
+      <returns>Ein Speicherblock mit wahlfreiem Zugriff.</returns>
+      <exception cref="T:System.UnauthorizedAccessException">Der Zugriff auf Speicherabbilddatei ist nicht zugelassen.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor(System.Int64,System.Int64)">
+      <summary>Erstellt ein <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" />, das einer Ansicht der im Speicher abgebildeten Datei zugeordnet ist und über die angegebenen Werte für Offset und Größe verfügt.</summary>
+      <returns>Ein Speicherblock mit wahlfreiem Zugriff.</returns>
+      <param name="offset">Das Byte, ab dem die Ansicht beginnen soll.</param>
+      <param name="size">Die Größe der Ansicht.Geben Sie 0 (null) an, um eine Ansicht zu erstellen, die bei <paramref name="offset" /> beginnt und ungefähr am Ende der Speicherimagedatei endet.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> oder <paramref name="size" /> ist ein negativer Wert.- oder - <paramref name="size" /> ist größer als der logische Adressbereich.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">Der Zugriff auf Speicherabbilddatei ist nicht zugelassen.</exception>
+      <exception cref="T:System.IO.IOException">Ein E/A-Fehler ist aufgetreten.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor(System.Int64,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>Erstellt ein <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor" />, das einer Ansicht der im Speicher abgebildeten Datei zugeordnet ist und über die angegebenen Werte für Offset, Größe und Zugriffseinschränkungen verfügt.</summary>
+      <returns>Ein Speicherblock mit wahlfreiem Zugriff.</returns>
+      <param name="offset">Das Byte, ab dem die Ansicht beginnen soll.</param>
+      <param name="size">Die Größe der Ansicht.Geben Sie 0 (null) an, um eine Ansicht zu erstellen, die bei <paramref name="offset" /> beginnt und ungefähr am Ende der Speicherimagedatei endet.</param>
+      <param name="access">Einer der Enumerationswerte, der den zulässigen Zugriffstyp für die Speicherabbilddatei angibt.Die Standardeinstellung ist <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> oder <paramref name="size" /> ist ein negativer Wert.- oder - <paramref name="size" /> ist größer als der logische Adressbereich.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">
+        <paramref name="access" /> ist für die dem Speicher zugeordnete Datei ungültig.</exception>
+      <exception cref="T:System.IO.IOException">Ein E/A-Fehler ist aufgetreten.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream">
+      <summary>Erstellt einen Stream, der einer Ansicht der Speicherabbilddatei zugeordnet ist.  </summary>
+      <returns>Ein Speicherstream.</returns>
+      <exception cref="T:System.UnauthorizedAccessException">Der Zugriff auf Speicherabbilddatei ist nicht zugelassen.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream(System.Int64,System.Int64)">
+      <summary>Erstellt einen Datenstrom, der einer Ansicht der im Speicher abgebildeten Datei zugeordnet ist und über die angegebenen Werte für Offset und Größe verfügt.</summary>
+      <returns>Ein Speicherdatenstrom mit den angegebenen Werten für Offset und Größe.</returns>
+      <param name="offset">Das Byte, ab dem die Ansicht beginnen soll.</param>
+      <param name="size">Die Größe der Ansicht.Geben Sie 0 (null) an, um eine Ansicht zu erstellen, die bei <paramref name="offset" /> beginnt und ungefähr am Ende der Speicherimagedatei endet.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> oder <paramref name="size" /> ist ein negativer Wert.- oder - <paramref name="size" /> ist größer als der logische Adressbereich.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">Der Zugriff auf Speicherabbilddatei ist nicht zugelassen.</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="size" /> ist größer als der gesamte virtuelle Arbeitsspeicher.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream(System.Int64,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess)">
+      <summary>Erstellt einen Datenstrom, der einer Ansicht der im Speicher abgebildeten Datei zugeordnet ist und über die angegebenen Werte für Offset, Größe und Zugriffstyp verfügt.</summary>
+      <returns>Ein Speicherdatenstrom mit den angegebenen Eigenschaften.</returns>
+      <param name="offset">Das Byte, ab dem die Ansicht beginnen soll.</param>
+      <param name="size">Die Größe der Ansicht.Geben Sie 0 (null) an, um eine Ansicht zu erstellen, die bei <paramref name="offset" /> beginnt und ungefähr am Ende der Speicherimagedatei endet.</param>
+      <param name="access">Einer der Enumerationswerte, der den zulässigen Zugriffstyp für die Speicherabbilddatei angibt.Die Standardeinstellung ist <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" />.</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> oder <paramref name="size" /> ist ein negativer Wert.- oder - <paramref name="size" /> ist größer als der logische Adressbereich.- oder - <paramref name="access " /> ist kein gültiger <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" />-Enumerationswert.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">
+        <paramref name="access" /> ist für die dem Speicher zugeordnete Datei ungültig.</exception>
+      <exception cref="T:System.IO.IOException">
+        <paramref name="size" /> ist größer als der gesamte virtuelle Arbeitsspeicher.- oder - <paramref name="access" /> ist für die dem Speicher zugeordnete Datei ungültig.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.Dispose">
+      <summary>Gibt alle vom <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" /> verwendeten Ressourcen frei. </summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.Dispose(System.Boolean)">
+      <summary>Gibt die von <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFile" /> verwendeten nicht verwalteten Ressourcen und optional die verwalteten Ressourcen frei. </summary>
+      <param name="disposing">true, um sowohl verwaltete als auch nicht verwaltete Ressourcen freizugeben, false, um ausschließlich nicht verwaltete Ressourcen freizugeben. </param>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String)">
+      <summary>Öffnet eine vorhandene im Speicher abgebildete Datei mit dem angegebenen Namen im Systemspeicher.</summary>
+      <returns>Eine Speicherabbilddatei, die über den angegebenen Namen verfügt. </returns>
+      <param name="mapName">Der Name der zu öffnenden Speicherabbilddatei.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> ist eine leere Zeichenfolge.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> ist null.</exception>
+      <exception cref="T:System.IO.FileNotFoundException">Die für <paramref name="mapName" /> angegebene Datei ist nicht vorhanden.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String,System.IO.MemoryMappedFiles.MemoryMappedFileRights)">
+      <summary>Öffnet eine vorhandene im Speicher abgebildete Datei mit den angegebenen Werten für Name und Zugriffsrechte im Systemspeicher.</summary>
+      <returns>Eine Speicherabbilddatei, die die angegebenen Merkmale aufweist.</returns>
+      <param name="mapName">Der Name der zu öffnenden Speicherabbilddatei.</param>
+      <param name="desiredAccessRights">Einer der Enumerationswerte, der die anzuwendenden Zugriffsrechte für die Speicherabbilddatei angibt.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> ist eine leere Zeichenfolge.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="desiredAccessRights" /> ist kein gültiger <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights" />-Enumerationswert.</exception>
+      <exception cref="T:System.IO.FileNotFoundException">Die für <paramref name="mapName" /> angegebene Datei ist nicht vorhanden.</exception>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedFile.OpenExisting(System.String,System.IO.MemoryMappedFiles.MemoryMappedFileRights,System.IO.HandleInheritability)">
+      <summary>Öffnet eine vorhandene im Speicher abgebildete Datei mit den angegebenen Werten für Name, Zugriffsrechte und Vererbbarkeit im Systemspeicher.</summary>
+      <returns>Eine Speicherabbilddatei, die die angegebenen Merkmale aufweist.</returns>
+      <param name="mapName">Der Name der zu öffnenden Speicherabbilddatei.</param>
+      <param name="desiredAccessRights">Einer der Enumerationswerte, der die anzuwendenden Zugriffsrechte für die Speicherabbilddatei angibt.</param>
+      <param name="inheritability">Einer der Enumerationswerte, der angibt, ob ein Handle auf die Speicherabbilddatei von einem untergeordneten Prozess geerbt werden kann.Die Standardeinstellung ist <see cref="F:System.IO.HandleInheritability.None" />.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mapName" /> ist eine leere Zeichenfolge.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="mapName" /> ist null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="desiredAccessRights" /> ist kein gültiger <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights" />-Enumerationswert.- oder - <paramref name="inheritability" /> ist kein gültiger <see cref="T:System.IO.HandleInheritability" />-Enumerationswert.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">Der angeforderte Zugriff ist für die dem Speicher zugeordnete Datei ungültig.</exception>
+      <exception cref="T:System.IO.FileNotFoundException">Die für <paramref name="mapName" /> angegebene Datei ist nicht vorhanden.</exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedFile.SafeMemoryMappedFileHandle">
+      <summary>Ruft das Dateihandle einer Speicherabbilddatei ab.</summary>
+      <returns>Das Handle für die Speicherabbilddatei.</returns>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess">
+      <summary>Gibt Zugriffsfunktionen und -einschränkungen für eine Speicherabbilddatei oder eine Ansicht an. </summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.CopyOnWrite">
+      <summary>Lese- und Schreibzugriff auf die Datei, wobei die Einschränkung gilt, dass Schreibvorgänge für andere Prozesse nicht sichtbar sind. </summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Read">
+      <summary>Schreibgeschützter Zugriff auf die Datei.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadExecute">
+      <summary>Lesezugriff auf die Datei, in der ausführbarer Code gespeichert und ausgeführt werden kann.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite">
+      <summary>Lese- und Schreibzugriff auf die Datei.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWriteExecute">
+      <summary>Lese- und Schreibzugriff auf die Datei, in der ausführbarer Code gespeichert und ausgeführt werden kann.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.Write">
+      <summary>Lesegeschützter Zugriff auf die Datei.</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileOptions">
+      <summary>Stellt Speicherbelegungsoptionen für Speicherabbilddateien bereit.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileOptions.DelayAllocatePages">
+      <summary>Die Speicherbelegung wird verzögert, bis mit der <see cref="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewAccessor" />-Methode oder der <see cref="M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateViewStream" />-Methode eine Ansicht erstellt wird.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileOptions.None">
+      <summary>Es werden keine Speicherbelegungsoptionen übernommen.</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedFileRights">
+      <summary>Gibt Zugriffsrechte für eine Speicherabbilddatei an, die keiner Datei auf dem Datenträger zugeordnet ist.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.AccessSystemSecurity">
+      <summary>Das Recht zum Abrufen oder Festlegen von Berechtigungen für eine Datei.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ChangePermissions">
+      <summary>Das Recht, die einer Datei zugeordneten Sicherheits- und Überwachungsregeln zu ändern.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.CopyOnWrite">
+      <summary>Das Recht, Lese- und Schreibvorgänge für eine Datei auszuführen, wobei die Einschränkung gilt, dass Schreibvorgänge für andere Prozesse nicht sichtbar sind.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Delete">
+      <summary>Das Recht, eine Datei zu löschen.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Execute">
+      <summary>Das Recht, eine Anwendungsdatei auszuführen.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.FullControl">
+      <summary>Das Recht, die vollständige Kontrolle über eine Datei auszuüben und die Zugriffssteuerungs- und Überwachungsregeln zu ändern.Dieser Wert stellt die Berechtigung dar, jede mögliche Aktion für diese Datei durchzuführen. Er ist eine Kombination aller Werte dieser Enumeration.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Read">
+      <summary>Das Recht, eine Datei schreibgeschützt zu öffnen und zu kopieren.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadExecute">
+      <summary>Das Recht, einen Ordner oder eine Datei schreibgeschützt zu öffnen und zu kopieren sowie Anwendungsdateien auszuführen.Diese Berechtigung schließt die <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Read" />-Berechtigung und die <see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Execute" />-Berechtigung ein.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadPermissions">
+      <summary>Das Recht, die Zugriffs- und Überwachungsregeln einer Datei zu öffnen und zu kopieren.Dies schließt nicht die Berechtigung ein, Daten, Dateisystemattribute oder erweiterte Dateisystemattribute zu lesen.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadWrite">
+      <summary>Das Recht, eine Datei zu öffnen und zu kopieren und das Recht, einer Datei Daten hinzuzufügen bzw. Daten aus der Datei zu entfernen.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.ReadWriteExecute">
+      <summary>Das Recht, eine Datei zu öffnen und zu kopieren, das Recht, einer Datei Daten hinzuzufügen bzw. Daten aus der Datei zu entfernen sowie das Recht, eine Anwendungsdatei auszuführen.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.TakeOwnership">
+      <summary>Das Recht, den Besitzer einer Datei zu ändern.</summary>
+    </member>
+    <member name="F:System.IO.MemoryMappedFiles.MemoryMappedFileRights.Write">
+      <summary>Das Recht, einer Datei Daten hinzuzufügen und Daten aus der Datei zu entfernen.</summary>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor">
+      <summary>Stellt per wahlfreiem Zugriff aufgerufene Ansicht einer Speicherabbilddatei dar.</summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.Flush">
+      <summary>Löscht sämtliche Puffer für diese Ansicht und veranlasst die Ausgabe aller gepufferten Daten in der zugrunde liegenden Datei.</summary>
+      <exception cref="T:System.ObjectDisposedException">Es wurden Methoden aufgerufen, nachdem der Accessor geschlossen wurde.</exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.PointerOffset">
+      <summary>[Unterstützt in .NET Framework 4.5.1 und höheren Versionen] Ruft die Anzahl von Bytes ab, von der die Anfangsposition dieser Ansicht vom Beginn der speicherzugeordneten Datei versetzt ist. </summary>
+      <returns>Die Anzahl der Bytes zwischen der Startposition dieser Ansicht und dem Beginn der Speicherzuordnungsdatei. </returns>
+      <exception cref="T:System.InvalidOperationException">Das -Objekt, von dem dieses Instanz erstellt wurde ist null. </exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewAccessor.SafeMemoryMappedViewHandle">
+      <summary>Ruft ein Handle für die Ansicht einer Speicherabbilddatei ab.</summary>
+      <returns>Ein Wrapper für das Betriebssystemhandle für die Ansicht der Datei. </returns>
+    </member>
+    <member name="T:System.IO.MemoryMappedFiles.MemoryMappedViewStream">
+      <summary>Stellt eine Ansicht einer Speicherabbilddatei als Stream mit sequentiellem Zugriff dar.</summary>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewStream.Flush">
+      <summary>Löscht sämtliche Puffer für diesen Stream und veranlasst die Ausgabe aller gepufferten Daten in der zugrunde liegenden Datei.</summary>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewStream.PointerOffset">
+      <summary>[Unterstützt in .NET Framework 4.5.1 und höheren Versionen] Ruft die Anzahl von Bytes ab, von der die Anfangsposition dieser Ansicht vom Beginn der speicherzugeordneten Datei versetzt ist.</summary>
+      <returns>Die Anzahl der Bytes zwischen der Startposition dieser Ansicht und dem Beginn der Speicherzuordnungsdatei. </returns>
+      <exception cref="T:System.InvalidOperationException">Das -Objekt, von dem dieses Instanz erstellt wurde ist null. </exception>
+    </member>
+    <member name="P:System.IO.MemoryMappedFiles.MemoryMappedViewStream.SafeMemoryMappedViewHandle">
+      <summary>Ruft ein Handle für die Ansicht einer Speicherabbilddatei ab.</summary>
+      <returns>Ein Wrapper für das Betriebssystemhandle für die Ansicht der Datei. </returns>
+    </member>
+    <member name="M:System.IO.MemoryMappedFiles.MemoryMappedViewStream.SetLength(System.Int64)">
+      <summary>Legt die Länge des aktuellen Streams fest.</summary>
+      <param name="value">Die gewünschte Länge des aktuellen Streams in Bytes.</param>
+      <exception cref="T:System.NotSupportedException">Diese Methode wird nicht unterstützt.</exception>
+    </member>
+  </members>
+</doc>

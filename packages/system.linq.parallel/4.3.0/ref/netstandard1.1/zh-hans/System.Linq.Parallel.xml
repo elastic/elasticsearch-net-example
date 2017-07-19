@@ -1,0 +1,2619 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Linq.Parallel</name>
+  </assembly>
+  <members>
+    <member name="T:System.Linq.OrderedParallelQuery`1">
+      <summary>表示已排序的并行序列。</summary>
+      <typeparam name="TSource">源集合中的元素的类型。</typeparam>
+    </member>
+    <member name="M:System.Linq.OrderedParallelQuery`1.GetEnumerator">
+      <summary>返回循环访问序列的枚举数。</summary>
+      <returns>循环访问序列的枚举数。</returns>
+    </member>
+    <member name="T:System.Linq.ParallelEnumerable">
+      <summary>提供一组用于查询实现 ParallelQuery{TSource} 的对象的方法。这是 <see cref="T:System.Linq.Enumerable" /> 的并行等效项。</summary>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Aggregate``3(System.Linq.ParallelQuery{``0},System.Func{``1},System.Func{``1,``0,``1},System.Func{``1,``1,``1},System.Func{``1,``2})">
+      <summary>对一个序列并行应用累加器函数。此重载在顺序实现中不可用。</summary>
+      <returns>已转换的累加器最终值。</returns>
+      <param name="source">要对其进行聚合的序列。</param>
+      <param name="seedFactory">一个返回初始累加器值的函数。</param>
+      <param name="updateAccumulatorFunc">要对分区中的每个元素调用的累加器函数。</param>
+      <param name="combineAccumulatorsFunc">要对每个分区中已生成的累加器结果调用的累加器函数。</param>
+      <param name="resultSelector">将累加器的最终值转换为结果值的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TAccumulate">累加器值的类型。</typeparam>
+      <typeparam name="TResult">结果值的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="seedFactory" /> 或 <paramref name="updateAccumulatorFunc" /> 或 <paramref name="combineAccumulatorsFunc" /> 或 <paramref name="resultSelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Aggregate``1(System.Linq.ParallelQuery{``0},System.Func{``0,``0,``0})">
+      <summary>对一个序列并行应用累加器函数。</summary>
+      <returns>累加器的最终值。</returns>
+      <param name="source">要对其进行聚合的序列。</param>
+      <param name="func">要对每个元素调用的累加器函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="func" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Aggregate``2(System.Linq.ParallelQuery{``0},``1,System.Func{``1,``0,``1})">
+      <summary>对一个序列并行应用累加器函数。将指定的种子值用作累加器初始值。</summary>
+      <returns>累加器的最终值。</returns>
+      <param name="source">要对其进行聚合的序列。</param>
+      <param name="seed">累加器的初始值。</param>
+      <param name="func">要对每个元素调用的累加器函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TAccumulate">累加器值的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="func" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Aggregate``3(System.Linq.ParallelQuery{``0},``1,System.Func{``1,``0,``1},System.Func{``1,``2})">
+      <summary>对一个序列并行应用累加器函数。将指定的种子值用作累加器的初始值，并使用指定的函数选择结果值。</summary>
+      <returns>已转换的累加器最终值。</returns>
+      <param name="source">要对其进行聚合的序列。</param>
+      <param name="seed">累加器的初始值。</param>
+      <param name="func">要对每个元素调用的累加器函数。</param>
+      <param name="resultSelector">将累加器的最终值转换为结果值的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TAccumulate">累加器值的类型。</typeparam>
+      <typeparam name="TResult">结果值的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="func" /> 或 <paramref name="resultSelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Aggregate``3(System.Linq.ParallelQuery{``0},``1,System.Func{``1,``0,``1},System.Func{``1,``1,``1},System.Func{``1,``2})">
+      <summary>对一个序列并行应用累加器函数。此重载在顺序实现中不可用。</summary>
+      <returns>已转换的累加器最终值。</returns>
+      <param name="source">要对其进行聚合的序列。</param>
+      <param name="seed">累加器的初始值。</param>
+      <param name="updateAccumulatorFunc">要对分区中的每个元素调用的累加器函数。</param>
+      <param name="combineAccumulatorsFunc">要对每个分区中已生成的累加器结果调用的累加器函数。</param>
+      <param name="resultSelector">将累加器的最终值转换为结果值的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TAccumulate">累加器值的类型。</typeparam>
+      <typeparam name="TResult">结果值的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="updateAccumulatorFunc" /> 或 <paramref name="combineAccumulatorsFunc" /> 或 <paramref name="resultSelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.All``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>并行确定序列中的所有元素是否都满足条件。</summary>
+      <returns>如果源序列中的每个元素都通过指定谓词中的测试，或者序列为空，则为 true；否则为 false。</returns>
+      <param name="source">要对其应用谓词的元素所在的序列。</param>
+      <param name="predicate">用于测试每个元素是否满足条件的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Any``1(System.Linq.ParallelQuery{``0})">
+      <summary>确定并行序列是否包含任何元素。</summary>
+      <returns>如果源序列包含任何元素，则为 true；否则为 false。</returns>
+      <param name="source">要检查是否为空的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Any``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>并行确定序列中的任何元素是否都满足条件。</summary>
+      <returns>如果源序列中的任何元素都通过指定谓词中的测试，则为 true；否则为 false。</returns>
+      <param name="source">将对其元素应用谓词的序列。</param>
+      <param name="predicate">用于测试每个元素是否满足条件的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.AsEnumerable``1(System.Linq.ParallelQuery{``0})">
+      <summary>将 <see cref="T:System.Linq.ParallelQuery`1" /> 转换为 <see cref="T:System.Collections.Generic.IEnumerable`1" /> 以强制对查询进行顺序计算。</summary>
+      <returns>类型为 <see cref="T:System.Collections.Generic.IEnumerable`1" /> 的输入序列。</returns>
+      <param name="source">要强制转换为 <see cref="T:System.Collections.Generic.IEnumerable`1" /> 的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.AsOrdered(System.Linq.ParallelQuery)">
+      <summary>启用将数据源视为“已经排序”的处理方法，重写默认的将数据源视为“未经排序”的处理方法。只可以对由 AsParallel、ParallelEnumerable.Range 和 ParallelEnumerable.Repeat 返回的非泛型序列调用 AsOrdered。</summary>
+      <returns>将要维护后续查询运算符中的原始排序的源序列。</returns>
+      <param name="source">输入序列。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.InvalidOperationException">如果 <paramref name="source" /> 中不包含任何元素则会引发- 或 -在 AsOrdered 通过查询调用舍入时引发。他被允许在 <see cref="M:System.Linq.ParallelEnumerable.AsParallel(System.Collections.IEnumerable)" />，<see cref="M:System.Linq.ParallelEnumerable.Range(System.Int32,System.Int32)" /> 或 <see cref="M:System.Linq.ParallelEnumerable.Repeat``1(``0,System.Int32)" /> 之后立即调用。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.AsOrdered``1(System.Linq.ParallelQuery{``0})">
+      <summary>启用将数据源视为“已经排序”的处理方法，重写默认的将数据源视为“未经排序”的处理方法。只可以对由 AsParallel、ParallelEnumerable.Range 和 ParallelEnumerable.Repeat 返回的泛型序列调用 AsOrdered。</summary>
+      <returns>将要维护后续查询运算符中的原始排序的源序列。</returns>
+      <param name="source">输入序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.InvalidOperationException">如果 <paramref name="source" /> 中不包含任何元素则会引发- 或 -<paramref name="source" /> 不是 AsParallel、ParallelEnumerable.Range 或 ParallelEnumerable.Repeat 之一时引发。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.AsParallel``1(System.Collections.Concurrent.Partitioner{``0})">
+      <summary>启用查询的并行化，并由负责将输入序列拆分成各个分区的自定义分区程序指明其出处。</summary>
+      <returns>作为要绑定到 ParallelEnumerable 扩展方法的 ParallelQuery 的 <paramref name="source" />。</returns>
+      <param name="source">基于输入序列的分区程序。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.AsParallel``1(System.Collections.Generic.IEnumerable{``0})">
+      <summary>启用查询的并行化。</summary>
+      <returns>作为要绑定到 ParallelEnumerable 扩展方法的 <see cref="T:System.Linq.ParallelQuery`1" /> 的源。</returns>
+      <param name="source">An <see cref="T:System.Collections.Generic.IEnumerable`1" /> to convert to a <see cref="T:System.Linq.ParallelQuery`1" />.</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.AsParallel(System.Collections.IEnumerable)">
+      <summary>启用查询的并行化。</summary>
+      <returns>作为要绑定到 ParallelEnumerable 扩展方法的 ParallelQuery 的源。</returns>
+      <param name="source">要转换为 <see cref="T:System.Linq.ParallelQuery" /> 的 <see cref="T:System.Collections.Generic.IEnumerable`1" />。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.AsSequential``1(System.Linq.ParallelQuery{``0})">
+      <summary>将 <see cref="T:System.Linq.ParallelQuery`1" /> 转换为 <see cref="T:System.Collections.Generic.IEnumerable`1" /> 以强制对查询进行顺序计算。</summary>
+      <returns>作为要绑定到顺序扩展方法的 <see cref="T:System.Collections.Generic.IEnumerable`1" /> 的源。</returns>
+      <param name="source">要转换为 <see cref="T:System.Collections.Generic.IEnumerable`1" /> 的 <see cref="T:System.Linq.ParallelQuery`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.AsUnordered``1(System.Linq.ParallelQuery{``0})">
+      <summary>允许将中间查询视为元素之间未应用任何排序。</summary>
+      <returns>具有任意顺序的源序列。</returns>
+      <param name="source">输入序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Decimal})">
+      <summary>并行计算一个值序列的平均值。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Double})">
+      <summary>并行计算一个值序列的平均值。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Int32})">
+      <summary>并行计算一个值序列的平均值。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">序列中元素之和或数量大于 <see cref="F:System.Int32.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Int64})">
+      <summary>并行计算一个值序列的平均值。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">序列中元素之和或数量大于 <see cref="F:System.Int32.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Nullable{System.Decimal}})">
+      <summary>并行计算一个值序列的平均值。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Nullable{System.Double}})">
+      <summary>并行计算一个值序列的平均值。</summary>
+      <returns>返回值序列的平均值。</returns>
+      <param name="source">源序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">用于计算平均值的值序列。值序列的平均值。<paramref name="source" /> 是一个空引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Nullable{System.Int32}})">
+      <summary>并行计算一个值序列的平均值。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">序列中元素之和或数量大于 <see cref="F:System.Int32.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Nullable{System.Int64}})">
+      <summary>并行计算一个值序列的平均值。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">序列中元素之和或数量大于 <see cref="F:System.Int32.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Nullable{System.Single}})">
+      <summary>并行计算一个值序列的平均值。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average(System.Linq.ParallelQuery{System.Single})">
+      <summary>并行计算一个值序列的平均值。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Decimal})">
+      <summary>并行计算一个值序列的平均值，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+      <exception cref="T:System.OverflowException">（在 <see cref="T:System.AggregateException" /> 中作为内部异常引发）。<paramref name="selector" /> 函数返回一个大于元素类型的 MaxValue 的值。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Double})">
+      <summary>并行计算一个值序列的平均值，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+      <exception cref="T:System.OverflowException">（在 <see cref="T:System.AggregateException" /> 中作为内部异常引发）。<paramref name="selector" /> 函数返回一个大于元素类型的 MaxValue 的值。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32})">
+      <summary>并行计算一个值序列的平均值，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">序列中元素之和或数量大于 <see cref="F:System.Int32.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+      <exception cref="T:System.OverflowException">（在 <see cref="T:System.AggregateException" /> 中作为内部异常引发）。<paramref name="selector" /> 函数返回一个大于元素类型的 MaxValue 的值。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int64})">
+      <summary>并行计算一个值序列的平均值，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">序列中元素之和或数量大于 <see cref="F:System.Int32.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+      <exception cref="T:System.OverflowException">（在 <see cref="T:System.AggregateException" /> 中作为内部异常引发）。<paramref name="selector" /> 函数返回一个大于元素类型的 MaxValue 的值。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Decimal}})">
+      <summary>并行计算一个值序列的平均值，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+      <exception cref="T:System.OverflowException">（在 <see cref="T:System.AggregateException" /> 中作为内部异常引发）。<paramref name="selector" /> 函数返回一个大于元素类型的 MaxValue 的值。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Double}})">
+      <summary>并行计算一个值序列的平均值，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+      <exception cref="T:System.OverflowException">（在 <see cref="T:System.AggregateException" /> 中作为内部异常引发）。<paramref name="selector" /> 函数返回一个大于元素类型的 MaxValue 的值。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Int32}})">
+      <summary>并行计算一个值序列的平均值，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">序列中元素之和或数量大于 <see cref="F:System.Int32.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+      <exception cref="T:System.OverflowException">（在 <see cref="T:System.AggregateException" /> 中作为内部异常引发）。<paramref name="selector" /> 函数返回一个大于元素类型的 MaxValue 的值。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Int64}})">
+      <summary>并行计算一个值序列的平均值，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">序列中元素之和或数量大于 <see cref="F:System.Int64.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+      <exception cref="T:System.OverflowException">（在 <see cref="T:System.AggregateException" /> 中作为内部异常引发）。<paramref name="selector" /> 函数返回一个大于元素类型的 MaxValue 的值。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Single}})">
+      <summary>并行计算一个值序列的平均值，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+      <exception cref="T:System.OverflowException">（在 <see cref="T:System.AggregateException" /> 中作为内部异常引发）。<paramref name="selector" /> 函数返回一个大于元素类型的 MaxValue 的值。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Average``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Single})">
+      <summary>并行计算一个值序列的平均值，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>值序列的平均值。</returns>
+      <param name="source">用于计算平均值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+      <exception cref="T:System.OverflowException">（在 <see cref="T:System.AggregateException" /> 中作为内部异常引发）。<paramref name="selector" /> 函数返回一个大于元素类型的 MaxValue 的值。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Cast``1(System.Linq.ParallelQuery)">
+      <summary>将 ParallelQuery 的元素转换为指定的类型。</summary>
+      <returns>一个序列，其中包含已转换为指定类型的源序列的每个元素。</returns>
+      <param name="source">包含要转换的元素的序列。</param>
+      <typeparam name="TResult">
+        <paramref name="source" /> 中的元素要转换成的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.InvalidCastException">源序列的类型不能转换为 <paramref name="TResult" />。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Concat``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0})">
+      <summary>切勿调用此 Concat 重载。此方法已标记为过时，调用此方法时总是会引发 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>此重载总是会引发 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">未使用此参数。</param>
+      <param name="second">未使用此参数。</param>
+      <typeparam name="TSource">未使用此类型参数。</typeparam>
+      <exception cref="T:System.NotSupportedException">调用此方法时发生的异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Concat``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0})">
+      <summary>连接两个并行序列。</summary>
+      <returns>一个序列，其中包含两个输入序列的已连接元素。</returns>
+      <param name="first">要连接的第一个序列。</param>
+      <param name="second">要与第一个序列连接的序列。</param>
+      <typeparam name="TSource">输入序列中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="first" /> 或 <paramref name="second" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Contains``1(System.Linq.ParallelQuery{``0},``0)">
+      <summary>通过使用默认的相等比较器，并行确定某个序列是否包含指定的元素。</summary>
+      <returns>如果源序列包含具有指定值的元素，则为 true；否则为 false。</returns>
+      <param name="source">要在其中定位某个值的序列。</param>
+      <param name="value">要在序列中定位的值。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Contains``1(System.Linq.ParallelQuery{``0},``0,System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>通过使用指定的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> 来并行确定序列是否包含指定的元素。</summary>
+      <returns>如果源序列包含具有指定值的元素，则为 true；否则为 false。</returns>
+      <param name="source">要在其中定位某个值的序列。</param>
+      <param name="value">要在序列中定位的值。</param>
+      <param name="comparer">一个对值进行比较的相等比较器。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Count``1(System.Linq.ParallelQuery{``0})">
+      <summary>返回并行序列中的元素数量。</summary>
+      <returns>输入序列中的元素数量。</returns>
+      <param name="source">包含要计数的元素的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">源中的元素数大于 <see cref="F:System.Int32.MaxValue" />。（在这种情况下 InnerException 为 <see cref="T:System.OverflowException" />）- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Count``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>返回一个数字，表示在指定的并行序列中满足条件的元素数量。</summary>
+      <returns>一个数字，表示序列中满足谓词函数条件的元素数量。</returns>
+      <param name="source">包含要计数的元素的序列。</param>
+      <param name="predicate">用于测试每个元素是否满足条件的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">源中的元素数大于 <see cref="F:System.Int32.MaxValue" />。（在这种情况下 InnerException 为 <see cref="T:System.OverflowException" />）- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.DefaultIfEmpty``1(System.Linq.ParallelQuery{``0})">
+      <summary>返回指定的并行序列的元素；如果序列为空，则返回单一实例集合中的类型参数的默认值。</summary>
+      <returns>如果 <paramref name="source" /> 为空，则为包含 default(TSource) 的序列；否则为 <paramref name="source" />。</returns>
+      <param name="source">序列为空时返回默认值的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.DefaultIfEmpty``1(System.Linq.ParallelQuery{``0},``0)">
+      <summary>返回指定的并行序列中的元素；如果序列为空，则返回单一实例集合中的指定值。</summary>
+      <returns>如果 <paramref name="source" /> 为空，则为包含 defaultValue 的序列；否则为 <paramref name="source" />。</returns>
+      <param name="source">序列为空时返回指定值的序列。</param>
+      <param name="defaultValue">序列为空时要返回的值。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Distinct``1(System.Linq.ParallelQuery{``0})">
+      <summary>通过使用默认的相等比较器对值进行比较，返回并行序列中的非重复元素。</summary>
+      <returns>一个序列，其中包含源序列中的非重复元素。</returns>
+      <param name="source">要从中移除重复元素的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Distinct``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>通过使用指定的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> 对值进行比较返回并行序列中的非重复元素。</summary>
+      <returns>一个序列，其中包含源序列中的非重复元素。</returns>
+      <param name="source">要从中移除重复元素的序列。</param>
+      <param name="comparer">用于比较值的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ElementAt``1(System.Linq.ParallelQuery{``0},System.Int32)">
+      <summary>返回并行序列中指定索引处的元素。</summary>
+      <returns>源序列中指定位置处的元素。</returns>
+      <param name="source">要从中返回元素的序列。</param>
+      <param name="index">要检索的从零开始的元素索引。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="index" /> 小于零或大于等于 <paramref name="source" /> 中的元素数量。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ElementAtOrDefault``1(System.Linq.ParallelQuery{``0},System.Int32)">
+      <summary>返回并行序列中指定索引处的元素；如果索引超出范围，则返回默认值。</summary>
+      <returns>如果索引超出源序列的范围，则为 default(TSource)；否则为源序列中指定位置处的元素。</returns>
+      <param name="source">要从中返回元素的序列。</param>
+      <param name="index">要检索的从零开始的元素索引。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Empty``1">
+      <summary>返回一个具有指定的类型参数的空 ParallelQuery{TResult}。</summary>
+      <returns>一个空序列，其类型参数为 <paramref name="TResult" />。</returns>
+      <typeparam name="TResult">要分配给返回的泛型序列的类型参数的类型。</typeparam>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Except``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0})">
+      <summary>切勿调用此 Except 重载。此方法已标记为过时，调用此方法时总是会引发 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>此重载总是会引发 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">未使用此参数。</param>
+      <param name="second">未使用此参数。</param>
+      <typeparam name="TSource">未使用此类型参数。</typeparam>
+      <exception cref="T:System.NotSupportedException">调用此方法时发生的异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Except``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>切勿调用此 Except 重载。此方法已标记为过时，调用此方法时总是会引发 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>此重载总是会引发 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">未使用此参数。</param>
+      <param name="second">未使用此参数。</param>
+      <param name="comparer">未使用此参数。</param>
+      <typeparam name="TSource">未使用此类型参数。</typeparam>
+      <exception cref="T:System.NotSupportedException">调用此方法时发生的异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Except``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0})">
+      <summary>通过使用默认的相等比较器对值进行比较，生成两个并行序列的差集。</summary>
+      <returns>包含这两个序列的元素的差集的序列。</returns>
+      <param name="first">一个序列，其中的未同时出现在 <paramref name="second" /> 中的元素将会返回。</param>
+      <param name="second">一个序列，其中的元素如果同时出现在第一个序列中，则将导致从返回的序列中移除这些元素。</param>
+      <typeparam name="TSource">输入序列中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="first" /> 或 <paramref name="second" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Except``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>通过使用指定的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> 对值进行比较产生两个并行序列的差集。</summary>
+      <returns>包含这两个序列的元素的差集的序列。</returns>
+      <param name="first">一个序列，其中的未同时出现在 <paramref name="second" /> 中的元素将会返回。</param>
+      <param name="second">一个序列，其中的元素如果同时出现在第一个序列中，则将导致从返回的序列中移除这些元素。 </param>
+      <param name="comparer">用于比较值的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">输入序列中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="first" /> 或 <paramref name="second" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.First``1(System.Linq.ParallelQuery{``0})">
+      <summary>返回并行序列中的第一个元素。</summary>
+      <returns>返回指定序列中的第一个元素。</returns>
+      <param name="source">要返回其第一个元素的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.First``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>返回并行序列中满足指定条件的第一个元素。</summary>
+      <returns>序列中通过指定谓词函数中的测试的第一个元素。</returns>
+      <param name="source">要从中返回元素的序列。</param>
+      <param name="predicate">用于测试每个元素是否满足条件的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中没有元素满足 <paramref name="predicate" /> 中的条件。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.FirstOrDefault``1(System.Linq.ParallelQuery{``0})">
+      <summary>返回并行序列中的第一个元素；如果该序列中不包含任何元素，则返回默认值。</summary>
+      <returns>如果 <paramref name="source" /> 为空，则返回 default(TSource)；否则返回 <paramref name="source" /> 中的第一个元素。</returns>
+      <param name="source">要返回其第一个元素的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.FirstOrDefault``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>返回并行序列中满足条件的第一个元素；如果未找到这样的元素，则返回默认值。</summary>
+      <returns>如果 <paramref name="source" /> 为空或没有元素通过 predicate 指定的测试，则返回 default(TSource)，否则返回 <paramref name="source" /> 中通过 predicate 指定的测试的第一个元素。</returns>
+      <param name="source">要从中返回元素的序列。</param>
+      <param name="predicate">用于测试每个元素是否满足条件的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ForAll``1(System.Linq.ParallelQuery{``0},System.Action{``0})">
+      <summary>对 <paramref name="source" /> 中的每个元素并行调用指定的操作。</summary>
+      <param name="source">其元素将由 <paramref name="action" /> 处理的 <see cref="T:System.Linq.ParallelQuery`1" />。</param>
+      <param name="action">要对每个元素调用的操作。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupBy``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1})">
+      <summary>根据指定的键选择器函数对序列中的元素进行并行分组。</summary>
+      <returns>依照 <paramref name="TKey" /> 按降序排列的组序列。</returns>
+      <param name="source">一个 OrderedParallelQuery{TSource}，包含要排序的元素。</param>
+      <param name="keySelector">用于从元素中提取键的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupBy``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
+      <summary>根据指定的键选择器函数对序列中的元素进行并行分组，并使用指定的 <see cref="T:System.Collections.Generic.IComparer`1" /> 对键进行比较。</summary>
+      <returns>依照 <paramref name="TKey" /> 按降序排列的组序列。</returns>
+      <param name="source">一个 <see cref="T:System.Linq.OrderedParallelQuery`1" />，包含要排序的元素。</param>
+      <param name="keySelector">用于从元素中提取键的函数。</param>
+      <param name="comparer">一个用于比较键的 <see cref="T:System.Collections.Generic.IComparer`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupBy``3(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``0,``2})">
+      <summary>根据指定的键选择器函数对序列中的元素进行并行分组，并且通过使用指定的函数对每个组中的元素进行投影。</summary>
+      <returns>依照 <paramref name="TKey" /> 按降序排列的组序列。</returns>
+      <param name="source">一个 <see cref="T:System.Linq.OrderedParallelQuery`1" />，包含要排序的元素。</param>
+      <param name="keySelector">用于从元素中提取键的函数。</param>
+      <param name="elementSelector">用于将每个源元素映射到 <see cref="T:System.Linq.IGrouping`2" /> 中的元素的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <typeparam name="TElement">
+        <see cref="T:System.Linq.IGrouping`2" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupBy``3(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1})">
+      <summary>根据键选择器函数对序列中的元素进行并行分组。通过使用比较器对键进行比较，并且通过使用指定的函数对每个组的元素进行投影。</summary>
+      <returns>依照 <paramref name="TKey" /> 按降序排列的组序列。</returns>
+      <param name="source">一个 OrderedParallelQuery{TSource}，包含要排序的元素。</param>
+      <param name="keySelector">用于从元素中提取键的函数。</param>
+      <param name="elementSelector">用于将每个源元素映射到 IGrouping 中的元素的函数。</param>
+      <param name="comparer">一个用于比较键的 IComparer{TSource}。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <typeparam name="TElement">IGrouping 中的元素的类型</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupBy``4(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``0,``2},System.Func{``1,System.Collections.Generic.IEnumerable{``2},``3})">
+      <summary>根据指定的键选择器函数对序列中的元素进行并行分组，并且从每个组及其键中创建结果值。通过使用指定的函数对每个组的元素进行投影。</summary>
+      <returns>
+        <paramref name="TResult" /> 类型的元素的序列，其中每个元素都表示对一个组及其键的投影。</returns>
+      <param name="source">要对其元素进行分组的序列。</param>
+      <param name="keySelector">用于提取每个元素的键的函数。</param>
+      <param name="elementSelector">用于将每个源元素映射到 IGrouping&lt;TKey, TElement&gt; 中的元素的函数。</param>
+      <param name="resultSelector">用于从每个组中创建结果值的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <typeparam name="TElement">每个 IGrouping{TKey, TElement} 中的元素的类型。</typeparam>
+      <typeparam name="TResult">
+        <paramref name="resultSelector" /> 返回的结果值的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupBy``4(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``0,``2},System.Func{``1,System.Collections.Generic.IEnumerable{``2},``3},System.Collections.Generic.IEqualityComparer{``1})">
+      <summary>根据指定的键选择器函数对序列中的元素进行分组，并且从每个组及其键中创建结果值。通过使用指定的比较器对键值进行比较，并且通过使用指定的函数对每个组的元素进行投影。</summary>
+      <returns>
+        <paramref name="TResult" /> 类型的元素的序列，其中每个元素都表示对一个组及其键的投影。</returns>
+      <param name="source">要对其元素进行分组的序列。</param>
+      <param name="keySelector">用于提取每个元素的键的函数。</param>
+      <param name="elementSelector">用于将每个源元素映射到 IGrouping{Key, TElement} 中的元素的函数。</param>
+      <param name="resultSelector">用于从每个组中创建结果值的函数。</param>
+      <param name="comparer">一个用于比较键的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <typeparam name="TElement">每个 IGrouping{TKey, TElement} 中的元素的类型。</typeparam>
+      <typeparam name="TResult">
+        <paramref name="resultSelector" /> 返回的结果值的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupBy``3(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``1,System.Collections.Generic.IEnumerable{``0},``2})">
+      <summary>根据指定的键选择器函数对序列中的元素进行并行分组，并且从每个组及其键中创建结果值。</summary>
+      <returns>
+        <paramref name="TResult" /> 类型的元素的序列，其中每个元素都表示对一个组及其键的投影。</returns>
+      <param name="source">要对其元素进行分组的序列。</param>
+      <param name="keySelector">用于提取每个元素的键的函数。</param>
+      <param name="resultSelector">用于从每个组中创建结果值的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <typeparam name="TResult">
+        <paramref name="resultSelector" /> 返回的结果值的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupBy``3(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``1,System.Collections.Generic.IEnumerable{``0},``2},System.Collections.Generic.IEqualityComparer{``1})">
+      <summary>根据指定的键选择器函数对序列中的元素进行并行分组，并且从每个组及其键中创建结果值。通过使用指定的比较器对键进行比较。</summary>
+      <returns>一个组序列。</returns>
+      <param name="source">要对其元素进行分组的序列。</param>
+      <param name="keySelector">用于提取每个元素的键的函数。</param>
+      <param name="resultSelector">用于从每个组中创建结果值的函数。</param>
+      <param name="comparer">一个用于比较键的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <typeparam name="TResult">
+        <paramref name="resultSelector" /> 返回的结果值的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupJoin``4(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,System.Collections.Generic.IEnumerable{``1},``3})">
+      <summary>切勿调用此 GroupJoin 重载。此方法已标记为过时，调用此方法时总是会引发 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>此重载总是会引发 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="outer">未使用此参数。</param>
+      <param name="inner">未使用此参数。</param>
+      <param name="outerKeySelector">未使用此参数。</param>
+      <param name="innerKeySelector">未使用此参数。</param>
+      <param name="resultSelector">未使用此参数。</param>
+      <typeparam name="TOuter">未使用此类型参数。</typeparam>
+      <typeparam name="TInner">未使用此类型参数。</typeparam>
+      <typeparam name="TKey">未使用此类型参数。</typeparam>
+      <typeparam name="TResult">未使用此类型参数。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupJoin``4(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,System.Collections.Generic.IEnumerable{``1},``3},System.Collections.Generic.IEqualityComparer{``2})">
+      <summary>切勿调用此 GroupJoin 重载。此方法已标记为过时，调用此方法时总是会引发 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>此重载总是会引发 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="outer">未使用此参数。</param>
+      <param name="inner">未使用此参数。</param>
+      <param name="outerKeySelector">未使用此参数。</param>
+      <param name="innerKeySelector">未使用此参数。</param>
+      <param name="resultSelector">未使用此参数。</param>
+      <param name="comparer">未使用此参数。</param>
+      <typeparam name="TOuter">未使用此类型参数。</typeparam>
+      <typeparam name="TInner">未使用此类型参数。</typeparam>
+      <typeparam name="TKey">未使用此类型参数。</typeparam>
+      <typeparam name="TResult">未使用此类型参数。</typeparam>
+      <exception cref="T:System.NotSupportedException">调用此方法时发生的异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupJoin``4(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,System.Collections.Generic.IEnumerable{``1},``3})">
+      <summary>基于键相等对两个序列的元素进行并行关联并对结果进行分组。使用默认的相等比较器对键进行比较。</summary>
+      <returns>一个序列，其中包含通过对两个序列执行分组联接获得的 <paramref name="TResult" /> 类型的元素。</returns>
+      <param name="outer">要联接的第一个序列。</param>
+      <param name="inner">要与第一个序列联接的序列。</param>
+      <param name="outerKeySelector">用于从第一个序列的每个元素提取联接键的函数。</param>
+      <param name="innerKeySelector">用于从第二个序列的每个元素提取联接键的函数。</param>
+      <param name="resultSelector">用于从第一个序列的元素和第二个序列的匹配元素集合中创建结果元素的函数。</param>
+      <typeparam name="TOuter">第二个序列中的元素的类型。</typeparam>
+      <typeparam name="TInner">第一个序列中的元素的类型。</typeparam>
+      <typeparam name="TKey">键选择器函数返回的键的类型。</typeparam>
+      <typeparam name="TResult">结果元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.GroupJoin``4(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,System.Collections.Generic.IEnumerable{``1},``3},System.Collections.Generic.IEqualityComparer{``2})">
+      <summary>基于键相等对两个序列的元素进行并行关联并对结果进行分组。使用指定的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> 对键进行比较。</summary>
+      <returns>一个序列，其中包含通过对两个序列执行分组联接获得的 <paramref name="TResult" /> 类型的元素。</returns>
+      <param name="outer">要联接的第一个序列。</param>
+      <param name="inner">要与第一个序列联接的序列。</param>
+      <param name="outerKeySelector">用于从第一个序列的每个元素提取联接键的函数。</param>
+      <param name="innerKeySelector">用于从第二个序列的每个元素提取联接键的函数。</param>
+      <param name="resultSelector">用于从第一个序列的元素和第二个序列的匹配元素集合中创建结果元素的函数。</param>
+      <param name="comparer">一个 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />，用于对键进行哈希处理和比较。</param>
+      <typeparam name="TOuter">第二个序列中的元素的类型。</typeparam>
+      <typeparam name="TInner">第一个序列中的元素的类型。</typeparam>
+      <typeparam name="TKey">键选择器函数返回的键的类型。</typeparam>
+      <typeparam name="TResult">结果元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Intersect``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0})">
+      <summary>切勿调用此 Intersect 重载。此方法已标记为过时，调用此方法时总是会引发 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>此重载总是会引发 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">未使用此参数。</param>
+      <param name="second">未使用此参数。</param>
+      <typeparam name="TSource">未使用此类型参数。</typeparam>
+      <exception cref="T:System.NotSupportedException">调用此方法时发生的异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Intersect``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>切勿调用此 Intersect 重载。此方法已标记为过时，调用此方法时总是会引发 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>此重载总是会引发 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">未使用此参数。</param>
+      <param name="second">未使用此参数。</param>
+      <param name="comparer">未使用此参数。</param>
+      <typeparam name="TSource">未使用此类型参数。</typeparam>
+      <exception cref="T:System.NotSupportedException">调用此方法时发生的异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Intersect``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0})">
+      <summary>通过使用默认的相等比较器对值进行比较，生成两个并行序列的交集。</summary>
+      <returns>包含组成两个序列交集的元素的序列。</returns>
+      <param name="first">一个序列，其中的同时出现在 <paramref name="second" /> 中的非重复元素将会返回。</param>
+      <param name="second">一个序列，其中的同时出现在第一个序列中的非重复元素将被返回。</param>
+      <typeparam name="TSource">输入序列中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Intersect``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>通过使用指定的 IEqualityComparer{T} 对值进行比较，生成两个并行序列的交集。</summary>
+      <returns>包含组成两个序列交集的元素的序列。</returns>
+      <param name="first">一个序列，其中的同时出现在 <paramref name="second" /> 中的非重复元素将会返回。</param>
+      <param name="second">一个序列，其中的同时出现在第一个序列中的非重复元素将被返回。</param>
+      <param name="comparer">用于比较值的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">输入序列中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Join``4(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,``1,``3})">
+      <summary>切勿调用此 Join 重载。此方法已标记为过时，调用此方法时总是会引发 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>此重载总是会引发 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="outer">未使用此参数。</param>
+      <param name="inner">未使用此参数。</param>
+      <param name="outerKeySelector">未使用此参数。</param>
+      <param name="innerKeySelector">未使用此参数。</param>
+      <param name="resultSelector">未使用此参数。</param>
+      <typeparam name="TOuter">未使用此类型参数。</typeparam>
+      <typeparam name="TInner">未使用此类型参数。</typeparam>
+      <typeparam name="TKey">未使用此类型参数。</typeparam>
+      <typeparam name="TResult">未使用此类型参数。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Join``4(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,``1,``3},System.Collections.Generic.IEqualityComparer{``2})">
+      <summary>切勿调用此 Join 重载。此方法已标记为过时，调用此方法时总是会引发 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>此重载总是会引发 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="outer">未使用此参数。</param>
+      <param name="inner">未使用此参数。</param>
+      <param name="outerKeySelector">未使用此参数。</param>
+      <param name="innerKeySelector">未使用此参数。</param>
+      <param name="resultSelector">未使用此参数。</param>
+      <param name="comparer">未使用此参数。</param>
+      <typeparam name="TOuter">未使用此类型参数。</typeparam>
+      <typeparam name="TInner">未使用此类型参数。</typeparam>
+      <typeparam name="TKey">未使用此类型参数。</typeparam>
+      <typeparam name="TResult">未使用此类型参数。</typeparam>
+      <exception cref="T:System.NotSupportedException">调用此方法时发生的异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Join``4(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,``1,``3})">
+      <summary>基于匹配键对两个序列的元素进行并行关联。使用默认的相等比较器对键进行比较。</summary>
+      <returns>一个序列，其中包含通过对两个序列执行内部联接获得的 <paramref name="TResult" /> 类型的元素。</returns>
+      <param name="outer">要联接的第一个序列。</param>
+      <param name="inner">要与第一个序列联接的序列。</param>
+      <param name="outerKeySelector">用于从第一个序列的每个元素提取联接键的函数。</param>
+      <param name="innerKeySelector">用于从第二个序列的每个元素提取联接键的函数。</param>
+      <param name="resultSelector">用于从两个匹配元素创建结果元素的函数。</param>
+      <typeparam name="TOuter">第二个序列中的元素的类型。</typeparam>
+      <typeparam name="TInner">第一个序列中的元素的类型。</typeparam>
+      <typeparam name="TKey">键选择器函数返回的键的类型。</typeparam>
+      <typeparam name="TResult">结果元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Join``4(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,``1,``3},System.Collections.Generic.IEqualityComparer{``2})">
+      <summary>基于匹配键对两个序列的元素进行并行关联。使用指定的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> 对键进行比较。</summary>
+      <returns>一个序列，其中包含通过对两个序列执行内部联接获得的 <paramref name="TResult" /> 类型的元素。</returns>
+      <param name="outer">要联接的第一个序列。</param>
+      <param name="inner">要与第一个序列联接的序列。</param>
+      <param name="outerKeySelector">用于从第一个序列的每个元素提取联接键的函数。</param>
+      <param name="innerKeySelector">用于从第二个序列的每个元素提取联接键的函数。</param>
+      <param name="resultSelector">用于从两个匹配元素创建结果元素的函数。</param>
+      <param name="comparer">一个 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />，用于对键进行哈希处理和比较。</param>
+      <typeparam name="TOuter">第二个序列中的元素的类型。</typeparam>
+      <typeparam name="TInner">第一个序列中的元素的类型。</typeparam>
+      <typeparam name="TKey">键选择器函数返回的键的类型。</typeparam>
+      <typeparam name="TResult">结果元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="action" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Last``1(System.Linq.ParallelQuery{``0})">
+      <summary>返回并行序列中的最后一个元素。</summary>
+      <returns>源序列中最后位置处的值。</returns>
+      <param name="source">要从中返回最后一个元素的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Last``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>返回并行序列中满足指定条件的最后一个元素。</summary>
+      <returns>序列中通过指定谓词函数中的测试的最后一个元素。</returns>
+      <param name="source">要从中返回元素的序列。</param>
+      <param name="predicate">用于测试每个元素是否满足条件的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中没有元素满足 <paramref name="predicate" /> 中的条件。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.LastOrDefault``1(System.Linq.ParallelQuery{``0})">
+      <summary>返回并行序列中的最后一个元素；如果该序列中不包含任何元素，则返回默认值。</summary>
+      <returns>如果源序列为空，则返回 default()；否则返回该序列中的最后一个元素。</returns>
+      <param name="source">要从中返回元素的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.LastOrDefault``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>返回并行序列中满足条件的最后一个元素；如果未找到这样的元素，则返回默认值。</summary>
+      <returns>如果序列为空或没有元素通过谓词函数中的测试，则返回 default()；否则，返回通过谓词函数中的测试的最后一个元素。</returns>
+      <param name="source">要从中返回元素的序列。</param>
+      <param name="predicate">用于测试每个元素是否满足条件的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.LongCount``1(System.Linq.ParallelQuery{``0})">
+      <summary>返回一个 Int64，表示并行序列中的元素的总数。</summary>
+      <returns>输入序列中的元素数量。</returns>
+      <param name="source">包含要计数的元素的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">源中的元素数大于 <see cref="F:System.Int64.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.OverflowException">计算结果大于 <see cref="F:System.Int64.MaxValue" />。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.LongCount``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>返回一个 Int64，表示并行序列中满足条件的元素的数量。</summary>
+      <returns>一个数字，表示序列中满足谓词函数条件的元素数量。</returns>
+      <param name="source">包含要计数的元素的序列。</param>
+      <param name="predicate">用于测试每个元素是否满足条件的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">源中的元素数大于 <see cref="F:System.Int64.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.OverflowException">计算结果大于 <see cref="F:System.Int64.MaxValue" />。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Decimal})">
+      <summary>返回值的并行序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Double})">
+      <summary>返回值的并行序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Int32})">
+      <summary>返回值的并行序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Int64})">
+      <summary>返回值的并行序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Nullable{System.Decimal}})">
+      <summary>返回值的并行序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Nullable{System.Double}})">
+      <summary>返回值的并行序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Nullable{System.Int32}})">
+      <summary>返回值的并行序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Nullable{System.Int64}})">
+      <summary>返回值的并行序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Nullable{System.Single}})">
+      <summary>返回值的并行序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max(System.Linq.ParallelQuery{System.Single})">
+      <summary>返回值的并行序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0})">
+      <summary>返回值的并行序列中的最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <typeparam name="TSource">源序列中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Decimal})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Double})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int64})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Decimal}})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Double}})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Int32}})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Int64}})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Single}})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Single})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Max``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最大值。</summary>
+      <returns>序列中的最大值。</returns>
+      <param name="source">要确定其最大值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TResult">
+        <paramref name="selector" /> 返回的值的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Decimal})">
+      <summary>返回值的并行序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Double})">
+      <summary>返回值的并行序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Int32})">
+      <summary>返回值的并行序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Int64})">
+      <summary>返回值的并行序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Nullable{System.Decimal}})">
+      <summary>返回值的并行序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Nullable{System.Double}})">
+      <summary>返回值的并行序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Nullable{System.Int32}})">
+      <summary>返回值的并行序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Nullable{System.Int64}})">
+      <summary>返回值的并行序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Nullable{System.Single}})">
+      <summary>返回值的并行序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min(System.Linq.ParallelQuery{System.Single})">
+      <summary>返回值的并行序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0})">
+      <summary>返回值的并行序列中的最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Decimal})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Double})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int64})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Decimal}})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Double}})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Int32}})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Int64}})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Single}})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 中不包含任何元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Single})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Min``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1})">
+      <summary>对一个序列中的每个元素并行调用转换函数，并返回最小值。</summary>
+      <returns>序列中的最小值。</returns>
+      <param name="source">要确定其最小值的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TResult">
+        <paramref name="selector" /> 返回的值的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 不包含任何元素，且 <paramref name="TSource" /> 是不可为 null 的值类型。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.OfType``1(System.Linq.ParallelQuery)">
+      <summary>根据指定类型筛选 ParallelQuery 的元素。</summary>
+      <returns>一个序列，其中包含类型的输入序列中的元素。</returns>
+      <param name="source">要筛选其元素的序列。</param>
+      <typeparam name="TResult">筛选序列元素所根据的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.OrderBy``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1})">
+      <summary>根据键按升序对序列中的元素进行并行排序。</summary>
+      <returns>其中的元素将根据某个键进行排序的 OrderedParallelQuery{TSource}。</returns>
+      <param name="source">一个要排序的值序列。</param>
+      <param name="keySelector">用于从元素中提取键的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.OrderBy``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+      <summary>使用指定的比较器按升序对序列中的元素进行并行排序。</summary>
+      <returns>其中的元素将根据某个键进行排序的 OrderedParallelQuery{TSource}。</returns>
+      <param name="source">一个要排序的值序列。</param>
+      <param name="keySelector">用于从元素中提取键的函数。</param>
+      <param name="comparer">一个用于比较键的 IComparer{TKey}。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.OrderByDescending``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1})">
+      <summary>根据键按降序对序列中的元素进行并行排序。</summary>
+      <returns>一个 OrderedParallelQuery{TSource}，其元素将根据某个键按降序进行排序。</returns>
+      <param name="source">一个要排序的值序列。</param>
+      <param name="keySelector">用于从元素中提取键的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.OrderByDescending``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+      <summary>使用指定的比较器按降序对序列的元素排序。</summary>
+      <returns>一个 OrderedParallelQuery{TSource}，其元素将根据某个键按降序进行排序。</returns>
+      <param name="source">一个要排序的值序列。</param>
+      <param name="keySelector">用于从元素中提取键的函数。</param>
+      <param name="comparer">一个用于比较键的 IComparer{TKey}。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="KeySelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Range(System.Int32,System.Int32)">
+      <summary>生成指定范围内的整数的并行序列。</summary>
+      <returns>C# 中的 IEnumerable&lt;Int32&gt; 或 Visual Basic 中的 IEnumerable(Of Int32)，其中包含某个范围的顺序整数。</returns>
+      <param name="start">序列中第一个整数的值。</param>
+      <param name="count">要生成的顺序整数的数目。</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="count" /> 小于 0 - 或 - <paramref name="start" /> + <paramref name="count" /> - 1 大于 <see cref="F:System.Int32.MaxValue" />。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Repeat``1(``0,System.Int32)">
+      <summary>生成包含一个重复值的并行序列。</summary>
+      <returns>一个包含重复值的序列。</returns>
+      <param name="element">要重复的值。</param>
+      <param name="count">在生成序列中重复该值的次数。</param>
+      <typeparam name="TResult">要在结果序列中重复的值的类型。</typeparam>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="count" /> 小于 0。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Reverse``1(System.Linq.ParallelQuery{``0})">
+      <summary>反转并行序列中元素的顺序。</summary>
+      <returns>一个序列，其元素以相反顺序对应于输入序列的元素。</returns>
+      <param name="source">要反转的值序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Select``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1})">
+      <summary>将序列中的每个元素并行投影到新窗体中。</summary>
+      <returns>一个序列，其元素是对 <paramref name="source" /> 的每个元素调用转换函数的结果。</returns>
+      <param name="source">一个值序列，要对该序列调用转换函数。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TResult">选择器返回的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Select``2(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32,``1})">
+      <summary>通过合并元素的索引，将序列的每个元素并行投影到新窗体中。</summary>
+      <returns>一个序列，其元素是对基于提供到 <paramref name="selector" /> 的索引的 <paramref name="source" /> 中的每个元素调用转换函数的结果。</returns>
+      <param name="source">一个值序列，要对该序列调用转换函数。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TResult">选择器返回的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.OverflowException">超过 <see cref="F:System.Int32.MaxValue" /> 个元素都是用该查询枚举。流方案中可能会出现这种情况。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SelectMany``3(System.Linq.ParallelQuery{``0},System.Func{``0,System.Collections.Generic.IEnumerable{``1}},System.Func{``0,``1,``2})">
+      <summary>将序列的每个元素投影到 <see cref="T:System.Collections.Generic.IEnumerable`1" />，并将结果序列合并为一个序列，并对其中每个元素调用结果选择器函数。</summary>
+      <returns>一个序列，其元素是通过以下方法得到的：对基于提供给 <paramref name="collectionSelector" /> 的 <paramref name="source" /> 的每个元素调用一对多转换函数 <paramref name="collectionSelector" />，然后将这些序列元素中的每一个元素及其相应的源元素映射到一个结果元素。 </returns>
+      <param name="source">一个要投影的值序列。</param>
+      <param name="collectionSelector">一个应用于每个源元素的转换函数；函数的第二个参数表示源元素的索引。</param>
+      <param name="resultSelector">用于从第一个序列的元素和第二个序列的匹配元素集合中创建结果元素的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="collectionSelector" /> 收集的中间元素的类型。</typeparam>
+      <typeparam name="TCollection">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TResult">结果序列中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.OverflowException">超过 <see cref="F:System.Int32.MaxValue" /> 个元素都是用该查询枚举。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SelectMany``2(System.Linq.ParallelQuery{``0},System.Func{``0,System.Collections.Generic.IEnumerable{``1}})">
+      <summary>将序列的每个元素以并行方式投影到 <see cref="T:System.Collections.Generic.IEnumerable`1" /> 并将结果序列合并为一个序列。</summary>
+      <returns>一个序列，其元素是对输入序列的每个元素调用一对多转换函数的结果。</returns>
+      <param name="source">一个要投影的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TResult">选择器返回的序列元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SelectMany``3(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32,System.Collections.Generic.IEnumerable{``1}},System.Func{``0,``1,``2})">
+      <summary>将序列的每个元素投影到 <see cref="T:System.Collections.Generic.IEnumerable`1" />，并将结果序列合并为一个序列，并对其中每个元素调用结果选择器函数。每个源元素的索引用于该元素的中间投影表。</summary>
+      <returns>一个序列，其元素是通过以下方法得到的：对基于提供给 <paramref name="collectionSelector" /> 的 <paramref name="source" /> 的每个元素调用一对多转换函数 <paramref name="collectionSelector" />，然后将这些序列元素中的每一个元素及其相应的源元素映射到一个结果元素。</returns>
+      <param name="source">一个要投影的值序列。</param>
+      <param name="collectionSelector">一个应用于每个源元素的转换函数；函数的第二个参数表示源元素的索引。</param>
+      <param name="resultSelector">用于从第一个序列的元素和第二个序列的匹配元素集合中创建结果元素的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="collectionSelector" /> 收集的中间元素的类型。</typeparam>
+      <typeparam name="TCollection">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TResult">要返回的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.OverflowException">超过 <see cref="F:System.Int32.MaxValue" /> 个元素都是用该查询枚举。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SelectMany``2(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32,System.Collections.Generic.IEnumerable{``1}})">
+      <summary>将序列的每个元素以并行方式投影到 <see cref="T:System.Collections.Generic.IEnumerable`1" /> 并将结果序列合并为一个序列。每个源元素的索引用于该元素的投影表。</summary>
+      <returns>一个序列，其元素是对输入序列的每个元素调用一对多转换函数的结果。</returns>
+      <param name="source">一个要投影的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TResult">选择器返回的序列元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.OverflowException">超过 <see cref="F:System.Int32.MaxValue" /> 个元素都是用该查询枚举。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SequenceEqual``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0})">
+      <summary>切勿调用此 SequenceEqual 重载。此方法已标记为过时，调用此方法时总是会引发 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>此重载总是会引发 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">未使用此参数。</param>
+      <param name="second">未使用此参数。</param>
+      <typeparam name="TSource">未使用此类型参数。</typeparam>
+      <exception cref="T:System.NotSupportedException">每次调用此方法时引发。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SequenceEqual``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>切勿调用此 SequenceEqual 重载。此方法已标记为过时，调用此方法时总是会引发 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>此重载总是会引发 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">未使用此参数。</param>
+      <param name="second">未使用此参数。</param>
+      <param name="comparer">未使用此参数。</param>
+      <typeparam name="TSource">未使用此类型参数。</typeparam>
+      <exception cref="T:System.NotSupportedException">每次调用此方法时引发。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SequenceEqual``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0})">
+      <summary>通过使用相应类型的默认相等比较器对序列的元素进行比较，以确定两个并行序列是否相等。</summary>
+      <returns>如果根据相应类型的默认相等比较器，两个源序列的长度相等，且其相应元素相等，则为 true；否则为 false。</returns>
+      <param name="first">要与第二个序列进行比较的序列。</param>
+      <param name="second">要与第一个输入序列进行比较的序列。</param>
+      <typeparam name="TSource">输入序列中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="first" /> 或 <paramref name="second" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SequenceEqual``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>使用指定的 IEqualityComparer{T} 对两个并行序列的元素进行比较，以确定这两个序列是否相等。</summary>
+      <returns>如果根据相应类型的默认相等比较器，两个源序列的长度相等，且其相应元素相等，则为 true；否则为 false。</returns>
+      <param name="first">要与 <paramref name="second" /> 进行比较的序列。</param>
+      <param name="second">要与第一个输入序列进行比较的序列。</param>
+      <param name="comparer">一个用于比较元素的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">输入序列中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="first" /> 或 <paramref name="second" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Single``1(System.Linq.ParallelQuery{``0})">
+      <summary>返回并行序列的唯一元素；如果该序列并非恰好包含一个元素，则会引发异常。</summary>
+      <returns>输入序列的单个元素。</returns>
+      <param name="source">要返回其单个元素的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">输入序列包含多个元素。- 或 - 输入序列为空。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Single``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>返回并行序列中满足指定条件的唯一元素；如果有多个这样的元素存在，则会引发异常。</summary>
+      <returns>输入序列中满足条件的单个元素。</returns>
+      <param name="source">要返回其单个元素的序列。</param>
+      <param name="predicate">用于测试元素是否满足条件的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">没有元素满足 <paramref name="predicate" /> 中的条件。- 或 - 多个元素满足 <paramref name="predicate" /> 中的条件。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SingleOrDefault``1(System.Linq.ParallelQuery{``0})">
+      <summary>返回并行序列中的唯一元素；如果该序列为空，则返回默认值；如果该序列包含多个元素，此方法将引发异常。</summary>
+      <returns>返回输入序列的单个元素；如果序列不包含任何元素，则返回 default()。</returns>
+      <param name="source">要返回其单个元素的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SingleOrDefault``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>返回并行序列中满足指定条件的唯一元素；如果这类元素不存在，则返回默认值；如果有多个元素满足该条件，此方法将引发异常。</summary>
+      <returns>输入序列中满足条件的单个元素，如果未找到这样的元素，则为 default()。</returns>
+      <param name="source">要返回其单个元素的序列。</param>
+      <param name="predicate">用于测试元素是否满足条件的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="source" /> 是空的，或者返回了多个元素。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Skip``1(System.Linq.ParallelQuery{``0},System.Int32)">
+      <summary>跳过并行序列中指定数量的元素，然后返回剩余的元素。</summary>
+      <returns>一个序列，其中包含输入序列中的指定索引后出现的元素。</returns>
+      <param name="source">要从其返回元素的序列。</param>
+      <param name="count">返回剩余元素前要跳过的元素数量。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.OverflowException">计数比 <see cref="F:System.Int32.MaxValue" /> 大</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SkipWhile``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>跳过并行序列中满足指定条件的任何元素，然后返回剩余元素。</summary>
+      <returns>一个序列，它包含输入序列中从没有通过谓词指定的测试的线性系列中第一个元素开始的元素。</returns>
+      <param name="source">要从其返回元素的序列。</param>
+      <param name="predicate">用于测试每个元素是否满足条件的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.SkipWhile``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32,System.Boolean})">
+      <summary>跳过并行序列中满足指定条件的任何元素，然后返回剩余元素。将在谓词函数的逻辑中使用元素的索引。</summary>
+      <returns>一个序列，它包含输入序列中从没有通过谓词指定的测试的线性系列中第一个元素开始的元素。</returns>
+      <param name="source">要从其返回元素的序列。</param>
+      <param name="predicate">用于测试每个源元素是否满足条件的函数；该函数的第二个参数表示源元素的索引。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.OverflowException">超过 <see cref="F:System.Int32.MaxValue" /> 个元素都是用该查询枚举。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Decimal})">
+      <summary>并行计算一个值序列的和。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Decimal.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Double})">
+      <summary>并行计算一个值序列的和。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Double.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Int32})">
+      <summary>并行计算一个值序列的和。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Int32.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Int64})">
+      <summary>并行计算一个值序列的和。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Int64.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Nullable{System.Decimal}})">
+      <summary>并行计算一个值序列的和。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Decimal.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Nullable{System.Double}})">
+      <summary>并行计算一个值序列的和。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Double.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Nullable{System.Int32}})">
+      <summary>并行计算一个值序列的和。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Int32.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Nullable{System.Int64}})">
+      <summary>并行计算一个值序列的和。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Int64.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Nullable{System.Single}})">
+      <summary>并行计算一个值序列的和。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Single.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum(System.Linq.ParallelQuery{System.Single})">
+      <summary>并行计算一个值序列的和。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Single.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Decimal})">
+      <summary>并行计算一个值序列的和，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Decimal.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Double})">
+      <summary>并行计算一个值序列的和，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Double.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32})">
+      <summary>并行计算一个值序列的和，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">源序列中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Int32.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int64})">
+      <summary>并行计算一个值序列的和，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Int64.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Decimal}})">
+      <summary>并行计算一个值序列的和，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Decimal.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Double}})">
+      <summary>并行计算一个值序列的和，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Double.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Int32}})">
+      <summary>并行计算一个值序列的和，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Int32.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Int64}})">
+      <summary>并行计算一个值序列的和，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Int64.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Nullable{System.Single}})">
+      <summary>并行计算一个值序列的和，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Single.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Sum``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Single})">
+      <summary>并行计算一个值序列的和，这些值可通过对输入序列的每个元素调用转换函数获得。</summary>
+      <returns>序列中投影值的总和。</returns>
+      <param name="source">一个要对其求和的值序列。</param>
+      <param name="selector">应用于每个元素的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="selector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">和大于 <see cref="F:System.Single.MaxValue" />。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Take``1(System.Linq.ParallelQuery{``0},System.Int32)">
+      <summary>从并行序列的开头返回指定数量的连续元素。</summary>
+      <returns>一个序列，其中包含从输入序列开始处起的指定数量的元素。</returns>
+      <param name="source">要从其返回元素的序列。</param>
+      <param name="count">要返回的元素数量。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.TakeWhile``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>只要指定的条件为 true，就会返回并行序列的元素。</summary>
+      <returns>一个序列，它包含输入序列中出现在无法再通过测试的元素之前的元素。</returns>
+      <param name="source">要从其返回元素的序列。</param>
+      <param name="predicate">用于测试每个元素是否满足条件的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.TakeWhile``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32,System.Boolean})">
+      <summary>只要指定的条件为 true，就会返回并行序列的元素。将在谓词函数的逻辑中使用元素的索引。</summary>
+      <returns>一个序列，它包含输入序列中出现在无法再通过测试的元素之前的元素。</returns>
+      <param name="source">要从其返回元素的序列。</param>
+      <param name="predicate">用于测试每个源元素是否满足条件的函数；该函数的第二个参数表示源元素的索引。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.OverflowException">超过 <see cref="F:System.Int32.MaxValue" /> 个元素都是用这个查询枚举的。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ThenBy``2(System.Linq.OrderedParallelQuery{``0},System.Func{``0,``1})">
+      <summary>根据某个键按升序对序列中的元素并行执行后续排序。</summary>
+      <returns>其中的元素将根据某个键进行排序的 OrderedParallelQuery{TSource}。</returns>
+      <param name="source">一个 OrderedParallelQuery{TSource}，包含要排序的元素。</param>
+      <param name="keySelector">用于从元素中提取键的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ThenBy``2(System.Linq.OrderedParallelQuery{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+      <summary>使用指定的比较器按升序对序列中的元素并行执行后续排序。</summary>
+      <returns>其中的元素将根据某个键进行排序的 OrderedParallelQuery{TSource}。</returns>
+      <param name="source">一个 OrderedParallelQuery{TSource}，包含要排序的元素。</param>
+      <param name="keySelector">用于从元素中提取键的函数。</param>
+      <param name="comparer">一个用于比较键的 IComparer{TKey}。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ThenByDescending``2(System.Linq.OrderedParallelQuery{``0},System.Func{``0,``1})">
+      <summary>根据某个键按降序对序列中的元素并行执行后续排序。</summary>
+      <returns>一个序列，将根据键按降序对其元素进行排序。</returns>
+      <param name="source">一个 OrderedParallelQuery{TSource}，包含要排序的元素。</param>
+      <param name="keySelector">用于从元素中提取键的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ThenByDescending``2(System.Linq.OrderedParallelQuery{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+      <summary>使用指定的比较器按降序对序列中的元素并行执行后续排序。</summary>
+      <returns>一个序列，将根据键按降序对其元素进行排序。</returns>
+      <param name="source">一个 OrderedParallelQuery{TSource}，包含要排序的元素。</param>
+      <param name="keySelector">用于从元素中提取键的函数。</param>
+      <param name="comparer">一个用于比较键的 IComparer{TKey}。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToArray``1(System.Linq.ParallelQuery{``0})">
+      <summary>从 <see cref="T:System.Linq.ParallelQuery`1" /> 创建一个数组。</summary>
+      <returns>一个包含输入序列中的元素的数组。</returns>
+      <param name="source">要从其中创建数组的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToDictionary``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1})">
+      <summary>根据指定的键选择器函数，从 <see cref="T:System.Linq.ParallelQuery`1" /> 创建一个 <see cref="T:System.Collections.Generic.Dictionary`2" />。</summary>
+      <returns>一个包含键和值的 <see cref="T:System.Collections.Generic.Dictionary`2" />。</returns>
+      <param name="source">据其创建 <see cref="T:System.Collections.Generic.Dictionary`2" /> 的序列。</param>
+      <param name="keySelector">用于从每个元素中提取键的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">
+        <paramref name="keySelector" /> 生成一个为 null 引用的键（在 Visual Basic 中为 Nothing）。- 或 - <paramref name="keySelector" /> 为两个元素产生了重复键。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToDictionary``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
+      <summary>根据指定的键选择器函数和键比较器，从 <see cref="T:System.Linq.ParallelQuery`1" /> 创建一个 <see cref="T:System.Collections.Generic.Dictionary`2" />。</summary>
+      <returns>一个包含键和值的 <see cref="T:System.Collections.Generic.Dictionary`2" />。</returns>
+      <param name="source">据其创建 <see cref="T:System.Collections.Generic.Dictionary`2" /> 的序列。</param>
+      <param name="keySelector">用于从每个元素中提取键的函数。</param>
+      <param name="comparer">一个用于比较键的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">
+        <paramref name="keySelector" /> 生成一个为 null 引用的键（在 Visual Basic 中为 Nothing）。- 或 - <paramref name="keySelector" /> 为两个元素产生了重复键。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToDictionary``3(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``0,``2})">
+      <summary>根据指定的键选择器和元素选择器函数，从 <see cref="T:System.Linq.ParallelQuery`1" /> 创建一个 <see cref="T:System.Collections.Generic.Dictionary`2" />。</summary>
+      <returns>一个 <see cref="T:System.Collections.Generic.Dictionary`2" />，包含从输入序列中选择的类型为 <paramref name="TElement" /> 的值。</returns>
+      <param name="source">据其创建 <see cref="T:System.Collections.Generic.Dictionary`2" /> 的序列。</param>
+      <param name="keySelector">用于从每个元素中提取键的函数。</param>
+      <param name="elementSelector">用于从每个元素产生结果元素值的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <typeparam name="TElement">
+        <paramref name="elementSelector" /> 返回的值的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 或 <paramref name="elementSelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">
+        <paramref name="keySelector" /> 生成一个为 null 引用的键（在 Visual Basic 中为 Nothing）。- 或 - <paramref name="keySelector" /> 为两个元素产生了重复键。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToDictionary``3(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1})">
+      <summary>根据指定的键选择器函数、比较器和元素选择器函数，从 <see cref="T:System.Linq.ParallelQuery`1" /> 创建一个 <see cref="T:System.Collections.Generic.Dictionary`2" />。</summary>
+      <returns>一个 <see cref="T:System.Collections.Generic.Dictionary`2" />，包含从输入序列中选择的类型为 <paramref name="TElement" /> 的值。</returns>
+      <param name="source">据其创建 <see cref="T:System.Collections.Generic.Dictionary`2" /> 的序列。</param>
+      <param name="keySelector">用于从每个元素中提取键的函数。</param>
+      <param name="elementSelector">用于从每个元素产生结果元素值的转换函数。</param>
+      <param name="comparer">一个用于比较键的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <typeparam name="TElement">
+        <paramref name="elementSelector" /> 返回的值的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 或 <paramref name="elementSelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">
+        <paramref name="keySelector" /> 生成一个为 null 引用的键（在 Visual Basic 中为 Nothing）。- 或 - <paramref name="keySelector" /> 为两个元素产生了重复键。- 或 - 在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToList``1(System.Linq.ParallelQuery{``0})">
+      <summary>从 <see cref="T:System.Linq.ParallelQuery`1" /> 创建一个 <see cref="T:System.Collections.Generic.List`1" />。</summary>
+      <returns>一个包含输入序列中的元素的 <see cref="T:System.Collections.Generic.List`1" />。</returns>
+      <param name="source">据其创建 <see cref="T:System.Collections.Generic.List`1" /> 的序列。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToLookup``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1})">
+      <summary>根据指定的键选择器函数，从 <see cref="T:System.Linq.ParallelQuery`1" /> 创建一个 <see cref="T:System.Linq.ILookup`2" />。</summary>
+      <returns>一个包含键和值的 <see cref="T:System.Linq.ILookup`2" />。</returns>
+      <param name="source">据其创建 <see cref="T:System.Linq.ILookup`2" /> 的序列。</param>
+      <param name="keySelector">用于从每个元素中提取键的函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToLookup``2(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
+      <summary>根据指定的键选择器函数和键比较器，从 <see cref="T:System.Linq.ParallelQuery`1" /> 创建一个 <see cref="T:System.Linq.ILookup`2" />。</summary>
+      <returns>一个包含键和值的 <see cref="T:System.Linq.ILookup`2" />。</returns>
+      <param name="source">据其创建 <see cref="T:System.Linq.ILookup`2" /> 的序列。</param>
+      <param name="keySelector">用于从每个元素中提取键的函数。</param>
+      <param name="comparer">一个用于比较键的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToLookup``3(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``0,``2})">
+      <summary>根据指定的键选择器和元素选择器函数，从 <see cref="T:System.Linq.ParallelQuery`1" /> 创建一个 <see cref="T:System.Linq.ILookup`2" />。</summary>
+      <returns>一个 <see cref="T:System.Linq.ILookup`2" />，包含从输入序列中选择的类型为 <paramref name="TElement" /> 的值。</returns>
+      <param name="source">据其创建 <see cref="T:System.Linq.ILookup`2" /> 的序列。</param>
+      <param name="keySelector">用于从每个元素中提取键的函数。</param>
+      <param name="elementSelector">用于从每个元素产生结果元素值的转换函数。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <typeparam name="TElement">
+        <paramref name="elementSelector" /> 返回的值的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 或 <paramref name="elementSelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.ToLookup``3(System.Linq.ParallelQuery{``0},System.Func{``0,``1},System.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1})">
+      <summary>根据指定的键选择器函数、比较器和元素选择器函数从 <see cref="T:System.Linq.ParallelQuery`1" /> 创建一个 <see cref="T:System.Linq.ILookup`2" />。</summary>
+      <returns>一个 Lookup&lt;(Of &lt;(TKey, TElement&gt;)&gt;)，其中包含从输入序列中选择的 TElement 类型的值。</returns>
+      <param name="source">据其创建 <see cref="T:System.Linq.ILookup`2" /> 的序列。</param>
+      <param name="keySelector">用于从每个元素中提取键的函数。</param>
+      <param name="elementSelector">用于从每个元素产生结果元素值的转换函数。</param>
+      <param name="comparer">一个用于比较键的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <typeparam name="TKey">
+        <paramref name="keySelector" /> 返回的键的类型。</typeparam>
+      <typeparam name="TElement">
+        <paramref name="elementSelector" /> 返回的值的类型。</typeparam>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="keySelector" /> 或 <paramref name="elementSelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Union``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0})">
+      <summary>切勿调用此 Union 重载。此方法已标记为过时，调用此方法时总是会引发 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>此重载总是会引发 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">未使用此参数。</param>
+      <param name="second">未使用此参数。</param>
+      <typeparam name="TSource">未使用此类型参数。</typeparam>
+      <exception cref="T:System.NotSupportedException">调用此方法时发生的异常。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Union``1(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>切勿调用此 Union 重载。此方法已标记为过时，调用此方法时总是会引发 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>此重载总是会引发 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">未使用此参数。</param>
+      <param name="second">未使用此参数。</param>
+      <param name="comparer">未使用此参数。</param>
+      <typeparam name="TSource">未使用此类型参数。</typeparam>
+      <exception cref="T:System.NotSupportedException">调用此方法时发生的异常。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Union``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0})">
+      <summary>通过使用默认的相等比较器，生成两个并行序列的并集。</summary>
+      <returns>一个序列，其中包含两个输入序列中的非重复元素。</returns>
+      <param name="first">一个序列，其中的非重复元素构成并集的第一部分。</param>
+      <param name="second">一个序列，其中的非重复元素构成并集的第二部分。</param>
+      <typeparam name="TSource">输入序列中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="first" /> 或 <paramref name="second" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Union``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``0},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>通过使用指定的 IEqualityComparer{T} 生成两个并行序列的并集。</summary>
+      <returns>一个序列，其中包含两个输入序列中的非重复元素。</returns>
+      <param name="first">一个序列，其中的非重复元素构成并集的第一部分。</param>
+      <param name="second">一个序列，其中的非重复元素构成并集的第二部分。</param>
+      <param name="comparer">用于比较值的 <see cref="T:System.Collections.Generic.IEqualityComparer`1" />。</param>
+      <typeparam name="TSource">输入序列中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="first" /> 或 <paramref name="second" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Where``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Boolean})">
+      <summary>基于谓词并行筛选值序列。</summary>
+      <returns>一个序列，其中包含输入序列中满足条件的元素。</returns>
+      <param name="source">要筛选的序列。</param>
+      <param name="predicate">用于测试每个元素是否满足条件的函数。</param>
+      <typeparam name="TSource">源的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Where``1(System.Linq.ParallelQuery{``0},System.Func{``0,System.Int32,System.Boolean})">
+      <summary>基于谓词并行筛选值序列。将在谓词函数的逻辑中使用每个元素的索引。</summary>
+      <returns>一个序列，其中包含输入序列中满足条件的元素。</returns>
+      <param name="source">要筛选的序列。</param>
+      <param name="predicate">用于测试每个元素是否满足条件的函数。</param>
+      <typeparam name="TSource">源的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 或 <paramref name="predicate" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.OverflowException">超过 <see cref="F:System.Int32.MaxValue" /> 个元素都是用该查询枚举。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.WithCancellation``1(System.Linq.ParallelQuery{``0},System.Threading.CancellationToken)">
+      <summary>设置要与查询关联的 <see cref="T:System.Threading.CancellationToken" />。</summary>
+      <returns>表示与源相同的查询的 ParallelQuery，但带有已注册的取消标记。</returns>
+      <param name="source">要对其设置选项的 ParallelQuery。</param>
+      <param name="cancellationToken">取消标记。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ObjectDisposedException">与 <paramref name="cancellationToken" /> 关联的 <see cref="T:System.Threading.CancellationTokenSource" /> 已被释放。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.InvalidOperationException">在该查询中，多次使用 <paramref name="WithCancellation" />。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.WithDegreeOfParallelism``1(System.Linq.ParallelQuery{``0},System.Int32)">
+      <summary>设置要在查询中使用的并行度。并行度是将用于处理查询的同时执行的任务的最大数目。</summary>
+      <returns>表示与源相同的查询的 ParallelQuery，其中设置了对并行度的限制。</returns>
+      <param name="source">要对其设置并行度限制的 ParallelQuery。</param>
+      <param name="degreeOfParallelism">查询的并行度。默认值是 Math.Min (<see cref="P:System.Environment.ProcessorCount" />， MAX_SUPPORTED_DOP） 其中MAX_SUPPORTED_DOP为 512。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="degreeOfParallelism" /> 小于 1 或大于 511。</exception>
+      <exception cref="T:System.InvalidOperationException">WithDegreeOfParallelism 在查询中多次使用。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.WithExecutionMode``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelExecutionMode)">
+      <summary>设置查询的执行模式。</summary>
+      <returns>表示与源相同的查询的 ParallelQuery，但带有已注册的执行模式。</returns>
+      <param name="source">要对其设置选项的 ParallelQuery。</param>
+      <param name="executionMode">执行查询使用的模式。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="executionMode" /> 不是有效的 <see cref="T:System.Linq.ParallelExecutionMode" /> 值。</exception>
+      <exception cref="T:System.InvalidOperationException">WithExecutionMode 在查询中多次使用。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.WithMergeOptions``1(System.Linq.ParallelQuery{``0},System.Linq.ParallelMergeOptions)">
+      <summary>设置此查询的合并选项，它指定查询对输出进行缓冲处理的方式。</summary>
+      <returns>表示与源相同的查询的 ParallelQuery，但带有已注册的合并选项。</returns>
+      <param name="source">要对其设置选项的 ParallelQuery。</param>
+      <param name="mergeOptions">要为此查询设置的合并选项。</param>
+      <typeparam name="TSource">
+        <paramref name="source" /> 中的元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="source" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="mergeOptions" /> 不是有效的 <see cref="T:System.Linq.ParallelMergeOptions" /> 值。</exception>
+      <exception cref="T:System.InvalidOperationException">在该查询中，多次使用 <paramref name="WithMergeOptions" />。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Zip``3(System.Linq.ParallelQuery{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,``2})">
+      <summary>切勿调用此 Zip 重载。此方法已标记为过时，调用此方法时总是会引发 <see cref="T:System.NotSupportedException" />。</summary>
+      <returns>此重载总是会引发 <see cref="T:System.NotSupportedException" />。</returns>
+      <param name="first">未使用此参数。</param>
+      <param name="second">未使用此参数。</param>
+      <param name="resultSelector">未使用此参数。</param>
+      <typeparam name="TFirst">未使用此类型参数。</typeparam>
+      <typeparam name="TSecond">未使用此类型参数。</typeparam>
+      <typeparam name="TResult">未使用此类型参数。</typeparam>
+      <exception cref="T:System.NotSupportedException">调用此方法时发生的异常。</exception>
+    </member>
+    <member name="M:System.Linq.ParallelEnumerable.Zip``3(System.Linq.ParallelQuery{``0},System.Linq.ParallelQuery{``1},System.Func{``0,``1,``2})">
+      <summary>通过使用指定的谓词函数并行合并两个序列。</summary>
+      <returns>一个序列，其中包含通过对两个序列执行 <paramref name="resultSelector" /> 配对获得的 <paramref name="TResult" /> 类型的元素。如果序列长度不相等，这将截断为较短序列的长度。</returns>
+      <param name="first">要压缩的第一个序列。</param>
+      <param name="second">要压缩的第二个序列。</param>
+      <param name="resultSelector">用于从两个匹配元素创建结果元素的函数。</param>
+      <typeparam name="TFirst">第一个序列中的元素的类型。</typeparam>
+      <typeparam name="TSecond">第二个序列中的元素的类型。</typeparam>
+      <typeparam name="TResult">返回元素的类型。</typeparam>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="first" /> 或 <paramref name="second" /> 或 <paramref name="resultSelector" /> 是 null 引用（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.OperationCanceledException">查询已使用通过 <paramref name="WithCancellation" /> 传入的标记取消。</exception>
+      <exception cref="T:System.AggregateException">在查询的评估过程中出现了一个或多个异常。</exception>
+    </member>
+    <member name="T:System.Linq.ParallelExecutionMode">
+      <summary>查询执行模式是一种提示，它指定系统在并行化查询时应如何使性能达到平衡。</summary>
+    </member>
+    <member name="F:System.Linq.ParallelExecutionMode.Default">
+      <summary>此设置为默认设置。PLINQ 将检查查询的结构，仅在可能带来加速时才对查询进行并行化。如果查询结构指示不可能获得加速，则 PLINQ 会将查询当作普通的 LINQ to Objects 查询来执行。</summary>
+    </member>
+    <member name="F:System.Linq.ParallelExecutionMode.ForceParallelism">
+      <summary>并行化整个查询，即使要使用系统开销大的算法。如果认为并行执行查询将带来加速，则使用此标志，但处于默认模式的 PLINQ 将按顺序执行它。</summary>
+    </member>
+    <member name="T:System.Linq.ParallelMergeOptions">
+      <summary>指定查询中要使用的输出合并的首选类型。换言之，它指示 PLINQ 如何将多个分区的结果合并回单个结果序列。这仅是一个提示，系统在并行处理所有查询时可能不会考虑这一点。</summary>
+    </member>
+    <member name="F:System.Linq.ParallelMergeOptions.AutoBuffered">
+      <summary>利用系统选定大小的输出缓冲区进行合并。在向查询使用者提供结果之前，会先将结果累计到输出缓冲区中。</summary>
+    </member>
+    <member name="F:System.Linq.ParallelMergeOptions.Default">
+      <summary>使用默认合并类型，即 AutoBuffered。</summary>
+    </member>
+    <member name="F:System.Linq.ParallelMergeOptions.FullyBuffered">
+      <summary>利用整个输出缓冲区进行合并。在向查询使用者提供任何结果之前，系统会先累计所有结果。</summary>
+    </member>
+    <member name="F:System.Linq.ParallelMergeOptions.NotBuffered">
+      <summary>不利用输出缓冲区进行合并。一旦计算出结果元素，就向查询使用者提供这些元素。</summary>
+    </member>
+    <member name="T:System.Linq.ParallelQuery">
+      <summary>表示并行序列。</summary>
+    </member>
+    <member name="M:System.Linq.ParallelQuery.System#Collections#IEnumerable#GetEnumerator">
+      <summary>返回循环访问序列的枚举数。</summary>
+      <returns>循环访问序列的枚举数。</returns>
+    </member>
+    <member name="T:System.Linq.ParallelQuery`1">
+      <summary>表示并行序列。</summary>
+      <typeparam name="TSource">源序列中的元素的类型。</typeparam>
+    </member>
+    <member name="M:System.Linq.ParallelQuery`1.GetEnumerator">
+      <summary>返回循环访问序列的枚举数。</summary>
+      <returns>循环访问序列的枚举数。</returns>
+    </member>
+  </members>
+</doc>

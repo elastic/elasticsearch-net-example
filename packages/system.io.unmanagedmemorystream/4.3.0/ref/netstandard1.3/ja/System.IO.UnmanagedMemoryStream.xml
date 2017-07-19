@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.UnmanagedMemoryStream</name>
+  </assembly>
+  <members>
+    <member name="T:System.IO.UnmanagedMemoryAccessor">
+      <summary>メモリのアンマネージ ブロックにマネージ コードからランダムにアクセスできるようにします。</summary>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.#ctor">
+      <summary>
+        <see cref="T:System.IO.UnmanagedMemoryAccessor" /> クラスの新しいインスタンスを初期化します。</summary>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64)">
+      <summary>指定されたバッファー、オフセット、および容量を使用して、<see cref="T:System.IO.UnmanagedMemoryAccessor" /> クラスの新しいインスタンスを初期化します。</summary>
+      <param name="buffer">アクセサーを格納するバッファー。</param>
+      <param name="offset">アクセサーの開始位置のバイト。</param>
+      <param name="capacity">割り当てるメモリのサイズ (バイト単位)。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="offset" /> に <paramref name="capacity" /> を加算した値が <paramref name="buffer" /> を超えています。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> は null です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> または <paramref name="capacity" /> が 0 未満です。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="offset" /> に <paramref name="capacity" /> を加算した値は、アドレス空間の最大値をラップします。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>指定されたバッファー、オフセット、容量、およびアクセス権を使用して、<see cref="T:System.IO.UnmanagedMemoryAccessor" /> クラスの新しいインスタンスを初期化します。</summary>
+      <param name="buffer">アクセサーを格納するバッファー。</param>
+      <param name="offset">アクセサーの開始位置のバイト。</param>
+      <param name="capacity">割り当てるメモリのサイズ (バイト単位)。</param>
+      <param name="access">メモリに対して許可されているアクセス権の種類。既定値は、<see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" /> です。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="offset" /> に <paramref name="capacity" /> を加算した値が <paramref name="buffer" /> を超えています。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> は null です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> または <paramref name="capacity" /> が 0 未満です。または<paramref name="access" /> が有効な <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 列挙値ではありません。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="offset" /> に <paramref name="capacity" /> を加算した値は、アドレス空間の最大値をラップします。</exception>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.CanRead">
+      <summary>アクセサーが読み取り可能かどうかを決定します。</summary>
+      <returns>アクセサーが読み取り可能な場合は true。それ以外の場合は false。</returns>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.CanWrite">
+      <summary>アクセサーが書き込み可能かどうかを決定します。</summary>
+      <returns>アクセサーが書き込み可能な場合は true。それ以外の場合は false。</returns>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.Capacity">
+      <summary>アクセサーの容量を取得します。</summary>
+      <returns>アクセサーの容量。</returns>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Dispose">
+      <summary>
+        <see cref="T:System.IO.UnmanagedMemoryAccessor" /> によって使用されているすべてのリソースを解放します。</summary>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Dispose(System.Boolean)">
+      <summary>
+        <see cref="T:System.IO.UnmanagedMemoryAccessor" /> で使用されているアンマネージ リソースを解放し、オプションでマネージ リソースを解放します。</summary>
+      <param name="disposing">マネージ リソースとアンマネージ リソースの両方を解放する場合は true。アンマネージ リソースだけを解放する場合は false。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Initialize(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>アクセサーの初期値を設定します。</summary>
+      <param name="buffer">アクセサーを格納するバッファー。</param>
+      <param name="offset">アクセサーの開始位置のバイト。</param>
+      <param name="capacity">割り当てるメモリのサイズ (バイト単位)。</param>
+      <param name="access">メモリに対して許可されているアクセス権の種類。既定値は、<see cref="F:System.IO.MemoryMappedFiles.MemoryMappedFileAccess.ReadWrite" /> です。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="offset" /> に <paramref name="capacity" /> を加算した値が <paramref name="buffer" /> を超えています。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> は null です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> または <paramref name="capacity" /> が 0 未満です。または<paramref name="access" /> が有効な <see cref="T:System.IO.MemoryMappedFiles.MemoryMappedFileAccess" /> 列挙値ではありません。</exception>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="offset" /> に <paramref name="capacity" /> を加算した値は、アドレス空間の最大値をラップします。</exception>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryAccessor.IsOpen">
+      <summary>現在、アクセサーがプロセスによって開かれているかどうかを確認します。</summary>
+      <returns>アクセサーが開かれている場合は true。それ以外の場合は false。</returns>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadBoolean(System.Int64)">
+      <summary>アクセサーからブール値を読み取ります。</summary>
+      <returns>true または false。</returns>
+      <param name="position">アクセサーの読み取り開始位置 (バイト数)。</param>
+      <exception cref="T:System.ArgumentException">値を読み取るための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが読み取りをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadByte(System.Int64)">
+      <summary>アクセサーからバイト値を読み取ります。</summary>
+      <returns>読み取られた値。</returns>
+      <param name="position">アクセサーの読み取り開始位置 (バイト数)。</param>
+      <exception cref="T:System.ArgumentException">値を読み取るための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが読み取りをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadChar(System.Int64)">
+      <summary>アクセサーから文字を読み取ります。</summary>
+      <returns>読み取られた値。</returns>
+      <param name="position">アクセサーの読み取り開始位置 (バイト数)。</param>
+      <exception cref="T:System.ArgumentException">値を読み取るための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが読み取りをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadDecimal(System.Int64)">
+      <summary>アクセサーから 10 進値を読み取ります。</summary>
+      <returns>読み取られた値。</returns>
+      <param name="position">アクセサーの読み取り開始位置 (バイト数)。</param>
+      <exception cref="T:System.ArgumentException">値を読み取るための <paramref name="position" /> の後のバイト数が不足しています。または読み取る 10 進数が無効です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが読み取りをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadDouble(System.Int64)">
+      <summary>アクセサーから倍精度浮動小数点値を読み取ります。</summary>
+      <returns>読み取られた値。</returns>
+      <param name="position">アクセサーの読み取り開始位置 (バイト数)。</param>
+      <exception cref="T:System.ArgumentException">値を読み取るための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが読み取りをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadInt16(System.Int64)">
+      <summary>アクセサーから 16 ビットの整数を読み取ります。</summary>
+      <returns>読み取られた値。</returns>
+      <param name="position">アクセサーの読み取り開始位置 (バイト数)。</param>
+      <exception cref="T:System.ArgumentException">値を読み取るための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが読み取りをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadInt32(System.Int64)">
+      <summary>アクセサーから 32 ビットの整数を読み取ります。</summary>
+      <returns>読み取られた値。</returns>
+      <param name="position">アクセサーの読み取り開始位置 (バイト数)。</param>
+      <exception cref="T:System.ArgumentException">値を読み取るための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが読み取りをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadInt64(System.Int64)">
+      <summary>アクセサーから 64 ビットの整数を読み取ります。</summary>
+      <returns>読み取られた値。</returns>
+      <param name="position">アクセサーの読み取り開始位置 (バイト数)。</param>
+      <exception cref="T:System.ArgumentException">値を読み取るための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが読み取りをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadSByte(System.Int64)">
+      <summary>アクセサーから 8 ビットの符号付き整数を読み取ります。</summary>
+      <returns>読み取られた値。</returns>
+      <param name="position">アクセサーの読み取り開始位置 (バイト数)。</param>
+      <exception cref="T:System.ArgumentException">値を読み取るための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが読み取りをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadSingle(System.Int64)">
+      <summary>アクセサーから単精度浮動小数点値を読み取ります。</summary>
+      <returns>読み取られた値。</returns>
+      <param name="position">アクセサーの読み取り開始位置 (バイト数)。</param>
+      <exception cref="T:System.ArgumentException">値を読み取るための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが読み取りをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadUInt16(System.Int64)">
+      <summary>アクセサーから 16 ビットの符号なし整数を読み取ります。</summary>
+      <returns>読み取られた値。</returns>
+      <param name="position">アクセサーの読み取り開始位置 (バイト数)。</param>
+      <exception cref="T:System.ArgumentException">値を読み取るための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが読み取りをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadUInt32(System.Int64)">
+      <summary>アクセサーから 32 ビットの符号なし整数を読み取ります。</summary>
+      <returns>読み取られた値。</returns>
+      <param name="position">アクセサーの読み取り開始位置 (バイト数)。</param>
+      <exception cref="T:System.ArgumentException">値を読み取るための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが読み取りをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.ReadUInt64(System.Int64)">
+      <summary>アクセサーから 64 ビットの符号なし整数を読み取ります。</summary>
+      <returns>読み取られた値。</returns>
+      <param name="position">アクセサーの読み取り開始位置 (バイト数)。</param>
+      <exception cref="T:System.ArgumentException">値を読み取るための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが読み取りをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Boolean)">
+      <summary>アクセサーにブール値を書き込みます。</summary>
+      <param name="position">アクセサーの書き込み開始位置 (バイト数)。</param>
+      <param name="value">書き込む値。</param>
+      <exception cref="T:System.ArgumentException">値を書き込むための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが書き込みをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Byte)">
+      <summary>アクセサーにバイト値を書き込みます。</summary>
+      <param name="position">アクセサーの書き込み開始位置 (バイト数)。</param>
+      <param name="value">書き込む値。</param>
+      <exception cref="T:System.ArgumentException">値を書き込むための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが書き込みをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Char)">
+      <summary>アクセサーに文字を書き込みます。</summary>
+      <param name="position">アクセサーの書き込み開始位置 (バイト数)。</param>
+      <param name="value">書き込む値。</param>
+      <exception cref="T:System.ArgumentException">値を書き込むための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが書き込みをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Decimal)">
+      <summary>アクセサーに 10 進値を書き込みます。</summary>
+      <param name="position">アクセサーの書き込み開始位置 (バイト数)。</param>
+      <param name="value">書き込む値。</param>
+      <exception cref="T:System.ArgumentException">値を書き込むための <paramref name="position" /> の後のバイト数が不足しています。または10 進数が無効です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが書き込みをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Double)">
+      <summary>アクセサーに Double 値を書き込みます。</summary>
+      <param name="position">アクセサーの書き込み開始位置 (バイト数)。</param>
+      <param name="value">書き込む値。</param>
+      <exception cref="T:System.ArgumentException">値を書き込むための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが書き込みをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Int16)">
+      <summary>アクセサーに 16 ビットの整数を書き込みます。</summary>
+      <param name="position">アクセサーの書き込み開始位置 (バイト数)。</param>
+      <param name="value">書き込む値。</param>
+      <exception cref="T:System.ArgumentException">値を書き込むための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが書き込みをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Int32)">
+      <summary>アクセサーに 32 ビットの整数を書き込みます。</summary>
+      <param name="position">アクセサーの書き込み開始位置 (バイト数)。</param>
+      <param name="value">書き込む値。</param>
+      <exception cref="T:System.ArgumentException">値を書き込むための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが書き込みをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Int64)">
+      <summary>アクセサーに 64 ビットの整数を書き込みます。</summary>
+      <param name="position">アクセサーの書き込み開始位置 (バイト数)。</param>
+      <param name="value">書き込む値。</param>
+      <exception cref="T:System.ArgumentException">値を書き込むための position の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが書き込みをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.SByte)">
+      <summary>アクセサーに 8 ビットの整数を書き込みます。</summary>
+      <param name="position">アクセサーの書き込み開始位置 (バイト数)。</param>
+      <param name="value">書き込む値。</param>
+      <exception cref="T:System.ArgumentException">値を書き込むための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが書き込みをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.Single)">
+      <summary>アクセサーに Single を書き込みます。</summary>
+      <param name="position">アクセサーの書き込み開始位置 (バイト数)。</param>
+      <param name="value">書き込む値。</param>
+      <exception cref="T:System.ArgumentException">値を書き込むための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが書き込みをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.UInt16)">
+      <summary>アクセサーに 16 ビットの符号なし整数を書き込みます。</summary>
+      <param name="position">アクセサーの書き込み開始位置 (バイト数)。</param>
+      <param name="value">書き込む値。</param>
+      <exception cref="T:System.ArgumentException">値を書き込むための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが書き込みをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.UInt32)">
+      <summary>アクセサーに 32 ビットの符号なし整数を書き込みます。</summary>
+      <param name="position">アクセサーの書き込み開始位置 (バイト数)。</param>
+      <param name="value">書き込む値。</param>
+      <exception cref="T:System.ArgumentException">値を書き込むための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが書き込みをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryAccessor.Write(System.Int64,System.UInt64)">
+      <summary>アクセサーに 64 ビットの符号なし整数を書き込みます。</summary>
+      <param name="position">アクセサーの書き込み開始位置 (バイト数)。</param>
+      <param name="value">書き込む値。</param>
+      <exception cref="T:System.ArgumentException">値を書き込むための <paramref name="position" /> の後のバイト数が不足しています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="position" /> が、0 未満か、アクセサーの容量を超えています。</exception>
+      <exception cref="T:System.NotSupportedException">アクセサーが書き込みをサポートしていません。</exception>
+      <exception cref="T:System.ObjectDisposedException">アクセサーは破棄されています。</exception>
+    </member>
+    <member name="T:System.IO.UnmanagedMemoryStream">
+      <summary>マネージ コードからメモリのアンマネージ ブロックにアクセスできるようにします。</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor">
+      <summary>
+        <see cref="T:System.IO.UnmanagedMemoryStream" /> クラスの新しいインスタンスを初期化します。</summary>
+      <exception cref="T:System.Security.SecurityException">ユーザーに必要なアクセス許可がありません。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Byte*,System.Int64)">
+      <summary>指定した位置とメモリ長を使用して、<see cref="T:System.IO.UnmanagedMemoryStream" /> クラスの新しいインスタンスを初期化します。</summary>
+      <param name="pointer">アンマネージ メモリ位置へのポインター。</param>
+      <param name="length">使用するメモリの長さ。</param>
+      <exception cref="T:System.Security.SecurityException">ユーザーに必要なアクセス許可がありません。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pointer" /> 値が null です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="length" /> 値が 0 未満です。または<paramref name="length" /> がオーバーフローの原因となりうる長さです。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Byte*,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>指定した位置、メモリ長、メモリ総量、およびファイル アクセス値を使用して、<see cref="T:System.IO.UnmanagedMemoryStream" /> クラスの新しいインスタンスを初期化します。</summary>
+      <param name="pointer">アンマネージ メモリ位置へのポインター。</param>
+      <param name="length">使用するメモリの長さ。</param>
+      <param name="capacity">ストリームに割り当てられたメモリの総量。</param>
+      <param name="access">
+        <see cref="T:System.IO.FileAccess" /> 値の 1 つ。</param>
+      <exception cref="T:System.Security.SecurityException">ユーザーに必要なアクセス許可がありません。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pointer" /> 値が null です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="length" /> 値が 0 未満です。または <paramref name="capacity" /> 値が 0 未満です。または<paramref name="length" /> 値が <paramref name="capacity" /> 値を超えています。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64)">
+      <summary>指定したオフセットおよび長さを使用して、セーフ バッファーに <see cref="T:System.IO.UnmanagedMemoryStream" /> クラスの新しいインスタンスを初期化します。</summary>
+      <param name="buffer">アンマネージ メモリ ストリームを格納するバッファー。</param>
+      <param name="offset">バッファー内のアンマネージ メモリ ストリームの開始バイト位置。</param>
+      <param name="length">アンマネージ メモリ ストリームの長さ。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.#ctor(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>指定したオフセット、長さ、およびファイル アクセスを使用して、セーフ バッファーに <see cref="T:System.IO.UnmanagedMemoryStream" /> クラスの新しいインスタンスを初期化します。</summary>
+      <param name="buffer">アンマネージ メモリ ストリームを格納するバッファー。</param>
+      <param name="offset">バッファー内のアンマネージ メモリ ストリームの開始バイト位置。</param>
+      <param name="length">アンマネージ メモリ ストリームの長さ。</param>
+      <param name="access">アンマネージ メモリ ストリームへのファイル アクセスのモード。</param>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.CanRead">
+      <summary>ストリームが読み取りをサポートしているかどうかを示す値を取得します。</summary>
+      <returns>ストリームの読み取りが含まれていない <paramref name="access" /> パラメーターを持つコンストラクターによってオブジェクトが作成された場合、およびストリームが閉じている場合は false。それ以外の場合は true。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.CanSeek">
+      <summary>ストリームがシークをサポートしているかどうかを示す値を取得します。</summary>
+      <returns>ストリームが閉じている場合は false。それ以外の場合は true。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.CanWrite">
+      <summary>ストリームが書き込みをサポートしているかどうかを示す値を取得します。</summary>
+      <returns>書き込みをサポートする <paramref name="access" /> パラメーター値を持つコンストラクター、またはパラメーターを持たないコンストラクターによってオブジェクトが作成された場合、あるいはストリームが閉じている場合は false。それ以外の場合は true。</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.Capacity">
+      <summary>ストリームの長さ (サイズ)、またはストリームに割り当てられたメモリの総量 (容量) を取得します。</summary>
+      <returns>ストリームのサイズまたは容量。</returns>
+      <exception cref="T:System.ObjectDisposedException">ストリームが閉じられました。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Dispose(System.Boolean)">
+      <summary>
+        <see cref="T:System.IO.UnmanagedMemoryStream" /> で使用されているアンマネージ リソースを解放し、オプションでマネージ リソースを解放します。</summary>
+      <param name="disposing">マネージ リソースとアンマネージ リソースの両方を解放する場合は true。アンマネージ リソースだけを解放する場合は false。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Flush">
+      <summary>アクションが実行されないように、<see cref="M:System.IO.Stream.Flush" /> メソッドをオーバーライドします。</summary>
+      <exception cref="T:System.ObjectDisposedException">ストリームが閉じられました。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.FlushAsync(System.Threading.CancellationToken)">
+      <summary>指定した場合にオペレーションがキャンセルされるが他のアクションは実行されないように、<see cref="M:System.IO.Stream.FlushAsync(System.Threading.CancellationToken)" /> メソッドをオーバーライドします。
+                .NET Framework 2015 以降で利用可能</summary>
+      <returns>非同期のフラッシュ操作を表すタスク。</returns>
+      <param name="cancellationToken">キャンセル要求を監視するためのトークン。既定値は <see cref="P:System.Threading.CancellationToken.None" /> です。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Initialize(System.Byte*,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>アンマネージ メモリ位置へのポインターを使用して、<see cref="T:System.IO.UnmanagedMemoryStream" /> クラスの新しいインスタンスを初期化します。</summary>
+      <param name="pointer">アンマネージ メモリ位置へのポインター。</param>
+      <param name="length">使用するメモリの長さ。</param>
+      <param name="capacity">ストリームに割り当てられたメモリの総量。</param>
+      <param name="access">
+        <see cref="T:System.IO.FileAccess" /> 値の 1 つ。</param>
+      <exception cref="T:System.Security.SecurityException">ユーザーに必要なアクセス許可がありません。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="pointer" /> 値が null です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="length" /> 値が 0 未満です。または <paramref name="capacity" /> 値が 0 未満です。または<paramref name="length" /> 値がオーバーフローの原因になりうる長さです。</exception>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Initialize(System.Runtime.InteropServices.SafeBuffer,System.Int64,System.Int64,System.IO.FileAccess)">
+      <summary>指定したオフセット、長さ、およびファイル アクセスを使用して、セーフ バッファーに <see cref="T:System.IO.UnmanagedMemoryStream" /> クラスの新しいインスタンスを初期化します。</summary>
+      <param name="buffer">アンマネージ メモリ ストリームを格納するバッファー。</param>
+      <param name="offset">バッファー内のアンマネージ メモリ ストリームの開始バイト位置。</param>
+      <param name="length">アンマネージ メモリ ストリームの長さ。</param>
+      <param name="access">アンマネージ メモリ ストリームへのファイル アクセスのモード。</param>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.Length">
+      <summary>ストリーム内のデータ長を取得します。</summary>
+      <returns>ストリーム内のデータ長。</returns>
+      <exception cref="T:System.ObjectDisposedException">ストリームが閉じられました。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.Position">
+      <summary>ストリーム内の現在位置を取得または設定します。</summary>
+      <returns>ストリームの現在の位置。</returns>
+      <exception cref="T:System.ObjectDisposedException">ストリームが閉じられました。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">位置が 0 未満の値に設定されています。または、位置が <see cref="F:System.Int32.MaxValue" /> を超えているか、現在のポインターに追加したときにオーバーフローが発生しました。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.UnmanagedMemoryStream.PositionPointer">
+      <summary>ストリーム内の現在位置に基づいて、ストリームへのバイト ポインターを取得または設定します。</summary>
+      <returns>バイト ポインター。</returns>
+      <exception cref="T:System.IndexOutOfRangeException">現在位置は、ストリームの容量を超えています。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">設定されている位置は、現在のストリーム内の有効な位置ではありません。</exception>
+      <exception cref="T:System.IO.IOException">ポインターがストリームの開始位置よりも低い値に設定されています。</exception>
+      <exception cref="T:System.NotSupportedException">
+        <see cref="T:System.Runtime.InteropServices.SafeBuffer" /> で使用するためにストリームが初期化されました。<see cref="P:System.IO.UnmanagedMemoryStream.PositionPointer" /> プロパティは、<see cref="T:System.Byte" /> ポインターで初期化されるストリームに対してのみ有効です。</exception>
+      <filterpriority>2</filterpriority>
+      <PermissionSet>
+        <IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode" />
+      </PermissionSet>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Read(System.Byte[],System.Int32,System.Int32)">
+      <summary>指定したバイト数を指定した配列に読み取ります。</summary>
+      <returns>バッファーに読み取られた合計バイト数。要求しただけのバイト数を読み取ることができなかった場合、この値は要求したバイト数より小さくなります。ストリームの末尾に到達した場合は 0 (ゼロ) になることがあります。</returns>
+      <param name="buffer">このメソッドが戻るとき、指定したバイト配列の <paramref name="offset" /> から (<paramref name="offset" /> + <paramref name="count" /> - 1) までの値が、現在のソースから読み取られたバイトに置き換えられます。このパラメーターは初期化せずに渡されます。</param>
+      <param name="offset">現在のストリームから読み取ったデータの格納を開始する位置を示す <paramref name="buffer" /> 内のバイト オフセット。インデックス番号は 0 から始まります。</param>
+      <param name="count">現在のストリームから読み取る最大バイト数。</param>
+      <exception cref="T:System.ObjectDisposedException">ストリームが閉じられました。</exception>
+      <exception cref="T:System.NotSupportedException">基になるメモリが読み取りをサポートしていません。または <see cref="P:System.IO.UnmanagedMemoryStream.CanRead" /> プロパティが false に設定されている。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> パラメーターを null に設定します。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> パラメーターが 0 未満です。または <paramref name="count" /> パラメーターが 0 未満です。</exception>
+      <exception cref="T:System.ArgumentException">バッファー配列の長さから <paramref name="offset" /> パラメーターを引いた値が、<paramref name="count" /> パラメーター未満です。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.ReadAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+      <summary>指定したバイト数を指定した配列に非同期に読み取ります。
+                .NET Framework 2015 以降で利用可能</summary>
+      <returns>非同期の読み取り操作を表すタスク。<paramref name="TResult" /> パラメーターの値には、バッファーに読み込まれるバイトの合計数が含まれます。現在使用できるバイト数が要求した数より小さい場合、結果の値は要求したバイト数より小さくなることがあります。また、ストリームの末尾に到達した場合は 0 になることがあります。</returns>
+      <param name="buffer">データを書き込むバッファー。</param>
+      <param name="offset">ストリームからのデータの書き込み開始位置を示す <paramref name="buffer" /> 内のバイト オフセット。</param>
+      <param name="count">読み取る最大バイト数。</param>
+      <param name="cancellationToken">キャンセル要求を監視するためのトークン。既定値は <see cref="P:System.Threading.CancellationToken.None" /> です。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.ReadByte">
+      <summary>ストリームから 1 バイトを読み取り、ストリーム内の位置を 1 バイト分進めます。ストリームの末尾の場合は -1 を返します。</summary>
+      <returns>
+        <see cref="T:System.Int32" /> オブジェクトにキャストされた符号なしバイト。ストリームの末尾の場合は -1。</returns>
+      <exception cref="T:System.ObjectDisposedException">ストリームが閉じられました。</exception>
+      <exception cref="T:System.NotSupportedException">基になるメモリが読み取りをサポートしていません。または現在の位置はストリームの末尾です。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Seek(System.Int64,System.IO.SeekOrigin)">
+      <summary>現在のストリームの現在位置を、指定した値に設定します。</summary>
+      <returns>ストリームの新しい位置。</returns>
+      <param name="offset">シークの開始位置を示す、<paramref name="origin" /> からの相対ポイント。</param>
+      <param name="loc">
+        <see cref="T:System.IO.SeekOrigin" /> 型の値を使用して、<paramref name="origin" /> の参照ポイントとして先頭、末尾、または現在位置を指定します。</param>
+      <exception cref="T:System.IO.IOException">ストリームの開始前に、シークしようとしました。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="offset" /> 値がストリームの最大サイズを超えています。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="loc" /> が無効です。</exception>
+      <exception cref="T:System.ObjectDisposedException">ストリームが閉じられました。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.SetLength(System.Int64)">
+      <summary>ストリーム長を、指定した値に設定します。</summary>
+      <param name="value">ストリーム長。</param>
+      <exception cref="T:System.IO.IOException">I/O エラーが発生しました。</exception>
+      <exception cref="T:System.ObjectDisposedException">ストリームが閉じられました。</exception>
+      <exception cref="T:System.NotSupportedException">基になるメモリが書き込みをサポートしていません。またはストリームへの書き込みが行われようとしましたが、<see cref="P:System.IO.UnmanagedMemoryStream.CanWrite" /> プロパティが false です。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">指定した <paramref name="value" /> がストリームの容量を超えています。または指定した <paramref name="value" /> が負の値です。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.Write(System.Byte[],System.Int32,System.Int32)">
+      <summary>バッファーのデータを使用して、現在のストリームにバイトのブロックを書き込みます。</summary>
+      <param name="buffer">現在のストリームにコピーするバイトのコピー元となるバイト配列。</param>
+      <param name="offset">現在のストリームへのバイトのコピーを開始する位置のバッファーのオフセット。</param>
+      <param name="count">現在のストリームに書き込むバイト数。</param>
+      <exception cref="T:System.ObjectDisposedException">ストリームが閉じられました。</exception>
+      <exception cref="T:System.NotSupportedException">基になるメモリが書き込みをサポートしていません。またはストリームへの書き込みが行われようとしましたが、<see cref="P:System.IO.UnmanagedMemoryStream.CanWrite" /> プロパティが false です。または<paramref name="count" /> 値がストリームの容量を超えています。または位置がストリーム容量の末尾です。</exception>
+      <exception cref="T:System.IO.IOException">I/O エラーが発生しました。</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">指定したパラメーターのいずれかが 0 未満です。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="offset" /> パラメーターから <paramref name="buffer" /> パラメーターの長さを引いた値が <paramref name="count" /> パラメーター未満です。</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> パラメーターが null です。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.WriteAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+      <summary>現在のストリームにバイト シーケンスを非同期に書き込み、書き込んだバイト数だけストリーム内の現在位置を進め、キャンセル要求を監視します。
+                .NET Framework 2015 以降で利用可能</summary>
+      <returns>非同期の書き込み操作を表すタスク。</returns>
+      <param name="buffer">データの書き込み元となるバッファー。</param>
+      <param name="offset">ストリームへのバイトのコピーを開始する位置を示す <paramref name="buffer" /> 内のバイト オフセット。インデックス番号は 0 から始まります。</param>
+      <param name="count">書き込む最大バイト数。</param>
+      <param name="cancellationToken">キャンセル要求を監視するためのトークン。既定値は <see cref="P:System.Threading.CancellationToken.None" /> です。</param>
+    </member>
+    <member name="M:System.IO.UnmanagedMemoryStream.WriteByte(System.Byte)">
+      <summary>ファイル ストリームの現在位置にバイトを書き込みます。</summary>
+      <param name="value">ストリームに書き込むバイト値。</param>
+      <exception cref="T:System.ObjectDisposedException">ストリームが閉じられました。</exception>
+      <exception cref="T:System.NotSupportedException">基になるメモリが書き込みをサポートしていません。またはストリームへの書き込みが行われようとしましたが、<see cref="P:System.IO.UnmanagedMemoryStream.CanWrite" /> プロパティが false です。または 現在位置はストリームの容量の末尾です。</exception>
+      <exception cref="T:System.IO.IOException">指定した <paramref name="value" /> によって、ストリームがその最大容量を超えることになります。</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+  </members>
+</doc>

@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.IO.FileSystem.Watcher</name>
+  </assembly>
+  <members>
+    <member name="T:System.IO.ErrorEventArgs">
+      <summary>Предоставляет данные для события <see cref="E:System.IO.FileSystemWatcher.Error" />.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.ErrorEventArgs.#ctor(System.Exception)">
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.IO.ErrorEventArgs" />.</summary>
+      <param name="exception">Компонент <see cref="T:System.Exception" />, представляющий возникшую ошибку. </param>
+    </member>
+    <member name="M:System.IO.ErrorEventArgs.GetException">
+      <summary>Получает компонент <see cref="T:System.Exception" />, представляющий возникшую ошибку.</summary>
+      <returns>Компонент <see cref="T:System.Exception" />, представляющий возникшую ошибку.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.ErrorEventHandler">
+      <summary>Предоставляет метод, обрабатывающий событие <see cref="E:System.IO.FileSystemWatcher.Error" /> объекта <see cref="T:System.IO.FileSystemWatcher" />.</summary>
+      <param name="sender">Источник события. </param>
+      <param name="e">Объект <see cref="T:System.IO.ErrorEventArgs" />, содержащий данные о событии. </param>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.FileSystemEventArgs">
+      <summary>Предоставляет данные для событий каталога: <see cref="E:System.IO.FileSystemWatcher.Changed" />, <see cref="E:System.IO.FileSystemWatcher.Created" />, <see cref="E:System.IO.FileSystemWatcher.Deleted" />.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.FileSystemEventArgs.#ctor(System.IO.WatcherChangeTypes,System.String,System.String)">
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.IO.FileSystemEventArgs" />.</summary>
+      <param name="changeType">Одно из значений <see cref="T:System.IO.WatcherChangeTypes" />, описывающее тип изменения, обнаруженного в файловой системе. </param>
+      <param name="directory">Корневой каталог файла или каталога, в котором произошло изменение. </param>
+      <param name="name">Имя файла или каталога, в которых произошло изменение. </param>
+    </member>
+    <member name="P:System.IO.FileSystemEventArgs.ChangeType">
+      <summary>Возвращает тип происшедшего события каталога.</summary>
+      <returns>Одно из значений <see cref="T:System.IO.WatcherChangeTypes" />, описывающее тип изменения, обнаруженного в файловой системе.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemEventArgs.FullPath">
+      <summary>Возвращает полный путь для файла или каталога, в которых произошло изменение.</summary>
+      <returns>Путь для файла или каталога, в которых произошло изменение.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemEventArgs.Name">
+      <summary>Возвращает имя файла или каталога, в которых произошло изменение.</summary>
+      <returns>Имя файла или каталога, в которых произошло изменение.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.FileSystemEventHandler">
+      <summary>Представляет метод, обрабатывающий событие <see cref="E:System.IO.FileSystemWatcher.Changed" />, <see cref="E:System.IO.FileSystemWatcher.Created" /> или <see cref="E:System.IO.FileSystemWatcher.Deleted" /> класса <see cref="T:System.IO.FileSystemWatcher" />.</summary>
+      <param name="sender">Источник события. </param>
+      <param name="e">Объект <see cref="T:System.IO.FileSystemEventArgs" />, содержащий данные события. </param>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.FileSystemWatcher">
+      <summary>Ожидает уведомления файловой системы об изменениях и инициирует события при изменениях каталога или файла в каталоге.Чтобы просмотреть исходный код .NET Framework для этого типа, см. Reference Source.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.#ctor">
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.IO.FileSystemWatcher" />.</summary>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.#ctor(System.String)">
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.IO.FileSystemWatcher" /> с заданным каталогом для контроля.</summary>
+      <param name="path">Контролируемый каталог в стандартной записи или в записи UNC. </param>
+      <exception cref="T:System.ArgumentNullException">Параметр <paramref name="path" /> имеет значение null. </exception>
+      <exception cref="T:System.ArgumentException">Параметр <paramref name="path" /> является пустой строкой ("").-или- Путь, заданный параметром <paramref name="path" />, не существует. </exception>
+      <exception cref="T:System.IO.PathTooLongException">Параметр <paramref name="path" /> имеет слишком большую длину.</exception>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.#ctor(System.String,System.String)">
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.IO.FileSystemWatcher" /> с заданным каталогом и типом файлов для контроля.</summary>
+      <param name="path">Контролируемый каталог в стандартной записи или в записи UNC. </param>
+      <param name="filter">Тип отслеживаемых файлов.Например, *.txt означает отслеживание изменений во всех текстовых файлах.</param>
+      <exception cref="T:System.ArgumentNullException">Параметр <paramref name="path" /> имеет значение null.-или- Параметр <paramref name="filter" /> имеет значение null. </exception>
+      <exception cref="T:System.ArgumentException">Параметр <paramref name="path" /> является пустой строкой ("").-или- Путь, заданный параметром <paramref name="path" />, не существует. </exception>
+      <exception cref="T:System.IO.PathTooLongException">Параметр <paramref name="path" /> имеет слишком большую длину.</exception>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Changed">
+      <summary>Происходит при изменении файла или каталога по заданному пути <see cref="P:System.IO.FileSystemWatcher.Path" />.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Created">
+      <summary>Происходит при создании файла или каталога по заданному пути <see cref="P:System.IO.FileSystemWatcher.Path" />.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Deleted">
+      <summary>Происходит при удалении файла или каталога по заданному пути <see cref="P:System.IO.FileSystemWatcher.Path" />.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.Dispose"></member>
+    <member name="M:System.IO.FileSystemWatcher.Dispose(System.Boolean)">
+      <summary>Освобождает неуправляемые ресурсы, используемые объектом <see cref="T:System.IO.FileSystemWatcher" />, а при необходимости освобождает также управляемые ресурсы.</summary>
+      <param name="disposing">Значение true позволяет освободить как управляемые, так и неуправляемые ресурсы; значение false освобождает только неуправляемые ресурсы.</param>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.EnableRaisingEvents">
+      <summary>Возвращает или задает значение, определяющее, доступен ли данный компонент.</summary>
+      <returns>Значение true, если данный компонент разрешен; в противном случае — значение false.Значение по умолчанию — false.При использовании этого компонента в конструкторе в Visual Studio 2005, значение по умолчанию равно true.</returns>
+      <exception cref="T:System.ObjectDisposedException">Объект <see cref="T:System.IO.FileSystemWatcher" /> был удален.</exception>
+      <exception cref="T:System.PlatformNotSupportedException">Операционная система не является системой Microsoft Windows NT или более поздней версией Windows.</exception>
+      <exception cref="T:System.IO.FileNotFoundException">Не удалось найти каталог, указанный в <see cref="P:System.IO.FileSystemWatcher.Path" />.</exception>
+      <exception cref="T:System.ArgumentException">Объект <see cref="P:System.IO.FileSystemWatcher.Path" /> не был задан или является недопустимым.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Error">
+      <summary>Происходит, когда экземпляру <see cref="T:System.IO.FileSystemWatcher" /> не удается продолжить отслеживание изменений, или при переполнении внутреннего буфера.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.Filter">
+      <summary>Возвращае или задает строку фильтра, используемую для определения файлов, контролируемых в каталоге.</summary>
+      <returns>Строка фильтра.По умолчанию используется "*.*" (отслеживаются все файлы).</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.IncludeSubdirectories">
+      <summary>Возвращает или задает значение, показывающее необходимость контроля вложенных каталогов по указанному пути.</summary>
+      <returns>Значение true, если требуется контроль вложенных каталогов; в противном случае — значение false.Значение по умолчанию — false.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.InternalBufferSize">
+      <summary>Возвращает или задает размер (в байтах) внутреннего буфера.</summary>
+      <returns>Размер внутреннего буфера в байтах.Значение по умолчанию — 8192 (8 КБ).</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.NotifyFilter">
+      <summary>Возвращает или задает тип отслеживаемых изменений.</summary>
+      <returns>Одно из значений <see cref="T:System.IO.NotifyFilters" />.По умолчанию это побитовое сочетание OR-значений LastWrite, FileName и DirectoryName.</returns>
+      <exception cref="T:System.ArgumentException">Эта величина не является действительным побитовым сочетанием OR-значений <see cref="T:System.IO.NotifyFilters" />. </exception>
+      <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">Задаваемое значение является недопустимым.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnChanged(System.IO.FileSystemEventArgs)">
+      <summary>Вызывает событие <see cref="E:System.IO.FileSystemWatcher.Changed" />.</summary>
+      <param name="e">Объект <see cref="T:System.IO.FileSystemEventArgs" />, содержащий данные события. </param>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnCreated(System.IO.FileSystemEventArgs)">
+      <summary>Вызывает событие <see cref="E:System.IO.FileSystemWatcher.Created" />.</summary>
+      <param name="e">Объект <see cref="T:System.IO.FileSystemEventArgs" />, содержащий данные события. </param>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnDeleted(System.IO.FileSystemEventArgs)">
+      <summary>Вызывает событие <see cref="E:System.IO.FileSystemWatcher.Deleted" />.</summary>
+      <param name="e">Объект <see cref="T:System.IO.FileSystemEventArgs" />, содержащий данные события. </param>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnError(System.IO.ErrorEventArgs)">
+      <summary>Вызывает событие <see cref="E:System.IO.FileSystemWatcher.Error" />.</summary>
+      <param name="e">Объект класса <see cref="T:System.IO.ErrorEventArgs" />, содержащий данные события. </param>
+    </member>
+    <member name="M:System.IO.FileSystemWatcher.OnRenamed(System.IO.RenamedEventArgs)">
+      <summary>Вызывает событие <see cref="E:System.IO.FileSystemWatcher.Renamed" />.</summary>
+      <param name="e">Объект <see cref="T:System.IO.RenamedEventArgs" />, содержащий данные события. </param>
+    </member>
+    <member name="P:System.IO.FileSystemWatcher.Path">
+      <summary>Возвращает или задает путь отслеживаемого каталога.</summary>
+      <returns>Путь для отслеживания.Значение по умолчанию — пустая строка ("").</returns>
+      <exception cref="T:System.ArgumentException">Заданный путь не существует или не может быть найден.-или- Заданный путь содержит подстановочные знаки.-или- Заданный путь содержит недопустимые символы.</exception>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="E:System.IO.FileSystemWatcher.Renamed">
+      <summary>Происходит при переименовании файла или каталога по заданному пути <see cref="P:System.IO.FileSystemWatcher.Path" />.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.NotifyFilters">
+      <summary>Задает изменения, наблюдаемые в файле или папке.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="F:System.IO.NotifyFilters.Attributes">
+      <summary>Атрибуты файла или папки.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.CreationTime">
+      <summary>Время создания файла или папки.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.DirectoryName">
+      <summary>Имя каталога.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.FileName">
+      <summary>Имя файла.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.LastAccess">
+      <summary>Дата последнего открытия файла или папки.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.LastWrite">
+      <summary>Дата последней записи в файл или папку.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.Security">
+      <summary>Параметры безопасности файла или папки.</summary>
+    </member>
+    <member name="F:System.IO.NotifyFilters.Size">
+      <summary>Размер файла или папки.</summary>
+    </member>
+    <member name="T:System.IO.RenamedEventArgs">
+      <summary>Предоставляет данные для события <see cref="E:System.IO.FileSystemWatcher.Renamed" />.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="M:System.IO.RenamedEventArgs.#ctor(System.IO.WatcherChangeTypes,System.String,System.String,System.String)">
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.IO.RenamedEventArgs" />.</summary>
+      <param name="changeType">Одно из значений <see cref="T:System.IO.WatcherChangeTypes" />. </param>
+      <param name="directory">Имя файла или каталога, в которых произошло изменение. </param>
+      <param name="name">Имя файла или каталога, в которых произошло изменение. </param>
+      <param name="oldName">Старое имя измененного файла или каталога. </param>
+    </member>
+    <member name="P:System.IO.RenamedEventArgs.OldFullPath">
+      <summary>Получает исходный полный путь измененного файла или каталога.</summary>
+      <returns>Исходный полный путь измененного файла или каталога.</returns>
+      <filterpriority>2</filterpriority>
+      <PermissionSet>
+        <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true" />
+      </PermissionSet>
+    </member>
+    <member name="P:System.IO.RenamedEventArgs.OldName">
+      <summary>Получает старое имя измененного файла или каталога.</summary>
+      <returns>Предыдущее имя измененного файла или каталога.</returns>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.RenamedEventHandler">
+      <summary>Представляет метод, обрабатывающий событие <see cref="E:System.IO.FileSystemWatcher.Renamed" /> класса <see cref="T:System.IO.FileSystemWatcher" />.</summary>
+      <param name="sender">Источник события. </param>
+      <param name="e">Объект <see cref="T:System.IO.RenamedEventArgs" />, содержащий данные события. </param>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="T:System.IO.WatcherChangeTypes">
+      <summary>Возможные изменения в файле или каталоге.</summary>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.All">
+      <summary>Создание, удаление, изменение или переименование файла или папки.</summary>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.Changed">
+      <summary>Изменение файла или папки.Типы изменений включают: изменение размера, атрибутов, параметров безопасности, времени последней записи и времени последнего доступа.</summary>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.Created">
+      <summary>Создание файла или папки.</summary>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.Deleted">
+      <summary>Удаление файла или папки.</summary>
+    </member>
+    <member name="F:System.IO.WatcherChangeTypes.Renamed">
+      <summary>Переименование файла или папки.</summary>
+    </member>
+  </members>
+</doc>

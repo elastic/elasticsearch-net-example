@@ -26,7 +26,6 @@ namespace NuSearch.Domain.Data
 		public IEnumerable<NugetDump> Dumps => this._files.Select(this.EagerlyReadDump);
 		public IEnumerable<FeedPackage> Packages => this._files.SelectMany(this.LazilyReadDumps);
 
-
 		public NugetDump EagerlyReadDump(string f)
 		{
 			using (var file = File.Open(f, FileMode.Open))

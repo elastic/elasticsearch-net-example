@@ -8,46 +8,64 @@ Simply clone the repository and follow the README.md to build out a feature-pack
 
 If you are reading this on a fork, note that it may be out of sync with: https://github.com/elastic/elasticsearch-net-example
 
-The solution works in both Visual Studio and Xamarin Studio, so feel free to play around with either.
+The solution works in Visual Studio, Visual Studio for Mac, Visual Studio Code and JetBrains Rider, so feel free to play around with any of these.
 
 Oh, and if you find any bugs along the way, send us a PR! Or feel free to ask questions on this repositories github issues.
 
 # Part 1: Installing and getting up and running
 
- - Downloading [Elasticsearch 5.0 or up, preferably latest](https://www.elastic.co/downloads/
+ - Install latest [Elasticsearch 5.0](https://www.elastic.co/downloads/)
+
+ - Install latest [kibana 5.0](https://www.elastic.co/downloads/kibana)
+
+ - Install [.NET Core SDK 1.0.4 64-Bit for your platform](https://github.com/dotnet/core/blob/master/release-notes/download-archives/1.1.2-download.md)
+
+ - Make sure you have a recent [version of JAVA installed](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (64-Bit JDK recommended)
+
+ - Ensure `JAVA_HOME` environment variable points to the correct JAVA directory e.g. `C:\Program Files\Java\jdk1.8.0_131`
 
  - Download and extract NuGet feed data. You can obtain a [data dump of nuget here in zip format](https://nusearch.blob.core.windows.net/dump/nuget-data-dec-2016.zip)
  
- - Install [kibana 5.0](https://www.elastic.co/downloads/kibana).
+ - The application we're building is set up to [run traffic through Fiddler](https://www.telerik.com/download/fiddler) if it notices it's running, 
+ which is super helpful to see the requests and responses to and from Elasticsearch.
 
- - Make sure you have a recent [version of JAVA installed](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
+Clone this repository and open the solution using any of
 
- - The application we're building is set up to [run traffic through fiddler](https://www.telerik.com/download/fiddler) if it notices its running which is supper helpful seeing the request we fire off to Elasticsearch.
+- [Visual Studio](https://www.visualstudio.com/downloads/)
+- [Visual Studio for Mac](https://www.visualstudio.com/vs/visual-studio-mac/) 
+- [Visual Studio Code](https://code.visualstudio.com/) 
+- [JetBrains Rider](https://www.jetbrains.com/rider/)
 
-Clone this repository and open the solution using Visual Studio (Mac) or jetBrains Rider. 
+Once everything is installed, it's time to
+
+- [Start Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html)
+
+- [Start Kibana](https://www.elastic.co/guide/en/kibana/current/install.html)
+
+## Solution structure
 
 The solution consists of 4 projects
 
 ```
 NuSearch Solution
-├─ Nusearch.Domain
+│
+├─ NuSearch.Domain
 │  - Shared domain classes
 │  
-├─ Nusearch.Harvester
-│  - A quick and dirty nuget feed harvester.
-│  - No need to run this during the tutorial but if you want newer data
-│  - than our nuget zip data it might be worth a run.
+├─ NuSearch.Harvester
+│  - A quick and dirty NuGet feed harvester.
+│  - No need to run this during the tutorial but if you want newer data than our nuget zip data, it might be worth a run.
 │  
-├─ Nusearch.Indexer
+├─ NuSearch.Indexer
 │  - Takes the nuget xml files and indexes them into Elasticsearch
 │  
-└─ Nusearch.Web
-   - The nancyfx powered package search site we'll be building
+└─ NuSearch.Web
+   - The ASP.NET Core web application we'll be building out
 ```
 
-The goal off this tutorial is to build these out into a full fledged nuget package search website.
+The goal of this tutorial is to build these out into a full fledged NuGet package search website.
 
-The projects are in compilable state upon checking out though
+The projects should in compilable state upon checking out.
 
 # Part 2: Indexing
 
@@ -55,31 +73,33 @@ The projects are in compilable state upon checking out though
 
 Before we can begin searching for packages we need to index them into Elasticsearch.
 
-Let's take a look at `NuSearch.Indexer`, this is the console application that will be responsible for reading in the package data from the NuGet feed files and indexing them into ES.
+Let's take a look at `NuSearch.Indexer` project first. This is the console application that will be responsible for reading in the package data from the NuGet feed files and indexing them into ES.
 
 In `Main()` we have the following code:
 
 ```csharp
-private static ElasticClient Client { get; set; }
-
-private static NugetDumpReader DumpReader { get; set; }
-
 static void Main(string[] args)
 {
 	Client = NuSearchConfiguration.GetClient();
-	DumpReader = new NugetDumpReader(@"C:\nuget-data");
+	string directory = args.Length > 0 && !string.IsNullOrEmpty(args[0]) 
+		? args[0] 
+		: NuSearchConfiguration.PackagePath;
+	DumpReader = new NugetDumpReader(directory);
 
 	IndexDumps();
 
+	Console.WriteLine("Press any key to continue");
 	Console.Read();
 }
 ```
 
-Make sure you change `c:\nuget-data` to where you extracted the [nuget data dump](http://esdotnet.blob.core.windows.net/nusearch/nuget-data.zip)
+Make sure you change the value assigned to `NuSearchConfiguration.PackagePath` to where you extracted the [nuget data dump](http://esdotnet.blob.core.windows.net/nusearch/nuget-data.zip), or alternatively, pass it in as a command line argument.
 
-Before we start, there are a few classes in the above snippet that we need to gain an understanding of.  `ElasticClient` is the entry point into NEST and is the class that is responsible for making requests to all of the Elasticsearch APIs such as indexing and searching, as well as administrative APIs like snapshot/restore, cluster and node stats, etc.  `ElasticClient` is thread-safe; you can create a singleton instance and keep it around in your application, or you can instantiate a new instance for every request.
+Before we start, there are a few classes in the above snippet that we need to gain an understanding of. 
 
-`NuSearchConfiguration` is a class specific to this workshop, and holds all of the application specific configuration for our `NuSearch` Elasticsearch cluster.  This centralized configuration is handy since later we'll be building out our web application and we'll want to use the same settings to talk to Elasticsearch.
+- `ElasticClient` is the entry point into NEST and is the class that is responsible for making requests to all of the Elasticsearch APIs such as indexing and searching, as well as administrative APIs like snapshot/restore, cluster and node stats, etc.  `ElasticClient` is thread-safe; you can create a singleton instance and keep it around in your application, or you can instantiate a new instance for every request.
+
+- `NuSearchConfiguration` is a class specific to this workshop, and holds all of the application specific configuration for our `NuSearch` Elasticsearch cluster.  This centralized configuration is handy since later we'll be building out our web application, so we'll want to use the same settings to talk to Elasticsearch.
 
 Let's take a closer look at `NuSearchConfiguration.GetClient()` method:
 
@@ -89,50 +109,50 @@ static NuSearchConfiguration()
 	_connectionSettings = new ConnectionSettings(CreateUri(9200));
 }
 
-public static ElasticClient GetClient()
-{
-	return new ElasticClient(_connectionSettings);
-}
+public static ElasticClient GetClient() => new ElasticClient(_connectionSettings);
 ```
 
 We're not doing anything special here (yet).  Just simply returning a new instance of `ElasticClient` that takes a `ConnectionSettings` object with all of the default values.
 
-**NOTE** Because the client is thread-safe, it can live as a singleton within your application, or you can create a new instance of one each time. Most of the caches that the NEST creates internally are bound to the `ConnectionSettings` instance, so at the very least, be sure to reuse instances of that. If you are using a Dependency Injection (DI) container, make sure `ConnectionSettings` is registered as singleton, so that instances of client share the same cache.
+**NOTE** Because the client is thread-safe, it can live as a singleton within your application. Most of the caches that the NEST creates internally are bound to the `ConnectionSettings` instance, so at the very least, be sure to reuse instances of that. If you are using a Dependency Injection (DI) container, make sure `ConnectionSettings` is registered as singleton so that instances of client share the same cache.
 
-Lastly, `NugetDumpReader` is another workshop specific class that we put together for your convenience that simply reads each the NuGet feed file into a `NugetDump` POCO. `NugetDump` contains a single `IEnumerable<FeedPackage>` property `Dumps` which holds a collection of packages, each represented as a `FeedPackage`, an unmodified representation of a package directly from the NuGet API.  We create a new instance of `NugetDumpReader` and tell it where the nuget dump files live by passing the path to the files in the constructor.
+Lastly, `NugetDumpReader` is another workshop specific class that we put together for your convenience to read each the NuGet feed file into a `NugetDump` POCO. `NugetDump` contains a single `IEnumerable<FeedPackage>` property `Dumps`, which holds a collection of packages, each represented as a `FeedPackage`, an unmodified representation of a package mapped from the properties available in the NuGet API.  We create a new instance of `NugetDumpReader` and tell it where the nuget dump files live by passing the path to the files in the constructor.
 
 Now that we're all acquainted with the various classes in our indexer, let's get to the interesting bits and start getting data into Elasticsearch!
 
-First, we'll take the simplest approach and just iterate over each `FeedPackage` in a single dump file and index them individually into an index that we'll named `nusearch`.  We can do this by using the `ElasticClient.Index()` method:
+First, we'll take the simplest approach and just iterate over each `FeedPackage` in a single dump file and index them individually into an index that we've named `nusearch`.  We can do this by using the `ElasticClient.Index()` method. Put the following into the `IndexDumps()` method
 
 ```csharp
-var packages = DumpReader.Dumps.Take(1).First().NugetPackages;
-
-foreach (var package in packages)
+static void IndexDumps()
 {
-	var result = Client.Index(package);
-
-	if (!result.IsValid)
+	var packages = DumpReader.Dumps.Take(1).First().NugetPackages;
+	Console.Write("Indexing documents into elasticsearch...");
+	foreach (var package in packages)
 	{
-		Console.WriteLine(result.DebugInformation);
-		Console.Read();
-		Environment.Exit(1);
+		var result = Client.Index(package);
+
+		if (!result.IsValid)
+		{
+			Console.WriteLine(result.DebugInformation);
+			Console.Read();
+			Environment.Exit(1);
+		}
 	}
+
 	Console.WriteLine("Done.");
 }
-
 ```
 
-*NOTE: We did a `.Take(1)` on the dump files, meaning we are only reading a single file, simply to save us time by not indexing everything just yet since we are going to refine our indexing code a few times over.*
+*NOTE: We did a `.Take(1)` on the dump files, meaning we are only reading a single file, simply to save us time by not indexing everything right now. In the following sections, we're going to refine our indexing code a few times over.*
 
 The `Index()` method accepts two parameters 
 
-1. the required object (document) to index 
-2. an optional lambda expression which enables us to further define the index request (more on that later).
+1. the required POCO (document) to index 
+2. an optional lambda expression to further define the index request (more on that later).
 
-`Index()` returns an `IIndexResponse` (assigned to `result`) that holds all of the relevant response information returned by Elasticsearch. All response types in NEST including `IIndexResponse` implement `IResponse`, and `IResponse` contains a boolean `IsValid` property that tells us whether or not the request was considered valid for the target endpoint.
+`Index()` returns an `IIndexResponse` (assigned to `result`) that holds all of the relevant response information returned by Elasticsearch. All response types in NEST including `IIndexResponse` implement `IResponse` which contains a boolean `IsValid` property that tells us whether or not the request was considered valid for the target endpoint.
 
-`IResponse` also contains an `ApiCall` property which holds all of the details about the request such as, 
+`IResponse` also contains an `ApiCall` property which holds all of the details about the request such as 
 
 - the original raw JSON that was sent
 - the request URL
@@ -142,7 +162,13 @@ as well as other metrics.  We'll touch more on this later in the workshop.
 
 `DebugInformation` is an extremely useful property that describes the state of the request and response, including where it went wrong in the case of errors, as precisely as we can. The information is built lazily when the property is accessed.
 
-Let's run the application and see what we get...
+Let's run the application using the following command in the terminal, within the `NuSearch.Indexer` directory
+
+```sh
+dotnet run
+```
+
+and see what we get...
 
 <hr />
 
@@ -157,13 +183,13 @@ The request might not have enough information provided to make any of these endp
   - /{index=<NULL>}/{type=feedpackage}/{id=_Atrico.Lib.CommonAssemblyInfo}
 ```
 
-What happened here? 
+_What happened here?_ 
 
-We tried to index a document into Elasticsearch but the client does not have enough information to infer all of the required parts that make up _the path_ to an Elasticsearch document. 
+We tried to index a document into Elasticsearch but the client did not have enough information to infer all of the required parts that make up URI _path_ to an Elasticsearch document. 
 
 Both `type` and `id` have a value set but `index` resolved to `NULL`. Why is that?
 
-Notice in our application, we never specified which index to index our packages into, which the API requires.  
+Notice in our application, we never specified which index to index our packages into, which the index API requires.  
 We can specify the index in several ways using NEST, but for now let's just set a default index for the entire client using our `ConnectionSettings`
 
 ```csharp
@@ -180,7 +206,7 @@ If we now run our indexer again, after a few seconds, we should see `Done.` writ
 
 <hr />
 
-We can check the results of indexing using Console, by executing a simple match all query against our `nusearch` index (i.e. the SQL equivalent of `SELECT TOP 10 * FROM nusearch` and see what we have
+We can check the results of indexing using [Kibana Console](https://www.elastic.co/guide/en/kibana/current/console-kibana.html), by executing a simple match all query against our `nusearch` index (i.e. the SQL equivalent of `SELECT TOP 10 * FROM nusearch` and see what we have
 
 ```json
 GET /nusearch/_search
@@ -234,7 +260,7 @@ You should get back a response similar to the following
           "versionDownloadCount": 126,
           "lastEdited": "2013-11-14T22:44:44.063"
         },
-      //SNIP!
+      // ... snip for brevity!
     ]
   }
 }
@@ -242,7 +268,7 @@ You should get back a response similar to the following
 
 W00t! We have documents!
 
-A few things to note here by looking at the meta data of one of the returned hits; `_index` tells us what index the document belongs to, which in this case is `nusearch` as expected since that's what we set as our default index.  However, the keen observer will have noticed that we never specified a type and yet `_type` here is `feedpackage`. How did that happen?
+A few things to note here by looking at the meta data of one of the returned hits, the objects within the `hits.hits` array; `_index` tells us what index the document belongs to, which in this case is `nusearch` as expected since that's what we set as our default index.  However, the keen observer will have noticed that we never specified a type and yet `_type` here is `feedpackage`. How did that happen?
 
 Since we did not explicitly set a type for the index request, NEST automatically inferred the type `feedpackage` from the C# POCO type name.
 
@@ -263,7 +289,7 @@ static NuSearchConfiguration()
 {
 	_connectionSettings = new ConnectionSettings(CreateUri(9200))
 		.SetDefaultIndex("nusearch")
-		.InferMappingFor<FeedPackage>(i=>i
+		.InferMappingFor<FeedPackage>(i => i
 			.TypeName("package")
 		);
 }
@@ -283,7 +309,7 @@ static NuSearchConfiguration()
 }
 ```
 
-Now we can re-index our packages using our new settings, but first we'll need to delete the existing index. Let's add the following to our indexing code to delete the `nusearch` index if it already exists
+Now we can re-index our packages using our new settings. First though, we'll need to delete the existing index. Let's add the following to our indexing code to delete the `nusearch` index if it already exists
 
 ```csharp
 static void DeleteIndexIfExists()
@@ -295,18 +321,22 @@ static void DeleteIndexIfExists()
 static void Main(string[] args)
 {
 	Client = NuSearchConfiguration.GetClient();
-	DumpReader = new NugetDumpReader(@"C:\NugetData")
+	string directory = args.Length > 0 && !string.IsNullOrEmpty(args[0]) 
+		? args[0] 
+		: NuSearchConfiguration.PackagePath;
+	DumpReader = new NugetDumpReader(directory);
 
 	DeleteIndexIfExists();
 	IndexDumps();
 
+	Console.WriteLine("Press any key to continue");
 	Console.Read();
 }
 ```
 
 <hr />
 
-Checking our results in Console again, our hits metadata should now look like this
+Checking our results in Kibana Console again, our hits metadata should now look like this
 
 ```json
 "_index": "nusearch",
@@ -317,17 +347,17 @@ Checking our results in Console again, our hits metadata should now look like th
 
 ### Bulk indexing
 
-Right now our indexer iterates over a dump file and indexes each package one at a time.  This means we're making a single HTTP request for every package! That may be fine for indexing a few packages here and there, but when we have a large amount of documents, an HTTP request per document is going to add a lot of network overhead.
+Right now, our indexer iterates over a dump file and indexes each package one at a time.  This means we're making a single HTTP request for **every** package! That may be fine for indexing a few packages here and there, but when we have a large amount of documents, a HTTP request per document is going to add a lot of network overhead.
 
-Instead, we're going to use [Elasticsearch's Bulk API](http://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html) which will enable us to index multiple documents in a single HTTP request, and in turn give us better performance.
+Instead, we're going to use [Elasticsearch's Bulk API](http://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html) that will enable us to index multiple documents in a single HTTP request, and in turn give us better performance.
 
-Let's change up our indexing code and use the `Bulk()` method exposed by NEST:
+Let's change up our indexing code in `IndexDumps()` to use the `Bulk()` method exposed by NEST:
 
 ```csharp
 static void IndexDumps()
 {
 	var packages = DumpReader.Dumps.Take(1).First().NugetPackages;
-
+    Console.Write("Indexing documents into elasticsearch...");
 	var result = Client.Bulk(b =>
 	{
 		foreach(var package in packages)
@@ -349,7 +379,15 @@ static void IndexDumps()
 
 <hr />
 
-Here we are using a multi-line lambda expression within the `Bulk()` method call to iterate over our `packages` collection, passing each package to the bulk `Index()` method.  Notice here that we had to explicitly state the type of the object we are indexing. Unlike the regular `Client.Index()` method, `Bulk()` can deal with more than one different type in the same request. For example, we could have easily had a `b.Index<Foo>(i => i.Document(myFoo))` in the same `foreach` loop.  In fact, the bulk API supports several operations incuding delete and update in the same bulk call as well.  So we could also have a `b.Delete<FeedPackage>(d => d.Id(123))` in our call too.
+Here we are using a multi-line lambda expression within the `Bulk()` method call to iterate over our `packages` collection, passing each package to the bulk `Index()` method.  
+
+<hr />
+
+**Note**
+
+Notice here that we had to explicitly state the type of the object we are indexing. Unlike the regular `Client.Index()` method, `Bulk()` can deal with more than one different type in the same request. For example, we could have easily had a `b.Index<Foo>(i => i.Document(myFoo))` in the same `foreach` loop.  In fact, the bulk API supports several operations incuding delete and update in the same bulk call as well.  So we could also have a `b.Delete<FeedPackage>(d => d.Id(123))` in our call too.
+
+<hr />
 
 Let's take a look at the request that `Bulk()` generates.  It is going to build up a JSON payload that the bulk API expects, that is the operation to perform (in our case all `index`) followed by the document to index on the next line:
 
@@ -372,17 +410,17 @@ The corresponding response from the bulk API will be a collection of results whe
 ]
 ```
 
-The `201 CREATED` status signifying that each bulk operation completed successfully.
+The `201` status signifying that each bulk operation completed successfully (as per [HTTP Status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)).
 
 Know that a single failing operation in the bulk call will **not** fail the *entire* request.  For instance, if the `NEST` document above failed
 to index for some reason, but the other two documents succeeded, the HTTP status code for the entire request would still be a `200 OK`,
-but the corresponding object in the `items` for `NEST` would indicate a failure through the `status` property, likely to be in the `400` or `500` range.
+but the corresponding object in the `items` for `NEST` would indicate a failure through the `status` property, likely to be in the `400` to `500` range.
 
-However in `NEST` the `.IsValid` property will only be true if all the individual items succeeded regardless of the actual HTTP status code.
+With `NEST`, the `.IsValid` property on the bulk response however will only be `true` if all the individual items succeeded regardless of the actual HTTP status code.
 
 Let's go back to our `IndexDumps()` method and revist our bulk code.
 
-`BulkResponse` exposes an `ItemsWithErrors` collection which will contain any bulk operation that failed.
+`IBulkResponse` exposes an `ItemsWithErrors` property collection which will contain any bulk operation that failed.
 
 Let's modify `IndexDumps()` again and check the response for errors by adding the following:
 
@@ -394,7 +432,11 @@ if (!result.IsValid)
 }
 ```
 
-Let's go ahead and run our indexer again.
+Let's go ahead and run our indexer again with
+
+```sh
+dotnet run
+```
 
 <hr />
 
@@ -402,13 +444,13 @@ All should be well and once again, only `Done.` should be written in the console
 
 ### A shortcut to bulk indexing
 
-One of the design goals in NEST is to always maintain a strict 1-to-1 mapping with the Elasticsearch API.  Only then do we think about extending the client and exposing more convenient ways of accomplishing common uses cases.
+One of the design goals in NEST is to always maintain a strict 1-to-1 mapping with the Elasticsearch API. Only then do we think about extending the client to expose more convenient ways of accomplishing common uses cases.
 
-For instance, often times the bulk API is used simply to just index a bunch of documents in one go.  Our current indexing code may seem a bit too verbose for such a simple operation, however NEST doesn't stop you from being explicit with the bulk API if you so desire.
+For instance, often times the Bulk API is used simply to just index a bunch of documents in one go.  Our current indexing code may seem a bit too verbose for such a simple operation, however NEST doesn't stop you from being explicit with the bulk API if you so desire.
 
 On the other hand, for our case (and also the common case) where we are just indexing documents of the same type, wouldn't it be nice to instead just pass a collection of objects to a method rather than iterating over each one individually?
 
-Well, you can do just that using the `IndexMany()` method, a NEST abstraction over the bulk API which simply takes a collection of objects and expands to our current bulk indexing implementation.
+Well, you can do just that using the `IndexMany()` method, a NEST abstraction over the Bulk API that simply takes a collection of objects and expands to our current bulk indexing implementation.
 
 Let's simplify our code a bit using `IndexMany()` instead:
 
@@ -416,7 +458,8 @@ Let's simplify our code a bit using `IndexMany()` instead:
 static void IndexDumps()
 {
 	var packages = DumpReader.Dumps.Take(1).First().NugetPackages;
-
+    Console.Write("Indexing documents into elasticsearch...");
+	
 	var result = Client.Bulk(b => b.IndexMany(packages));
 
 	if (!result.IsValid)
@@ -437,14 +480,15 @@ Much better, wouldn't you say? :)
 
 ### A shortcut to the shortcut
 
-We can even cut another corner here.  `.Bulk(b => b.IndexMany(packages))` is useful if we plan on also performing other bulk operations such as updates or deletes in the same request.  However, if we are only interested in indexing then we can simplify this even further by using the `IndexMany()` that is exposed directly on `ElasticClient`:
+We can shorten this up even further! `.Bulk(b => b.IndexMany(packages))` is useful if we plan on also performing other bulk operations such as updates or deletes in the same request.  However, if we are only interested in indexing, we can simplify this even further by using the `IndexMany()` method exposed directly on `ElasticClient`:
 
 
 ```csharp
 static void IndexDumps()
 {
 	var packages = DumpReader.Dumps.Take(1).First().NugetPackages;
-
+    Console.Write("Indexing documents into elasticsearch...");
+	
 	var result = Client.IndexMany(packages);
 
 	if (!result.IsValid)
@@ -465,7 +509,7 @@ This is still functionally equivalent to our previous approaches and simply call
 
 ### Mappings and document relations
 
-Now that we've bulk indexed our packages, let's take a step back and query for all of our indexes packages using Console by issuing a search request to `GET /nusearch/_search`. The results that come back should look similar to
+Now that we've bulk indexed our packages, let's take a step back and query for all of our indexes packages using Kibana Console, by issuing a search request to `GET /nusearch/_search`. The results that come back should look similar to
 
 ```json
 {
@@ -490,13 +534,13 @@ The reason for this is due to the fact that our NuGet data contains multiple ver
 
 This is probably useful for many use cases, but for ours, we may want to be able to search for specific versions of a package, or at least view them.  To accomplish this, we are going to have to restructure our models and the way we store them in Elasticsearch by creating a more domain-specific mapping.
 
-As mentioned earlier, our current `FeedPackage` class is an unmodified representation of a package from the NuGet feed.  Instead, let's create our own models that our structured more appropriately for our search application.
+As mentioned earlier, our current `FeedPackage` class is an unmodified representation of a package from the NuGet feed.  Instead, let's create our own models that are structured more appropriately for our search application.
 
-What we want instead is a nested structure, where we have a single top-level package that contains the common/shared information and within it, a collection of versions.  We also want to be able to query for a specific version and still return the top-level package. Elasticsearch will gladly deal with complex object graphs, and has a special [nested type](https://www.elastic.co/guide/en/elasticsearch/reference/current/nested.html) specifically for dealing with such relationships.
+Rather than modelling each version of a NuGet package as a separate document, what we want instead is a nested structure, where we have a single top-level package that contains the common/shared information and within it, a collection of the package versions.  We also want to be able to query for a specific version and still return the top-level package. Elasticsearch will gladly deal with complex object graphs, and has a special [nested type](https://www.elastic.co/guide/en/elasticsearch/reference/current/nested.html) specifically for dealing with such relationships.
 
 Before we set this up in Elasticsearch, let's first restructure our `FeedPackage`.
 
-For convenience and for sake of time, this has already been done.  In our `Domain` project, under the `Model` namespace, we have a few classes that we'll just need to include in the project:
+For convenience and for sake of time, this has already been done for you. In our `NuSearch.Domain` project, under the `Model` namespace, there are a few classes that we'll just need to uncomment:
 
  - `Package.cs`
  - `PackageVersion.cs`
@@ -511,7 +555,7 @@ For convenience and for sake of time, this has already been done.  In our `Domai
 
 And lastly, `PackageDependency` contains dependency information for a given package: the assembly name, version, and supported framework.
 
-Once we've included these new classes in our `Domain` project, the first thing we need to change is the type name and index name mappings on our connection settings to use the new `Package` type (instead of `FeedPackage`):
+Once we've included these new classes in our `NuSearch.Domain` project, the first thing we need to change is the type name and index name mappings on our connection settings to use the new `Package` type (instead of `FeedPackage`):
 
 ```csharp
 static NuSearchConfiguration()
@@ -524,11 +568,11 @@ static NuSearchConfiguration()
 }
 ```
 
-Next, we need to create a mapping in Elasticsearch for our `package` type in order to tell Elasticsearch to treat our version, author, and dependency types as nested.
+Next, we need to create a mapping in Elasticsearch for our `package` type in order to tell Elasticsearch to treat our version, author, and dependency types as nested type.
 
-Prior to this, we didn't have to setup a mapping.  In fact, we didn't even have to create the index beforehand.  We were able to use the *"schema-less"* nature of Elasticsearch by just indexing documents and letting Elasticsearch create our `nusearch` index on the fly, inferring the types of our properties from the first document of a particular type it sees.  This is known as a [`dynamic mapping`](https://www.elastic.co/guide/en/elasticsearch/reference/current/dynamic-mapping.html) and is very convenient for getting off the ground quickly, but almost never suitable for when you would like to search your data in domain specific ways.
+Prior to this, we haven't set up a mapping.  In fact, we didn't even have to create the index beforehand.  We were able to use the *"schema-less"* nature of Elasticsearch by just indexing documents and letting Elasticsearch create our `nusearch` index on the fly, inferring the types of our properties from the first document of a particular type it sees.  This is known as a [`dynamic mapping`](https://www.elastic.co/guide/en/elasticsearch/reference/current/dynamic-mapping.html) and is very convenient for getting off the ground quickly, but almost never suitable when you would like to search your data in domain specific ways. After all, you know your data better than anyone else!
 
-Let's change up our indexing code a bit and create our index upfront before we actually start indexing.  We can also setup our mapping at the time we create our index.
+Let's change up our indexing code a bit and create our index before we actually start indexing.  We can also setup our mapping at the time we create our index.
 
 Let's add a `CreateIndex()` with the following implementation:
 
@@ -565,48 +609,62 @@ static void CreateIndex()
 }
 ```
 
-So let's break down what we're doing here in the `CreateIndex()` call.  First, we're telling Elasticsearch to create an index named `nusearch` with 2 primary shards and no replicas.  Before this, when we weren't creating the index explicitly and just indexing documents, Elasticsearch automatically created the `nusearch` index with 5 primary shards and 1 replica, by default.
+So let's break down what we're doing here in the `CreateIndex()` call.  First, we're telling Elasticsearch to create an index named `nusearch` with 2 primary shards and no replicas.  Before this, when we weren't creating the index explicitly and just indexing documents, Elasticsearch automatically created the `nusearch` index with 5 primary shards and 1 replica, the default settings in Elasticsearch.
 
-Next, `Mapping()` allows us to define a mapping for our `Package` POCO.  First we call `AutoMap()` which tells NEST to automatically map all of the public properties found in `Package` and figure out their ES type based on their C# type.  Also, if we had defined an `ElasticsearchType` attribute (something we don't discuss in this workshop) on any of the properties, they would get picked up here.  But instead of using attributes, we are going to define our properties fluently using `Properties()`.
+Next, `Mapping()` allows us to define a mapping for our `Package` POCO.  First we call [`AutoMap()`](https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/auto-map.html) which tells NEST to automatically map all of the public properties found in `Package` and figure out their Elasticsearch type based on their C# POCO type.  Also, if we had defined an [`ElasticsearchType` attribute](https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/attribute-mapping.html) (something we don't discuss in this workshop) on any of the properties, they would get picked up here.  But instead of using attributes, we are going to define our properties fluently using [`Properties()`](https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/fluent-mapping.html).
 
-`Properties()` allows us to override the defaults set by `AutoMap()`.  For instance, our `PackageVersion` collection by default would just be treated as an `object`, but instead we want it to be `nested` so we call `Nested<T>()` with `T` being `PackageVersion`.  We then supply a name, and map its properties as well by making another call to `AutoMap()`.  This process is also repeated for `PackageDependency` which is nested within `PackageVersion`...two levels of nested objects!  And lastly, `PackageAuthor`.
+`Properties()` allows us to override the defaults set by `AutoMap()`.  For instance, our `PackageVersion` collection by default would just be mapped as an `object` type, but instead we want it to be a `nested` type so we call `Nested<T>()`, with `T` being the `PackageVersion` type. We then supply a name, and map its properties as well by making another call to `AutoMap()`.  This process is also repeated for `PackageDependency` which is nested within `PackageVersion`...two levels of nested objects!  And lastly, `PackageAuthor`.
 
 Still with us?  Alright, now that we have our mapping setup, let's reindex our packages.  But wait, `NugetDumpReader.Dumps` just returns a collection of `FeedPackage`s, how do we go from from `FeedPackage` to our new types?  More importantly, as we iterate through the dump files, we need a way of determining when we've encountered a package for the first time in order to treat all subsequent encounters of the same package as just another version that we can include in the "main" package.
 
 Now we just need to make a small change to `IndexDumps()` and have it call `GetPackages()` instead of reading from `Dumps` directly by changing line 1 to:
 
+```c#
+var packages = DumpReader.GetPackages();
+```
+
 `GetPackages()` creates a dictionary of packages keyed by their ID and iterates through each package in the dump file(s).  When it encounters a new package it simply adds it to the dictionary.  When it encounters a package that already exists in the dictionary, then it simply adds the package to the `Versions` collection of the package that already exists in the dictionary.  At the end, it simply returns all of the packages as a single collection of `Package`s.  Also, take note that all of the property mapping and parsing between `FeedPackage`, `Package`, and `PackageVersion` takes place in the constructors of `Package` and `PackageVersion`.
 
-Also, we don't want to bulk index all of our data in one request, since it's nearly 700mb.  The magic number is usually around 1000 for any data, so let's use the handy `Partition()` extension method to break up our packages into collections of 1000 documents.
+Also, we don't want to bulk index _all_ of our data in one request, since it's nearly 700mb! Instead, we should limit the amount of data in one bulk request. There's another Bulk method in NEST, `BulkAll()`, that is helpful when we need to partition a collection of documents up into smaller collections and make multiple bulk requests. It uses an
+observable design pattern to
 
+1. Set up the conditions for the operation that will be observed
+2. Subscribe an observer to the operation to observe when
+	1. the next bulk request is issued
+	2. if an error occurs within a bulk request
+	3. the operation has completed.
+
+Let's wire up `BulkAll()`
 
 ```csharp
 static void IndexDumps()
 {
-
-	Console.WriteLine("Reading all the packages into memory...");
+	Console.WriteLine("Setting up a lazy xml files reader that yields packages...");
 	var packages = DumpReader.GetPackages();
 
-	Console.WriteLine("Indexing documents into elasticsearch...");
-	var partitions = packages.Partition(1000);
-	foreach (var partition in partitions)
-	{
-		var result = Client.IndexMany(partition);
+	Console.Write("Indexing documents into elasticsearch...");
+	var waitHandle = new CountdownEvent(1);
 
-		if (!result.IsValid)
-		{
-			foreach (var item in result.ItemsWithErrors)
-				Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
-			Console.WriteLine(result.DebugInformation);
-			Console.Read();
-			Environment.Exit(1);
-		}
-	}
+	var bulkAll = Client.BulkAll(packages, b => b
+		.BackOffRetries(2)
+		.BackOffTime("30s")
+		.RefreshOnCompleted(true)
+		.MaxDegreeOfParallelism(4)
+		.Size(1000)
+	);
+
+	bulkAll.Subscribe(new BulkAllObserver(
+		onNext: b => Console.Write("."),
+		onError: e => throw e,
+		onCompleted: () => waitHandle.Signal()
+	));
+
+	waitHandle.Wait();
 	Console.WriteLine("Done.");
 }
 ```
 
-`GetPackages()` is still a heavy routine, it needs to load all the files data into memory before we can index. 
+`GetPackages()` is still a heavy routine as it needs to load all the files data into memory before we can index, but in using `BulkAll()`, issuing bulk requests to index all the packages is made much simpler. In each bulk request, we're indexing 1000 documents using the `Size(1000)` property. How do you know how many documents to index in each request? The magic number is going to depend on the overall size of each bulk request in bytes, the hardware used in the cluster, the configuration of the cluster, complexity of the documents etc. There are no hard and fast rules for what a good number will be and the only true way of knowing is to benchmark it. For our purposes in this workshop however, 1000 documents in each bulk request should work well.
 
 Finally, let's add a call to `CreateIndex()` before `IndexDumps()`.
 
@@ -616,17 +674,21 @@ Finally, let's add a call to `CreateIndex()` before `IndexDumps()`.
 static void Main(string[] args)
 {
 	Client = NuSearchConfiguration.GetClient();
-	DumpReader = new NugetDumpReader(args[0]);
+	string directory = args.Length > 0 && !string.IsNullOrEmpty(args[0] 
+		? args[0] 
+		: NuSearchConfiguration.PackagePath;
+	DumpReader = new NugetDumpReader(directory);
 
-	DeleteIndexIfExists();
+    DeleteIndexIfExists();
 	CreateIndex();
 	IndexDumps();
 
+	Console.WriteLine("Press any key to continue");
 	Console.Read();
 }
 ```
 
-Let's run our indexer one more time- this time indexing everything!
+Let's run our indexer one more time, this time indexing **everything!**
 
 We now should see heaps more packages in our `nusearch` index:
 
@@ -643,30 +705,37 @@ We now should see heaps more packages in our `nusearch` index:
     "total": 40740,
 ```
 
-Since we are going to run the indexer multiple times in the next section make sure IndexDumps() only indexes one partition:
-
-```csharp
-var partitions = packages.Partition(1000).Take(1);
-```
+That's better!
 
 ### Aliases
 
+<hr />
 
-Up until this point, you may have noticed that every time we've made a change to our index that required us to reindex our packages, we had to delete the existing index.  That doesn't sound ideal in a production environment.  Certainly deleting an index on a live application is not going to fly...
+**NOTE**
+
+Since we are going to run the indexer multiple times in the next section make sure `IndexDumps()` only indexes 1000 packages:
+
+```csharp
+var partitions = var packages = DumpReader.GetPackages().Take(1000);
+```
+
+</hr />
+
+Up until this point, you may have noticed that every time we've made a change to our index that required us to reindex our packages, we had to delete the existing index.  That doesn't sound ideal in a production environment. Certainly, deleting an index on a production application should be done with great care...
 
 Elasticsearch has an awesome, and very important feature that can be leveraged to deal with situations like this, called [index aliases](http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-aliases.html).
 
-> The index aliases API allow to alias an index with a name, with all APIs automatically converting the alias name to the actual index name. An alias can also be mapped to more than one index, and when specifying it, the alias will automatically expand to the aliases indices. An alias can also be associated with a filter that will automatically be applied when searching.
+> The index aliases API allow to alias an index with a name, with all APIs automatically converting the alias name to the actual index name. An alias can also be mapped to more than one index, and when specifying it, the alias will automatically expanded to the aliases indices. An alias can also be associated with a filter that will automatically be applied when searching.
 
 For the folks with a SQL background, you can sort of think of an alias as synonymous with a view in SQL.
 
-So going back to our original problem of reindexing on a live index, how can aliases help here?  Well, instead of pointing directly to the `nusearch` index in our application, we can create an alias that *points* to our index and have our application point to the alias.  When we need to reindex data, we can create a new index along side our live one and reindex our data there.  When we're done indexing, we can swap the alias to point to our newly created index- all without having the change our application code.  The operation of swapping aliases is atomic, so the application will not incur any downtime in the process.
+So going back to our original problem of reindexing on a live index, how can aliases help here?  Well, instead of pointing directly to the `nusearch` index in our application, we can create an alias that *points* to our index, and have our application use the alias to refer to the index. When we need to reindex data, we can create a new index alongside our current one and reindex our data there. When we're done indexing into the new index, we can swap the alias to point to our newly created index- all without having the change our application code. The operation of swapping aliases is atomic, so the application will not incur any downtime in the process.
 
 This may be better understood through the following illustration:
 
 ![Alias swapping](readme-images/alias-swapping.png)
 
-So let's go ahead and implement something close to the above diagram.  First let's create a new property to hold our *actual* index name:
+So let's go ahead and implement something close to the above diagram.  First let's create a new property on the `Program` class in `NuSearch.Indexer` to hold our *actual* index name:
 
 ```csharp
 private static string CurrentIndexName { get; set; }
@@ -680,7 +749,11 @@ CurrentIndexName = NuSearchConfiguration.CreateIndexName();
 
 Next, we're going to introduce 2 aliases: `nusearch`, which will point to our *live* index, and `nusearch-old` which will point to our old indices.
 
-Now, since we've already been indexing to an actual index named `nusearch`- we're going to have to start from scratch just this initial go since you can't have an index and an alias with the same name.  So, let's delete our `nusearch` index first, using Sense: `DELETE /nusearch`.
+Since we've already been indexing to an actual index named `nusearch`, we're going to have to delete this index first, since you can't have an index and an alias with the same name.  So, let's delete our `nusearch` index first, using Kibana Console 
+
+```
+DELETE /nusearch
+```
 
 OK, now let's actually implement some code to handle our alias swapping:
 
@@ -720,30 +793,52 @@ Client.CreateIndex(CurrentIndexName, i => i
 
 Easy enough.
 
-Lastly, we need to change our bulk indexing call to explictly index to `CurrentIndexName`, otherwise it will infer `nusearch` from our connection settings- and that's now our alias!
+Lastly, we need to change our bulk indexing call in `IndexDumps()` to explictly index to `CurrentIndexName`, otherwise it will infer `nusearch` from our connection settings- and that's now our alias!
 
 ```csharp
-var result = Client.IndexMany(partition, CurrentIndexName);
+var bulkAll = Client.BulkAll(packages, b => b
+	.Index(CurrentIndexName)
+	.BackOffRetries(2)
+	.BackOffTime("30s")
+	.RefreshOnCompleted(true)
+	.MaxDegreeOfParallelism(4)
+	.Size(1000)
+);
 ```
 
-We can also now get rid of that `DeleteIndexIfExists()` method since we wont be needing it anymore.
-Our `Main()` now has this sequence in place.
-
+We can also now get rid of that `DeleteIndexIfExists()` method since we won't be needing it anymore. Our `Main()` should now look like
 
 ```csharp
-CreateIndex();
-IndexDumps();
-SwapAlias();
+static void Main(string[] args)
+{
+	Client = NuSearchConfiguration.GetClient();
+	string directory = args.Length > 0 && !string.IsNullOrEmpty(args[0]) 
+		? args[0] 
+		: NuSearchConfiguration.PackagePath;
+	DumpReader = new NugetDumpReader(directory);
+	CurrentIndexName = NuSearchConfiguration.CreateIndexName();
 
+	CreateIndex();
+	IndexDumps();
+	SwapAlias();
+
+	Console.WriteLine("Press any key to continue");
+	Console.Read();
+}
 ```
 
 Alright, now we're all set!  We can now reindex as many times as we'd like without affecting our live web application.
 
 <hr />
 
-Remember we put that `Take(1)` in place earlier, run the application a couple of times and observe the output of:
+Remember we put that `Take(1)` in place earlier, run the application a couple of times and observe the output of running
 
-**GET /_cat/aliases?v**
+```
+GET /_cat/aliases?v
+```
+
+in Kibana Console
+
 ```
 alias        index                        filter routing.index routing.search 
 nusearch-old nusearch-25-07-2016-05-58-31 -      -             -              
@@ -751,7 +846,7 @@ nusearch     nusearch-25-07-2016-05-58-55 -      -             -
 nusearch-old nusearch-25-07-2016-05-58-12 -      -             -              
 ```
 
-You should see our swapping routing keeps a maximum of two older version around and points `nusearch` to the latest.
+You should see our swapping routing keeps a maximum of two older versions of the index around and points `nusearch` to the latest.
 
 <hr />
 
@@ -764,19 +859,27 @@ Now lets remove that `.Take(1)` in `IndexDumps()` and index one final time so we
 The NuSearch solution ships with a ready made `NuSearch.Web` application which is in fact a console application
 that does the actual hosting of the website that we are going to be building.
 
-This might be a strange construct, but it allows you to focus on building the web site without having to configure IIS
-or figure out how to run this on other OS's.
+This might be a strange construct, but it allows us to focus on building the web site without having to configure IIS, Apache or Nginx, or figure out how to run this on other operating systems.
 
-The web project utilizes [OWIN](http://owin.org/) using the excellent [NOWIN](https://github.com/Bobris/Nowin) cross platform webserver and it hooks up
-[Nancy Web Framwork](http://nancyfx.org/), and we've gotten all the plumbing out of the way.
+The web project utilizes [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/) using the excellent [Kestrel](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel) cross platform webserver.
 
-You are free of course to use whatever architecture in your own application. `NEST 5.x` runs on `aspnet5 core RTM` and `dot net core RTM`
+You are free of course to use whatever architecture in your own application. `NEST 5.x` runs on Desktop CLR and Core CLR, supporting the following frameworks and libraries
+
+- .NET Framework 4.5
+- .NET Framework 4.6
+- .NET Standard 1.3
 
 Also please note that prior knowledge of any of these is not required to follow along!
 
-You can start the web application simply by setting the project as start up application and pressing `F5`
+You can start the web application simply by navigating to the `NuSearch.Web` directory on the command line and typing
 
-You can then [goto the nusearch web application](http://localhost:8080)
+```sh
+dotnet run
+```
+
+You can then [go to the nusearch web application](http://localhost:5000) on port 5000 (this may be a different port if this conflicts. The port number should be echo'ed to the console output).
+
+See the [troubleshooting section](#Troubleshooting) if you run into issues.
 
 <hr />
 
@@ -786,34 +889,34 @@ If all is well you should now see this:
 
 ### Getting started
 
-As mentioned we've already done most of the plumbing for this web application, so let's talk about what is already in place.
+We've already done most of the plumbing for this web application, so let's talk about what is already in place.
 
- Folder   | Purpose
-----------|-----------
-Plumbing  | Everything related to get Nancy, Owin, Nowin happy.
-Search    | The folder where you are going to be writing your code.
-Static    | The JavaScript and CSS for the application.  You'll need to uncomment a thing or two as we progress.
+ Folder     | Purpose
+------------|-----------
+Controllers | MVC controllers that respond to requests
+Models      | ViewModels for requests and responses
+Views       | The views to render HTML in the response
+wwwroot     | Static content such as JavaScript and CSS files. You'll need to uncomment a thing or two as we progress.
 
-Our plumbing allows you to edit `cshtml`, `css` and `js` files while the application is running.
+### The Search Controller
 
-### The search module
+Our search interface is handled by one `action` defined in the `SearchController` class inside `Controllers`
 
-Our search interface is handled by one `route` defined in the `SearchModule` class
-
-```
-public class SearchModule : NancyModule
+```csharp
+public class SearchController : Controller
 {
-	public SearchModule()
+	private readonly IElasticClient _client;
+
+	public SearchController(IElasticClient client) => _client = client;
+
+	[HttpGet]
+	public IActionResult Index(SearchForm form)
 	{
-		Get["/"] = x =>
-		{
-			var form = this.Bind<SearchForm>();
-			var model = new SearchViewModel();
+		// You'll write most of the implementation here
 
-			// You'll be writing most of your code here
+		var model = new SearchViewModel();
 
-			return View[model];
-		};
+		return View(model);
 	}
 }
 ```
@@ -825,37 +928,34 @@ public class SearchModule : NancyModule
 
 Okay, enough jibber jabber, let's write some code!
 
-In order to search we first need to get a hold of a client in our `GET` handler in the `SearchModule`.
+In order to search we first need to get a hold of a client for our controller action to use. Thankfully, this has already been wired up for us; an instance of `IElasticClient` is passed to the constructor of our controller and assigned to the `_client` field for us to use.
+
+We can thus issue a search for all our packages using `_client`
 
 ```csharp
-	var client = NuSearchConfiguration.GetClient();
+	var result = _client.Search<Package>(s => s);
 ```
 
-We then issue a search for all our packages using our `client`
+NEST has a fluent lambda expression syntax which you can see in use here with `s => s`.
+What's going on here? Well, you are describing a function  that receives a `SearchDescriptor<Package>()`
+referred to with `s`, which can be modified to alter its state in a fluent fashion, changing the structure of the search that will be issued to Elasticsearch.
+
+This begs the question: **Why would you do this??**. Well this fluent lambda expression syntax takes the cognitive burden out of instantating deeply nested object graphs to build up requests, making writing them much more terse. The Elasticsearch APIs and the corresponding query Domain Specific Language (DSL) is rich and can accept many different parameters, so instantiating a new request type can become big pretty quick.
+
+The fluent lambda expression syntax is the preferred way of using the DSL but please
+know **it's not the only way**. You can equally write
 
 ```csharp
-	var result = client.Search<Package>(s => s);
+	var result = _client.Search<Package>(new SearchRequest());
 ```
 
-NEST uses a fluent lambda syntax which you can see in use here (`s => s`).
-What's going on here? You are describing a function here that recieves a `SearchDescriptor<Package>()`
-named `s` which you can then modify to alter its state in a fluent fashion.
-
-This begs the question: **Why??**. Well this fluent lambda syntax takes out the cognitive overload of instantation
-deeply nested generic classes and makes the DSL really terse. This is the preferred way of using the DSL but please
-know **it's not the only way**. You could equally write:
-
-```csharp
-	var result = client.Search<Package>(new SearchRequest());
-```
-
-We call this syntax the `Object Initializer Syntax` and this is fully supported throughout the client. In this tutorial however
-we will be using the `Fluent Lambda Syntax` exclusively.
+We call this syntax the `Object Initializer Syntax` and it is fully supported throughout the client. In this tutorial however,
+we will be using the `Fluent API Syntax` exclusively.
 
 Ok, so back to our search code so far:
 
 ```csharp
-	var result = client.Search<Package>(s => s);
+	var result = _client.Search<Package>(s => s);
 ```
 
 This will do a `POST` on `/nusearch/package/_search` with the following JSON:
@@ -864,91 +964,93 @@ This will do a `POST` on `/nusearch/package/_search` with the following JSON:
 {}
 ```
 
-What this allows us to do is to pass the documents we've received from elasticsearch to our viewmodel.
-We'll also inform our viewmodel how many total results `Elasticsearch` found. We didn't actually specify how many
-items we wanted to be returned in our search so `Elasticsearch` will return `10` by default. However
+The `ISearchResponse<T>` returned and assigned to `result` allows us to pass the documents we've received from Elasticsearch to our ViewModel.
+We'll also inform our ViewModel how many total results Elasticsearch found. We didn't actually specify how many
+items we wanted to be returned in our search so Elasticsearch returns `10` by default. However
 `result.Total` will actually return how many documents matched our search. In this case all of our packages.
 
 ```csharp
-model.Packages = result.Documents;
-model.Total = result.Total;
+var model = new SearchViewModel
+{
+	Packages = result.Documents,
+	Total = result.Total
+};
 ```
 
 `Packages` is commented out in `SearchViewModel.cs` as well as the `UrlFor()` method because at the start of the tutorial we had no `Package`.
 Uncomment them now.
 
-We are also going to pass the user input `form` to the viewmodel so it knows what was requested:
+We are also going to pass the user input `form` to the viewmodel so it knows what was requested
 
 ```csharp
-model.Form = form;
+var model = new SearchViewModel
+{
+	Packages = result.Documents,
+	Total = result.Total,
+	Form = form
+};
 ```
 
 If we now run our application, lo and behold we have some data!
 
 ![Some data](readme-images/2-some-data.png)
 
-If we crack open our `Search.cshtml`, we have two templates for when we do and when we do not have any results:
+If we crack open our `Search/Index.cshtml`, we have two templates for when we do and do not have results:
 
 ```csharp
-@if (Model.Total > 0)
-{
-	@Html.Partial("Partials/Results", Model)
-}
-else
-{
-	@Html.Partial("Partials/NoResults", Model)
-}
-
+@Html.Partial(Model.Total > 0 ? "Results" : "NoResults", Model)
 ```
 
-Later on we'll spend more time inside the `Results.cshtml` partial. As a final exercise instead of relying on the default `10` items.
-
-Lets explicitly ask for `25` items.
+Later on we'll spend more time inside the `Shared/Results.cshtml` partial view. As a final exercise instead of relying on the default `10` items, let's explicitly ask for `25` items.
 
 ```csharp
-	var result = client.Search<Package>(s => s
+	var result = _client.Search<Package>(s => s
 		.Size(25)
 	);
 ```
 
-Here we start to see the `Fluent Lambda Syntax` in action.
+Here we start to see the `Fluent API Syntax` in action.
 
 ### Implementing a query
 
-So at this point we are effectively doing `match_all` query and selecting the top 10 results.
+At this point, we are effectively doing [`match_all` query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-all-query.html) and selecting the top 25 results.
 Searching for something in the search box does not do anything.
 
-If you type a search notice how you are submitting a form but instead of using `POST` this form uses `GET`.
+If you type a search, notice how you are submitting a form but instead of using `POST` this form uses `GET`.
 
 This causes the entered query to be part of the url we go to after the post.
 
 ![query string](readme-images/3-show-query-string.png)
 
-In our `SearchModule` this line of code is responsible to model bind whatever is passed on the query string
-to an instance `SearchForm` class.
+In our `SearchController`, whatever is passed on the query string is bound
+to an instance `SearchForm` class by the ASP.NET Core framework and passed to our action method
 
 ```csharp
-	var form = this.Bind<SearchForm>();
+[HttpGet]
+public IActionResult Index(SearchForm form)
+{
+	// ...
+}
 ```
 
-So we can use `form.Query` to access whatever the user typed in the search box.
+This means we can use `form.Query` to access whatever the user typed in to the search box.
 
-Let's feed this to our search:
+Let's feed this to our search
 
 ```csharp
 var result = client.Search<Package>(s => s
 	.Size(25)
-	.Query(q=>q
-		.QueryString(qs=>qs
+	.Query(q => q
+		.QueryString(qs => qs
 			.Query(form.Query)
 		)
 	)
 );
 ```
 
-*wowzers*, the complexity of this method increased rapidly.  Whats going on here?
+*wowzers*, the complexity of this method has escalated quickly. What's going on here?
 
-NEST is a one-to-one mapping to the Elasticsearch API, to do a [query_string_query]() in `Elasticsearch` you have to send the following `JSON`
+NEST is a one-to-one mapping to the Elasticsearch API, so to do a [`query_string` query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html) in `Elasticsearch`, you have to send the following `JSON`
 
 ```json
 {
@@ -960,10 +1062,9 @@ NEST is a one-to-one mapping to the Elasticsearch API, to do a [query_string_que
 }
 ```
 
-As you can see the `NEST` DSL follows this verbatim. Its important to keep in mind that NEST is not in the business of abstracting the Elasticsearch API.  In the cases where a shortcut exists, its never at the cost of **not** exposing the longer notation.
+As you can see the `NEST` DSL follows the structure of the query JSON. It's important to keep in mind that NEST is not in the business of abstracting the Elasticsearch API. In the cases where a shortcut exists, it's never at the cost of **not** exposing the longer notation.
 
-At this point I would like to clue you in on a handy trick if you are following this tutorial on a Windows machine. If [fiddler]() is
-installed and running, the plumbing of this application automatically uses it as proxy. **NOTE** fiddler has to be running before you start `NuSearch.Web`.
+At this point I would like to clue you in on a handy trick if you have installed [Fiddler](https://www.telerik.com/download/fiddler). If it is running, the plumbing of this application automatically uses it as proxy. **NOTE** fiddler has to be running before you start `NuSearch.Web`.
 
 ![fiddler](readme-images/4-fiddler.png)
 
@@ -971,22 +1072,22 @@ If you want to always see pretty responses from Elasticsearch, update `NuSearchC
 
 ### Exploring querying further
 
-So right now we have a fully working search, but how does elasticsearch know what fields to search?  Well by default, Elasticsearch cheats a little.
+So right now we have a fully working search implementation, but how does Elasticsearch know what fields to search?  Well by default, Elasticsearch cheats a little.
 
-All the values of all the fields are **also** aggregated into the index under the special [_all]() field.
+When indexing a document, all the values from all the fields of the document are aggregated and also indexed under the special [`_all`](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-all-field.html) field.
 
-If you do not specify a field name explicitly, then queries that allow you to not specify a field name will default to that `_all` field.
+If you do not specify a field name explicitly in a search request, then queries that allow you to not specify a field name will default to using the `_all` field. Pretty neat, right?
 
-Another thing to note about the [query_string_query]() we've used is that it exposes the Lucene query syntax to the user.
+Another thing to note about the [`query_string` query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html) we've used is that it exposes the [Lucene query syntax](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-string-syntax) to the user.
 
-Try some of the following queries in NuSearch:
+Try some of the following queries in `NuSearch`:
 
 * `id:hello*`
 * `id:hello* OR id:autofac^1000`
 
-Whats going on here?  Well in the first dquery we explicitly search for only those `Package`'s who's `id` start with `hello`.  In the second example we extend this query to also include `autofac` but boost it with a factor `1000` so that its first in the result set.
+What's going on here? In the first query, we explicitly search for only those `Package`'s whose `id` starts with `hello`. In the second example, we extend this query to also include `autofac`, but boost it with a factor of `1000` so that it appears first in the result set.
 
-Do you want to expose this to the end user? Consider the following:
+Do you want to expose this kind of query power to the end user? Consider the following:
 
 * `downloadCount:10`
 
@@ -996,7 +1097,7 @@ However, If we search for:
 
 * `downloadCount:X`
 
-then we get no results. This makes sense, but Elasticsearch is actually throwing an exception in this case:
+then we get no results. This makes sense, but Elasticsearch is actually throwing an exception in this case
 
 ```json
 {
@@ -1005,29 +1106,33 @@ then we get no results. This makes sense, but Elasticsearch is actually throwing
 }
 ```
 
-If you remember my fiddler tip earlier, if you run it you can whitness this for yourself.
+If you remember the Fiddler tip earlier, you can witness this for yourself by running this query
 
-Elasticsearch has a *better* `query_string_query` called
-[simple_query_string_query](http://www.elastic.co/guide/en/elasticsearch/reference/master/query-dsl-simple-query-string-query.html) which will never throw an exception and ignores invalid parts.
+Elasticsearch has a *better* `query_string` query called
+[`simple_query_string` query](http://www.elastic.co/guide/en/elasticsearch/reference/master/query-dsl-simple-query-string-query.html) which will never throw an exception when invalid input is encountered and ignores invalid parts.
 
-Yet the question remains, do you want to expose this power to the end user? Quite often the answer is NO.
+Yet the question remains, do you need to expose this power to the end user? Quite often the answer is _NO_.
 
 ### The `[multi_]match` query
 
-The match query family is a very powerful one. It will *do the right thing* TM based on what field its targeting.
+The match query family is a very powerful one. It will *do the right thing* based on what field it's targeting.
 
-Let's use the [multi_match]() query to apply our search term(s) to several fields we actually want to participate in the search:
+Let's use the [`multi_match` query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html) to apply our search term(s) to several fields we actually want to participate in the search:
 
 ```csharp
 .Query(q => q
 	.MultiMatch(m => m
-		.Fields(f=>f.Fields(p => p.Id, p => p.Summary))
+		.Fields(f => f
+			.Fields(
+				p => p.Id, 
+				p => p.Summary)
+			)
 		.Query(form.Query)
 	)
 )
 ```
 
-Now we are searching through `id` and `summary` fields only, instead of the special `_all` field.  Let's look at results:
+Now we are searching through `id` and `summary` fields only, instead of the special `_all` field.  Let's look at the results:
 
 ![tdidf](readme-images/5-tfidf.png)
 
@@ -1035,17 +1140,23 @@ It almost looks as if matches on `id` are more important then those on `summary`
 
 ### Relevancy scoring
 
-By default `Elasticsearch` uses [BM25](https://en.wikipedia.org/wiki/Okapi_BM25), a probabilistic approach to relevancy scoring
+By default `Elasticsearch` uses [BM25](https://en.wikipedia.org/wiki/Okapi_BM25), a probabilistic frameqwork approach to relevancy scoring of documents. That is, it uses probabilistic methods to determine how well a particular document matches a given query.
 
 ![BM25 equation](readme-images/bm25_equation.png)
 
-Compared to the previous default relevancy scoring algorithm, [TF/IDF](http://tfidf.com/), used in versions of Elasticsearch prior to 5.0, where 
+Don't be put off by the mathematical notation of BM25! Prior the Elasticsearch 5.0, another relevancy scoring algorithm, [TF/IDF](http://tfidf.com/), was used to score documents for how well they matched a given query, where 
 
-- **TF(t)** = (Number of times term t appears in a document) / (Total number of terms in the document).
+#### Term Frequency (TF)
 
-- **IDF(t)** = log_e(Total number of documents / Number of documents with term t in it).
+- **TF(t)** = (Number of times a given term `t` appears in a document) / (Total number of terms in the document).
 
-BM25 is supposed to work better for short fields such as those that contains names and allows finer grain control over how TF and IDF affect overall relevancy scores. 
+#### Inverse Document Frequency (IDF)
+
+- **IDF(t)** = log_e(Total number of documents / Number of documents with term `t` in it).
+
+TF/IDF favours hits on rarer terms in the index, and hits in shorter fields outweigh hits in longer fields.
+
+BM25 is supposed to work better than TF/IDF for short fields such as those that contains names and allows finer grain control over how TF and IDF affect overall relevancy scores. Because of this, it replaced TD/IDF as the default similarity. 
 
 BM25 degrades the IDF score of a term more rapidly as it appears more frequently within the document corpus, and can in fact give a negative IDF score for a highly frequent term across documents (although in practice it is often useful to have a lower score bound of 0,).
 
@@ -1057,10 +1168,9 @@ BM25 also limits the influence of the term frequency, using the **k** parameter 
 
 With TF/IDF, the more frequent the term appears within an individual document, the higher the weight score given to that term. With BM25, the `k` parameter can control this influence.
 
-Similarly, BM25 allows finer grain control over the document length than TF/IDF, using the **b** parameter
+Similarly, BM25 allows finer grain control over the document length than TF/IDF, using the `b` parameter
 
 ![BM25 vs. TF/IDF document length](readme-images/bm25_document_length.png)
-
 
 More concretely a hit for `elasticsearch` in `id` is usually scored higher then a hit in `summary` since in most cases `id` is a field with less terms overall.
 
@@ -1068,9 +1178,14 @@ If we had searched `elasticsearch client` the `elasticsearch` keyword would be h
 
 This explains why the highlighted packages `Nest.Connection.Thrift` and `Terradue.ElasticCas` score higher than some of the other packages with `elasticsearch` in the id.They have very short `summary` fields. `Nest` and `Nest.Signed` both mention `elasticsearch` in the `summary` and therefore score higher than `Glimpse.Elasticsearch`
 
-**NOTE:**
+<hr />
+
+**NOTE**
+
 In closing, relevancy scoring is a complex and well researched problem in the information retrieval space. Our explanation of how Elasticsearch handles relevancy is a tad simplified but if you are interested in learning more of [the theory behind scoring](http://www.elastic.co/guide/en/elasticsearch/guide/master/scoring-theory.html) and how
 [Lucene takes a practical approach TD/IDF and the vector space model](http://www.elastic.co/guide/en/elasticsearch/guide/master/scoring-theory.html), the Elasticsearch guide has got you covered!. Also know that Elasticsearch allows you to [plug in custom similarity scorers](http://www.elastic.co/guide/en/elasticsearch/reference/1.4/index-modules-similarity.html).
+
+<hr />
 
 ### Analysis
 
@@ -2181,3 +2296,60 @@ Let's test this out by typing in our search text box:
 ![autocomplete](readme-images/autocomplete.png)
 
 Nice!  Now how about that for speed?
+
+<hr />
+
+## Troubleshooting
+
+### Missing NuGet package dependencies
+
+All NuGet package dependencies required for the solution are checked into the repository in the `packages` directory in the root, to make the getting started as easy as possible. That said, if you find there are packages missing, run the following in the `src` directory
+
+```sh
+dotnet restore
+```
+
+to restore any missing packages.
+
+### Runtime exception with ASP.NET Core
+
+You may see the following exception when running ASP.NET Core and visting the site on `http://localhost:5000`
+
+```
+$ dotnet run
+Hosting environment: Production
+Content root path: <path to ASP.NET Core directory>
+Now listening on: http://localhost:5000
+Application started. Press Ctrl+C to shut down.
+fail: Microsoft.AspNetCore.Server.Kestrel[13]
+      Connection id "0HL6EIBRB75A1": An unhandled exception was thrown by the application.
+System.InvalidOperationException: Can not find compilation library location for package 'elasticsearch.net'
+   at Microsoft.Extensions.DependencyModel.CompilationLibrary.ResolveReferencePaths()
+   at System.Linq.Enumerable.<SelectManyIterator>d__159`2.MoveNext()
+   at Microsoft.AspNetCore.Mvc.Razor.Compilation.MetadataReferenceFeatureProvider.PopulateFeature(IEnumerable`1 parts, MetadataReferenceFeature feature)
+   at Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager.PopulateFeature[TFeature](TFeature feature)
+   at Microsoft.AspNetCore.Mvc.Razor.Internal.RazorReferenceManager.GetCompilationReferences()
+   at System.Threading.LazyInitializer.EnsureInitializedCore[T](T& target, Boolean& initialized, Object& syncLock, Func`1 valueFactory)
+   at Microsoft.AspNetCore.Mvc.Razor.Internal.RazorReferenceManager.get_CompilationReferences()
+   at Microsoft.AspNetCore.Mvc.Razor.Internal.DefaultRoslynCompilationService.CreateCompilation(String compilationContent, String assemblyName)
+   at Microsoft.AspNetCore.Mvc.Razor.Internal.DefaultRoslynCompilationService.Compile(RelativeFileInfo fileInfo, String compilationContent)
+   at Microsoft.AspNetCore.Mvc.Razor.Internal.CompilerCache.CreateCacheEntry(String relativePath, String normalizedPath, Func`2 compile)
+--- End of stack trace from previous location where exception was thrown ---
+```
+
+Due to a bug in the .NET Core runtime in some distributions, the runtime only tries to load assemblies from the global NuGet cache rather than from the local NuGet `packages` directory. To resolve, either
+
+- copy the directories in the `packages` directory into the global NuGet cache directory
+
+or
+
+- remove the `NuGet.config` file from the root of the repository and run
+
+    ```sh
+	dotnet restore
+	```
+
+	to restore packages into the global NuGet cache.
+
+
+<hr />

@@ -19,6 +19,6 @@
 		</div>
 	</div>
 	@Html.Partial("Pager", Model)
-	@Html.Partial(Model.Total > 0 ? "Results" : "NoResults", Model)
+	@* @Html.Partial(Model.Total > 0 ? "Results" : "NoResults", Model) *@
 	@Html.Partial("Pager", Model)
 }

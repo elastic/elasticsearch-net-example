@@ -4,7 +4,7 @@
 
   $("#query").focus().select();
 
-  setupTypeAhead();
+  //setupTypeAhead();
 
   function setupTypeAhead() {
     var typeAheadOptions = {

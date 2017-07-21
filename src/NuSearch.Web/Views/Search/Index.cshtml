@@ -11,7 +11,7 @@
 		</div>
 		<div class="page-header col-lg-10">
 			<div class="input-group input-group-lg" id="query-container">
-				@Html.TextBoxFor(m => m.Form.Query, new { id = "query", autocomplete="off", @class="form-control", placeholder = "Search for..." })
+				<input type="text" id="query" name="query" autocomplete="off" class="form-control" placeholder="Search for..." value="@Model.Form.Query" />
 				<span class="input-group-btn">
 					<button class="btn btn-default" type="submit">Search</button>
 				</span>

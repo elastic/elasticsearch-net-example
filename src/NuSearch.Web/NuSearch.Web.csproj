@@ -1,28 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
-
   <PropertyGroup>
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2"/>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.3"/>
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.2"/>
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.2"/>
+    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.ViewCompilation" Version="1.1.0" />
-    <PackageReference Include="NEST" Version="5.4.0"/>
+    <PackageReference Include="NEST" Version="5.4.0" />
   </ItemGroup>
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1"/>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NuSearch.Domain\NuSearch.Domain.csproj"/>
+    <ProjectReference Include="..\NuSearch.Domain\NuSearch.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Views\Shared\Aggregations.cshtml">

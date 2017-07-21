@@ -41,28 +41,31 @@ namespace NuSearch.Web.Controllers
 				        )
 			        )
 		        )
-		        .Query(q =>
-			        (q.Match(m => m.Field(p => p.Id.Suffix("keyword")).Boost(1000).Query(form.Query))
-			         || q.FunctionScore(fs => fs
-				         .MaxBoost(10)
-				         .Functions(ff => ff
-					         .FieldValueFactor(fvf => fvf
-						         .Field(p => p.DownloadCount)
-						         .Factor(0.0001)
-					         )
-				         )
-				         .Query(query => query
+		        .Query(q => (q
+					.Match(m => m
+						.Field(p => p.Id.Suffix("keyword"))
+						.Boost(1000)
+						.Query(form.Query)
+					) || q
+					.FunctionScore(fs => fs
+				        .MaxBoost(10)
+				        .Functions(ff => ff
+					        .FieldValueFactor(fvf => fvf
+						    	.Field(p => p.DownloadCount)
+						    	.Factor(0.0001)
+							)
+				        )
+				        .Query(query => query
 					         .MultiMatch(m => m
-						         .Fields(f => f
-							         .Field(p => p.Id.Suffix("keyword"), 1.5)
-							         .Field(p => p.Id, 1.5)
-							         .Field(p => p.Summary, 0.8)
-						         )
-						         .Operator(Operator.And)
-						         .Query(form.Query)
-					         )
-				         )
-			         ))
+						        .Fields(f => f
+							        .Field(p => p.Id, 1.5)
+							        .Field(p => p.Summary, 0.8)
+						        )
+						        .Operator(Operator.And)
+						        .Query(form.Query)
+					        )
+				        )
+			        ))
 			        && +q.Nested(n => n
 				        .Path(p => p.Authors)
 				        .Query(nq => +nq

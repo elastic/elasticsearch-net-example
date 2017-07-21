@@ -77,9 +77,11 @@ namespace NuSearch.Indexer
 				)
 				.Nested<PackageAuthor>(n => n
 					.Name(p => p.Authors.First())
+					.AutoMap()
 					.Properties(props => props
 						.Text(t => t
 							.Name(a => a.Name)
+							.Fielddata()
 							.Fields(fs => fs
 								.Keyword(ss => ss
 									.Name("raw")
@@ -87,7 +89,6 @@ namespace NuSearch.Indexer
 							)
 						)
 					)
-					.AutoMap()
 				)
 			);
 

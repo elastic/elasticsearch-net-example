@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		NuGet.config = NuGet.config
 		..\README.md = ..\README.md
+		..\.editorconfig = ..\.editorconfig
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NuSearch.Web", "NuSearch.Web\NuSearch.Web.csproj", "{A73B324C-DF76-415D-8A6D-1937DD8D81EF}"

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using Nest;
@@ -17,7 +18,7 @@ namespace NuSearch.Indexer
 		static void Main(string[] args)
 		{
 			Client = NuSearchConfiguration.GetClient();
-			string directory = args.Length > 0 && !string.IsNullOrEmpty(args[0]) 
+			var directory = args.Length > 0 && !string.IsNullOrEmpty(args[0]) 
 				? args[0] 
 				: NuSearchConfiguration.PackagePath;
 			DumpReader = new NugetDumpReader(directory);
@@ -43,6 +44,7 @@ namespace NuSearch.Indexer
 				.Settings(s => s
 					.NumberOfShards(2)
 					.NumberOfReplicas(0)
+					.RefreshInterval(-1)
 					.Analysis(Analysis)
 				)
 				.Mappings(m => m
@@ -119,27 +121,31 @@ namespace NuSearch.Indexer
 		{
 			Console.WriteLine("Setting up a lazy xml files reader that yields packages...");
 			var packages = DumpReader.GetPackages();
-
+			
+			var sw = Stopwatch.StartNew();
 			Console.Write("Indexing documents into elasticsearch...");
-			var waitHandle = new CountdownEvent(1);
 
-			var bulkAll = Client.BulkAll(packages, b => b
+			var bulkAll = Client.BulkAll(packages.Take(1000), b => b
 				.Index(CurrentIndexName)
 				.BackOffRetries(2)
 				.BackOffTime("30s")
-				.RefreshOnCompleted(true)
-				.MaxDegreeOfParallelism(4)
+				.RefreshOnCompleted()
+				.MaxDegreeOfParallelism(8)
 				.Size(1000)
 			);
+	
+			var result = bulkAll.Wait(TimeSpan.FromMinutes(30), b => Console.Write(b.Retries == 0 ? "." : "!"));
 
-			bulkAll.Subscribe(new BulkAllObserver(
-				onNext: b => Console.Write("."),
-				onError: e => throw e,
-				onCompleted: () => waitHandle.Signal()
-			));
+			//we can get the count because we set RefreshOnCompleted in the BulkAll helper
+			//since we have not applied the alias yet we need to explicitly specify the current index name
+			var count = Client.Count<Package>(c=>c.Index(CurrentIndexName));
 
-			waitHandle.Wait();
-			Console.WriteLine("Done.");
+			Console.WriteLine($"{Environment.NewLine}Took: {sw.Elapsed}.");
+			Console.WriteLine($"Indexed: {count.Count} documents into {CurrentIndexName}.");
+			Console.WriteLine($"Number of retries needed: {result.TotalNumberOfRetries}.");
+			
+			//re enable refresh after bulk all
+			Client.UpdateIndexSettings(CurrentIndexName, i => i.IndexSettings(s => s.RefreshInterval("1s")));
 		}
 
 		private static void SwapAlias()

@@ -26,19 +26,19 @@ namespace NuSearch.Domain.Data
 		public IEnumerable<NugetDump> Dumps => this._files.Select(this.EagerlyReadDump);
 		public IEnumerable<FeedPackage> Packages => this._files.SelectMany(this.LazilyReadDumps);
 
-		public NugetDump EagerlyReadDump(string f)
+		private NugetDump EagerlyReadDump(string f)
 		{
 			using (var file = File.Open(f, FileMode.Open))
 				return (NugetDump)this._dumpSerializer.Deserialize(file);
 		}
 
-		public IEnumerable<FeedPackage> LazilyReadDumps(string file)
+		private IEnumerable<FeedPackage> LazilyReadDumps(string file)
 		{
-			var reader = XmlReader.Create(file);
+			using(var reader = XmlReader.Create(file))
 			while (reader.ReadToFollowing("FeedPackage"))
 			{
-				var dumpReader = reader.ReadSubtree();
-				yield return (FeedPackage)this._serializer.Deserialize(dumpReader);
+				using(var dumpReader = reader.ReadSubtree())
+					yield return (FeedPackage)this._serializer.Deserialize(dumpReader);
 			}
 		}
 		

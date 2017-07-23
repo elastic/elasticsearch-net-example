@@ -80,16 +80,16 @@ In `Main()` we have the following code:
 ```csharp
 static void Main(string[] args)
 {
-	Client = NuSearchConfiguration.GetClient();
-	string directory = args.Length > 0 && !string.IsNullOrEmpty(args[0]) 
-		? args[0] 
-		: NuSearchConfiguration.PackagePath;
-	DumpReader = new NugetDumpReader(directory);
+    Client = NuSearchConfiguration.GetClient();
+    string directory = args.Length > 0 && !string.IsNullOrEmpty(args[0]) 
+        ? args[0] 
+        : NuSearchConfiguration.PackagePath;
+    DumpReader = new NugetDumpReader(directory);
 
-	IndexDumps();
+    IndexDumps();
 
-	Console.WriteLine("Press any key to continue");
-	Console.Read();
+    Console.WriteLine("Press any key to continue");
+    Console.Read();
 }
 ```
 
@@ -106,7 +106,7 @@ Let's take a closer look at `NuSearchConfiguration.GetClient()` method:
 ```csharp
 static NuSearchConfiguration()
 {
-	_connectionSettings = new ConnectionSettings(CreateUri(9200));
+    _connectionSettings = new ConnectionSettings(CreateUri(9200));
 }
 
 public static ElasticClient GetClient() => new ElasticClient(_connectionSettings);
@@ -125,21 +125,21 @@ First, we'll take the simplest approach and just iterate over each `FeedPackage`
 ```csharp
 static void IndexDumps()
 {
-	var packages = DumpReader.Dumps.Take(1).First().NugetPackages;
-	Console.Write("Indexing documents into elasticsearch...");
-	foreach (var package in packages)
-	{
-		var result = Client.Index(package);
+    var packages = DumpReader.Dumps.Take(1).First().NugetPackages;
+    Console.Write("Indexing documents into elasticsearch...");
+    foreach (var package in packages)
+    {
+        var result = Client.Index(package);
 
-		if (!result.IsValid)
-		{
-			Console.WriteLine(result.DebugInformation);
-			Console.Read();
-			Environment.Exit(1);
-		}
-	}
+        if (!result.IsValid)
+        {
+            Console.WriteLine(result.DebugInformation);
+            Console.Read();
+            Environment.Exit(1);
+        }
+    }
 
-	Console.WriteLine("Done.");
+    Console.WriteLine("Done.");
 }
 ```
 
@@ -195,8 +195,8 @@ We can specify the index in several ways using NEST, but for now let's just set 
 ```csharp
 static NuSearchConfiguration()
 {
-	_connectionSettings = new ConnectionSettings(CreateUri(9200))
-		.DefaultIndex("nusearch");
+    _connectionSettings = new ConnectionSettings(CreateUri(9200))
+        .DefaultIndex("nusearch");
 }
 ```
 
@@ -278,7 +278,7 @@ Let's change the type name here to just `package` instead.  We could do this exp
 
 ```csharp
 var result = Client.Index(package, i => i
-	.Type("package")
+    .Type("package")
 );
 ```
 
@@ -287,11 +287,11 @@ Which could be useful, but we'd have to remember to always specify the type when
 ```csharp
 static NuSearchConfiguration()
 {
-	_connectionSettings = new ConnectionSettings(CreateUri(9200))
-		.SetDefaultIndex("nusearch")
-		.InferMappingFor<FeedPackage>(i => i
-			.TypeName("package")
-		);
+    _connectionSettings = new ConnectionSettings(CreateUri(9200))
+        .SetDefaultIndex("nusearch")
+        .InferMappingFor<FeedPackage>(i => i
+            .TypeName("package")
+        );
 }
 ```
 
@@ -300,12 +300,12 @@ While we're here, let's take this a step further and instead of relying on a def
 ```csharp
 static NuSearchConfiguration()
 {
-	_connectionSettings = new ConnectionSettings(CreateUri(9200))
-		.SetDefaultIndex("nusearch")
-		.InferMappingFor<FeedPackage>(i=>i
-			.TypeName("package")
-			.IndexName("nusearch")
-		);
+    _connectionSettings = new ConnectionSettings(CreateUri(9200))
+        .SetDefaultIndex("nusearch")
+        .InferMappingFor<FeedPackage>(i=>i
+            .TypeName("package")
+            .IndexName("nusearch")
+        );
 }
 ```
 
@@ -314,23 +314,23 @@ Now we can re-index our packages using our new settings. First though, we'll nee
 ```csharp
 static void DeleteIndexIfExists()
 {
-	if (Client.IndexExists("nusearch").Exists)
-		Client.DeleteIndex("nusearch");
+    if (Client.IndexExists("nusearch").Exists)
+        Client.DeleteIndex("nusearch");
 }
 
 static void Main(string[] args)
 {
-	Client = NuSearchConfiguration.GetClient();
-	string directory = args.Length > 0 && !string.IsNullOrEmpty(args[0]) 
-		? args[0] 
-		: NuSearchConfiguration.PackagePath;
-	DumpReader = new NugetDumpReader(directory);
+    Client = NuSearchConfiguration.GetClient();
+    string directory = args.Length > 0 && !string.IsNullOrEmpty(args[0]) 
+        ? args[0] 
+        : NuSearchConfiguration.PackagePath;
+    DumpReader = new NugetDumpReader(directory);
 
-	DeleteIndexIfExists();
-	IndexDumps();
+    DeleteIndexIfExists();
+    IndexDumps();
 
-	Console.WriteLine("Press any key to continue");
-	Console.Read();
+    Console.WriteLine("Press any key to continue");
+    Console.Read();
 }
 ```
 
@@ -356,24 +356,24 @@ Let's change up our indexing code in `IndexDumps()` to use the `Bulk()` method e
 ```csharp
 static void IndexDumps()
 {
-	var packages = DumpReader.Dumps.Take(1).First().NugetPackages;
+    var packages = DumpReader.Dumps.Take(1).First().NugetPackages;
     Console.Write("Indexing documents into elasticsearch...");
-	var result = Client.Bulk(b =>
-	{
-		foreach(var package in packages)
-			b.Index<FeedPackage>(i => i.Document(package));
+    var result = Client.Bulk(b =>
+    {
+        foreach(var package in packages)
+            b.Index<FeedPackage>(i => i.Document(package));
 
-		return b;
-	});
+        return b;
+    });
 
-	if (!result.IsValid)
-	{
-		Console.WriteLine(result.DebugInformation);
-		Console.Read();
-		Environment.Exit(1);
-	}
+    if (!result.IsValid)
+    {
+        Console.WriteLine(result.DebugInformation);
+        Console.Read();
+        Environment.Exit(1);
+    }
 
-	Console.WriteLine("Done.");
+    Console.WriteLine("Done.");
 }
 ```
 
@@ -404,9 +404,9 @@ The corresponding response from the bulk API will be a collection of results whe
 
 ```json
 "items": [
-	{"index":{"_index":"nusearch","_type":"package","_id":"NEST","_version":1,"status":201}},
-	{"index":{"_index":"nusearch","_type":"package","_id":"Elasticsearch.NET","_version":1,"status":201}},
-	{"index":{"_index":"nusearch","_type":"package","_id":"Newtonsoft.Json","_version":1,"status":201}}
+    {"index":{"_index":"nusearch","_type":"package","_id":"NEST","_version":1,"status":201}},
+    {"index":{"_index":"nusearch","_type":"package","_id":"Elasticsearch.NET","_version":1,"status":201}},
+    {"index":{"_index":"nusearch","_type":"package","_id":"Newtonsoft.Json","_version":1,"status":201}}
 ]
 ```
 
@@ -427,8 +427,8 @@ Let's modify `IndexDumps()` again and check the response for errors by adding th
 ```csharp
 if (!result.IsValid)
 {
-	foreach (var item in result.ItemsWithErrors)
-		Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
+    foreach (var item in result.ItemsWithErrors)
+        Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
 }
 ```
 
@@ -457,22 +457,22 @@ Let's simplify our code a bit using `IndexMany()` instead:
 ```csharp
 static void IndexDumps()
 {
-	var packages = DumpReader.Dumps.Take(1).First().NugetPackages;
+    var packages = DumpReader.Dumps.Take(1).First().NugetPackages;
     Console.Write("Indexing documents into elasticsearch...");
-	
-	var result = Client.Bulk(b => b.IndexMany(packages));
+    
+    var result = Client.Bulk(b => b.IndexMany(packages));
 
-	if (!result.IsValid)
-	{
-		foreach (var item in result.ItemsWithErrors)
-			Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
+    if (!result.IsValid)
+    {
+        foreach (var item in result.ItemsWithErrors)
+            Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
 
-		Console.WriteLine(result.DebugInformation);
-		Console.Read();
-		Environment.Exit(1);
-	}
+        Console.WriteLine(result.DebugInformation);
+        Console.Read();
+        Environment.Exit(1);
+    }
 
-	Console.WriteLine("Done.");
+    Console.WriteLine("Done.");
 }
 ```
 
@@ -486,22 +486,22 @@ We can shorten this up even further! `.Bulk(b => b.IndexMany(packages))` is usef
 ```csharp
 static void IndexDumps()
 {
-	var packages = DumpReader.Dumps.Take(1).First().NugetPackages;
+    var packages = DumpReader.Dumps.Take(1).First().NugetPackages;
     Console.Write("Indexing documents into elasticsearch...");
-	
-	var result = Client.IndexMany(packages);
+    
+    var result = Client.IndexMany(packages);
 
-	if (!result.IsValid)
-	{
-		foreach (var item in result.ItemsWithErrors)
-			Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
+    if (!result.IsValid)
+    {
+        foreach (var item in result.ItemsWithErrors)
+            Console.WriteLine("Failed to index document {0}: {1}", item.Id, item.Error);
 
-		Console.WriteLine(result.DebugInformation);
-		Console.Read();
-		Environment.Exit(1);
-	}
+        Console.WriteLine(result.DebugInformation);
+        Console.Read();
+        Environment.Exit(1);
+    }
 
-	Console.WriteLine("Done.");
+    Console.WriteLine("Done.");
 }
 ```
 
@@ -560,11 +560,11 @@ Once we've included these new classes in our `NuSearch.Domain` project, the firs
 ```csharp
 static NuSearchConfiguration()
 {
-	_connectionSettings = new ConnectionSettings(CreateUri(9200))
-		.InferMappingFor<Package>(i => i
-			.TypeName("package")
-			.IndexName("nusearch")
-		);
+    _connectionSettings = new ConnectionSettings(CreateUri(9200))
+        .InferMappingFor<Package>(i => i
+            .TypeName("package")
+            .IndexName("nusearch")
+        );
 }
 ```
 
@@ -579,38 +579,38 @@ Let's add a `CreateIndex()` with the following implementation:
 ```csharp
 static void CreateIndex()
 {
-	Client.CreateIndex("nusearch", i => i
-		.Settings(s => s
-			.NumberOfShards(2)
-			.NumberOfReplicas(0)
-		)
-		.Mappings(m=>m
-			.Map<Package>(map => map
-				.AutoMap()
-				.Properties(ps => ps
-					.Nested<PackageVersion>(n => n
-						.Name(p => p.Versions.First())
-						.AutoMap()
-						.Properties(pps => pps
-							.Nested<PackageDependency>(nn => nn
-								.Name(pv => pv.Dependencies.First())
-								.AutoMap()
-							)
-						)
-					)
-					.Nested<PackageAuthor>(n => n
-						.Name(p => p.Authors.First())
-						.AutoMap()
-						.Properties(props => props
-						.Text(t => t
-							.Name(a => a.Name)
-							.Fielddata()
-						)
-					)
-				)
-			)
-		)
-	);
+    Client.CreateIndex("nusearch", i => i
+        .Settings(s => s
+            .NumberOfShards(2)
+            .NumberOfReplicas(0)
+        )
+        .Mappings(m=>m
+            .Map<Package>(map => map
+                .AutoMap()
+                .Properties(ps => ps
+                    .Nested<PackageVersion>(n => n
+                        .Name(p => p.Versions.First())
+                        .AutoMap()
+                        .Properties(pps => pps
+                            .Nested<PackageDependency>(nn => nn
+                                .Name(pv => pv.Dependencies.First())
+                                .AutoMap()
+                            )
+                        )
+                    )
+                    .Nested<PackageAuthor>(n => n
+                        .Name(p => p.Authors.First())
+                        .AutoMap()
+                        .Properties(props => props
+                        .Text(t => t
+                            .Name(a => a.Name)
+                            .Fielddata()
+                        )
+                    )
+                )
+            )
+        )
+    );
 }
 ```
 
@@ -635,37 +635,37 @@ observable design pattern to
 
 1. Set up the conditions for the operation that will be observed
 2. Subscribe an observer to the operation to observe when
-	1. the next bulk request is issued
-	2. if an error occurs within a bulk request
-	3. the operation has completed.
+    1. the next bulk request is issued
+    2. if an error occurs within a bulk request
+    3. the operation has completed.
 
 Let's wire up `BulkAll()`
 
 ```csharp
 static void IndexDumps()
 {
-	Console.WriteLine("Setting up a lazy xml files reader that yields packages...");
-	var packages = DumpReader.GetPackages();
+    Console.WriteLine("Setting up a lazy xml files reader that yields packages...");
+    var packages = DumpReader.GetPackages();
 
-	Console.Write("Indexing documents into elasticsearch...");
-	var waitHandle = new CountdownEvent(1);
+    Console.Write("Indexing documents into elasticsearch...");
+    var waitHandle = new CountdownEvent(1);
 
-	var bulkAll = Client.BulkAll(packages, b => b
-		.BackOffRetries(2)
-		.BackOffTime("30s")
-		.RefreshOnCompleted(true)
-		.MaxDegreeOfParallelism(4)
-		.Size(1000)
-	);
+    var bulkAll = Client.BulkAll(packages, b => b
+        .BackOffRetries(2)
+        .BackOffTime("30s")
+        .RefreshOnCompleted(true)
+        .MaxDegreeOfParallelism(4)
+        .Size(1000)
+    );
 
-	bulkAll.Subscribe(new BulkAllObserver(
-		onNext: b => Console.Write("."),
-		onError: e => throw e,
-		onCompleted: () => waitHandle.Signal()
-	));
+    bulkAll.Subscribe(new BulkAllObserver(
+        onNext: b => Console.Write("."),
+        onError: e => throw e,
+        onCompleted: () => waitHandle.Signal()
+    ));
 
-	waitHandle.Wait();
-	Console.WriteLine("Done.");
+    waitHandle.Wait();
+    Console.WriteLine("Done.");
 }
 ```
 
@@ -678,18 +678,18 @@ Finally, let's add a call to `CreateIndex()` before `IndexDumps()`.
 ```csharp
 static void Main(string[] args)
 {
-	Client = NuSearchConfiguration.GetClient();
-	string directory = args.Length > 0 && !string.IsNullOrEmpty(args[0] 
-		? args[0] 
-		: NuSearchConfiguration.PackagePath;
-	DumpReader = new NugetDumpReader(directory);
+    Client = NuSearchConfiguration.GetClient();
+    string directory = args.Length > 0 && !string.IsNullOrEmpty(args[0] 
+        ? args[0] 
+        : NuSearchConfiguration.PackagePath;
+    DumpReader = new NugetDumpReader(directory);
 
     DeleteIndexIfExists();
-	CreateIndex();
-	IndexDumps();
+    CreateIndex();
+    IndexDumps();
 
-	Console.WriteLine("Press any key to continue");
-	Console.Read();
+    Console.WriteLine("Press any key to continue");
+    Console.Read();
 }
 ```
 
@@ -765,24 +765,24 @@ OK, now let's actually implement some code to handle our alias swapping:
 ```csharp
 private static void SwapAlias()
 {
-	var indexExists = Client.IndexExists(NuSearchConfiguration.LiveIndexAlias).Exists;
+    var indexExists = Client.IndexExists(NuSearchConfiguration.LiveIndexAlias).Exists;
 
-	Client.Alias(aliases =>
-	{
-		if (indexExists)
-			aliases.Add(a => a.Alias(NuSearchConfiguration.OldIndexAlias).Index(NuSearchConfiguration.LiveIndexAlias));
+    Client.Alias(aliases =>
+    {
+        if (indexExists)
+            aliases.Add(a => a.Alias(NuSearchConfiguration.OldIndexAlias).Index(NuSearchConfiguration.LiveIndexAlias));
 
-		return aliases
-			.Remove(a => a.Alias(NuSearchConfiguration.LiveIndexAlias).Index("*"))
-			.Add(a => a.Alias(NuSearchConfiguration.LiveIndexAlias).Index(CurrentIndexName));
-	});
+        return aliases
+            .Remove(a => a.Alias(NuSearchConfiguration.LiveIndexAlias).Index("*"))
+            .Add(a => a.Alias(NuSearchConfiguration.LiveIndexAlias).Index(CurrentIndexName));
+    });
 
-	var oldIndices = Client.GetIndicesPointingToAlias(NuSearchConfiguration.OldIndexAlias)
-		.OrderByDescending(name => name)
-		.Skip(2);
+    var oldIndices = Client.GetIndicesPointingToAlias(NuSearchConfiguration.OldIndexAlias)
+        .OrderByDescending(name => name)
+        .Skip(2);
 
-	foreach (var oldIndex in oldIndices)
-		Client.DeleteIndex(oldIndex);
+    foreach (var oldIndex in oldIndices)
+        Client.DeleteIndex(oldIndex);
 }
 ```
 
@@ -792,7 +792,7 @@ We need to edit `CreateIndex()` to use our new `IndexName`:
 
 ```csharp
 Client.CreateIndex(CurrentIndexName, i => i
-	// ...
+    // ...
 )
 ```
 
@@ -802,12 +802,12 @@ Lastly, we need to change our bulk indexing call in `IndexDumps()` to explictly 
 
 ```csharp
 var bulkAll = Client.BulkAll(packages, b => b
-	.Index(CurrentIndexName)
-	.BackOffRetries(2)
-	.BackOffTime("30s")
-	.RefreshOnCompleted(true)
-	.MaxDegreeOfParallelism(4)
-	.Size(1000)
+    .Index(CurrentIndexName)
+    .BackOffRetries(2)
+    .BackOffTime("30s")
+    .RefreshOnCompleted(true)
+    .MaxDegreeOfParallelism(4)
+    .Size(1000)
 );
 ```
 
@@ -816,19 +816,19 @@ We can also now get rid of that `DeleteIndexIfExists()` method since we won't be
 ```csharp
 static void Main(string[] args)
 {
-	Client = NuSearchConfiguration.GetClient();
-	string directory = args.Length > 0 && !string.IsNullOrEmpty(args[0]) 
-		? args[0] 
-		: NuSearchConfiguration.PackagePath;
-	DumpReader = new NugetDumpReader(directory);
-	CurrentIndexName = NuSearchConfiguration.CreateIndexName();
+    Client = NuSearchConfiguration.GetClient();
+    string directory = args.Length > 0 && !string.IsNullOrEmpty(args[0]) 
+        ? args[0] 
+        : NuSearchConfiguration.PackagePath;
+    DumpReader = new NugetDumpReader(directory);
+    CurrentIndexName = NuSearchConfiguration.CreateIndexName();
 
-	CreateIndex();
-	IndexDumps();
-	SwapAlias();
+    CreateIndex();
+    IndexDumps();
+    SwapAlias();
 
-	Console.WriteLine("Press any key to continue");
-	Console.Read();
+    Console.WriteLine("Press any key to continue");
+    Console.Read();
 }
 ```
 
@@ -910,19 +910,19 @@ Our search interface is handled by one `action` defined in the `SearchController
 ```csharp
 public class SearchController : Controller
 {
-	private readonly IElasticClient _client;
+    private readonly IElasticClient _client;
 
-	public SearchController(IElasticClient client) => _client = client;
+    public SearchController(IElasticClient client) => _client = client;
 
-	[HttpGet]
-	public IActionResult Index(SearchForm form)
-	{
-		// TODO: You'll write most of the implementation here
+    [HttpGet]
+    public IActionResult Index(SearchForm form)
+    {
+        // TODO: You'll write most of the implementation here
 
-		var model = new SearchViewModel();
+        var model = new SearchViewModel();
 
-		return View(model);
-	}
+        return View(model);
+    }
 }
 ```
 
@@ -938,7 +938,7 @@ In order to search we first need to get a hold of a client for our controller ac
 We can thus issue a search for all our packages using `_client`
 
 ```csharp
-	var result = _client.Search<Package>(s => s);
+    var result = _client.Search<Package>(s => s);
 ```
 
 NEST has a fluent lambda expression syntax which you can see in use here with `s => s`.
@@ -951,7 +951,7 @@ The fluent lambda expression syntax is the preferred way of using the DSL but pl
 know **it's not the only way**. You can equally write
 
 ```csharp
-	var result = _client.Search<Package>(new SearchRequest());
+    var result = _client.Search<Package>(new SearchRequest());
 ```
 
 We call this syntax the `Object Initializer Syntax` and it is fully supported throughout the client. In this tutorial however,
@@ -960,7 +960,7 @@ we will be using the `Fluent API Syntax` exclusively.
 Ok, so back to our search code so far:
 
 ```csharp
-	var result = _client.Search<Package>(s => s);
+    var result = _client.Search<Package>(s => s);
 ```
 
 This will do a `POST` on `/nusearch/package/_search` with the following JSON:
@@ -977,8 +977,8 @@ items we wanted to be returned in our search so Elasticsearch returns `10` by de
 ```csharp
 var model = new SearchViewModel
 {
-	Packages = result.Documents,
-	Total = result.Total
+    Packages = result.Documents,
+    Total = result.Total
 };
 ```
 
@@ -990,9 +990,9 @@ We are also going to pass the user input `form` to the viewmodel so it knows wha
 ```csharp
 var model = new SearchViewModel
 {
-	Packages = result.Documents,
-	Total = result.Total,
-	Form = form
+    Packages = result.Documents,
+    Total = result.Total,
+    Form = form
 };
 ```
 
@@ -1009,9 +1009,9 @@ If we crack open our `Search/Index.cshtml`, we have two templates for when we do
 Later on we'll spend more time inside the `Shared/Results.cshtml` partial view. As a final exercise instead of relying on the default `10` items, let's explicitly ask for `25` items.
 
 ```csharp
-	var result = _client.Search<Package>(s => s
-		.Size(25)
-	);
+    var result = _client.Search<Package>(s => s
+        .Size(25)
+    );
 ```
 
 Here we start to see the `Fluent API Syntax` in action.
@@ -1034,7 +1034,7 @@ to an instance `SearchForm` class by the ASP.NET Core framework and passed to ou
 [HttpGet]
 public IActionResult Index(SearchForm form)
 {
-	// ...
+    // ...
 }
 ```
 
@@ -1044,12 +1044,12 @@ Let's feed this to our search
 
 ```csharp
 var result = client.Search<Package>(s => s
-	.Size(25)
-	.Query(q => q
-		.QueryString(qs => qs
-			.Query(form.Query)
-		)
-	)
+    .Size(25)
+    .Query(q => q
+        .QueryString(qs => qs
+            .Query(form.Query)
+        )
+    )
 );
 ```
 
@@ -1126,14 +1126,14 @@ Let's use the [`multi_match` query](https://www.elastic.co/guide/en/elasticsearc
 
 ```csharp
 .Query(q => q
-	.MultiMatch(m => m
-		.Fields(f => f
-			.Fields(
-				p => p.Id, 
-				p => p.Summary)
-			)
-		.Query(form.Query)
-	)
+    .MultiMatch(m => m
+        .Fields(f => f
+            .Fields(
+                p => p.Id, 
+                p => p.Summary)
+            )
+        .Query(form.Query)
+    )
 )
 ```
 
@@ -1318,11 +1318,11 @@ Lets update our search to use `Operator.And` on the resulting terms we provide
 
 ```
 .Query(q => q
-	.MultiMatch(m => m
-		.Fields(f=>f.Fields(p => p.Id, p => p.Summary))
-		.Operator(Operator.And)
-		.Query(form.Query)
-	)
+    .MultiMatch(m => m
+        .Fields(f=>f.Fields(p => p.Id, p => p.Summary))
+        .Operator(Operator.And)
+        .Query(form.Query)
+    )
 )
 ```
 
@@ -1368,28 +1368,28 @@ The following is specified as part of the call to `.Settings()` within the `Crea
 
 ```csharp
 .Analysis(analysis => analysis
-	.Tokenizers(tokenizers => tokenizers
-		.Pattern("nuget-id-tokenizer", p => p.Pattern(@"\W+"))
-	)
-	.TokenFilters(tokenfilters => tokenfilters
-		.WordDelimiter("nuget-id-words", w => w
-			.SplitOnCaseChange()
-			.PreserveOriginal()
-			.SplitOnNumerics()
-			.GenerateNumberParts(false)
-			.GenerateWordParts()
-		)
-	)
-	.Analyzers(analyzers => analyzers
-		.Custom("nuget-id-analyzer", c => c
-			.Tokenizer("nuget-id-tokenizer")
-			.Filters("nuget-id-words", "lowercase")
-		)
-		.Custom("nuget-id-keyword", c => c
-			.Tokenizer("keyword")
-			.Filters("lowercase")
-		)
-	)
+    .Tokenizers(tokenizers => tokenizers
+        .Pattern("nuget-id-tokenizer", p => p.Pattern(@"\W+"))
+    )
+    .TokenFilters(tokenfilters => tokenfilters
+        .WordDelimiter("nuget-id-words", w => w
+            .SplitOnCaseChange()
+            .PreserveOriginal()
+            .SplitOnNumerics()
+            .GenerateNumberParts(false)
+            .GenerateWordParts()
+        )
+    )
+    .Analyzers(analyzers => analyzers
+        .Custom("nuget-id-analyzer", c => c
+            .Tokenizer("nuget-id-tokenizer")
+            .Filters("nuget-id-words", "lowercase")
+        )
+        .Custom("nuget-id-keyword", c => c
+            .Tokenizer("keyword")
+            .Filters("lowercase")
+        )
+    )
 );
 ```
 
@@ -1398,9 +1398,9 @@ Quite a lot is going on here so let's break it down a tad.
 
 ```csharp
 .Analysis(analysis => analysis
-	.Tokenizers(tokenizers => tokenizers
-		.Pattern("nuget-id-tokenizer", p => p.Pattern(@"\W+"))
-	)
+    .Tokenizers(tokenizers => tokenizers
+        .Pattern("nuget-id-tokenizer", p => p.Pattern(@"\W+"))
+    )
 ```
 
 Since the default tokenizer does not split `Elasticsearch.Net` into two terms as previously shown, we'll register a [PatternTokenizer](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-pattern-tokenizer.html)
@@ -1408,13 +1408,13 @@ that splits text into terms on any non word character. We name this instance of 
 
 ```csharp
 .TokenFilters(tokenfilters => tokenfilters
-	.WordDelimiter("nuget-id-words", w => w
-		.SplitOnCaseChange()
-		.PreserveOriginal()
-		.SplitOnNumerics()
-		.GenerateNumberParts(false)
-		.GenerateWordParts()
-	)
+    .WordDelimiter("nuget-id-words", w => w
+        .SplitOnCaseChange()
+        .PreserveOriginal()
+        .SplitOnNumerics()
+        .GenerateNumberParts(false)
+        .GenerateWordParts()
+    )
 )
 ```
 
@@ -1426,20 +1426,20 @@ Now that we've registered our custom [Tokenizer](https://www.elastic.co/guide/en
 
 ```csharp
 .Analyzers(analyzers => analyzers
-	.Custom("nuget-id-analyzer", c => c
-		.Tokenizer("nuget-id-tokenizer")
-		.Filters("nuget-id-words", "lowercase")
-	)
+    .Custom("nuget-id-analyzer", c => c
+        .Tokenizer("nuget-id-tokenizer")
+        .Filters("nuget-id-words", "lowercase")
+    )
 ```
 
 Here, we create an analyzer named `nuget-id-analyzer` which will split the input using our `nuget-id-tokenizer` and then filter the resulting terms using our `nuget-id-words` filter (which will actually inject more terms; filters can both _add_ and _remove_ terms) and then we use the in-built `lowercase` token filter to replace all the
 terms with their lowercase counterparts.
 
 ```csharp
-	.Custom("nuget-id-keyword", c => c
-		.Tokenizer("keyword")
-		.Filters("lowercase")
-	)
+    .Custom("nuget-id-keyword", c => c
+        .Tokenizer("keyword")
+        .Filters("lowercase")
+    )
 )
 ```
 
@@ -1450,12 +1450,12 @@ Now that we have registered our custom analyzers, we need to update our mapping 
 
 ```csharp
 .Text(s => s
-	.Name(p => p.Id)
-	.Analyzer("nuget-id-analyzer")
-	.Fields(f => f
-		.Text(p => p.Name("keyword").Analyzer("nuget-id-keyword"))
-		.Keyword(p => p.Name("raw"))
-	)
+    .Name(p => p.Id)
+    .Analyzer("nuget-id-analyzer")
+    .Fields(f => f
+        .Text(p => p.Name("keyword").Analyzer("nuget-id-keyword"))
+        .Keyword(p => p.Name("raw"))
+    )
 )
 ```
 
@@ -1476,13 +1476,13 @@ Furthermore, we can make sure a match in our `summary` field has a lower weight 
 
 ```csharp
 .MultiMatch(m => m
-	.Fields(f => f
-		.Field(p => p.Id.Suffix("keyword"), 1.5)
-		.Field(p => p.Id, 1.5)
-		.Field(p => p.Summary, 0.8)
-	)
-	.Operator(Operator.And)
-	.Query(form.Query)
+    .Fields(f => f
+        .Field(p => p.Id.Suffix("keyword"), 1.5)
+        .Field(p => p.Id, 1.5)
+        .Field(p => p.Summary, 0.8)
+    )
+    .Operator(Operator.And)
+    .Query(form.Query)
 )
 ```
 
@@ -1504,26 +1504,26 @@ What we want to do is take a given document's `downloadCount` into account. This
 
 ```csharp
 .Query(q => q
-	.FunctionScore(fs => fs
-		.MaxBoost(10)
-		.Functions(ff => ff
-			.FieldValueFactor(fvf => fvf
-				.Field(p => p.DownloadCount)
-				.Factor(0.0001)
-			)
-		)
-		.Query(query => query
-			.MultiMatch(m => m
-				.Fields(f => f
-					.Field(p => p.Id.Suffix("keyword"), 1.5)
-					.Field(p => p.Id, 1.5)
-					.Field(p => p.Summary, 0.8)
-				)
-				.Operator(Operator.And)
-				.Query(form.Query)
-			)
-		)
-	)
+    .FunctionScore(fs => fs
+        .MaxBoost(10)
+        .Functions(ff => ff
+            .FieldValueFactor(fvf => fvf
+                .Field(p => p.DownloadCount)
+                .Factor(0.0001)
+            )
+        )
+        .Query(query => query
+            .MultiMatch(m => m
+                .Fields(f => f
+                    .Field(p => p.Id.Suffix("keyword"), 1.5)
+                    .Field(p => p.Id, 1.5)
+                    .Field(p => p.Summary, 0.8)
+                )
+                .Operator(Operator.And)
+                .Query(form.Query)
+            )
+        )
+    )
 )
 ```
 
@@ -1565,12 +1565,12 @@ Having fixed surfacing popular packages for keywords, we've broken exact matches
 
 ```csharp
 .Query(q =>
-	q.Match(m=>m.Field(p=>p.Id.Suffix("keyword")).Boost(1000).Query(form.Query))
-	|| q.FunctionScore(fs => fs
-		.Functions(ff => ff
-			.FieldValueFactor(fvf => fvf
-				.Field(p => p.DownloadCount)
-	//snip
+    q.Match(m=>m.Field(p=>p.Id.Suffix("keyword")).Boost(1000).Query(form.Query))
+    || q.FunctionScore(fs => fs
+        .Functions(ff => ff
+            .FieldValueFactor(fvf => fvf
+                .Field(p => p.DownloadCount)
+    //snip
 ```
 
 Here we use the logical `||` operator to create a bool query to match either on `id.keyword` and if it does, give it a ridiculous boost,
@@ -1584,30 +1584,30 @@ or otherwise match with our `function_score` query. Note that you can remove the
 
 ```csharp
 .Query(q => q
-	.Match(m => m
-		.Field(p => p.Id.Suffix("keyword"))
-		.Boost(1000)
-		.Query(form.Query)
-	) || q
-	.FunctionScore(fs => fs
-		.MaxBoost(10)
-		.Functions(ff => ff
-			.FieldValueFactor(fvf => fvf
-				.Field(p => p.DownloadCount)
-				.Factor(0.0001)
-			)
-		)
-		.Query(query => query
-			.MultiMatch(m => m
-				.Fields(f => f
-					.Field(p => p.Id, 1.2)
-					.Field(p => p.Summary, 0.8)
+    .Match(m => m
+        .Field(p => p.Id.Suffix("keyword"))
+        .Boost(1000)
+        .Query(form.Query)
+    ) || q
+    .FunctionScore(fs => fs
+        .MaxBoost(10)
+        .Functions(ff => ff
+            .FieldValueFactor(fvf => fvf
+                .Field(p => p.DownloadCount)
+                .Factor(0.0001)
+            )
+        )
+        .Query(query => query
+            .MultiMatch(m => m
+                .Fields(f => f
+                    .Field(p => p.Id, 1.2)
+                    .Field(p => p.Summary, 0.8)
                 )
-				.Operator(Operator.And)
-				.Query(form.Query)
-			)
-		)
-	)
+                .Operator(Operator.And)
+                .Query(form.Query)
+            )
+        )
+    )
 )
 ```
 
@@ -1624,7 +1624,7 @@ If you are following along with Fiddler, you can see that in case of an empty `f
   "size": 25,
   "query": {
     "function_score": {
-	  "max_boost": 10,
+      "max_boost": 10,
       "functions": [
         {
           "field_value_factor": {
@@ -1643,14 +1643,14 @@ If you don't want this _conditionless_ behaviour, you can control that through e
 
 ```csharp
 .Query(q => q
-	.Verbatim(true)
-	.Match(m => m
-		.Field(p => p.Id.Suffix("keyword"))
-		.Boost(1000)
-		.Query(form.Query)
-	) || q
-	.Strict()
-	.FunctionScore(fs => fs
+    .Verbatim(true)
+    .Match(m => m
+        .Field(p => p.Id.Suffix("keyword"))
+        .Boost(1000)
+        .Query(form.Query)
+    ) || q
+    .Strict()
+    .FunctionScore(fs => fs
 ```
 
 As a another reminder, if the fluent syntax is not working out for you, here would be the equivalent using the object initializer syntax
@@ -1659,34 +1659,34 @@ As a another reminder, if the fluent syntax is not working out for you, here wou
 var result = client.Search<Package>(new SearchRequest<Package>
 {
 
-	Size = 25,
-	Query =
-		new MatchQuery 
-		{ 
-			Field = Infer.Field<Package>(p => p.Id.Suffix("keyword")), 
-			Boost = 1000, 
-			Query = form.Query, 
-		}
-		|| new FunctionScoreQuery
-		{
-			MaxBoost = 10,
-			Functions = new List<IScoreFunction>
-			{
-				new FieldValueFactorFunction
-				{
-					Field = Infer.Field<Package>(p=>p.DownloadCount),
-					Factor = 0.0001
-				}
-			},
-			Query = new MultiMatchQuery
-			{
-				Query = form.Query,
-				Operator = Operator.And,
-				Fields = Infer.Field<Package>(p => p.Id.Suffix("keyword"), 1.5)
-					.And("id^0.8")
-					.And<Package>(p => p.Summary, 0.8)
-			}
-		}
+    Size = 25,
+    Query =
+        new MatchQuery 
+        { 
+            Field = Infer.Field<Package>(p => p.Id.Suffix("keyword")), 
+            Boost = 1000, 
+            Query = form.Query, 
+        }
+        || new FunctionScoreQuery
+        {
+            MaxBoost = 10,
+            Functions = new List<IScoreFunction>
+            {
+                new FieldValueFactorFunction
+                {
+                    Field = Infer.Field<Package>(p=>p.DownloadCount),
+                    Factor = 0.0001
+                }
+            },
+            Query = new MultiMatchQuery
+            {
+                Query = form.Query,
+                Operator = Operator.And,
+                Fields = Infer.Field<Package>(p => p.Id.Suffix("keyword"), 1.5)
+                    .And("id^0.8")
+                    .And<Package>(p => p.Summary, 0.8)
+            }
+        }
 });
 ```
 
@@ -1700,7 +1700,7 @@ Now that we have a handle of how searching works, let's quickly add pagination a
 Uncomment the following in `Views/Search/Index.cshtml` twice
 
 ```cshtml
-	@* @Html.Partial("Pager", Model) *@
+    @* @Html.Partial("Pager", Model) *@
 ```
 
 In `SearchController`, let's make sure our model knows how many pages to expect
@@ -1708,10 +1708,10 @@ In `SearchController`, let's make sure our model knows how many pages to expect
 ```csharp
 var model = new SearchViewModel
 {
-	Packages = result.Documents,
-	Total = result.Total,
-	Form = form,
-	TotalPages = (int)Math.Ceiling(result.Total / (double)form.PageSize)
+    Packages = result.Documents,
+    Total = result.Total,
+    Form = form,
+    TotalPages = (int)Math.Ceiling(result.Total / (double)form.PageSize)
 };
 ```
 
@@ -1739,15 +1739,15 @@ and add the following to our search query to change to sort order:
 ```csharp
 .Sort(sort =>
 {
-	if (form.Sort == SearchSort.Downloads)
-		return sort.Descending(p => p.DownloadCount);
-	if (form.Sort == SearchSort.Recent)
-		return sort.Field(sortField => sortField
-			.NestedPath(p => p.Versions)
-			.Field(p => p.Versions.First().LastUpdated)
-			.Descending()
-		);
-	return sort.Descending("_score");
+    if (form.Sort == SearchSort.Downloads)
+        return sort.Descending(p => p.DownloadCount);
+    if (form.Sort == SearchSort.Recent)
+        return sort.Field(sortField => sortField
+            .NestedPath(p => p.Versions)
+            .Field(p => p.Versions.First().LastUpdated)
+            .Descending()
+        );
+    return sort.Descending("_score");
 })
 ```
 
@@ -1936,14 +1936,14 @@ In our `SearchController`, let's extend our query and add the `terms` aggregatio
 
 ```csharp
 .Aggregations(a => a
-	.Nested("authors", n => n
-		.Path("authors")
-		.Aggregations(aa => aa
-			.Terms("author-names", ts => ts
-				.Field(p => p.Authors.First().Name)
-			)
-		)
-	)
+    .Nested("authors", n => n
+        .Path("authors")
+        .Aggregations(aa => aa
+            .Terms("author-names", ts => ts
+                .Field(p => p.Authors.First().Name)
+            )
+        )
+    )
 )
 ```
 
@@ -1953,17 +1953,17 @@ Now let's retrieve the results from the aggregation and populate our `SearchView
 
 ```csharp
 var authors = result.Aggs.Nested("authors")
-				.Terms("author-names")
-				.Buckets
-				.ToDictionary(k => k.Key, v => v.DocCount);
+                .Terms("author-names")
+                .Buckets
+                .ToDictionary(k => k.Key, v => v.DocCount);
 
 var model = new SearchViewModel
 {
-	Packages = result.Documents,
-	Total = result.Total,
-	Form = form,
-	TotalPages = (int)Math.Ceiling(result.Total / (double)form.PageSize),
-	Authors = authors
+    Packages = result.Documents,
+    Total = result.Total,
+    Form = form,
+    TotalPages = (int)Math.Ceiling(result.Total / (double)form.PageSize),
+    Authors = authors
 };
 ```
 
@@ -1987,19 +1987,19 @@ Sound simple enough?  Alright then, let's change up our mapping of `PackageAutho
 
 ```csharp
 .Nested<PackageAuthor>(n => n
-	.Name(p => p.Authors.First())
-	.Properties(props => props
-		.Text(t => t
-			.Name(a => a.Name)
-			.Fielddata()
-			.Fields(fs => fs
-				.Keyword(ss => ss
-					.Name("raw")
-				)
-			)
-		)
-	)
-	.AutoMap()
+    .Name(p => p.Authors.First())
+    .Properties(props => props
+        .Text(t => t
+            .Name(a => a.Name)
+            .Fielddata()
+            .Fields(fs => fs
+                .Keyword(ss => ss
+                    .Name("raw")
+                )
+            )
+        )
+    )
+    .AutoMap()
 )
 ```
 
@@ -2030,36 +2030,36 @@ We can add the author facet selection to our query as follows
 
 ```csharp
 .Query(q => (q
-	.Match(m => m
-		.Field(p => p.Id.Suffix("keyword"))
-		.Boost(1000)
-		.Query(form.Query)
-	) || q
-	.FunctionScore(fs => fs
-		.MaxBoost(10)
-		.Functions(ff => ff
-			.FieldValueFactor(fvf => fvf
-				.Field(p => p.DownloadCount)
-				.Factor(0.0001)
-			)
-		)
-		.Query(query => query
-				.MultiMatch(m => m
-				.Fields(f => f
-					.Field(p => p.Id, 1.5)
-					.Field(p => p.Summary, 0.8)
-				)
-				.Operator(Operator.And)
-				.Query(form.Query)
-			)
-		)
-	))
-	&& +q.Nested(n => n
-		.Path(p => p.Authors)
-		.Query(nq => +nq
-			.Term(p => p.Authors.First().Name.Suffix("raw"), form.Author)
-		)
-	)
+    .Match(m => m
+        .Field(p => p.Id.Suffix("keyword"))
+        .Boost(1000)
+        .Query(form.Query)
+    ) || q
+    .FunctionScore(fs => fs
+        .MaxBoost(10)
+        .Functions(ff => ff
+            .FieldValueFactor(fvf => fvf
+                .Field(p => p.DownloadCount)
+                .Factor(0.0001)
+            )
+        )
+        .Query(query => query
+                .MultiMatch(m => m
+                .Fields(f => f
+                    .Field(p => p.Id, 1.5)
+                    .Field(p => p.Summary, 0.8)
+                )
+                .Operator(Operator.And)
+                .Query(form.Query)
+            )
+        )
+    ))
+    && +q.Nested(n => n
+        .Path(p => p.Authors)
+        .Query(nq => +nq
+            .Term(p => p.Authors.First().Name.Suffix("raw"), form.Author)
+        )
+    )
 )
 ```
 
@@ -2118,7 +2118,7 @@ Next, we need to map our `Suggest` field as a `completion` type.  So let's add t
 
 ```csharp
 .Completion(c => c
-	.Name(p => p.Suggest)
+    .Name(p => p.Suggest)
 )
 ```
 
@@ -2151,8 +2151,8 @@ Now that we have a plan in place for building our completion fields, let's put i
 ```csharp
 this.Suggest = new CompletionField
 {
-	Input = new List<string>(latestVersion.Id.Split('.')) { latestVersion.Id },
-	Weight = latestVersion.DownloadCount
+    Input = new List<string>(latestVersion.Id.Split('.')) { latestVersion.Id },
+    Weight = latestVersion.DownloadCount
 };
 ```
 
@@ -2291,17 +2291,17 @@ using NuSearch.Web.Models;
 
 namespace NuSearch.Web.Controllers
 {
-	public class SuggestController : Controller
+    public class SuggestController : Controller
     {
-		private readonly IElasticClient _client;
+        private readonly IElasticClient _client;
 
-		public SuggestController(IElasticClient client) => _client = client;
+        public SuggestController(IElasticClient client) => _client = client;
 
-		[HttpPost]
+        [HttpPost]
         public IActionResult Index([FromBody]SearchForm form)
         {
-			// TODO: implement
-		}
+            // TODO: implement
+        }
     }
 }
 =
@@ -2313,36 +2313,36 @@ Next, let's use NEST to actually call the suggest on the `_search` endpoint in E
 [HttpPost]
 public IActionResult Index([FromBody]SearchForm form)
 {
-	var result = _client.Search<Package>(s => s
-		.Index<Package>()
-		.Source(sf => sf
-			.Includes(f => f
-				.Field(ff => ff.Id)
-				.Field(ff => ff.DownloadCount)
-				.Field(ff => ff.Summary)
-			)
-		)
-		.Suggest(su => su
-			.Completion("package-suggestions", c => c
-				.Prefix(form.Query)
-				.Field(p => p.Suggest)
-			)
-		)
-	);
+    var result = _client.Search<Package>(s => s
+        .Index<Package>()
+        .Source(sf => sf
+            .Includes(f => f
+                .Field(ff => ff.Id)
+                .Field(ff => ff.DownloadCount)
+                .Field(ff => ff.Summary)
+            )
+        )
+        .Suggest(su => su
+            .Completion("package-suggestions", c => c
+                .Prefix(form.Query)
+                .Field(p => p.Suggest)
+            )
+        )
+    );
 
-	var suggestions = result.Suggest["package-suggestions"]
-		.FirstOrDefault()
-		.Options
-		.Select(suggest => new
-		{
-			id = suggest.Source.Id,
-			downloadCount = suggest.Source.DownloadCount,
-			summary = !string.IsNullOrEmpty(suggest.Source.Summary)
-				? string.Concat(suggest.Source.Summary.Take(200))
-				: string.Empty
-		});
+    var suggestions = result.Suggest["package-suggestions"]
+        .FirstOrDefault()
+        .Options
+        .Select(suggest => new
+        {
+            id = suggest.Source.Id,
+            downloadCount = suggest.Source.DownloadCount,
+            summary = !string.IsNullOrEmpty(suggest.Source.Summary)
+                ? string.Concat(suggest.Source.Summary.Take(200))
+                : string.Empty
+        });
 
-	return Json(suggestions);
+    return Json(suggestions);
 }
 ```
 
@@ -2405,10 +2405,10 @@ or
 - remove the `NuGet.config` file from the root of the repository and run
 
     ```sh
-	dotnet restore
-	```
+    dotnet restore
+    ```
 
-	from the `src` directory to restore packages into the global NuGet cache.
+    from the `src` directory to restore packages into the global NuGet cache.
 
 
 <hr />

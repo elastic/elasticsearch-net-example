@@ -23,7 +23,7 @@ namespace NuSearch.Indexer
 
 			IndexDumps();
 
-			Console.WriteLine("Press any key to continue");
+			Console.WriteLine("Press Enter to continue");
 			Console.Read();
 		}
 

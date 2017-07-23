@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="NEST" Version="5.4.0" />
+		<PackageReference Include="NEST" Version="5.5.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\NuSearch.Domain\NuSearch.Domain.csproj" />

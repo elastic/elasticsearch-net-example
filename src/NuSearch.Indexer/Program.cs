@@ -27,7 +27,7 @@ namespace NuSearch.Indexer
 			IndexDumps();
 			SwapAlias();
 
-			Console.WriteLine("Press any key to continue");
+			Console.WriteLine("Press Enter to continue");
 			Console.Read();
 		}
 

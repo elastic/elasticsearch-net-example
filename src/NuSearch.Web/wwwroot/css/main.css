@@ -97,6 +97,17 @@ a.list-group-item-warning:hover
 	background-color:#ec971f;
 }
 
+.search-result
+{
+	border-bottom:1px solid #efefef;
+	padding-bottom: 20px;
+}
+.search-result:last-child
+{
+
+	border-bottom:0;
+}
+
 
 
 

@@ -3,9 +3,11 @@
 @model NuSearch.Web.Modules.Search.Search.SearchViewModel
 <div class="row">
 	<div class="col-lg-9">
-		@foreach (var package in Model.Packages)
+		@foreach (var hit in Model.Hits)
 		{
-			<div class="media">
+			var package = hit.Source;
+			var lastVersion = package.Versions.LastOrDefault();
+			<div class="media search-result">
 				<div class="media-left">
 					<a href="@Model.UrlFor(package)">
 						@if (string.IsNullOrEmpty(package.IconUrl))
@@ -20,9 +22,14 @@
 					</a>
 				</div>
 				<div class="media-body">
-					<h4 class="media-heading">@package.Id</h4>
-					@package.Summary
-					<div><span class="label label-lg label-default">@package.DownloadCount</span> downloads</div>
+					<h3 class="media-heading">@hit.Id</h3>
+					<h4>
+						<span><span class="glyphicon glyphicon-download-alt"></span> @package.DownloadCount</span> 
+						| <span><span class="glyphicon glyphicon-time"></span> @lastVersion.LastUpdated</span>
+						| <span><span class="glyphicon glyphicon-bookmark"></span> @lastVersion.Version</span>
+						| <span><span class="glyphicon glyphicon-flash"></span>query score: @hit.Score</span>
+					</h4>
+					<h5>@package.Summary</h5>
 				</div>
 			</div>
 		}

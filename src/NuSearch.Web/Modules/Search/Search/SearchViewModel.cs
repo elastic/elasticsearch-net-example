@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Nest;
 using NuSearch.Domain.Model;
 using NuSearch.Web.Extensions;
 
@@ -25,7 +26,7 @@ namespace NuSearch.Web.Modules.Search.Search
 		/// <summary>
 		/// The current page of package results
 		/// </summary>
-		public IEnumerable<Package> Packages { get; set; }
+		public IReadOnlyCollection<IHit<Package>> Hits { get; set; }
 		
 		/// <summary>
 		/// Returns how long the elasticsearch query took in milliseconds

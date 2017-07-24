@@ -31,7 +31,7 @@ namespace NuSearch.Web.Modules.Search.Search
 
 			var model = new SearchViewModel
 			{
-				Packages = result.Documents,
+				Hits = result.Hits,
 				Total = result.Total,
 				Form = form,
 				TotalPages = (int) Math.Ceiling(result.Total / (double) form.PageSize),

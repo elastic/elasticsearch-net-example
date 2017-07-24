@@ -1,26 +1,37 @@
 ﻿@using NuSearch.Web.Modules.Search
 @using NuSearch.Web.Modules.Search.Search
 @model NuSearch.Web.Modules.Search.Search.SearchViewModel
-@using (Html.BeginForm(FormMethod.Get, new { id = "searchform", @class="container-fluid" }))
+@using (Html.BeginForm(FormMethod.Get, new {id = "searchform"}))
 {
 	if (!string.IsNullOrEmpty(Model.Form.Author))
 	{
 		<input name="author" type="hidden" value="@Model.Form.Author"/>
 	}
-	<div class="row">
-		<div class="page-header col-lg-2">
-			<h1>NuSearch</h1>
-		</div>
-		<div class="page-header col-lg-10">
-			<div class="input-group input-group-lg" id="query-container">
-				@Html.TextBoxFor(m => m.Form.Query, new { id = "query", name="query", autocomplete="off", @class="form-control", placeholder = "Search for..." })
-				<span class="input-group-btn">
-					<button class="btn btn-default" type="submit">Search</button>
-				</span>
+	<nav class="navbar navbar-default search-header">
+		<div class="container-fluid bound-container ">
+			<h1>nusearch</h1>
+			<div class="input-group">
+				@Html.TextBoxFor(m => m.Form.Query, new {id = "query", name = "query", autocomplete = "off", @class = "form-control", placeholder = "Search for packages ..."})
+				 
+				<div class="input-group-btn">
+					<button class="btn btn-warning" type="submit">
+						<i class="glyphicon glyphicon-search"></i>
+					</button>
+				</div>
 			</div>
 		</div>
+	</nav>
+	<nav class="navbar search-criteria-header">
+		<div class="container-fluid bound-container ">
+			<div class="row">
+				<div class="col-lg-12" id="search-criteria">
+					@Html.Partial("SearchCriteria", Model)
+				</div>
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid bound-container page-header">
+		@Html.Partial(Model.Total > 0 ? "Results" : "NoResults", Model)
+		@Html.Partial("Pager", Model)
 	</div>
-	@Html.Partial("Pager", Model)
-	@Html.Partial(Model.Total > 0 ? "Results" : "NoResults", Model)
-	@Html.Partial("Pager", Model)
 }

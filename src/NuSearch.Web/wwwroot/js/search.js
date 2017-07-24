@@ -32,20 +32,20 @@
         templates: {
           empty: [
             '<div class="lead">',
-            'unable to find any packages',
+            'no suggestions found for current prefix',
             '</div>'
           ].join('\n'),
           suggestion: function(suggestion) {
             return [
-              '<h3 class="text-primary">',
+              '<h4 class="text-primary">',
               suggestion.id,
-              '<span class="label label-default label-lg">',
+              '<span class="text-humble pull-right">',
               suggestion.downloadCount + " downloads",
               '</span>',
-              '</h3>',
-              '<h4 class="text-primary">',
+              '</h5>',
+              '<h5 class="text-primary">',
               suggestion.summary,
-              '</h4>'
+              '</h6>'
             ].join('\n');
           }
         },

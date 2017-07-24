@@ -45,4 +45,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\New folder" />
+  </ItemGroup>
 </Project>

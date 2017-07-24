@@ -2,15 +2,18 @@
 // More info at https://go.microsoft.com/fwlink/?LinkId=808241
 [
   {
-    "outputFileName": "wwwroot/css/main.min.css",
+    "outputFileName": "wwwroot/css/nusearch.min.css",
     // An array of relative input file paths. Globbing patterns supported
     "inputFiles": [
+      "wwwroot/css/bootstrap.min.css",
       "wwwroot/css/main.css"
     ]
   },
   {
-    "outputFileName": "wwwroot/js/site.min.js",
+    "outputFileName": "wwwroot/js/nusearch.min.js",
     "inputFiles": [
+      "wwwroot/js/jquery.min.js",
+      //"wwwroot/js/bootstrap.min.js",
       "wwwroot/js/typeahead.bundle.min.js",
       "wwwroot/js/search.js"
     ],

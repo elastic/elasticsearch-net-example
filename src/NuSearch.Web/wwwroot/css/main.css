@@ -83,6 +83,7 @@
 	border-color:#004880;
 	background: #004880;
 	color: white;
+	font-size:18px;
 }
 
 .list-group-item-warning
@@ -106,6 +107,21 @@ a.list-group-item-warning:hover
 {
 
 	border-bottom:0;
+}
+.search-result .text-info
+{
+	color:#004880;
+	font-weight: bold;
+}
+.search-result h4
+{
+	margin-top:20px;
+}
+.search-result h4.text-humble
+{
+	margin-top:10px;
+	color:#999;
+	font-variant: small-caps;
 }
 
 
@@ -200,7 +216,7 @@ a.list-group-item-warning:hover
 }
 .tt-dropdown-menu .lead {
 	padding: 3px 20px;
-	color:#ccc;
+	color:#999;
 	font-size: 24px; 
 	font-variant:small-caps;
 }

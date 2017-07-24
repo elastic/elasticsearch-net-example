@@ -17,6 +17,6 @@ Or if you need to cheat/peek at the final solution checkout [2.x-codecomplete](h
 ## Elasticsearch 1.x
 
 If you are still on Elasticsearch 1.x you can checkout the [1.x branch](https://github.com/elastic/elasticsearch-net-example/tree/1.x), although if you are just looking to learn Elasticsearch
-you really oughta give `2.x` a try!
+you really oughta give `5.x` a try!
 
 ![nusearch](nusearch.png)

@@ -22,26 +22,26 @@
 	font-weight: normal;
 }
 
-.search-header
+.header-site
 {
 	background: #004880;
 	color:white;
 	padding-top:20px;
 }
-.search-header h1
+.header-site h1
 {
 	font-variant: small-caps;
 }
-.search-header input
+.header-site input
 {
 	font-size:24px;
 	padding:20px;
 }
-.search-header button
+.header-site button
 {
 	font-size:20px;
 }
-.search-header .bound-container
+.header-site .bound-container
 {
 	background-image: url('/img/logo.png');
 	background-repeat: no-repeat;
@@ -49,7 +49,7 @@
 	padding-bottom:40px;
 	background-position-x: 10px;
 }
-.search-criteria-header
+.header-site-sub
 {
 	border:0px;
 	border-bottom: 1px solid #cccccc;
@@ -65,14 +65,14 @@
 	background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 63%, rgba(239,239,239,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#efefef', GradientType=0 );
 }
-.search-criteria-header h2,
-.search-criteria-header h3,
-.search-criteria-header h4
+.header-site-sub h2,
+.header-site-sub h3,
+.header-site-sub h4
 {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
-.search-criteria-header h2
+.header-site-sub h2
 {
 	margin-top:20px;
 }

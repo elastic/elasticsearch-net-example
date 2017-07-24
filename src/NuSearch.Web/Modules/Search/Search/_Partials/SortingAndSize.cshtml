@@ -1,0 +1,26 @@
+﻿@using NuSearch.Web.Modules.Search.Search
+@model NuSearch.Web.Modules.Search.Search.SearchForm
+@{ 
+	var sort = Model.Sort;
+	var pageSize = Model.PageSize;
+}
+<h3>
+	<span class="text-muted">
+		Displaying
+		<select name="@Html.NameFor(m=>m.PageSize).ToLowerInvariant()" class="label label-select">
+			<option @(pageSize == 10 ? "selected" : "")>10</option>
+			<option @(pageSize == 25 ? "selected" : "")>25</option>
+			<option @(pageSize == 50 ? "selected" : "")>50</option>
+			<option @(pageSize == 100 ? "selected" : "")>100</option>
+		</select>
+		packages per page,
+	</span>
+	<span class="text-muted">
+		ordered by
+		<select name="@Html.NameFor(m=>m.Sort).ToLowerInvariant()" class="label label-select">
+			<option value="relevance" @(sort == SearchSort.Relevance ? "selected" : "")>Relevance</option>
+			<option value="downloads" @(sort == SearchSort.Downloads ? "selected" : "")>Downloads</option>
+			<option value="recent" @(sort == SearchSort.Recent ? "selected" : "")>Age</option>
+		</select>
+	</span>
+</h3>

@@ -9,6 +9,10 @@
 
 	public class SearchForm
 	{
+		public const int DefaultPageSize = 10;
+		public const int DefaultPage = 1;
+		public const SearchSort DefaultSort = SearchSort.Relevance;
+
 		public int Page { get; set; }
 		public string Query { get; set; }
 		public string Author { get; set; }
@@ -17,8 +21,9 @@
 
 		public SearchForm()
 		{
-			this.PageSize = 25;
-			this.Page = 1;
+			this.PageSize = DefaultPageSize;
+			this.Page = DefaultPage;
+			this.Sort = DefaultSort;
 		}
 
 		public SearchForm Clone() => new SearchForm

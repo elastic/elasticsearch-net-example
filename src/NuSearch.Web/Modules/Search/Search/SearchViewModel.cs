@@ -6,7 +6,7 @@ using NuSearch.Web.Extensions;
 
 namespace NuSearch.Web.Modules.Search.Search
 {
-	public class SearchViewModel
+	public class SearchViewModel : BaseViewModel
 	{
 		/// <summary>
 		/// The total number of matching results
@@ -18,11 +18,6 @@ namespace NuSearch.Web.Modules.Search.Search
 		/// </summary>
 		public int TotalPages { get; set; }
 		
-		/// <summary>
-		/// The current state of the form that was submitted
-		/// </summary>
-		public SearchForm Form { get; set; }
-
 		/// <summary>
 		/// The current page of package results
 		/// </summary>

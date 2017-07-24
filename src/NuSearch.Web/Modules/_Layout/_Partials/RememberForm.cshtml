@@ -1,0 +1,12 @@
+﻿@using NuSearch.Web.Modules.Search.Search
+@model NuSearch.Web.Modules.Search.Search.SearchForm
+
+@Html.Partial("RememberAuthor", Model)
+@if (Model.PageSize != SearchForm.DefaultPageSize)
+{
+	<input name="@Html.NameFor(m=>m.PageSize).ToLowerInvariant()" type="hidden" value="@Model.PageSize"/>
+}
+@if (Model.Sort != SearchForm.DefaultSort)
+{
+	<input name="@Html.NameFor(m=>m.Sort).ToLowerInvariant()" type="hidden" value="@Enum.GetName(typeof(SearchSort),Model.Sort).ToLowerInvariant()"/>
+}

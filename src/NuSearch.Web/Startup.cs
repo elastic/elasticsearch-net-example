@@ -44,9 +44,9 @@ namespace NuSearch.Web
 
 			app.UseMvc(routes =>
 			{
-				routes.MapRoute(
-					name: "default",
-					template: "{controller=Search}/{action=Index}");
+				routes
+					.MapRoute(name: "default", template: "{controller=Search}/{action=Search}")
+					.MapRoute(name: "fallback", template:"{controller=Search}/{action=Index}"); 
 			});
 		}
 	}

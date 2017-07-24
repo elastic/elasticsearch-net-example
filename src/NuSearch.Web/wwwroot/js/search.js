@@ -1,8 +1,6 @@
 ﻿$(function() {
 
-  $("select").change(function() { $("form").submit(); });
-
-  $("#query").focus().select();
+  $("select").change(function() { $("form#search-criteria").submit(); });
 
   setupTypeAhead();
 
@@ -51,11 +49,15 @@
         },
         source: remoteHandler
       }
-    ).on('typeahead:selected',
-      function(e, o) {
+    ).on('typeahead:selected', function(e, o) {
         window.location.href = "https://www.nuget.org/packages/" + o.id;
+      })
+      .on('typeahead:selected', function(e, o) {
+        $("#query").focus().select();
       });
   }
+
+  $("#query").focus().select();
 
 });
 

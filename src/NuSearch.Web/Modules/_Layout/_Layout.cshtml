@@ -1,4 +1,6 @@
-﻿<!doctype html>
+﻿@using NuSearch.Web.Modules.Search.Search
+@model NuSearch.Web.Modules.BaseViewModel
+<!doctype html>
 <html>
 <head>
 	<title>NuSearch</title>
@@ -6,6 +8,21 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+<nav class="navbar navbar-default header-site">
+	<div class="container-fluid bound-container ">
+		<h1>nusear.ch</h1>
+		@using (Html.BeginForm("Search", "Search", FormMethod.Get))
+		{
+			@Html.Partial("RememberForm", Model.Form)
+			@Html.Partial("QueryBox", Model.Form)
+		}
+	</div>
+</nav>
+<nav class="navbar header-site-sub">
+	<div class="container-fluid bound-container ">
+		@RenderSection("HeaderSub", required: false)
+	</div>
+</nav>
 @RenderBody()
 <script src="~/js/nusearch.min.js"></script>
 </body>

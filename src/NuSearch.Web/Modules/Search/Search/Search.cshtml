@@ -1,0 +1,19 @@
+﻿@model NuSearch.Web.Modules.Search.Search.SearchViewModel
+
+	<div class="container-fluid bound-container page-header">
+		@Html.Partial(Model.Total > 0 ? "Results" : "NoResults", Model)
+	</div>
+
+@section HeaderSub {
+	<div class="row">
+		<div class="col-lg-12" id="search-criteria">
+			@using (Html.BeginForm(FormMethod.Get, new {id = "search-criteria"}))
+			{
+				@Html.Partial("RememberQuery", Model.Form)
+				@Html.Partial("RememberAuthor", Model.Form)
+				
+				@Html.Partial("SearchCriteria", Model)
+			}
+		</div>
+	</div>
+}

@@ -14,7 +14,7 @@ namespace NuSearch.Web.Modules.Search.Search
 		public SearchController(IElasticClient client) => _client = client;
 
 		[HttpGet]
-		public IActionResult Index(SearchForm form)
+		public IActionResult Search(SearchForm form)
 		{
 			var result = _client.Search<Package>(s => s
 				.From((form.Page - 1) * form.PageSize)

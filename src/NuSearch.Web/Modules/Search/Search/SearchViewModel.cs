@@ -59,6 +59,6 @@ namespace NuSearch.Web.Modules.Search.Search
 			return clone.ToQueryString();
 		}
 
-		public string UrlFor(Package package) => $"https://www.nuget.org/packages/{package.Id}";
+		public string UrlFor(Package package) => $"/packages/{package.Id}";
 	}
 }

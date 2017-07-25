@@ -1,9 +1,7 @@
-﻿@using NuSearch.Web.Modules.Search
-@using NuSearch.Web.Modules.Search.Search
-@model NuSearch.Web.Modules.Search.Search.SearchViewModel
+﻿@model NuSearch.Web.Modules.Search.Search.SearchViewModel
 @if (Model.Total > 0)
 {
-		<ul class="pagination pull-right">
+		<ul class="pagination" style="vertical-align: middle;">
 			<li class="page-item previous btn-info @(Model.Form.Page == 1 ? "disabled" : "")">
 				<a class="page-link " href="@Model.UrlFor(f => { f.Page = Math.Max(1, f.Page - 1); })"><span class="glyphicon glyphicon-backward"></span></a>
 				

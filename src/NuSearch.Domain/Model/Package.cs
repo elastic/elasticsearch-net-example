@@ -20,7 +20,10 @@ namespace NuSearch.Domain.Model
 			this.IconUrl = latestVersion.IconUrl;
 			this.Summary = latestVersion.Summary;
 			this.DownloadCount = latestVersion.DownloadCount;
-			this.Tags = latestVersion.Tags?.Split(new [] {' '}, StringSplitOptions.RemoveEmptyEntries) ?? Array.Empty<string>();
+			this.Tags = latestVersion.Tags?
+				        .Split(new [] {' '}, StringSplitOptions.RemoveEmptyEntries)
+			            .Select(t=>t.ToLowerInvariant()) //could use a normalizer in the mapping
+			            .ToArray() ?? Array.Empty<string>();
 			this.Authors = latestVersion.Authors.Split('|').Select(author => new PackageAuthor { Name = author }).ToList();
 			this.Versions = feeds.Select(f => new PackageVersion(f)).ToList();
 			this.AllVersionsUnlisted = feeds.All(f => f.Published < SpecialUnlistedDate);

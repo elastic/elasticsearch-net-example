@@ -10,6 +10,7 @@ namespace NuSearch.Web.Modules
 		/// <summary>
 		/// The current state of the form that was submitted
 		/// </summary>
-		public SearchForm Form { get; set; }
+		public SearchForm Form { get; set; }  = new SearchForm();
+		
 	}
 }

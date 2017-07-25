@@ -1,4 +1,6 @@
-﻿namespace NuSearch.Web.Modules.Search.Search
+﻿using System;
+
+namespace NuSearch.Web.Modules.Search.Search
 {
 	public enum SearchSort
 	{
@@ -14,8 +16,10 @@
 		public const SearchSort DefaultSort = SearchSort.Relevance;
 
 		public int Page { get; set; }
+		public bool Significance { get; set; }
 		public string Query { get; set; }
 		public string Author { get; set; }
+		public string[] Tags { get; set; }
 		public int PageSize { get; set; }
 		public SearchSort Sort { get; set; }
 
@@ -24,13 +28,16 @@
 			this.PageSize = DefaultPageSize;
 			this.Page = DefaultPage;
 			this.Sort = DefaultSort;
+			this.Tags = Array.Empty<string>();
 		}
 
 		public SearchForm Clone() => new SearchForm
 		{
 			Page = this.Page,
+			Significance = this.Significance,
 			Query = this.Query,
 			Author = this.Author,
+			Tags = this.Tags,
 			PageSize = this.PageSize,
 			Sort = this.Sort,
 		};

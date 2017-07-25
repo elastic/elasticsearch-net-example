@@ -77,6 +77,7 @@ namespace NuSearch.Indexer
 						)
 					)
 				)
+				.Keyword(k=>k.Name(p=>p.Tags))
 				.Nested<PackageAuthor>(n => n
 					.Name(p => p.Authors.First())
 					.Properties(props => props
@@ -123,9 +124,9 @@ namespace NuSearch.Indexer
 			var packages = DumpReader.GetPackages();
 			
 			var sw = Stopwatch.StartNew();
-			Console.Write("Indexing documents into elasticsearch...");
+			Console.Write("Indexing documents into elasticsearch: ");
 
-			var bulkAll = Client.BulkAll(packages.Take(1000), b => b
+			var bulkAll = Client.BulkAll(packages, b => b
 				.Index(CurrentIndexName)
 				.BackOffRetries(2)
 				.BackOffTime("30s")

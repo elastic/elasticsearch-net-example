@@ -18,4 +18,14 @@
 		<a class="label label-warning" href="@Model.UrlForFirstPage(f => { f.Author = null; })">@Model.Form.Author <span class="glyphicon glyphicon-remove"></span></a>
 	</span>
 }
+@if (Model.Form.Tags != null && Model.Form.Tags.Length > 0)
+{
+	<span class="text-warning">
+		having the <span class="label label-info">Tags</span> 
+		@foreach (var t in Model.Form.Tags)
+		{
+			<a class="label label-warning" href="@Model.UrlForFirstPage(f => { f.Tags = Model.Form.Tags.Except(new[]{t}).ToArray(); })">@t <span class="glyphicon glyphicon-remove"></span></a>
+		}
+	</span>
+}
 </h2>

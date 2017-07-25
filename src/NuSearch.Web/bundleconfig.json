@@ -15,6 +15,7 @@
       "wwwroot/js/jquery.min.js",
       //"wwwroot/js/bootstrap.min.js",
       "wwwroot/js/typeahead.bundle.min.js",
+      "wwwroot/js/jquery.timeago.js",
       "wwwroot/js/search.js"
     ],
     // Optionally specify minification options

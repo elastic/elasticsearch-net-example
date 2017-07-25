@@ -1,10 +1,12 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Net.Http.Headers;
 using Nest;
 using NuSearch.Domain;
 using NuSearch.Web.Plumbing;
@@ -40,7 +42,17 @@ namespace NuSearch.Web
 			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 			loggerFactory.AddDebug();
 
-			app.UseStaticFiles();
+			app.UseStaticFiles(new StaticFileOptions
+			{
+				OnPrepareResponse = (context) =>
+				{
+					var headers = context.Context.Response.GetTypedHeaders();
+					headers.CacheControl = new CacheControlHeaderValue()
+					{
+						MaxAge = TimeSpan.FromSeconds(60),
+					};
+				}
+			});
 
 			app.UseMvc(routes =>
 			{

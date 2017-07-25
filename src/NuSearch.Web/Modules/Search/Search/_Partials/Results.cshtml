@@ -22,11 +22,11 @@
 					<h3 class="media-heading text-info">@hit.Id</h3>
 					<h4 class="text-sub">
 						<span>
-							<span class="glyphicon glyphicon-download-alt"></span> @(string.Format("{0:n0}", package.DownloadCount)) downloads</span>
+							<span class="glyphicon glyphicon-download-alt"></span> downloads: @(string.Format("{0:n0}", package.DownloadCount))</span>
 						| <span>
-							<span class="glyphicon glyphicon-time"></span> @lastVersion.LastUpdated</span>
+							<span class="glyphicon glyphicon-time"></span> <time class="timeago" datetime="@lastVersion.LastUpdated.ToString("yyyy-MM-ddTHH:mm:ssZ")">@lastVersion.LastUpdated.ToString("yyyy-MM-dd")</time></span>
 						| <span>
-							<span class="glyphicon glyphicon-bookmark"></span> @lastVersion.Version</span>
+							<span class="glyphicon glyphicon-bookmark"></span> version: @lastVersion.Version</span>
 						| <span><span class="glyphicon glyphicon-flash"></span>query score: @hit.Score</span>
 					</h4>
 					<h4 class="text-humble">@package.Summary</h4>

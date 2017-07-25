@@ -20,7 +20,7 @@ namespace NuSearch.Web.Modules.Search.Search
 				.From((form.Page - 1) * form.PageSize)
 				.Size(form.PageSize)
 				.Sort(sort => ApplySort(form.Sort, sort))
-				.Aggregations(ApplyAggregations)
+				.Aggregations(aggs=> ApplyAggregations(form, aggs))
 				.Query(q => ApplyQuery(form, q))
 			);
 
@@ -29,13 +29,24 @@ namespace NuSearch.Web.Modules.Search.Search
 				.Buckets
 				.ToDictionary(k => k.Key, v => v.DocCount);
 
+			Dictionary<string, long> tags;
+			if (form.Significance)
+				tags = result.Aggs.SignificantTerms("tags")
+					.Buckets
+					.ToDictionary(k => k.Key, v => v.DocCount);
+			else
+				tags = result.Aggs.Terms("tags")
+					.Buckets
+					.ToDictionary(k => k.Key, v => v.DocCount ?? 0);
+
 			var model = new SearchViewModel
 			{
 				Hits = result.Hits,
 				Total = result.Total,
 				Form = form,
 				TotalPages = (int) Math.Ceiling(result.Total / (double) form.PageSize),
-				Authors = authors
+				Authors = authors,
+				Tags = tags
 			};
 
 			return View(model);
@@ -43,7 +54,12 @@ namespace NuSearch.Web.Modules.Search.Search
 
 		private static QueryContainer ApplyQuery(SearchForm form, QueryContainerDescriptor<Package> q) =>
 			(ExactIdKeywordMatch(form, q) || QueryWithRelevancyTunedBasedOnDownloadCount(form, q))
-			&& FilterAuthorSelection(form, q);
+			&& FilterAuthorSelection(form, q)
+			&& FilterTagSelection(form, q);
+
+		// creates a big boolean must query of all the selected tags as term filters (note the + infront of q)
+		private static QueryContainer FilterTagSelection(SearchForm form, QueryContainerDescriptor<Package> q) =>
+			form.Tags.Aggregate(new QueryContainer(), (c, s) => c && +q.Term(p => p.Tags, s), c => c);
 
 		private static QueryContainer FilterAuthorSelection(SearchForm form, QueryContainerDescriptor<Package> q) => +q
 			.Nested(n => n
@@ -82,15 +98,21 @@ namespace NuSearch.Web.Modules.Search.Search
 				.Query(form.Query)
 			);
 
-		private static IAggregationContainer ApplyAggregations(AggregationContainerDescriptor<Package> aggs) => aggs
-			.Nested("authors", n => n
+		//todo return with NEST 5.5.1 ApplyAuthorsAggregation(form) && ApplyTagsAggregation(form);
+		private static IAggregationContainer ApplyAggregations(SearchForm form, AggregationContainerDescriptor<Package> aggs) =>
+			ApplyAuthorsAggregation(form, ApplyTagsAggregation(form, aggs));
+
+		private static AggregationContainerDescriptor<Package> ApplyAuthorsAggregation(SearchForm form, AggregationContainerDescriptor<Package> aggs) =>
+			aggs.Nested("authors", n => n
 				.Path("authors")
-				.Aggregations(aa => aa
-					.Terms("author-names", ts => ts
-						.Field(p => p.Authors.First().Name.Suffix("raw"))
-					)
-				)
+				.Aggregations(a => a
+					.Terms("author-names", t => t.Field(p => p.Authors.First().Name.Suffix("raw"))))
 			);
+
+		private static AggregationContainerDescriptor<Package> ApplyTagsAggregation(SearchForm form, AggregationContainerDescriptor<Package> aggs) => 
+			form.Significance 
+				? aggs.SignificantTerms("tags", t => t.Field(p => p.Tags)) 
+				: aggs.Terms("tags", t => t.Field(p=>p.Tags));
 
 		private static IPromise<IList<ISort>> ApplySort(SearchSort searchSort, SortDescriptor<Package> sort)
 		{

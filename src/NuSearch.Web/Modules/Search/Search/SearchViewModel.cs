@@ -32,12 +32,18 @@ namespace NuSearch.Web.Modules.Search.Search
 		/// Returns the top authors with the most packages
 		/// </summary>
 		public Dictionary<string, long?> Authors { get; set; }
+		
+		/// <summary>
+		/// Returns the top tags for the current search
+		/// </summary>
+		public Dictionary<string, long> Tags { get; set; }
 
 		public SearchViewModel()
 		{
 			//this.Packages = Enumerable.Empty<Package>();
 			this.Form = new SearchForm();
 			this.Authors = new Dictionary<string, long?>();
+			this.Tags = new Dictionary<string, long>();
 		}
 
 		public string UrlForFirstPage(Action<SearchForm> alter) => this.UrlFor(form =>

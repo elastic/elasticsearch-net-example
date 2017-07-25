@@ -101,6 +101,7 @@ a.list-group-item-warning:hover
 .search-result
 {
 	border-bottom:1px solid #efefef;
+	display:block;
 	padding-bottom: 20px;
 }
 .search-result:last-child
@@ -119,9 +120,30 @@ a.list-group-item-warning:hover
 }
 .search-result h4.text-humble
 {
+	color:#777;
+}
+.search-result h4.text-sub
+{
 	margin-top:10px;
-	color:#999;
 	font-variant: small-caps;
+}
+
+.search-result:hover
+{
+	background: rgba(255,255,255,1);
+	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 80%, rgba(239,239,239,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(80%, rgba(255,255,255,1)), color-stop(100%, rgba(239,239,239,1)));
+	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 80%, rgba(239,239,239,1) 100%);
+	background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 80%, rgba(239,239,239,1) 100%);
+	background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 80%, rgba(239,239,239,1) 100%);
+	background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 80%, rgba(239,239,239,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#efefef', GradientType=0 );
+	border-bottom: 1px solid #ccc;
+	text-decoration: none;
+}
+.search-result:hover .text-info
+{
+	color: #ec971f;
 }
 
 

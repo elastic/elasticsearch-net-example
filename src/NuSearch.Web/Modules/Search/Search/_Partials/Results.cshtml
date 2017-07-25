@@ -7,30 +7,31 @@
 		{
 			var package = hit.Source;
 			var lastVersion = package.Versions.LastOrDefault();
-			<div class="media search-result">
+			<a class="media search-result" href="@Model.UrlFor(package)">
 				<div class="media-left">
-					<a href="@Model.UrlFor(package)">
-						@if (string.IsNullOrEmpty(package.IconUrl))
-						{
-							<img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGRlZnMvPjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjEzLjQ2MDkzNzUiIHk9IjMyIiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="width: 64px; height: 64px;">
-						}
-						else
-						{
-							<img class="media-object" data-src="holder.js/64x64" alt="64x64" src="@package.IconUrl" data-holder-rendered="true" style="width: 64px; height: 64px;">
-						}
-					</a>
+					@if (string.IsNullOrEmpty(package.IconUrl))
+					{
+						<img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGRlZnMvPjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjEzLjQ2MDkzNzUiIHk9IjMyIiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="width: 64px; height: 64px;">
+					}
+					else
+					{
+						<img class="media-object" data-src="holder.js/64x64" alt="64x64" src="@package.IconUrl" data-holder-rendered="true" style="width: 64px; height: 64px;">
+					}
 				</div>
 				<div class="media-body">
 					<h3 class="media-heading text-info">@hit.Id</h3>
-					<h4 class="text-humble">
-						<span><span class="glyphicon glyphicon-download-alt"></span> @package.DownloadCount</span> 
-						| <span><span class="glyphicon glyphicon-time"></span> @lastVersion.LastUpdated</span>
-						| <span><span class="glyphicon glyphicon-bookmark"></span> @lastVersion.Version</span>
+					<h4 class="text-sub">
+						<span>
+							<span class="glyphicon glyphicon-download-alt"></span> @(string.Format("{0:n0}", package.DownloadCount)) downloads</span>
+						| <span>
+							<span class="glyphicon glyphicon-time"></span> @lastVersion.LastUpdated</span>
+						| <span>
+							<span class="glyphicon glyphicon-bookmark"></span> @lastVersion.Version</span>
 						| <span><span class="glyphicon glyphicon-flash"></span>query score: @hit.Score</span>
 					</h4>
-					<h4>@package.Summary</h4>
+					<h4 class="text-humble">@package.Summary</h4>
 				</div>
-			</div>
+			</a>
 		}
 	</div>
 	<div class="col-lg-3">

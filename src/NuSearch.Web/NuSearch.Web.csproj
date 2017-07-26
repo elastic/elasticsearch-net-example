@@ -45,7 +45,4 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Modules\Package\Details" />
-  </ItemGroup>
 </Project>

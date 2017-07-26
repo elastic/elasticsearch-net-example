@@ -23,6 +23,7 @@ namespace NuSearch.Web.Modules.Search.Search
 				.Aggregations(aggs=> ApplyAggregations(form, aggs))
 				.Query(q => ApplyQuery(form, q))
 			);
+			if (!result.IsValid) return StatusCode(500);
 
 			var authors = result.Aggs.Nested("authors")
 				.Terms("author-names")

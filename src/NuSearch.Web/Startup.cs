@@ -25,23 +25,27 @@ namespace NuSearch.Web
 			Configuration = builder.Build();
 		}
 
-		public IConfigurationRoot Configuration { get; }
+		private IConfigurationRoot Configuration { get; }
 
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services
 				.AddMvc(ModuleConvention.AddMvc)
 				.AddRazorOptions(ModuleRazorViewEngine.AddRazorOptions);
-
+			
+			var webAppSettings = Configuration
+				.GetSection("Elasticsearch")
+				.Get<NuSearchConfiguration.WebAppSettings>();
+			
 			// register the client as a singleton
-			services.Add(ServiceDescriptor.Singleton<IElasticClient>(NuSearchConfiguration.GetClient()));
+			services.Add(ServiceDescriptor.Singleton<IElasticClient>(NuSearchConfiguration.GetClient(webAppSettings)));
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 		{
 			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 			loggerFactory.AddDebug();
-
+			app.UseStatusCodePages();
 			app.UseStaticFiles(new StaticFileOptions
 			{
 				OnPrepareResponse = (context) =>

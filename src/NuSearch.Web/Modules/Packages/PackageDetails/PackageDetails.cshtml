@@ -1,0 +1,20 @@
+﻿@using NuSearch.Domain.Model
+@model NuSearch.Web.Modules.Packages.PackageDetails.PackageDetailsViewModel
+@{
+	var package = Model.Package;
+}
+
+	<div class="container-fluid bound-container page-header">
+		@package?.Id
+	</div>
+
+@section HeaderSub {
+	<div class="row">
+		<div class="col-lg-12" id="search-criteria">
+<h3>
+<a href="@Model.GoBackUrl" class="text-muted">Back to search results</a>
+</h3>
+			<h2 class="text-success">@package?.Id</h2>
+		</div>
+	</div>
+}

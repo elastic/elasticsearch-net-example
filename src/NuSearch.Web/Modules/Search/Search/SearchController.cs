@@ -23,8 +23,8 @@ namespace NuSearch.Web.Modules.Search.Search
 				.Aggregations(aggs=> ApplyAggregations(form, aggs))
 				.Query(q => ApplyQuery(form, q))
 			);
-			if (!result.IsValid) return StatusCode(500);
-
+			if (!result.IsValid) throw new Exception(result.DebugInformation);
+			
 			var authors = result.Aggs.Nested("authors")
 				.Terms("author-names")
 				.Buckets

@@ -8,7 +8,6 @@ namespace NuSearch.Domain.Model
 	{
 		public PackageVersion()
 		{
-
 		}
 
 		public PackageVersion(FeedPackage feed)

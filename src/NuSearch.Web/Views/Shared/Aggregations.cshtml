@@ -21,4 +21,40 @@
 			</a>
 		}
 	</div>
+
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			@{
+				var signifanceUrl = Model.UrlFor(m => m.Significance = !Model.Form.Significance);
+				var label = Model.Form.Significance ? "Significant Tags" : "Popular Tags";
+			}
+			<a href="@signifanceUrl" class="label pull-right label">Toggle significance</a>
+			@label
+		</h3>
+	</div>
+	<div class="panel-body list-group">
+		@{
+			var selectedTags = Model.Form.Tags ?? Array.Empty<string>();
+		}
+		@foreach (var tag in Model.Tags)
+		{
+
+			var isSelected = Model.Form.Tags?.Contains(tag.Key) ?? false;
+			var currentTag = new[] { tag.Key };
+			var newTagArray = selectedTags.Concat(currentTag).ToArray();
+
+			var url = Model.UrlForFirstPage(f => { f.Tags = isSelected ? selectedTags.Except(currentTag).ToArray() : newTagArray; });
+			<a href="@url" class="list-group-item @(isSelected ? "list-group-item-warning" : "")">
+				@if (isSelected)
+				{
+					<span class="glyphicon glyphicon-remove pull-right"></span>
+				}
+				else
+				{
+					<span class="label label-lg label-warning pull-right">@tag.Value</span>
+				}
+				@tag.Key
+			</a>
+		}
+	</div>
 </div>

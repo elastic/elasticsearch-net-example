@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.Extensions.FileProviders.Physical</id>
+    <version>1.1.0</version>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>http://www.microsoft.com/web/webpi/eula/net_library_eula_enu.htm</licenseUrl>
+    <projectUrl>http://www.asp.net/</projectUrl>
+    <iconUrl>http://go.microsoft.com/fwlink/?LinkID=288859</iconUrl>
+    <description>File provider for physical files for Microsoft.Extensions.FileProviders.</description>
+    <copyright>Copyright © Microsoft Corporation</copyright>
+    <tags>files,filesystem</tags>
+    <serviceable>true</serviceable>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5.1">
+        <dependency id="Microsoft.Extensions.FileProviders.Abstractions" version="1.1.0" />
+        <dependency id="Microsoft.Extensions.FileSystemGlobbing" version="1.1.0" />
+        <dependency id="NETStandard.Library" version="1.6.1" />
+      </group>
+      <group targetFramework=".NETStandard1.3">
+        <dependency id="System.IO.FileSystem.Watcher" version="4.3.0" />
+        <dependency id="Microsoft.Extensions.FileProviders.Abstractions" version="1.1.0" />
+        <dependency id="Microsoft.Extensions.FileSystemGlobbing" version="1.1.0" />
+        <dependency id="NETStandard.Library" version="1.6.1" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

@@ -33,7 +33,7 @@ namespace NuSearch.Web.Controllers
 		        })
 		        .Aggregations(a => a
 			        .Nested("authors", n => n
-				        .Path("authors")
+				        .Path(p => p.Authors)
 				        .Aggregations(aa => aa
 					        .Terms("author-names", ts => ts
 						        .Field(p => p.Authors.First().Name.Suffix("raw"))
@@ -82,7 +82,7 @@ namespace NuSearch.Web.Controllers
 
 			var model = new SearchViewModel
 			{
-				Packages = result.Documents,
+				Hits = result.Hits,
 				Total = result.Total,
 				Form = form,
 				TotalPages = (int)Math.Ceiling(result.Total / (double)form.PageSize),

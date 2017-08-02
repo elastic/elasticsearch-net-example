@@ -1,0 +1,7 @@
+﻿@using NuSearch.Web.Models
+@model SearchForm
+
+@if (!string.IsNullOrEmpty(Model.Query))
+{
+	<input name="@Html.NameFor(m=>m.Query).ToLowerInvariant()" type="hidden" value="@Model.Query"/>
+}

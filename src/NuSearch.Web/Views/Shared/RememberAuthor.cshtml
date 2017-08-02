@@ -1,0 +1,7 @@
+﻿@using NuSearch.Web.Models
+@model SearchForm
+
+@if (!string.IsNullOrEmpty(Model.Author))
+{
+	<input name="@Html.NameFor(m=>m.Author).ToLowerInvariant()" type="hidden" value="@Model.Author"/>
+}

@@ -1,0 +1,12 @@
+﻿@model SearchViewModel
+<h3>
+	<span class="text-muted">
+		Displaying
+		@Html.Partial("PageSize", Model.Form)
+		packages on page @Html.Partial("Pager", Model)
+	</span>
+	<span class="text-muted">
+		ordered by
+		@Html.Partial("Sort", Model.Form)
+	</span>
+</h3>

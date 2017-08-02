@@ -17,7 +17,7 @@ namespace NuSearch.Indexer
 		static void Main(string[] args)
 		{
 			Client = NuSearchConfiguration.GetClient();
-			string directory = args.Length > 0 && !string.IsNullOrEmpty(args[0]) 
+			var directory = args.Length > 0 && !string.IsNullOrEmpty(args[0]) 
 				? args[0] 
 				: NuSearchConfiguration.PackagePath;
 			DumpReader = new NugetDumpReader(directory);
@@ -31,13 +31,7 @@ namespace NuSearch.Indexer
 			Console.Read();
 		}
 
-		static void DeleteIndexIfExists()
-		{
-			if (Client.IndexExists("nusearch").Exists)
-				Client.DeleteIndex("nusearch");
-		}
-
-		static void CreateIndex()
+		private static void CreateIndex()
 		{
 			Client.CreateIndex(CurrentIndexName, i => i
 				.Settings(s => s
@@ -58,8 +52,13 @@ namespace NuSearch.Indexer
 					.Name(p => p.Id)
 					.Analyzer("nuget-id-analyzer")
 					.Fields(f => f
-						.Text(p => p.Name("keyword").Analyzer("nuget-id-keyword"))
-						.Keyword(p => p.Name("raw"))
+						.Text(p => p
+							.Name("keyword")
+							.Analyzer("nuget-id-keyword")
+						)
+						.Keyword(p => p
+							.Name("raw")
+						)
 					)
 				)
 				.Completion(c => c
@@ -74,6 +73,9 @@ namespace NuSearch.Indexer
 							.AutoMap()
 						)
 					)
+				)
+				.Keyword(k => k
+					.Name(p=>p.Tags)
 				)
 				.Nested<PackageAuthor>(n => n
 					.Name(p => p.Authors.First())
@@ -120,7 +122,7 @@ namespace NuSearch.Indexer
 		{
 			Console.WriteLine("Setting up a lazy xml files reader that yields packages...");
 			var packages = DumpReader.GetPackages();
-
+			
 			Console.Write("Indexing documents into elasticsearch...");
 			var waitHandle = new CountdownEvent(1);
 
@@ -132,14 +134,14 @@ namespace NuSearch.Indexer
 				.MaxDegreeOfParallelism(4)
 				.Size(1000)
 			);
-
+	
 			bulkAll.Subscribe(new BulkAllObserver(
 				onNext: b => Console.Write("."),
 				onError: e => throw e,
 				onCompleted: () => waitHandle.Signal()
 			));
 
-			waitHandle.Wait();
+			waitHandle.Wait(TimeSpan.FromMinutes(30));
 			Console.WriteLine("Done.");
 		}
 

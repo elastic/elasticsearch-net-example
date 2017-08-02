@@ -1,15 +1,29 @@
-﻿<!doctype html>
+﻿@model SearchViewModel
+<!doctype html>
 <html>
 <head>
 	<title>NuSearch</title>
-	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="~/css/main.css">
+	<link rel="stylesheet" href="~/css/nusearch.min.css" asp-append-version="true" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+	<nav class="navbar navbar-default header-site">
+		<div class="container-fluid bound-container ">
+			<h1>nusear.ch</h1>
+			@using (Html.BeginForm("Index", "Search", FormMethod.Get))
+			{
+				@Html.Partial("RememberForm", Model.Form)
+				@Html.Partial("QueryBox", Model.Form)
+			}
+		</div>
+	</nav>
+	<nav class="navbar header-site-sub">
+		<div class="container-fluid bound-container ">
+			@RenderSection("HeaderSub", required: false)
+		</div>
+	</nav>
 	@RenderBody()
-	<script src="~/lib/jquery/dist/jquery.min.js"></script>
-	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="~/js/typeahead.bundle.min.js"></script>
-	<script src="~/js/search.js"></script>
+	<script src="~/js/nusearch.min.js" asp-append-version="true"></script>
+
 </body>
 </html>

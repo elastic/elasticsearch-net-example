@@ -1,15 +1,14 @@
 ﻿@model SearchViewModel
 @if (Model.Total > 0)
 {
-	<nav>
-		<ul class="pager">
-			<li class="previous @(Model.Form.Page == 1 ? "disabled" : "")">
-				<a href="@Model.UrlFor(f => { f.Page = Math.Max(1, f.Page - 1); })">Previous</a>
-			</li>
-			<li>Showing page @(Model.Form.Page) of @Model.TotalPages</li>
-			<li class="next @(Model.Form.Page >= Model.TotalPages ? "disabled" : "")">
-				<a href="@Model.UrlFor(f => { f.Page = Math.Min(Model.TotalPages, f.Page + 1); })">Next</a>
-			</li>
-		</ul>
-	</nav>
+	<ul class="pagination" style="vertical-align: middle;">
+		<li class="page-item previous btn-info @(Model.Form.Page == 1 ? "disabled" : "")">
+			<a class="page-link " href="@Model.UrlFor(f => { f.Page = Math.Max(1, f.Page - 1); })"><span class="glyphicon glyphicon-backward"></span></a>
+				
+		</li>
+		<li class="page-item active"><span class="page-link" href="#">@(Model.Form.Page) of @(Model.TotalPages)</span></li>
+		<li class="page-item next @(Model.Form.Page >= Model.TotalPages ? "disabled" : "")">
+			<a class="page-link" href="@Model.UrlFor(f => { f.Page = Math.Min(Model.TotalPages, f.Page + 1); })"><span class="glyphicon glyphicon-forward"></span></a>
+		</li>
+	</ul>
 }

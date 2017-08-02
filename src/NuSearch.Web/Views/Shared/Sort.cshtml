@@ -1,0 +1,9 @@
+﻿@model SearchForm
+@{
+	var sort = Model.Sort;
+}
+<select name="@Html.NameFor(m => m.Sort).ToLowerInvariant()" class="label label-select">
+	<option value="relevance" @(sort == SearchSort.Relevance ? "selected" : "")>Relevance</option>
+	<option value="downloads" @(sort == SearchSort.Downloads ? "selected" : "")>Downloads</option>
+	<option value="recent" @(sort == SearchSort.Recent ? "selected" : "")>Age</option>
+</select>

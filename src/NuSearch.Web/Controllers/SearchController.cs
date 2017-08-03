@@ -17,7 +17,6 @@ namespace NuSearch.Web.Controllers
         public IActionResult Index(SearchForm form)
         {
 			// TODO: You'll write most of the implementation here
-
 			var model = new SearchViewModel();
 
 	        return View(model);

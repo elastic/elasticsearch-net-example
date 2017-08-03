@@ -23,8 +23,8 @@ namespace NuSearch.Indexer
 
 			IndexDumps();
 
-			Console.WriteLine("Press Enter to continue");
-			Console.Read();
+			Console.WriteLine("Press any key to exit.");
+			Console.ReadKey();
 		}
 
 		static void IndexDumps()

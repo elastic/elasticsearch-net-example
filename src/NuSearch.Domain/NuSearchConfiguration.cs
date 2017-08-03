@@ -9,6 +9,14 @@ namespace NuSearch.Domain
 {
 	public static class NuSearchConfiguration
 	{
+
+		public static ElasticClient GetClient() => new ElasticClient(_connectionSettings);
+
+		static NuSearchConfiguration()
+		{
+			_connectionSettings = new ConnectionSettings(CreateUri(9200));
+		}
+
 		private static readonly ConnectionSettings _connectionSettings;
 
 		public static string LiveIndexAlias => "nusearch";
@@ -23,14 +31,7 @@ namespace NuSearch.Domain
 
 			return new Uri($"http://{host}:{port}");
 		}
-
-		static NuSearchConfiguration()
-		{
-			_connectionSettings = new ConnectionSettings(CreateUri(9200));
-		}
-
-		public static ElasticClient GetClient() => new ElasticClient(_connectionSettings);
-
+	
 		public static string CreateIndexName() => $"{LiveIndexAlias}-{DateTime.UtcNow:dd-MM-yyyy-HH-mm-ss}";
 
 		public static string PackagePath => 

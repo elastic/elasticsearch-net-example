@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.AspNetCore.Razor.Runtime</id>
+    <version>1.1.1</version>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Runtime components for rendering Razor pages and implementing tag helpers.
+Commonly used types:
+Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNameAttribute
+Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute
+Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper</description>
+    <tags>aspnetcore,cshtml,razor,taghelper,taghelpers</tags>
+    <serviceable>true</serviceable>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5.1">
+        <dependency id="Microsoft.AspNetCore.Html.Abstractions" version="[1.1.1, )" />
+        <dependency id="Microsoft.AspNetCore.Razor" version="[1.1.1, )" />
+        <dependency id="NETStandard.Library" version="[1.6.1, )" />
+      </group>
+      <group targetFramework=".NETStandard1.5">
+        <dependency id="System.Reflection.TypeExtensions" version="[4.3.0, )" />
+        <dependency id="Microsoft.AspNetCore.Html.Abstractions" version="[1.1.1, )" />
+        <dependency id="Microsoft.AspNetCore.Razor" version="[1.1.1, )" />
+        <dependency id="NETStandard.Library" version="[1.6.1, )" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Xml" targetFramework=".NETFramework4.5.1" />
+      <frameworkAssembly assemblyName="System.Xml.Linq" targetFramework=".NETFramework4.5.1" />
+    </frameworkAssemblies>
+    <licenseUrl>http://www.microsoft.com/web/webpi/eula/net_library_eula_enu.htm</licenseUrl>
+    <iconUrl>http://go.microsoft.com/fwlink/?LinkID=288859</iconUrl>
+    <copyright>Copyright © Microsoft Corporation</copyright>
+    <projectUrl>http://www.asp.net/</projectUrl>
+  </metadata>
+</package>

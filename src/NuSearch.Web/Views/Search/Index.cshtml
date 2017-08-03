@@ -1,24 +1,18 @@
 ﻿@model SearchViewModel
-@using (Html.BeginForm(FormMethod.Get, new { id = "searchform", @class="container-fluid" }))
-{
-	if (!string.IsNullOrEmpty(Model.Form.Author))
-	{
-		<input name="author" type="hidden" value="@Model.Form.Author"/>
-	}
+
+<div class="container-fluid bound-container page-header">
+	@Html.Partial(Model.Total > 0 ? "Results" : "NoResults", Model)
+</div>
+
+@section HeaderSub {
 	<div class="row">
-		<div class="page-header col-lg-2">
-			<h1><a href="@Url.Action("Index", "Search")">NuSearch</a></h1>
-		</div>
-		<div class="page-header col-lg-10">
-			<div class="input-group input-group-lg" id="query-container">
-				<input type="text" id="query" name="query" autocomplete="off" class="form-control" placeholder="Search for..." value="@Model.Form.Query" />
-				<span class="input-group-btn">
-					<button class="btn btn-default" type="submit">Search</button>
-				</span>
-			</div>
+		<div class="col-lg-12" id="search-criteria">
+			@using (Html.BeginForm(FormMethod.Get, new {id = "search-criteria"}))
+			{
+				@Html.Partial("RememberQuery", Model.Form)
+				@Html.Partial("RememberAuthor", Model.Form)			
+				@Html.Partial("SearchCriteria", Model)
+			}
 		</div>
 	</div>
-	@Html.Partial("Pager", Model)
-	@* @Html.Partial(Model.Total > 0 ? "Results" : "NoResults", Model) *@
-	@Html.Partial("Pager", Model)
 }

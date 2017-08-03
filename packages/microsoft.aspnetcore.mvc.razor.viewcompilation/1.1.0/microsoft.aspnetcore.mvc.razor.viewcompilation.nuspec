@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.AspNetCore.Mvc.Razor.ViewCompilation</id>
+    <version>1.1.0</version>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Build-time references required to enable Razor view compilation as part of building the application.</description>
+    <copyright>Copyright © Microsoft Corporation</copyright>
+    <tags>cshtml razor compilation precompilation aspnetcore</tags>
+    <serviceable>true</serviceable>
+    <repository type="git" url="https://github.com/aspnet/MvcPrecompilation" />
+    <dependencies>
+      <group targetFramework=".NETCoreApp1.1">
+        <dependency id="Microsoft.AspNetCore.Hosting" version="1.1.1" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Mvc.Razor" version="1.1.2" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.CommandLineUtils" version="1.1.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.NETCore.App" version="1.1.1" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETFramework4.5.1">
+        <dependency id="Microsoft.AspNetCore.Hosting" version="1.1.1" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Mvc.Razor" version="1.1.2" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.CommandLineUtils" version="1.1.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <licenseUrl>http://www.microsoft.com/web/webpi/eula/net_library_eula_enu.htm</licenseUrl>
+    <iconUrl>http://go.microsoft.com/fwlink/?LinkID=288859</iconUrl>
+    <projectUrl>http://www.asp.net/</projectUrl>
+  </metadata>
+</package>

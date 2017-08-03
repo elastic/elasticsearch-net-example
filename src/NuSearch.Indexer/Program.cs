@@ -16,7 +16,7 @@ namespace NuSearch.Indexer
 		static void Main(string[] args)
 		{
 			Client = NuSearchConfiguration.GetClient();
-			string directory = args.Length > 0 && !string.IsNullOrEmpty(args[0]) 
+			var directory = args.Length > 0 && !string.IsNullOrEmpty(args[0]) 
 				? args[0] 
 				: NuSearchConfiguration.PackagePath;
 			DumpReader = new NugetDumpReader(directory);

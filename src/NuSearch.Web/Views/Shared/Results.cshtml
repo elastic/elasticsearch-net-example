@@ -1,48 +1,41 @@
 ﻿@model SearchViewModel
 <div class="row">
 	<div class="col-lg-9">
-		@foreach (var package in Model.Packages)
+		@foreach (var hit in Model.Hits)
 		{
-			<div class="media">
+			var package = hit.Source;
+			var lastVersion = package.Versions.LastOrDefault();
+			<a class="media search-result" href="@Model.UrlFor(package)">
 				<div class="media-left">
-					<a href="@Model.UrlFor(package)">
 						@if (string.IsNullOrEmpty(package.IconUrl))
 						{
 							<img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGRlZnMvPjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjEzLjQ2MDkzNzUiIHk9IjMyIiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="width: 64px; height: 64px;">
 						}
 						else
 						{
-
 							<img class="media-object" data-src="holder.js/64x64" alt="64x64" src="@package.IconUrl" data-holder-rendered="true" style="width: 64px; height: 64px;"  onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGRlZnMvPjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjEzLjQ2MDkzNzUiIHk9IjMyIiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9nPjwvc3ZnPg==';">
 						}
-					</a>
 				</div>
 				<div class="media-body">
-					<h4 class="media-heading">@package.Id</h4>
-					@package.Summary
-					<div><span class="label label-lg label-default">@package.DownloadCount</span> downloads</div>
+					<h3 class="media-heading text-info">@hit.Id</h3>
+					<h4 class="text-sub">
+						<span>
+							<span class="glyphicon glyphicon-download-alt"></span> downloads: @(string.Format("{0:n0}", package.DownloadCount))
+						</span>
+						| <span>
+							<span class="glyphicon glyphicon-time"></span> <time class="timeago" datetime="@lastVersion.LastUpdated.ToString("yyyy-MM-ddTHH:mm:ssZ")">@lastVersion.LastUpdated.ToString("yyyy-MM-dd")</time>
+						</span>
+						| <span>
+							<span class="glyphicon glyphicon-bookmark"></span> version: @lastVersion.Version
+						</span>
+						| <span><span class="glyphicon glyphicon-flash"></span>query score: @hit.Score</span>
+					</h4>
+					<h4 class="text-humble">@package.Summary</h4>
 				</div>
-			</div>
+			</a>
 		}
-
 	</div>
 	<div class="col-lg-3">
-		<div class="panel panel-primary" id="search-criteria">
-			<div class="panel-heading">
-				<h3 class="panel-title">Search Criteria</h3>
-			</div>
-			<div class="panel-body">
-				<div class="lead">
-					@Html.Partial("SearchCriteria", Model)
-				</div>
-				<div class="table-responsive ">
-					<table class="table table-condensed">
-						@* @Html.Partial("Sorting", Model) *@
-						@* @Html.Partial("PageSize", Model) *@
-					</table>
-				</div>
-			</div>
-		</div>
 		@* @Html.Partial("Aggregations", Model) *@
 	</div>
 </div>

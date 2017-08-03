@@ -1,0 +1,680 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Mvc.Razor.Host</name>
+    </assembly>
+    <members>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.#ctor(System.Reflection.PropertyInfo)">
+            <summary>
+            Initializes a fast <see cref="T:Microsoft.Extensions.Internal.PropertyHelper"/>.
+            This constructor does not cache the helper. For caching, use <see cref="M:Microsoft.Extensions.Internal.PropertyHelper.GetProperties(System.Object)"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Internal.PropertyHelper.Property">
+            <summary>
+            Gets the backing <see cref="T:System.Reflection.PropertyInfo"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Internal.PropertyHelper.Name">
+            <summary>
+            Gets (or sets in derived types) the property name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Internal.PropertyHelper.ValueGetter">
+            <summary>
+            Gets the property value getter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Internal.PropertyHelper.ValueSetter">
+            <summary>
+            Gets the property value setter.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.GetValue(System.Object)">
+            <summary>
+            Returns the property value for the specified <paramref name="instance"/>.
+            </summary>
+            <param name="instance">The object whose property value will be returned.</param>
+            <returns>The property value.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.SetValue(System.Object,System.Object)">
+            <summary>
+            Sets the property value for the specified <paramref name="instance" />.
+            </summary>
+            <param name="instance">The object whose property value will be set.</param>
+            <param name="value">The property value.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.GetProperties(System.Object)">
+            <summary>
+            Creates and caches fast property helpers that expose getters for every public get property on the
+            underlying type.
+            </summary>
+            <param name="instance">the instance to extract property accessors for.</param>
+            <returns>a cached array of all public property getters from the underlying type of target instance.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.GetProperties(System.Type)">
+            <summary>
+            Creates and caches fast property helpers that expose getters for every public get property on the
+            specified type.
+            </summary>
+            <param name="type">the type to extract property accessors for.</param>
+            <returns>a cached array of all public property getters from the type of target instance.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.GetVisibleProperties(System.Object)">
+            <summary>
+            <para>
+            Creates and caches fast property helpers that expose getters for every non-hidden get property
+            on the specified type.
+            </para>
+            <para>
+            <see cref="M:GetVisibleProperties"/> excludes properties defined on base types that have been
+            hidden by definitions using the <c>new</c> keyword.
+            </para>
+            </summary>
+            <param name="instance">The instance to extract property accessors for.</param>
+            <returns>
+            A cached array of all public property getters from the instance's type.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.GetVisibleProperties(System.Type)">
+            <summary>
+            <para>
+            Creates and caches fast property helpers that expose getters for every non-hidden get property
+            on the specified type.
+            </para>
+            <para>
+            <see cref="M:GetVisibleProperties"/> excludes properties defined on base types that have been
+            hidden by definitions using the <c>new</c> keyword.
+            </para>
+            </summary>
+            <param name="type">The type to extract property accessors for.</param>
+            <returns>
+            A cached array of all public property getters from the type.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.MakeFastPropertyGetter(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates a single fast property getter. The result is not cached.
+            </summary>
+            <param name="propertyInfo">propertyInfo to extract the getter for.</param>
+            <returns>a fast getter.</returns>
+            <remarks>
+            This method is more memory efficient than a dynamically compiled lambda, and about the
+            same speed.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.MakeNullSafeFastPropertyGetter(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates a single fast property getter which is safe for a null input object. The result is not cached.
+            </summary>
+            <param name="propertyInfo">propertyInfo to extract the getter for.</param>
+            <returns>a fast getter.</returns>
+            <remarks>
+            This method is more memory efficient than a dynamically compiled lambda, and about the
+            same speed.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.MakeFastPropertySetter(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates a single fast property setter for reference types. The result is not cached.
+            </summary>
+            <param name="propertyInfo">propertyInfo to extract the setter for.</param>
+            <returns>a fast getter.</returns>
+            <remarks>
+            This method is more memory efficient than a dynamically compiled lambda, and about the
+            same speed. This only works for reference types.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.PropertyHelper.ObjectToDictionary(System.Object)">
+             <summary>
+             Given an object, adds each instance property with a public get method as a key and its
+             associated value to a dictionary.
+            
+             If the object is already an <see cref="T:System.Collections.Generic.IDictionary`2"/> instance, then a copy
+             is returned.
+             </summary>
+             <remarks>
+             The implementation of PropertyHelper will cache the property accessors per-type. This is
+             faster when the the same type is used multiple times with ObjectToDictionary.
+             </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.GeneratedTagHelperAttributeContext">
+            <summary>
+            Contains information for the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/> attribute code
+            generation process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.GeneratedTagHelperAttributeContext.ModelExpressionTypeName">
+            <summary>
+            Name of the model expression type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.GeneratedTagHelperAttributeContext.CreateModelExpressionMethodName">
+            <summary>
+            Name the method to create <c>ModelExpression</c>s.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.GeneratedTagHelperAttributeContext.ModelExpressionProviderPropertyName">
+            <summary>
+            Gets or sets the name of the <c>IModelExpressionProvider</c>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.GeneratedTagHelperAttributeContext.ViewDataPropertyName">
+            <summary>
+            Gets or sets the property name of the <c>ViewDataDictionary</c>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.IMvcRazorHost">
+            <summary>
+            Specifies the contracts for a Razor host that parses Razor files and generates C# code.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.IMvcRazorHost.GenerateCode(System.String,System.IO.Stream)">
+            <summary>
+            Parses and generates the contents of a Razor file represented by <paramref name="inputStream"/>.
+            </summary>
+            <param name="rootRelativePath">The path of the relative to the root of the application.
+            Used to generate line pragmas and calculate the class name of the generated type.</param>
+            <param name="inputStream">A <see cref="T:System.IO.Stream"/> that represents the Razor contents.</param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Razor.CodeGenerators.GeneratorResults"/> instance that represents the results of code generation.
+            </returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.IMvcRazorHost.DefaultNamespace">
+            <summary>
+            Represent the namespace the main entry class in the view.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.InjectChunk.#ctor(System.String,System.String)">
+            <summary>
+            Represents the chunk for an @inject statement.
+            </summary>
+            <param name="typeName">The type name of the property to be injected</param>
+            <param name="propertyName">The member name of the property to be injected.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.InjectChunk.TypeName">
+            <summary>
+            Gets or sets the type name of the property to be injected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.InjectChunk.MemberName">
+            <summary>
+            Gets or sets the name of the property to be injected.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.ModelChunk">
+            <summary>
+            <see cref="T:Microsoft.AspNetCore.Razor.Chunks.Chunk"/> for an <c>@model</c> directive.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.ModelChunk.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.Razor.ModelChunk"/>.
+            </summary>
+            <param name="modelType">The type of the view's model.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.ModelChunk.ModelType">
+            <summary>
+            Gets the type of the view's model.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost.#ctor(Microsoft.AspNetCore.Mvc.Razor.Directives.IChunkTreeCache,Microsoft.AspNetCore.Razor.Compilation.TagHelpers.ITagHelperDescriptorResolver)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost"/> using the specified <paramref name="chunkTreeCache"/>.
+            </summary>
+            <param name="chunkTreeCache">An <see cref="T:Microsoft.AspNetCore.Mvc.Razor.Directives.IChunkTreeCache"/> rooted at the application base path.</param>
+            <param name="resolver">The <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.ITagHelperDescriptorResolver"/> used to resolve tag helpers on razor views.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost.TagHelperDescriptorResolver">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost.DefaultModel">
+            <summary>
+            Gets the model type used by default when no model is specified.
+            </summary>
+            <remarks>This value is used as the generic type argument for the base type </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost.DefaultInheritedChunks">
+            <summary>
+            Gets the list of chunks that are injected by default by this host.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost.InjectAttribute">
+            <summary>
+            Gets or sets the name attribute that is used to decorate properties that are injected and need to be
+            activated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost.ModelExpressionType">
+            <summary>
+            Gets the type name used to represent <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper"/> model expression properties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost.CreateModelExpressionMethod">
+            <summary>
+            Gets the method name used to create model expressions.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost.ModelExpressionProvider">
+            <summary>
+            Gets the property name for <c>IModelExpressionProvider</c>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost.ViewDataPropertyName">
+            <summary>
+            Gets the property name for <c>ViewDataDictionary</c>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost.GetInheritedChunkTreeResults(System.String)">
+            <summary>
+            Locates and parses _ViewImports.cshtml files applying to the given <paramref name="sourceFileName"/> to
+            create <see cref="T:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkTreeResult"/>s.
+            </summary>
+            <param name="sourceFileName">The path to a Razor file to locate _ViewImports.cshtml for.</param>
+            <returns>Inherited <see cref="T:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkTreeResult"/>s.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost.GenerateCode(System.String,System.IO.Stream)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost.DecorateRazorParser(Microsoft.AspNetCore.Razor.Parser.RazorParser,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost.DecorateCodeParser(Microsoft.AspNetCore.Razor.Parser.ParserBase)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost.DecorateCodeGenerator(Microsoft.AspNetCore.Razor.CodeGenerators.CodeGenerator,Microsoft.AspNetCore.Razor.CodeGenerators.CodeGeneratorContext)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.MvcRazorParser">
+            <summary>
+            A subtype of <see cref="T:Microsoft.AspNetCore.Razor.Parser.RazorParser"/> that <see cref="T:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost"/> uses to support inheritance of tag
+            helpers from <c>_ViewImports</c> files.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.MvcRazorParser.#ctor(Microsoft.AspNetCore.Razor.Parser.RazorParser,System.Collections.Generic.IReadOnlyList{Microsoft.AspNetCore.Razor.Chunks.ChunkTree},System.Collections.Generic.IReadOnlyList{Microsoft.AspNetCore.Razor.Chunks.Chunk},System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.Razor.MvcRazorParser"/>.
+            </summary>
+            <param name="parser">The <see cref="T:Microsoft.AspNetCore.Razor.Parser.RazorParser"/> to copy properties from.</param>
+            <param name="inheritedChunkTrees">The <see cref="T:System.Collections.Generic.IReadOnlyList`1"/>s that are inherited
+            from parsed pages from _ViewImports files.</param>
+            <param name="defaultInheritedChunks">The <see cref="T:System.Collections.Generic.IReadOnlyList`1"/> inherited by
+            default by all Razor pages in the application.</param>
+            <param name="modelExpressionTypeName">The full name of the model expression <see cref="T:System.Type"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.MvcRazorParser.GetTagHelperDescriptors(Microsoft.AspNetCore.Razor.Parser.SyntaxTree.Block,Microsoft.AspNetCore.Razor.ErrorSink)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.MvcTagHelperAttributeValueCodeRenderer">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.MvcTagHelperAttributeValueCodeRenderer.#ctor(Microsoft.AspNetCore.Mvc.Razor.GeneratedTagHelperAttributeContext)">
+            <summary>
+            Instantiates a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.Razor.MvcTagHelperAttributeValueCodeRenderer"/>.
+            </summary>
+            <param name="context">Contains code generation information for rendering attribute values.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.MvcTagHelperAttributeValueCodeRenderer.RenderAttributeValue(Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperAttributeDescriptor,Microsoft.AspNetCore.Razor.CodeGenerators.CSharpCodeWriter,Microsoft.AspNetCore.Razor.CodeGenerators.CodeGeneratorContext,System.Action{Microsoft.AspNetCore.Razor.CodeGenerators.CSharpCodeWriter},System.Boolean)">
+            <inheritdoc />
+            <remarks>If the attribute being rendered is of the type
+            <see cref="P:Microsoft.AspNetCore.Mvc.Razor.GeneratedTagHelperAttributeContext.ModelExpressionTypeName"/>, then a model expression will be
+            created by calling into <see cref="P:Microsoft.AspNetCore.Mvc.Razor.GeneratedTagHelperAttributeContext.CreateModelExpressionMethodName"/>.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.Host.ViewComponentTagHelperDescriptorConventions">
+            <summary>
+            A library of methods used to generate <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor"/>s for view components.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Mvc.Razor.Host.ViewComponentTagHelperDescriptorConventions.ViewComponentNameKey">
+            <summary>
+            The key in a <see cref="P:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor.PropertyBag"/>  containing 
+            the short name of a view component.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Host.ViewComponentTagHelperDescriptorConventions.IsViewComponentDescriptor(Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor)">
+            <summary>
+            Indicates whether a <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor"/> represents a view component.
+            </summary>
+            <param name="descriptor">The <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor"/> to check.</param>
+            <returns>Whether a <see cref="T:Microsoft.AspNetCore.Razor.Compilation.TagHelpers.TagHelperDescriptor"/> represents a view component.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.Host.Internal.GeneratedViewComponentTagHelperContext">
+            <summary>
+            Contains necessary information for the view component <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelper"/> code generation process.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Host.Internal.GeneratedViewComponentTagHelperContext.#ctor">
+            <summary>
+            Instantiates a new instance of the <see cref="T:Microsoft.AspNetCore.Mvc.Razor.Host.Internal.GeneratedViewComponentTagHelperContext"/> with default values.  
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Host.Internal.GeneratedViewComponentTagHelperContext.ContextualizeMethodName">
+            <summary> 
+            Name of the Contextualize method called by an instance of the IViewContextAware type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Host.Internal.GeneratedViewComponentTagHelperContext.InvokeAsyncMethodName">
+            <summary>
+            Name of the InvokeAsync method called by an IViewComponentHelper.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Host.Internal.GeneratedViewComponentTagHelperContext.IViewComponentHelperTypeName">
+            <summary>
+            Name of the IViewComponentHelper type used to invoke view components.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Host.Internal.GeneratedViewComponentTagHelperContext.IViewContextAwareTypeName">
+            <summary>
+            Name of the IViewContextAware type used to contextualize the view context.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Host.Internal.GeneratedViewComponentTagHelperContext.ViewContextTypeName">
+            <summary>
+            Name of the ViewContext type for view execution.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Host.Internal.GeneratedViewComponentTagHelperContext.ViewContextAttributeTypeName">
+            <summary>
+            Name of the ViewContextAttribute type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Host.Resources.ArgumentCannotBeNullOrEmpy">
+            <summary>
+            Value cannot be null or empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Host.Resources.FormatArgumentCannotBeNullOrEmpy">
+            <summary>
+            Value cannot be null or empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Host.Resources.MvcRazorCodeParser_CannotHaveModelAndInheritsKeyword">
+            <summary>
+            The 'inherits' keyword is not allowed when a '{0}' keyword is used.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Host.Resources.FormatMvcRazorCodeParser_CannotHaveModelAndInheritsKeyword(System.Object)">
+            <summary>
+            The 'inherits' keyword is not allowed when a '{0}' keyword is used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Host.Resources.MvcRazorCodeParser_InjectDirectivePropertyNameRequired">
+            <summary>
+            A property name must be specified when using the '{0}' statement. Format for a '{0}' statement is '@{0} &lt;Type Name&gt; &lt;Property Name&gt;'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Host.Resources.FormatMvcRazorCodeParser_InjectDirectivePropertyNameRequired(System.Object)">
+            <summary>
+            A property name must be specified when using the '{0}' statement. Format for a '{0}' statement is '@{0} &lt;Type Name&gt; &lt;Property Name&gt;'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Host.Resources.MvcRazorCodeParser_KeywordMustBeFollowedByTypeName">
+            <summary>
+            The '{0}' keyword must be followed by a type name on the same line.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Host.Resources.FormatMvcRazorCodeParser_KeywordMustBeFollowedByTypeName(System.Object)">
+            <summary>
+            The '{0}' keyword must be followed by a type name on the same line.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Host.Resources.MvcRazorCodeParser_OnlyOneModelStatementIsAllowed">
+            <summary>
+            Only one '{0}' statement is allowed in a file.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Host.Resources.FormatMvcRazorCodeParser_OnlyOneModelStatementIsAllowed(System.Object)">
+            <summary>
+            Only one '{0}' statement is allowed in a file.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Host.Resources.MvcRazorParser_InvalidPropertyType">
+            <summary>
+            Invalid tag helper property '{0}.{1}'. Dictionary values must not be of type '{2}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Host.Resources.FormatMvcRazorParser_InvalidPropertyType(System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper property '{0}.{1}'. Dictionary values must not be of type '{2}'.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.ViewHierarchyUtility">
+            <summary>
+            Contains methods to locate <c>_ViewStart.cshtml</c> and <c>_ViewImports.cshtml</c>
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Mvc.Razor.ViewHierarchyUtility.ViewImportsFileName">
+            <summary>
+            File name of <c>_ViewImports.cshtml</c> file
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.ViewHierarchyUtility.GetViewStartLocations(System.String)">
+            <summary>
+            Gets the view start locations that are applicable to the specified path.
+            </summary>
+            <param name="applicationRelativePath">The application relative path of the file to locate
+            <c>_ViewStart</c>s for.</param>
+            <returns>A sequence of paths that represent potential view start locations.</returns>
+            <remarks>
+            This method returns paths starting from the directory of <paramref name="applicationRelativePath"/> and
+            moves upwards until it hits the application root.
+            e.g.
+            /Views/Home/View.cshtml -> [ /Views/Home/_ViewStart.cshtml, /Views/_ViewStart.cshtml, /_ViewStart.cshtml ]
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.ViewHierarchyUtility.GetViewImportsLocations(System.String)">
+            <summary>
+            Gets the locations for <c>_ViewImports</c>s that are applicable to the specified path.
+            </summary>
+            <param name="applicationRelativePath">The application relative path of the file to locate
+            <c>_ViewImports</c>s for.</param>
+            <returns>A sequence of paths that represent potential <c>_ViewImports</c> locations.</returns>
+            <remarks>
+            This method returns paths starting from the directory of <paramref name="applicationRelativePath"/> and
+            moves upwards until it hits the application root.
+            e.g.
+            /Views/Home/View.cshtml -> [ /Views/Home/_ViewImports.cshtml, /Views/_ViewImports.cshtml,
+                                         /_ViewImports.cshtml ]
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkHelper">
+            <summary>
+            Contains helper methods for dealing with Chunks
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkHelper.TModelToken">
+            <summary>
+            Token that is replaced by the model name in <c>@inherits</c> and <c>@inject</c>
+            chunks as part of <see cref="T:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkInheritanceUtility"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkHelper.GetModelChunk(Microsoft.AspNetCore.Razor.Chunks.ChunkTree)">
+            <summary>
+            Returns the <see cref="T:Microsoft.AspNetCore.Mvc.Razor.ModelChunk"/> used to determine the model name for the page generated
+            using the specified <paramref name="chunkTree"/>
+            </summary>
+            <param name="chunkTree">The <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/> to scan for <see cref="T:Microsoft.AspNetCore.Mvc.Razor.ModelChunk"/>s in.</param>
+            <returns>The last <see cref="T:Microsoft.AspNetCore.Mvc.Razor.ModelChunk"/> in the <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/> if found, <c>null</c> otherwise.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkHelper.GetModelTypeName(Microsoft.AspNetCore.Razor.Chunks.ChunkTree,System.String)">
+            <summary>
+            Returns the type name of the Model specified via a <see cref="T:Microsoft.AspNetCore.Mvc.Razor.ModelChunk"/> in the
+            <paramref name="chunkTree"/> if specified or the default model type.
+            </summary>
+            <param name="chunkTree">The <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/> to scan for <see cref="T:Microsoft.AspNetCore.Mvc.Razor.ModelChunk"/>s in.</param>
+            <param name="defaultModelName">The <see cref="T:System.Type"/> name of the default model.</param>
+            <returns>The model type name for the generated page.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkHelper.ReplaceTModel(System.String,System.String)">
+            <summary>
+            Returns a string with the &lt;TModel&gt; token replaced with the value specified in
+            <paramref name="modelName"/>.
+            </summary>
+            <param name="value">The string to replace the token in.</param>
+            <param name="modelName">The model name to replace with.</param>
+            <returns>A string with the token replaced.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkInheritanceUtility">
+            <summary>
+            A utility type for supporting inheritance of directives into a page from applicable <c>_ViewImports</c> pages.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkInheritanceUtility.#ctor(Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost,Microsoft.AspNetCore.Mvc.Razor.Directives.IChunkTreeCache,System.Collections.Generic.IReadOnlyList{Microsoft.AspNetCore.Razor.Chunks.Chunk})">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkInheritanceUtility"/>.
+            </summary>
+            <param name="razorHost">The <see cref="T:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost"/> used to parse <c>_ViewImports</c> pages.</param>
+            <param name="chunkTreeCache"><see cref="T:Microsoft.AspNetCore.Mvc.Razor.Directives.IChunkTreeCache"/> that caches <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/> instances.
+            </param>
+            <param name="defaultInheritedChunks">Sequence of <see cref="T:Microsoft.AspNetCore.Razor.Chunks.Chunk"/>s inherited by default.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkInheritanceUtility.GetInheritedChunkTreeResults(System.String)">
+            <summary>
+            Gets an ordered <see cref="T:System.Collections.Generic.IReadOnlyList`1"/> of parsed <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/>s and
+            file paths for each <c>_ViewImports</c> that is applicable to the page located at
+            <paramref name="pagePath"/>. The list is ordered so that the <see cref="T:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkTreeResult"/>'s
+            <see cref="P:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkTreeResult.ChunkTree"/> for the <c>_ViewImports</c> closest to the
+            <paramref name="pagePath"/> in the file system appears first.
+            </summary>
+            <param name="pagePath">The path of the page to locate inherited chunks for.</param>
+            <returns>A <see cref="T:System.Collections.Generic.IReadOnlyList`1"/> of parsed <c>_ViewImports</c>
+            <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/>s and their file paths.</returns>
+            <remarks>
+            The resulting <see cref="T:System.Collections.Generic.IReadOnlyList`1"/> is ordered so that the result
+            for a _ViewImport closest to the application root appears first and the _ViewImport
+            closest to the page appears last i.e.
+            [ /_ViewImport, /Views/_ViewImport, /Views/Home/_ViewImport ]
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkInheritanceUtility.MergeInheritedChunkTrees(Microsoft.AspNetCore.Razor.Chunks.ChunkTree,System.Collections.Generic.IReadOnlyList{Microsoft.AspNetCore.Razor.Chunks.ChunkTree},System.String)">
+            <summary>
+            Merges <see cref="T:Microsoft.AspNetCore.Razor.Chunks.Chunk"/> inherited by default and <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/> instances produced by parsing
+            <c>_ViewImports</c> files into the specified <paramref name="chunkTree"/>.
+            </summary>
+            <param name="chunkTree">The <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/> to merge in to.</param>
+            <param name="inheritedChunkTrees"><see cref="T:System.Collections.Generic.IReadOnlyList`1"/> inherited from <c>_ViewImports</c>
+            files.</param>
+            <param name="defaultModel">The default model <see cref="T:System.Type"/> name.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkTreeResult">
+            <summary>
+            Contains <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/> information.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkTreeResult.#ctor(Microsoft.AspNetCore.Razor.Chunks.ChunkTree,System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkTreeResult"/>.
+            </summary>
+            <param name="chunkTree">The <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/> generated from the file at the
+            given <paramref name="filePath"/>.</param>
+            <param name="filePath">The path to the file that generated the given <paramref name="chunkTree"/>.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkTreeResult.ChunkTree">
+            <summary>
+            The <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/> generated from the file at <see cref="P:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkTreeResult.FilePath"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkTreeResult.FilePath">
+            <summary>
+            The path to the file that generated the <see cref="P:Microsoft.AspNetCore.Mvc.Razor.Directives.ChunkTreeResult.ChunkTree"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.Directives.DefaultChunkTreeCache">
+            <summary>
+            Default implementation of <see cref="T:Microsoft.AspNetCore.Mvc.Razor.Directives.IChunkTreeCache"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.DefaultChunkTreeCache.#ctor(Microsoft.Extensions.FileProviders.IFileProvider)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.Razor.Directives.DefaultChunkTreeCache"/>.
+            </summary>
+            <param name="fileProvider">The application's <see cref="T:Microsoft.Extensions.FileProviders.IFileProvider"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.DefaultChunkTreeCache.GetOrAdd(System.String,System.Func{Microsoft.Extensions.FileProviders.IFileInfo,Microsoft.AspNetCore.Razor.Chunks.ChunkTree})">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.Directives.IChunkMerger">
+            <summary>
+            Defines the contract for merging <see cref="T:Microsoft.AspNetCore.Razor.Chunks.Chunk"/> instances from _ViewStart files.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.IChunkMerger.VisitChunk(Microsoft.AspNetCore.Razor.Chunks.Chunk)">
+            <summary>
+            Visits a <see cref="T:Microsoft.AspNetCore.Razor.Chunks.Chunk"/> from the <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/> to merge into.
+            </summary>
+            <param name="chunk">A <see cref="T:Microsoft.AspNetCore.Razor.Chunks.Chunk"/> from the tree.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.IChunkMerger.MergeInheritedChunks(Microsoft.AspNetCore.Razor.Chunks.ChunkTree,System.Collections.Generic.IReadOnlyList{Microsoft.AspNetCore.Razor.Chunks.Chunk})">
+            <summary>
+            Merges an inherited <see cref="T:Microsoft.AspNetCore.Razor.Chunks.Chunk"/> into the <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/>.
+            </summary>
+            <param name="chunkTree">The <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/> to merge into.</param>
+            <param name="inheritedChunks">The <see cref="T:System.Collections.Generic.IReadOnlyList`1"/>s to merge.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.Directives.IChunkTreeCache">
+            <summary>
+            A cache for parsed <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/>s.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.IChunkTreeCache.GetOrAdd(System.String,System.Func{Microsoft.Extensions.FileProviders.IFileInfo,Microsoft.AspNetCore.Razor.Chunks.ChunkTree})">
+            <summary>
+            Get an existing <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/>, or create and add a new one if it is
+            not available in the cache or is expired.
+            </summary>
+            <param name="pagePath">The application relative path of the Razor page.</param>
+            <param name="getChunkTree">A delegate that creates a new <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/>.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/> if a file exists at <paramref name="pagePath"/>,
+            <c>null</c> otherwise.</returns>
+            <remarks>The resulting <see cref="T:Microsoft.AspNetCore.Razor.Chunks.ChunkTree"/> does not contain inherited chunks from _ViewStart or
+            default inherited chunks.</remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.Directives.InjectChunkMerger">
+            <summary>
+            A <see cref="T:Microsoft.AspNetCore.Mvc.Razor.Directives.IChunkMerger"/> that merges <see cref="T:Microsoft.AspNetCore.Mvc.Razor.InjectChunk"/> instances.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.InjectChunkMerger.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.Razor.Directives.InjectChunkMerger"/>.
+            </summary>
+            <param name="modelType">The model type to be used to replace &lt;TModel&gt; tokens.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.InjectChunkMerger.VisitChunk(Microsoft.AspNetCore.Razor.Chunks.Chunk)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.InjectChunkMerger.MergeInheritedChunks(Microsoft.AspNetCore.Razor.Chunks.ChunkTree,System.Collections.Generic.IReadOnlyList{Microsoft.AspNetCore.Razor.Chunks.Chunk})">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.Directives.SetBaseTypeChunkMerger">
+            <summary>
+            A <see cref="T:Microsoft.AspNetCore.Mvc.Razor.Directives.IChunkMerger"/> that merges <see cref="T:Microsoft.AspNetCore.Razor.Chunks.SetBaseTypeChunk"/> instances.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.SetBaseTypeChunkMerger.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.Razor.Directives.SetBaseTypeChunkMerger"/>.
+            </summary>
+            <param name="modelType">The type name of the model used by default.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.SetBaseTypeChunkMerger.VisitChunk(Microsoft.AspNetCore.Razor.Chunks.Chunk)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.SetBaseTypeChunkMerger.MergeInheritedChunks(Microsoft.AspNetCore.Razor.Chunks.ChunkTree,System.Collections.Generic.IReadOnlyList{Microsoft.AspNetCore.Razor.Chunks.Chunk})">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.Directives.UsingChunkMerger">
+            <summary>
+            A <see cref="T:Microsoft.AspNetCore.Mvc.Razor.Directives.IChunkMerger"/> that merges <see cref="T:Microsoft.AspNetCore.Razor.Chunks.UsingChunk"/> instances.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.UsingChunkMerger.VisitChunk(Microsoft.AspNetCore.Razor.Chunks.Chunk)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Directives.UsingChunkMerger.MergeInheritedChunks(Microsoft.AspNetCore.Razor.Chunks.ChunkTree,System.Collections.Generic.IReadOnlyList{Microsoft.AspNetCore.Razor.Chunks.Chunk})">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

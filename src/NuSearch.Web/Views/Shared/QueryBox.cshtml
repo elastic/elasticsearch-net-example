@@ -1,0 +1,12 @@
+﻿@using NuSearch.Web.Models
+@model SearchForm
+
+<div class="input-group">
+	<input type="text" id="query" name="@Html.NameFor(m=>m.Query).ToLowerInvariant()"  value="@Model.Query"
+	       autocomplete="off" class="form-control" placeholder="Search for packages ..."/>
+	<div class="input-group-btn">
+		<button class="btn btn-warning" type="submit">
+			<i class="glyphicon glyphicon-search"></i>
+		</button>
+	</div>
+</div>

@@ -1,8 +1,8 @@
 ﻿$(function() {
 
-  $("select").change(function() { $("form").submit(); });
-
-  $("#query").focus().select();
+  $("select").change(function() { $("form#search-criteria").submit(); });
+  $("input[type='checkbox']").change(function() { $("form#search-criteria").submit(); });
+  $(".timeago").timeago();
 
   //setupTypeAhead();
 
@@ -32,30 +32,34 @@
         templates: {
           empty: [
             '<div class="lead">',
-            'unable to find any packages',
+            'no suggestions found for current prefix',
             '</div>'
           ].join('\n'),
           suggestion: function(suggestion) {
             return [
-              '<h3 class="text-primary">',
+              '<h4 class="text-primary">',
               suggestion.id,
-              '<span class="label label-default label-lg">',
+              '<span class="text-humble pull-right">',
               suggestion.downloadCount + " downloads",
               '</span>',
-              '</h3>',
-              '<h4 class="text-primary">',
+              '</h5>',
+              '<h5 class="text-primary">',
               suggestion.summary,
-              '</h4>'
+              '</h6>'
             ].join('\n');
           }
         },
         source: remoteHandler
       }
-    ).on('typeahead:selected',
-      function(e, o) {
+    ).on('typeahead:selected', function(e, o) {
         window.location.href = "https://www.nuget.org/packages/" + o.id;
+      })
+      .on('typeahead:selected', function(e, o) {
+        $("#query").focus().select();
       });
   }
+
+  $("#query").focus().select();
 
 });
 

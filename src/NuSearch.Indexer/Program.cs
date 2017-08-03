@@ -27,8 +27,8 @@ namespace NuSearch.Indexer
 			IndexDumps();
 			SwapAlias();
 
-			Console.WriteLine("Press Enter to continue");
-			Console.Read();
+			Console.WriteLine("Press any key to exit.");
+			Console.ReadKey();
 		}
 
 		private static void CreateIndex()

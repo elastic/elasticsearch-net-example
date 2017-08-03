@@ -48,7 +48,7 @@ namespace NuSearch.Web.Controllers
 						.Query(form.Query)
 					) || q
 					.FunctionScore(fs => fs
-				        .MaxBoost(10)
+				        .MaxBoost(50)
 				        .Functions(ff => ff
 					        .FieldValueFactor(fvf => fvf
 						    	.Field(p => p.DownloadCount)

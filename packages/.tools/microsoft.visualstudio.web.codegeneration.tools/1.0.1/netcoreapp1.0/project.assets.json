@@ -2760,7 +2760,6 @@
       "path": "microsoft.build.runtime/15.1.548",
       "files": [
         "contentFiles/any/net46/15.0/Microsoft.Common.props",
-        "contentFiles/any/net46/MSBuild.exe",
         "contentFiles/any/net46/MSBuild.exe.config",
         "contentFiles/any/net46/Microsoft.CSharp.CrossTargeting.targets",
         "contentFiles/any/net46/Microsoft.CSharp.CurrentVersion.targets",
@@ -7991,13 +7990,13 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\russ\\source\\elasticsearch-net-example\\packages": {}
+    "C:\\source\\elasticsearch-net-example\\packages": {}
   },
   "project": {
     "restore": {
-      "projectUniqueName": "Microsoft.VisualStudio.Web.CodeGeneration.Tools-b6d25e53-cabf-473f-83c1-803226249245",
-      "projectName": "Microsoft.VisualStudio.Web.CodeGeneration.Tools-b6d25e53-cabf-473f-83c1-803226249245",
-      "projectPath": "C:\\Users\\russ\\source\\elasticsearch-net-example\\src\\NuSearch.Web\\NuSearch.Web.csproj",
+      "projectUniqueName": "Microsoft.VisualStudio.Web.CodeGeneration.Tools-e08a7af8-9546-49b9-88b5-0a868e4b5823",
+      "projectName": "Microsoft.VisualStudio.Web.CodeGeneration.Tools-e08a7af8-9546-49b9-88b5-0a868e4b5823",
+      "projectPath": "C:\\source\\elasticsearch-net-example\\src\\NuSearch.Web\\NuSearch.Web.csproj",
       "projectStyle": "DotnetCliTool"
     },
     "frameworks": {

@@ -9,6 +9,18 @@ namespace NuSearch.Domain
 {
 	public static class NuSearchConfiguration
 	{
+
+		public static ElasticClient GetClient() => new ElasticClient(_connectionSettings);
+
+		static NuSearchConfiguration()
+		{
+			_connectionSettings = new ConnectionSettings(CreateUri(9200))
+				.DefaultIndex("nusearch")
+				.InferMappingFor<Package>(i => i
+					.TypeName("package")
+					.IndexName("nusearch")
+				);
+		}
 		private static readonly ConnectionSettings _connectionSettings;
 
 		public static string LiveIndexAlias => "nusearch";
@@ -23,22 +35,6 @@ namespace NuSearch.Domain
 
 			return new Uri($"http://{host}:{port}");
 		}
-
-		static NuSearchConfiguration()
-		{
-			_connectionSettings = new ConnectionSettings(CreateUri(9200))
-				.DefaultIndex("nusearch")
-				.InferMappingFor<Package>(i => i
-					.TypeName("package")
-					.IndexName("nusearch")
-				)
-				.InferMappingFor<FeedPackage>(i => i
-					.TypeName("package")
-					.IndexName("nusearch")
-				);
-		}
-
-		public static ElasticClient GetClient() => new ElasticClient(_connectionSettings);
 
 		public static string CreateIndexName() => $"{LiveIndexAlias}-{DateTime.UtcNow:dd-MM-yyyy-HH-mm-ss}";
 

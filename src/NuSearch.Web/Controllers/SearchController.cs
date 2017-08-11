@@ -29,7 +29,7 @@ namespace NuSearch.Web.Controllers
 					        .Field(p => p.Versions.First().LastUpdated)
 					        .Descending()
 				        );
-			        return sort.Descending("_score");
+			        return sort.Descending(SortSpecialField.Score);
 		        })
 		        .Aggregations(a => a
 			        .Nested("authors", n => n

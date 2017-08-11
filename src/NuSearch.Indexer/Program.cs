@@ -123,7 +123,7 @@ namespace NuSearch.Indexer
 			Console.WriteLine("Setting up a lazy xml files reader that yields packages...");
 			var packages = DumpReader.GetPackages();
 			
-			Console.Write("Indexing documents into elasticsearch...");
+			Console.Write("Indexing documents into Elasticsearch...");
 			var waitHandle = new CountdownEvent(1);
 
 			var bulkAll = Client.BulkAll(packages, b => b

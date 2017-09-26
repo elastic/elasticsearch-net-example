@@ -33,7 +33,7 @@ Download and install:
 
  - [Java - preferably latest](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html). Ensure `JAVA_HOME` environment variable points to the correct Java directory e.g. `C:\Program Files\Java\jdk1.8.0_131`.
 
- - [NuGet Feed Data zip](https://nusearch.blob.core.windows.net/dump/NuGet-data-dec-2016.zip).
+ - [NuGet Feed Data zip](https://nusearch.blob.core.windows.net/dump/nuget-data-jul-2017.zip).
  
  - [Fiddler](https://www.telerik.com/download/fiddler) - to see the requests to and responses from Elasticsearch (optional).
  

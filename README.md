@@ -25,9 +25,9 @@ If you find any bugs, please [send us a pull request](https://github.com/elastic
 
 Download and install:
 
- - [Elasticsearch 5.0 or up - preferably latest](https://www.elastic.co/downloads/). If you are using Windows take advantage of the MSI installer (you won't need to install any plugins).
+ - [Elasticsearch 5.x - preferably latest](https://www.elastic.co/downloads/). If you are using Windows, take advantage of the MSI installer (you won't need to install any plugins).
  
- - [Kibana 5.0](https://www.elastic.co/downloads/kibana).
+ - [Kibana 5.x - same version as Elasticsearch](https://www.elastic.co/downloads/kibana).
 
  - [.NET Core SDK 1.0.4 64-Bit](https://github.com/dotnet/core/blob/master/release-notes/download-archives/1.1.2-download.md) for your platform
 

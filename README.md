@@ -16,7 +16,7 @@ Oh, and if you find any bugs along the way, send us a PR! Or feel free to ask qu
 
  - Downloading [Elasticsearch 5.0 or up, preferably latest](https://www.elastic.co/downloads/
 
- - Download and extract NuGet feed data. You can obtain a [data dump of nuget here in zip format](https://nusearch.blob.core.windows.net/dump/nuget-data-dec-2016.zip)
+ - Download and extract NuGet feed data. You can obtain a [data dump of nuget here in zip format](https://nusearch.blob.core.windows.net/dump/nuget-data-jul-2017.zip)
  
  - Install [kibana 5.0](https://www.elastic.co/downloads/kibana).
 
@@ -75,7 +75,7 @@ static void Main(string[] args)
 }
 ```
 
-Make sure you change `c:\nuget-data` to where you extracted the [nuget data dump](http://esdotnet.blob.core.windows.net/nusearch/nuget-data.zip)
+Make sure you change `c:\nuget-data` to where you extracted the [nuget data dump](https://nusearch.blob.core.windows.net/dump/nuget-data-jul-2017.zip).
 
 Before we start, there are a few classes in the above snippet that we need to gain an understanding of.  `ElasticClient` is the entry point into NEST and is the class that is responsible for making requests to all of the Elasticsearch APIs such as indexing and searching, as well as administrative APIs like snapshot/restore, cluster and node stats, etc.  `ElasticClient` is thread-safe; you can create a singleton instance and keep it around in your application, or you can instantiate a new instance for every request.
 

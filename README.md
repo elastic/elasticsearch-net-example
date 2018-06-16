@@ -8,6 +8,8 @@ To follow the tutorial for the latest stable Elasticsearch version (6.x) use the
 
 Or if you need to cheat/peek at the final solution checkout [6.x-codecomplete-netcore](https://github.com/elastic/elasticsearch-net-example/tree/6.x-codecomplete-netcore)
 
+![nusearch](https://github.com/elastic/elasticsearch-net-example/blob/6.x-netcore/readme-images/0-one-i-built-earlier.PNG)
+
 ## Elasticsearch 5.x (.NET Framework and .NET Core)
 
 ### .NET Core

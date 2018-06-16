@@ -9,7 +9,6 @@ namespace NuSearch.Domain
 {
 	public static class NuSearchConfiguration
 	{
-
 		public static ElasticClient GetClient() => new ElasticClient(_connectionSettings);
 
 		static NuSearchConfiguration()

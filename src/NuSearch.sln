@@ -5,8 +5,8 @@ VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{F2A567C3-CBAF-4FE4-8ADD-71541F22C9EA}"
 	ProjectSection(SolutionItems) = preProject
-		NuGet.config = NuGet.config
 		..\README.md = ..\README.md
+		..\NuGet.config = ..\NuGet.config
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NuSearch.Web", "NuSearch.Web\NuSearch.Web.csproj", "{A73B324C-DF76-415D-8A6D-1937DD8D81EF}"

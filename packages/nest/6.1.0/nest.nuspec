@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>NEST</id>
+    <version>6.1.0</version>
+    <title>NEST - Elasticsearch .NET high level client</title>
+    <authors>Elastic and contributors</authors>
+    <owners>Elastic</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/elastic/elasticsearch-net/blob/master/license.txt</licenseUrl>
+    <projectUrl>https://github.com/elastic/elasticsearch-net</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/elastic/elasticsearch-net/master/build/nuget-icon.png</iconUrl>
+    <description>Strongly typed interface to Elasticsearch. Fluent and classic object initializer mappings of requests and responses. Uses and exposes Elasticsearch.Net</description>
+    <summary>Strongly typed interface to Elasticsearch. Fluent and classic object initializer mappings of requests and responses. Uses and exposes Elasticsearch.Net</summary>
+    <releaseNotes>See https://github.com/elastic/elasticsearch-net/releases/tag/6.1.0</releaseNotes>
+    <copyright>2014-2018 Elasticsearch BV</copyright>
+    <tags>elasticsearch,elastic,search,lucene,nest</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5">
+        <dependency id="Elasticsearch.Net" version="[6.1.0, 7.0.0)" />
+      </group>
+      <group targetFramework=".NETFramework4.6">
+        <dependency id="Elasticsearch.Net" version="[6.1.0, 7.0.0)" />
+      </group>
+      <group targetFramework=".NETStandard1.3">
+        <dependency id="Elasticsearch.Net" version="[6.1.0, 7.0.0)" />
+        <dependency id="NETStandard.Library" version="1.6.0" />
+        <dependency id="System.Collections.Specialized" version="4.3.0" />
+        <dependency id="System.Reflection.TypeExtensions" version="4.3.0" />
+        <dependency id="System.Linq.Queryable" version="4.0.1" />
+        <dependency id="System.ComponentModel.TypeConverter" version="4.3.0" />
+        <dependency id="System.Runtime.Serialization.Formatters" version="4.3.0" />
+        <dependency id="System.Runtime.Serialization.Primitives" version="4.3.0" />
+        <dependency id="System.Xml.XmlDocument" version="4.3.0" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

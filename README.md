@@ -25,13 +25,13 @@ If you find any bugs, please [send us a pull request](https://github.com/elastic
 
 Download and install:
 
- - [Elasticsearch 5.x - preferably latest](https://www.elastic.co/downloads/). If you are using Windows take advantage of the MSI installer (you won't need to install any plugins).
+ - [Elasticsearch 6.x - preferably latest](https://www.elastic.co/downloads/). If you are using Windows, take advantage of the MSI installer (you won't need to install any plugins).
  
- - [Kibana 5.x - same version as Elasticsearch](https://www.elastic.co/downloads/kibana).
+ - [Kibana 6.x - same version as Elasticsearch](https://www.elastic.co/downloads/kibana).
 
- - [.NET Core SDK 1.0.4 64-Bit](https://github.com/dotnet/core/blob/master/release-notes/download-archives/1.1.2-download.md) for your platform
+ - [.NET Core SDK 2.1.300 64-Bit](https://www.microsoft.com/net/download/thank-you/dotnet-sdk-2.1.300-windows-x64-installer) for your platform
 
- - [Java - preferably latest](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html). Ensure `JAVA_HOME` environment variable points to the correct Java directory e.g. `C:\Program Files\Java\jdk1.8.0_131`.
+ - [Java - preferably latest](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html). Ensure `JAVA_HOME` environment variable points to the correct Java directory e.g. `C:\Program Files\Java\jdk1.8.0_172`.
 
  - [NuGet Feed Data zip](https://nusearch.blob.core.windows.net/dump/nuget-data-jul-2017.zip).
  
@@ -304,7 +304,7 @@ static NuSearchConfiguration()
 {
     _connectionSettings = new ConnectionSettings(CreateUri(9200))
         .DefaultIndex("nusearch")
-        .InferMappingFor<FeedPackage>(i => i
+        .DefaultMappingFor<FeedPackage>(i => i
             .TypeName("package")
         );
 }
@@ -317,7 +317,7 @@ static NuSearchConfiguration()
 {
     _connectionSettings = new ConnectionSettings(CreateUri(9200))
         .DefaultIndex("nusearch")
-        .InferMappingFor<FeedPackage>(i=>i
+        .DefaultMappingFor<FeedPackage>(i=>i
             .TypeName("package")
             .IndexName("nusearch") // Add this.
         );
@@ -588,7 +588,7 @@ To use these, we need to change the type name and index name mappings on our `Co
 static NuSearchConfiguration()
 {
     _connectionSettings = new ConnectionSettings(CreateUri(9200))
-        .InferMappingFor<Package>(i => i
+        .DefaultMappingFor<Package>(i => i
             .TypeName("package")
             .IndexName("nusearch")
         );
@@ -962,7 +962,7 @@ If you want to see pretty responses from Elasticsearch, update `NuSearchConfigur
 static NuSearchConfiguration()
 {
     _connectionSettings = new ConnectionSettings(CreateUri(9200))
-        .InferMappingFor<Package>(i => i
+        .DefaultMappingFor<Package>(i => i
             .TypeName("package")
             .IndexName("nusearch")
         )
@@ -1734,7 +1734,9 @@ In order to control the sort order and page size add the following to our search
         return sort.Descending(p => p.DownloadCount);
     if (form.Sort == SearchSort.Recent)
         return sort.Field(sortField => sortField
-            .NestedPath(p => p.Versions)
+            .Nested(n => n
+            	.Path(p => p.Versions)
+            )
             .Field(p => p.Versions.First().LastUpdated)
             .Descending()
         );
@@ -1937,7 +1939,7 @@ This will produce the same JSON request as we ran earlier. Notice how the NEST v
 Let's incoporate these aggregation results into our `SearchViewModel`:
 
 ```csharp
-var authors = result.Aggs.Nested("authors")
+var authors = result.Aggregations.Nested("authors")
                 .Terms("author-names")
                 .Buckets
                 .ToDictionary(k => k.Key, v => v.DocCount);
@@ -2351,63 +2353,3 @@ dotnet restore
 ```
 
 to restore any missing packages.
-
-### Package Elasticsearch.Net 5.5.0 is not compatible with netcoreapp1.1 (.NETCoreApp,Version=v1.1)
-
-This is due to a bug in the .NET Core tooling when restoring packages. To fix this
-
-1. Delete all the directories under `packages`
-2. Delete all the `bin` and `obj` directories in
-	- `src/NuSearch.Domain`
-	- `src/NuSearch.Indexer`
-	- `src/NuSearch.Harvester`
-	- `src/NuSearch.Web`
-3. run the following in the terminal, in the `src` directory
-
-    ```sh
-	dotnet restore
-	```
-
-### Runtime exception with ASP.NET Core
-
-You may see the following exception when running ASP.NET Core and visting the site on `http://localhost:5000`
-
-```
-$ dotnet run
-Hosting environment: Production
-Content root path: <path to ASP.NET Core directory>
-Now listening on: http://localhost:5000
-Application started. Press Ctrl+C to shut down.
-fail: Microsoft.AspNetCore.Server.Kestrel[13]
-      Connection id "0HL6EIBRB75A1": An unhandled exception was thrown by the application.
-System.InvalidOperationException: Can not find compilation library location for package 'elasticsearch.net'
-   at Microsoft.Extensions.DependencyModel.CompilationLibrary.ResolveReferencePaths()
-   at System.Linq.Enumerable.<SelectManyIterator>d__159`2.MoveNext()
-   at Microsoft.AspNetCore.Mvc.Razor.Compilation.MetadataReferenceFeatureProvider.PopulateFeature(IEnumerable`1 parts, MetadataReferenceFeature feature)
-   at Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager.PopulateFeature[TFeature](TFeature feature)
-   at Microsoft.AspNetCore.Mvc.Razor.Internal.RazorReferenceManager.GetCompilationReferences()
-   at System.Threading.LazyInitializer.EnsureInitializedCore[T](T& target, Boolean& initialized, Object& syncLock, Func`1 valueFactory)
-   at Microsoft.AspNetCore.Mvc.Razor.Internal.RazorReferenceManager.get_CompilationReferences()
-   at Microsoft.AspNetCore.Mvc.Razor.Internal.DefaultRoslynCompilationService.CreateCompilation(String compilationContent, String assemblyName)
-   at Microsoft.AspNetCore.Mvc.Razor.Internal.DefaultRoslynCompilationService.Compile(RelativeFileInfo fileInfo, String compilationContent)
-   at Microsoft.AspNetCore.Mvc.Razor.Internal.CompilerCache.CreateCacheEntry(String relativePath, String normalizedPath, Func`2 compile)
---- End of stack trace from previous location where exception was thrown ---
-```
-
-Due to a [bug in the .NET Core runtime in some distributions](https://github.com/dotnet/cli/issues/3781), the runtime tries to load assemblies _only_ from the global NuGet cache rather than from the local NuGet `packages` directory. To resolve, either
-
-- copy the directories in the `packages` directory into the global NuGet cache directory. You can find the location of the global NuGet cache directory with 
-
-    ```sh
-	dotnet nuget locals global-packages -l
-	```
-
-or
-
-- remove the `NuGet.config` file from the root of the repository and run
-
-    ```sh
-    dotnet restore
-    ```
-
-    from the `src` directory to restore packages into the global NuGet cache.

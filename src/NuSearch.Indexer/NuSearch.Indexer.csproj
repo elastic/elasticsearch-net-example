@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
-	<ItemGroup>
-		<PackageReference Include="NEST" Version="5.5.0" />
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\NuSearch.Domain\NuSearch.Domain.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NEST" Version="6.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NuSearch.Domain\NuSearch.Domain.csproj" />
+  </ItemGroup>
 </Project>

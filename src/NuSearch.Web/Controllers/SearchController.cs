@@ -25,7 +25,9 @@ namespace NuSearch.Web.Controllers
 				        return sort.Descending(p => p.DownloadCount);
 			        if (form.Sort == SearchSort.Recent)
 				        return sort.Field(sortField => sortField
-					        .NestedPath(p => p.Versions)
+						    .Nested(n => n
+								.Path(p => p.Versions)
+					        )
 					        .Field(p => p.Versions.First().LastUpdated)
 					        .Descending()
 				        );
@@ -75,7 +77,7 @@ namespace NuSearch.Web.Controllers
 		        )
 	        );
 
-			var authors = result.Aggs.Nested("authors")
+			var authors = result.Aggregations.Nested("authors")
 				.Terms("author-names")
 				.Buckets
 				.ToDictionary(k => k.Key, v => v.DocCount);

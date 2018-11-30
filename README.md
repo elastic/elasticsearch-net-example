@@ -143,7 +143,7 @@ static void IndexDumps()
 
     foreach (var package in packages)
     {
-        var result = Client.Index(package);
+        var result = Client.IndexDocument(package);
 
         if (!result.IsValid)
         {
@@ -805,7 +805,7 @@ private static void SwapAlias()
     Client.Alias(aliases =>
     {
         if (indexExists)
-            aliases.Add(a => a.Alias(NuSearchConfiguration.OldIndexAlias).Index(NuSearchConfiguration.LiveIndexAlias));
+            aliases.Add(a => a.Alias(NuSearchConfiguration.OldIndexAlias).Index(Client.GetIndicesPointingToAlias(NuSearchConfiguration.LiveIndexAlias).First()));
 
         return aliases
             .Remove(a => a.Alias(NuSearchConfiguration.LiveIndexAlias).Index("*"))

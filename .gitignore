@@ -64,3 +64,6 @@ YamlCache
 .vs
 .vscode
 .idea
+
+# NuGet Packages can be ignored because of Package Restore.
+**/packages/*

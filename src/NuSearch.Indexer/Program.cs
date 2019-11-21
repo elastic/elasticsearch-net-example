@@ -33,14 +33,14 @@ namespace NuSearch.Indexer
 
 		private static void CreateIndex()
 		{
-			Client.CreateIndex(CurrentIndexName, i => i
+			Client.Indices.Create(CurrentIndexName, i => i
 				.Settings(s => s
 					.NumberOfShards(2)
 					.NumberOfReplicas(0)
 					.Analysis(Analysis)
 				)
-				.Mappings(m => m
-					.Map<Package>(MapPackage)
+				.Map<Package>(m => 
+					MapPackage(m)
 				)
 			);
 		}
@@ -147,9 +147,9 @@ namespace NuSearch.Indexer
 
 		private static void SwapAlias()
 		{
-			var indexExists = Client.IndexExists(NuSearchConfiguration.LiveIndexAlias).Exists;
+			var indexExists = Client.Indices.Exists(NuSearchConfiguration.LiveIndexAlias).Exists;
 
-			Client.Alias(aliases =>
+			Client.Indices.BulkAlias(aliases =>
 			{
 				if (indexExists)
 					aliases.Add(a => a.Alias(NuSearchConfiguration.OldIndexAlias).Index(NuSearchConfiguration.LiveIndexAlias));
@@ -164,7 +164,7 @@ namespace NuSearch.Indexer
 				.Skip(2);
 
 			foreach (var oldIndex in oldIndices)
-				Client.DeleteIndex(oldIndex);
+				Client.Indices.Delete(oldIndex);
 		}
 	}
 }

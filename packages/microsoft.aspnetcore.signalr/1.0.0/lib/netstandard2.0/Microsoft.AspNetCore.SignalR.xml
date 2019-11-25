@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.SignalR</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.SignalR.GetHttpContextExtensions">
+            <summary>
+            Extension methods for accessing <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> from a hub context.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SignalR.GetHttpContextExtensions.GetHttpContext(Microsoft.AspNetCore.SignalR.HubCallerContext)">
+            <summary>
+            Gets <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> from the specified connection, or <c>null</c> if the connection is not associated with an HTTP request.
+            </summary>
+            <param name="connection">The connection.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> for the connection, or <c>null</c> if the connection is not associated with an HTTP request.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SignalR.GetHttpContextExtensions.GetHttpContext(Microsoft.AspNetCore.SignalR.HubConnectionContext)">
+            <summary>
+            Gets <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> from the specified connection, or <c>null</c> if the connection is not associated with an HTTP request.
+            </summary>
+            <param name="connection">The connection.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> for the connection, or <c>null</c> if the connection is not associated with an HTTP request.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.SignalR.HubRouteBuilder">
+            <summary>
+            Maps incoming requests to <see cref="T:Microsoft.AspNetCore.SignalR.Hub"/> types.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SignalR.HubRouteBuilder.#ctor(Microsoft.AspNetCore.Http.Connections.ConnectionsRouteBuilder)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.AspNetCore.SignalR.HubRouteBuilder"/> class.
+            </summary>
+            <param name="routes">The routes builder.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SignalR.HubRouteBuilder.MapHub``1(Microsoft.AspNetCore.Http.PathString)">
+            <summary>
+            Maps incoming requests with the specified path to the specified <see cref="T:Microsoft.AspNetCore.SignalR.Hub"/> type.
+            </summary>
+            <typeparam name="THub">The <see cref="T:Microsoft.AspNetCore.SignalR.Hub"/> type to map requests to.</typeparam>
+            <param name="path">The request path.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SignalR.HubRouteBuilder.MapHub``1(Microsoft.AspNetCore.Http.PathString,System.Action{Microsoft.AspNetCore.Http.Connections.HttpConnectionDispatcherOptions})">
+            <summary>
+            Maps incoming requests with the specified path to the specified <see cref="T:Microsoft.AspNetCore.SignalR.Hub"/> type.
+            </summary>
+            <typeparam name="THub">The <see cref="T:Microsoft.AspNetCore.SignalR.Hub"/> type to map requests to.</typeparam>
+            <param name="path">The request path.</param>
+            <param name="configureOptions">A callback to configure dispatcher options.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.SignalRAppBuilderExtensions">
+            <summary>
+            Extension methods for <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.SignalRAppBuilderExtensions.UseSignalR(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action{Microsoft.AspNetCore.SignalR.HubRouteBuilder})">
+            <summary>
+            Adds SignalR to the <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> request execution pipeline.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</param>
+            <param name="configure">A callback to configure hub routes.</param>
+            <returns>The same instance of the <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> for chaining.</returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.SignalRDependencyInjectionExtensions">
+            <summary>
+            Extension methods for setting up SignalR services in an <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.SignalRDependencyInjectionExtensions.AddHubOptions``1(Microsoft.AspNetCore.SignalR.ISignalRServerBuilder,System.Action{Microsoft.AspNetCore.SignalR.HubOptions{``0}})">
+            <summary>
+            Adds hub specific options to an <see cref="T:Microsoft.AspNetCore.SignalR.ISignalRServerBuilder"/>.
+            </summary>
+            <typeparam name="THub">The hub type to configure.</typeparam>
+            <param name="signalrBuilder">The <see cref="T:Microsoft.AspNetCore.SignalR.ISignalRServerBuilder"/>.</param>
+            <param name="configure">A callback to configure the hub options.</param>
+            <returns>The same instance of the <see cref="T:Microsoft.AspNetCore.SignalR.ISignalRServerBuilder"/> for chaining.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.SignalRDependencyInjectionExtensions.AddSignalR(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds SignalR services to the specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" /> to add services to.</param>
+            <returns>An <see cref="T:Microsoft.AspNetCore.SignalR.ISignalRServerBuilder"/> that can be used to further configure the SignalR services.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.SignalRDependencyInjectionExtensions.AddSignalR(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.SignalR.HubOptions})">
+            <summary>
+            Adds SignalR services to the specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" /> to add services to.</param>
+            <param name="configure">An <see cref="T:System.Action`1"/> to configure the provided <see cref="T:Microsoft.AspNetCore.SignalR.HubOptions"/>.</param>
+            <returns>An <see cref="T:Microsoft.AspNetCore.SignalR.ISignalRServerBuilder"/> that can be used to further configure the SignalR services.</returns>
+        </member>
+    </members>
+</doc>

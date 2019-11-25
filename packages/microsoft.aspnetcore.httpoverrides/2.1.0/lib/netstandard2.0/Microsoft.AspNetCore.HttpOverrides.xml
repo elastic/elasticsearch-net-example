@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.HttpOverrides</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults">
+            <summary>
+            Default values related to <see cref="T:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersMiddleware"/> middleware
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions"/>
+        </member>
+        <member name="P:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedForHeaderName">
+            <summary>
+            X-Forwarded-For
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedHostHeaderName">
+            <summary>
+            X-Forwarded-Host
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedProtoHeaderName">
+            <summary>
+            X-Forwarded-Proto
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalForHeaderName">
+            <summary>
+            X-Original-For
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalHostHeaderName">
+            <summary>
+            X-Original-Host
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalProtoHeaderName">
+            <summary>
+            X-Original-Proto
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.HttpOverrides.IPNetwork.PrefixLength">
+            <summary>
+            The CIDR notation of the subnet mask 
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Forwards proxied headers onto current request
+            </summary>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Builder.ForwardedHeadersOptions)">
+            <summary>
+            Forwards proxied headers onto current request
+            </summary>
+            <param name="builder"></param>
+            <param name="options">Enables the different forwarding options.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedForHeaderName">
+            <summary>
+            Use this header instead of <see cref="P:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedForHeaderName"/>
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults"/>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHostHeaderName">
+            <summary>
+            Use this header instead of <see cref="P:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedHostHeaderName"/>
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults"/>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedProtoHeaderName">
+            <summary>
+            Use this header instead of <see cref="P:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedProtoHeaderName"/>
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults"/>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.OriginalForHeaderName">
+            <summary>
+            Use this header instead of <see cref="P:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalForHeaderName"/>
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults"/>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.OriginalHostHeaderName">
+            <summary>
+            Use this header instead of <see cref="P:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalHostHeaderName"/>
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults"/>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.OriginalProtoHeaderName">
+            <summary>
+            Use this header instead of <see cref="P:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalProtoHeaderName"/>
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults"/>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders">
+            <summary>
+            Identifies which forwarders should be processed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardLimit">
+            <summary>
+            Limits the number of entries in the headers that will be processed. The default value is 1.
+            Set to null to disable the limit, but this should only be done if
+            KnownProxies or KnownNetworks are configured.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies">
+            <summary>
+            Addresses of known proxies to accept forwarded headers from.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks">
+            <summary>
+            Address ranges of known proxies to accept forwarded headers from.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.AllowedHosts">
+            <summary>
+            The allowed values from x-forwarded-host. If the list is empty then all hosts are allowed.
+            Failing to restrict this these values may allow an attacker to spoof links generated by your service. 
+            </summary>
+            <remarks>
+            <list type="bullet">
+            <item><description>Port numbers must be excluded.</description></item>
+            <item><description>A top level wildcard "*" allows all non-empty hosts.</description></item>
+            <item><description>Subdomain wildcards are permitted. E.g. "*.example.com" matches subdomains like foo.example.com,
+               but not the parent domain example.com.</description></item>
+            <item><description>Unicode host names are allowed but will be converted to punycode for matching.</description></item>
+            <item><description>IPv6 addresses must include their bounding brackets and be in their normalized form.</description></item>
+            </list>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.RequireHeaderSymmetry">
+            <summary>
+            Require the number of header values to be in sync between the different headers being processed.
+            The default is 'false'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.HttpMethodOverrideExtensions.UseHttpMethodOverride(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Allows incoming POST request to override method type with type specified in header.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance this method extends.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.HttpMethodOverrideExtensions.UseHttpMethodOverride(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Builder.HttpMethodOverrideOptions)">
+            <summary>
+            Allows incoming POST request to override method type with type specified in form.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance this method extends.</param>
+            <param name="options">The <see cref="T:Microsoft.AspNetCore.Builder.HttpMethodOverrideOptions"/>.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.HttpMethodOverrideOptions.FormFieldName">
+            <summary>
+            Denotes the form element that contains the name of the resulting method type.
+            If not set the X-Http-Method-Override header will be used.
+            </summary>
+        </member>
+    </members>
+</doc>

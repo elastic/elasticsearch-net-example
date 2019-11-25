@@ -1,5 +1,8 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace NuSearch.Web
 {
@@ -7,14 +10,22 @@ namespace NuSearch.Web
     {
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
-                .UseKestrel()
-				.UseIISIntegration()
-				.UseSetting("detailedErrors", "true")
-				.CaptureStartupErrors(true)
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseStartup<Startup>()
-                .Build();
+            var host = Host.CreateDefaultBuilder(args)
+	            .ConfigureWebHostDefaults(webBuilder =>
+	            {
+		            webBuilder.UseKestrel()
+			            .UseIISIntegration()
+			            .UseSetting("detailedErrors", "true")
+			            .CaptureStartupErrors(true)
+			            .UseContentRoot(Directory.GetCurrentDirectory())
+			            .UseStartup<Startup>();
+	            })
+	            .ConfigureLogging(logging =>
+	            {
+		            logging.AddConsole()
+			            .AddDebug();
+	            })
+	            .Build();
 
             host.Run();
         }

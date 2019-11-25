@@ -1,0 +1,1130 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Identity.EntityFrameworkCore</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext">
+            <summary>
+            Base class for the Entity Framework database context used for identity.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext"/>.
+            </summary>
+            <param name="options">The options to be used by a <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext" /> class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext`1">
+            <summary>
+            Base class for the Entity Framework database context used for identity.
+            </summary>
+            <typeparam name="TUser">The type of the user objects.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext`1.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext"/>.
+            </summary>
+            <param name="options">The options to be used by a <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext" /> class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext`3">
+            <summary>
+            Base class for the Entity Framework database context used for identity.
+            </summary>
+            <typeparam name="TUser">The type of user objects.</typeparam>
+            <typeparam name="TRole">The type of role objects.</typeparam>
+            <typeparam name="TKey">The type of the primary key for users and roles.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext`3.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)">
+            <summary>
+            Initializes a new instance of the db context.
+            </summary>
+            <param name="options">The options to be used by a <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext`3.#ctor">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext`8">
+            <summary>
+            Base class for the Entity Framework database context used for identity.
+            </summary>
+            <typeparam name="TUser">The type of user objects.</typeparam>
+            <typeparam name="TRole">The type of role objects.</typeparam>
+            <typeparam name="TKey">The type of the primary key for users and roles.</typeparam>
+            <typeparam name="TUserClaim">The type of the user claim object.</typeparam>
+            <typeparam name="TUserRole">The type of the user role object.</typeparam>
+            <typeparam name="TUserLogin">The type of the user login object.</typeparam>
+            <typeparam name="TRoleClaim">The type of the role claim object.</typeparam>
+            <typeparam name="TUserToken">The type of the user token object.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext`8.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+            <param name="options">The options to be used by a <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext`8.#ctor">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext`8.UserRoles">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1"/> of User roles.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext`8.Roles">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1"/> of roles.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext`8.RoleClaims">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1"/> of role claims.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext`8.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Configures the schema needed for the identity framework.
+            </summary>
+            <param name="builder">
+            The builder being used to construct the model for this context.
+            </param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`1">
+            <summary>
+            Base class for the Entity Framework database context used for identity.
+            </summary>
+            <typeparam name="TUser">The type of the user objects.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`1.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`1"/>.
+            </summary>
+            <param name="options">The options to be used by a <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`1" /> class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`2">
+            <summary>
+            Base class for the Entity Framework database context used for identity.
+            </summary>
+            <typeparam name="TUser">The type of user objects.</typeparam>
+            <typeparam name="TKey">The type of the primary key for users and roles.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`2.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)">
+            <summary>
+            Initializes a new instance of the db context.
+            </summary>
+            <param name="options">The options to be used by a <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`2.#ctor">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`5">
+            <summary>
+            Base class for the Entity Framework database context used for identity.
+            </summary>
+            <typeparam name="TUser">The type of user objects.</typeparam>
+            <typeparam name="TKey">The type of the primary key for users and roles.</typeparam>
+            <typeparam name="TUserClaim">The type of the user claim object.</typeparam>
+            <typeparam name="TUserLogin">The type of the user login object.</typeparam>
+            <typeparam name="TUserToken">The type of the user token object.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`5.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+            <param name="options">The options to be used by a <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`5.#ctor">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`5.Users">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1"/> of Users.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`5.UserClaims">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1"/> of User claims.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`5.UserLogins">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1"/> of User logins.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`5.UserTokens">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1"/> of User tokens.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`5.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Configures the schema needed for the identity framework.
+            </summary>
+            <param name="builder">
+            The builder being used to construct the model for this context.
+            </param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.Resources.CanOnlyProtectStrings">
+            <summary>
+            [ProtectedPersonalData] only works strings by default.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.Resources.FormatCanOnlyProtectStrings">
+            <summary>
+            [ProtectedPersonalData] only works strings by default.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.Resources.NotIdentityRole">
+            <summary>
+            AddEntityFrameworkStores can only be called with a role that derives from IdentityRole&lt;TKey&gt;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.Resources.FormatNotIdentityRole">
+            <summary>
+            AddEntityFrameworkStores can only be called with a role that derives from IdentityRole&lt;TKey&gt;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.Resources.NotIdentityUser">
+            <summary>
+            AddEntityFrameworkStores can only be called with a user that derives from IdentityUser&lt;TKey&gt;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.Resources.FormatNotIdentityUser">
+            <summary>
+            AddEntityFrameworkStores can only be called with a user that derives from IdentityUser&lt;TKey&gt;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.Resources.RoleNotFound">
+            <summary>
+            Role {0} does not exist.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.Resources.FormatRoleNotFound(System.Object)">
+            <summary>
+            Role {0} does not exist.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.Resources.ValueCannotBeNullOrEmpty">
+            <summary>
+            Value cannot be null or empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.Resources.FormatValueCannotBeNullOrEmpty">
+            <summary>
+            Value cannot be null or empty.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`1">
+            <summary>
+            Creates a new instance of a persistence store for roles.
+            </summary>
+            <typeparam name="TRole">The type of the class representing a role</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`1.#ctor(Microsoft.EntityFrameworkCore.DbContext,Microsoft.AspNetCore.Identity.IdentityErrorDescriber)">
+            <summary>
+            Constructs a new instance of <see cref="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`1"/>.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+            <param name="describer">The <see cref="T:Microsoft.AspNetCore.Identity.IdentityErrorDescriber"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`2">
+            <summary>
+            Creates a new instance of a persistence store for roles.
+            </summary>
+            <typeparam name="TRole">The type of the class representing a role.</typeparam>
+            <typeparam name="TContext">The type of the data context class used to access the store.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`2.#ctor(`1,Microsoft.AspNetCore.Identity.IdentityErrorDescriber)">
+            <summary>
+            Constructs a new instance of <see cref="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`2"/>.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+            <param name="describer">The <see cref="T:Microsoft.AspNetCore.Identity.IdentityErrorDescriber"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`3">
+            <summary>
+            Creates a new instance of a persistence store for roles.
+            </summary>
+            <typeparam name="TRole">The type of the class representing a role.</typeparam>
+            <typeparam name="TContext">The type of the data context class used to access the store.</typeparam>
+            <typeparam name="TKey">The type of the primary key for a role.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`3.#ctor(`1,Microsoft.AspNetCore.Identity.IdentityErrorDescriber)">
+            <summary>
+            Constructs a new instance of <see cref="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`3"/>.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+            <param name="describer">The <see cref="T:Microsoft.AspNetCore.Identity.IdentityErrorDescriber"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5">
+            <summary>
+            Creates a new instance of a persistence store for roles.
+            </summary>
+            <typeparam name="TRole">The type of the class representing a role.</typeparam>
+            <typeparam name="TContext">The type of the data context class used to access the store.</typeparam>
+            <typeparam name="TKey">The type of the primary key for a role.</typeparam>
+            <typeparam name="TUserRole">The type of the class representing a user role.</typeparam>
+            <typeparam name="TRoleClaim">The type of the class representing a role claim.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.#ctor(`1,Microsoft.AspNetCore.Identity.IdentityErrorDescriber)">
+            <summary>
+            Constructs a new instance of <see cref="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5"/>.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+            <param name="describer">The <see cref="T:Microsoft.AspNetCore.Identity.IdentityErrorDescriber"/>.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.Context">
+            <summary>
+            Gets the database context for this store.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.ErrorDescriber">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.AspNetCore.Identity.IdentityErrorDescriber"/> for any error that occurred with the current operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.AutoSaveChanges">
+            <summary>
+            Gets or sets a flag indicating if changes should be persisted after CreateAsync, UpdateAsync and DeleteAsync are called.
+            </summary>
+            <value>
+            True if changes should be automatically persisted, otherwise false.
+            </value>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.SaveChanges(System.Threading.CancellationToken)">
+            <summary>Saves the current store.</summary>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.CreateAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Creates a new role in a store as an asynchronous operation.
+            </summary>
+            <param name="role">The role to create in the store.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the <see cref="T:Microsoft.AspNetCore.Identity.IdentityResult"/> of the asynchronous query.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.UpdateAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Updates a role in a store as an asynchronous operation.
+            </summary>
+            <param name="role">The role to update in the store.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the <see cref="T:Microsoft.AspNetCore.Identity.IdentityResult"/> of the asynchronous query.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.DeleteAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Deletes a role from the store as an asynchronous operation.
+            </summary>
+            <param name="role">The role to delete from the store.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the <see cref="T:Microsoft.AspNetCore.Identity.IdentityResult"/> of the asynchronous query.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.GetRoleIdAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Gets the ID for a role from the store as an asynchronous operation.
+            </summary>
+            <param name="role">The role whose ID should be returned.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> that contains the ID of the role.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.GetRoleNameAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Gets the name of a role from the store as an asynchronous operation.
+            </summary>
+            <param name="role">The role whose name should be returned.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> that contains the name of the role.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.SetRoleNameAsync(`0,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Sets the name of a role in the store as an asynchronous operation.
+            </summary>
+            <param name="role">The role whose name should be set.</param>
+            <param name="roleName">The name of the role.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.ConvertIdFromString(System.String)">
+            <summary>
+            Converts the provided <paramref name="id"/> to a strongly typed key object.
+            </summary>
+            <param name="id">The id to convert.</param>
+            <returns>An instance of <typeparamref name="TKey"/> representing the provided <paramref name="id"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.ConvertIdToString(`2)">
+            <summary>
+            Converts the provided <paramref name="id"/> to its string representation.
+            </summary>
+            <param name="id">The id to convert.</param>
+            <returns>An <see cref="T:System.String"/> representation of the provided <paramref name="id"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.FindByIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Finds the role who has the specified ID as an asynchronous operation.
+            </summary>
+            <param name="id">The role ID to look for.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> that result of the look up.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.FindByNameAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Finds the role who has the specified normalized name as an asynchronous operation.
+            </summary>
+            <param name="normalizedName">The normalized role name to look for.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> that result of the look up.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.GetNormalizedRoleNameAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Get a role's normalized name as an asynchronous operation.
+            </summary>
+            <param name="role">The role whose normalized name should be retrieved.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> that contains the name of the role.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.SetNormalizedRoleNameAsync(`0,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Set a role's normalized name as an asynchronous operation.
+            </summary>
+            <param name="role">The role whose normalized name should be set.</param>
+            <param name="normalizedName">The normalized name to set</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.ThrowIfDisposed">
+            <summary>
+            Throws if this class has been disposed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.Dispose">
+            <summary>
+            Dispose the stores
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.GetClaimsAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Get the claims associated with the specified <paramref name="role"/> as an asynchronous operation.
+            </summary>
+            <param name="role">The role whose claims should be retrieved.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> that contains the claims granted to a role.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.AddClaimAsync(`0,System.Security.Claims.Claim,System.Threading.CancellationToken)">
+            <summary>
+            Adds the <paramref name="claim"/> given to the specified <paramref name="role"/>.
+            </summary>
+            <param name="role">The role to add the claim to.</param>
+            <param name="claim">The claim to add to the role.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.RemoveClaimAsync(`0,System.Security.Claims.Claim,System.Threading.CancellationToken)">
+            <summary>
+            Removes the <paramref name="claim"/> given from the specified <paramref name="role"/>.
+            </summary>
+            <param name="role">The role to remove the claim from.</param>
+            <param name="claim">The claim to remove from the role.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.Roles">
+            <summary>
+            A navigation property for the roles the store contains.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore`5.CreateRoleClaim(`0,System.Security.Claims.Claim)">
+            <summary>
+            Creates an entity representing a role claim.
+            </summary>
+            <param name="role">The associated role.</param>
+            <param name="claim">The associated claim.</param>
+            <returns>The role claim entity.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`1">
+            <summary>
+            Creates a new instance of a persistence store for the specified user type.
+            </summary>
+            <typeparam name="TUser">The type representing a user.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`1.#ctor(Microsoft.EntityFrameworkCore.DbContext,Microsoft.AspNetCore.Identity.IdentityErrorDescriber)">
+            <summary>
+            Constructs a new instance of <see cref="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`1"/>.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+            <param name="describer">The <see cref="T:Microsoft.AspNetCore.Identity.IdentityErrorDescriber"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`2">
+            <summary>
+            Represents a new instance of a persistence store for the specified user and role types.
+            </summary>
+            <typeparam name="TUser">The type representing a user.</typeparam>
+            <typeparam name="TContext">The type of the data context class used to access the store.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`2.#ctor(`1,Microsoft.AspNetCore.Identity.IdentityErrorDescriber)">
+            <summary>
+            Constructs a new instance of <see cref="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`3"/>.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+            <param name="describer">The <see cref="T:Microsoft.AspNetCore.Identity.IdentityErrorDescriber"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`3">
+            <summary>
+            Represents a new instance of a persistence store for the specified user and role types.
+            </summary>
+            <typeparam name="TUser">The type representing a user.</typeparam>
+            <typeparam name="TContext">The type of the data context class used to access the store.</typeparam>
+            <typeparam name="TKey">The type of the primary key for a role.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`3.#ctor(`1,Microsoft.AspNetCore.Identity.IdentityErrorDescriber)">
+            <summary>
+            Constructs a new instance of <see cref="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`4"/>.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+            <param name="describer">The <see cref="T:Microsoft.AspNetCore.Identity.IdentityErrorDescriber"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6">
+            <summary>
+            Represents a new instance of a persistence store for the specified user and role types.
+            </summary>
+            <typeparam name="TUser">The type representing a user.</typeparam>
+            <typeparam name="TContext">The type of the data context class used to access the store.</typeparam>
+            <typeparam name="TKey">The type of the primary key for a role.</typeparam>
+            <typeparam name="TUserClaim">The type representing a claim.</typeparam>
+            <typeparam name="TUserLogin">The type representing a user external login.</typeparam>
+            <typeparam name="TUserToken">The type representing a user token.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.#ctor(`1,Microsoft.AspNetCore.Identity.IdentityErrorDescriber)">
+            <summary>
+            Creates a new instance of the store.
+            </summary>
+            <param name="context">The context used to access the store.</param>
+            <param name="describer">The <see cref="T:Microsoft.AspNetCore.Identity.IdentityErrorDescriber"/> used to describe store errors.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.Context">
+            <summary>
+            Gets the database context for this store.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.UsersSet">
+            <summary>
+            DbSet of users.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.UserClaims">
+            <summary>
+            DbSet of user claims.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.UserLogins">
+            <summary>
+            DbSet of user logins.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.UserTokens">
+            <summary>
+            DbSet of user tokens.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.AutoSaveChanges">
+            <summary>
+            Gets or sets a flag indicating if changes should be persisted after CreateAsync, UpdateAsync and DeleteAsync are called.
+            </summary>
+            <value>
+            True if changes should be automatically persisted, otherwise false.
+            </value>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.SaveChanges(System.Threading.CancellationToken)">
+            <summary>Saves the current store.</summary>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.CreateAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Creates the specified <paramref name="user"/> in the user store.
+            </summary>
+            <param name="user">The user to create.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation, containing the <see cref="T:Microsoft.AspNetCore.Identity.IdentityResult"/> of the creation operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.UpdateAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Updates the specified <paramref name="user"/> in the user store.
+            </summary>
+            <param name="user">The user to update.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation, containing the <see cref="T:Microsoft.AspNetCore.Identity.IdentityResult"/> of the update operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.DeleteAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Deletes the specified <paramref name="user"/> from the user store.
+            </summary>
+            <param name="user">The user to delete.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation, containing the <see cref="T:Microsoft.AspNetCore.Identity.IdentityResult"/> of the update operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.FindByIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Finds and returns a user, if any, who has the specified <paramref name="userId"/>.
+            </summary>
+            <param name="userId">The user ID to search for.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation, containing the user matching the specified <paramref name="userId"/> if it exists.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.FindByNameAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Finds and returns a user, if any, who has the specified normalized user name.
+            </summary>
+            <param name="normalizedUserName">The normalized user name to search for.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation, containing the user matching the specified <paramref name="normalizedUserName"/> if it exists.
+            </returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.Users">
+            <summary>
+            A navigation property for the users the store contains.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.FindUserAsync(`2,System.Threading.CancellationToken)">
+            <summary>
+            Return a user with the matching userId if it exists.
+            </summary>
+            <param name="userId">The user's id.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The user if it exists.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.FindUserLoginAsync(`2,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Return a user login with the matching userId, provider, providerKey if it exists.
+            </summary>
+            <param name="userId">The user's id.</param>
+            <param name="loginProvider">The login provider name.</param>
+            <param name="providerKey">The key provided by the <paramref name="loginProvider"/> to identify a user.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The user login if it exists.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.FindUserLoginAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Return a user login with  provider, providerKey if it exists.
+            </summary>
+            <param name="loginProvider">The login provider name.</param>
+            <param name="providerKey">The key provided by the <paramref name="loginProvider"/> to identify a user.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The user login if it exists.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.GetClaimsAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Get the claims associated with the specified <paramref name="user"/> as an asynchronous operation.
+            </summary>
+            <param name="user">The user whose claims should be retrieved.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> that contains the claims granted to a user.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.AddClaimsAsync(`0,System.Collections.Generic.IEnumerable{System.Security.Claims.Claim},System.Threading.CancellationToken)">
+            <summary>
+            Adds the <paramref name="claims"/> given to the specified <paramref name="user"/>.
+            </summary>
+            <param name="user">The user to add the claim to.</param>
+            <param name="claims">The claim to add to the user.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.ReplaceClaimAsync(`0,System.Security.Claims.Claim,System.Security.Claims.Claim,System.Threading.CancellationToken)">
+            <summary>
+            Replaces the <paramref name="claim"/> on the specified <paramref name="user"/>, with the <paramref name="newClaim"/>.
+            </summary>
+            <param name="user">The user to replace the claim on.</param>
+            <param name="claim">The claim replace.</param>
+            <param name="newClaim">The new claim replacing the <paramref name="claim"/>.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.RemoveClaimsAsync(`0,System.Collections.Generic.IEnumerable{System.Security.Claims.Claim},System.Threading.CancellationToken)">
+            <summary>
+            Removes the <paramref name="claims"/> given from the specified <paramref name="user"/>.
+            </summary>
+            <param name="user">The user to remove the claims from.</param>
+            <param name="claims">The claim to remove.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.AddLoginAsync(`0,Microsoft.AspNetCore.Identity.UserLoginInfo,System.Threading.CancellationToken)">
+            <summary>
+            Adds the <paramref name="login"/> given to the specified <paramref name="user"/>.
+            </summary>
+            <param name="user">The user to add the login to.</param>
+            <param name="login">The login to add to the user.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.RemoveLoginAsync(`0,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Removes the <paramref name="loginProvider"/> given from the specified <paramref name="user"/>.
+            </summary>
+            <param name="user">The user to remove the login from.</param>
+            <param name="loginProvider">The login to remove from the user.</param>
+            <param name="providerKey">The key provided by the <paramref name="loginProvider"/> to identify a user.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.GetLoginsAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves the associated logins for the specified <param ref="user"/>.
+            </summary>
+            <param name="user">The user whose associated logins to retrieve.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> for the asynchronous operation, containing a list of <see cref="T:Microsoft.AspNetCore.Identity.UserLoginInfo"/> for the specified <paramref name="user"/>, if any.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.FindByLoginAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves the user associated with the specified login provider and login provider key.
+            </summary>
+            <param name="loginProvider">The login provider who provided the <paramref name="providerKey"/>.</param>
+            <param name="providerKey">The key provided by the <paramref name="loginProvider"/> to identify a user.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> for the asynchronous operation, containing the user, if any which matched the specified login provider and key.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.FindByEmailAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets the user, if any, associated with the specified, normalized email address.
+            </summary>
+            <param name="normalizedEmail">The normalized email address to return the user for.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>
+            The task object containing the results of the asynchronous lookup operation, the user if any associated with the specified normalized email address.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.GetUsersForClaimAsync(System.Security.Claims.Claim,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves all users with the specified claim.
+            </summary>
+            <param name="claim">The claim whose users should be retrieved.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> contains a list of users, if any, that contain the specified claim. 
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.FindTokenAsync(`0,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Find a user token if it exists.
+            </summary>
+            <param name="user">The token owner.</param>
+            <param name="loginProvider">The login provider for the token.</param>
+            <param name="name">The name of the token.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The user token if it exists.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.AddUserTokenAsync(`5)">
+            <summary>
+            Add a new user token.
+            </summary>
+            <param name="token">The token to be added.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserOnlyStore`6.RemoveUserTokenAsync(`5)">
+            <summary>
+            Remove a new user token.
+            </summary>
+            <param name="token">The token to be removed.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore">
+            <summary>
+            Represents a new instance of a persistence store for users, using the default implementation
+            of <see cref="T:Microsoft.AspNetCore.Identity.IdentityUser`1"/> with a string as a primary key.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore.#ctor(Microsoft.EntityFrameworkCore.DbContext,Microsoft.AspNetCore.Identity.IdentityErrorDescriber)">
+            <summary>
+            Constructs a new instance of <see cref="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore"/>.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+            <param name="describer">The <see cref="T:Microsoft.AspNetCore.Identity.IdentityErrorDescriber"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`1">
+            <summary>
+            Creates a new instance of a persistence store for the specified user type.
+            </summary>
+            <typeparam name="TUser">The type representing a user.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`1.#ctor(Microsoft.EntityFrameworkCore.DbContext,Microsoft.AspNetCore.Identity.IdentityErrorDescriber)">
+            <summary>
+            Constructs a new instance of <see cref="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`1"/>.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+            <param name="describer">The <see cref="T:Microsoft.AspNetCore.Identity.IdentityErrorDescriber"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`3">
+            <summary>
+            Represents a new instance of a persistence store for the specified user and role types.
+            </summary>
+            <typeparam name="TUser">The type representing a user.</typeparam>
+            <typeparam name="TRole">The type representing a role.</typeparam>
+            <typeparam name="TContext">The type of the data context class used to access the store.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`3.#ctor(`2,Microsoft.AspNetCore.Identity.IdentityErrorDescriber)">
+            <summary>
+            Constructs a new instance of <see cref="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`3"/>.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+            <param name="describer">The <see cref="T:Microsoft.AspNetCore.Identity.IdentityErrorDescriber"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`4">
+            <summary>
+            Represents a new instance of a persistence store for the specified user and role types.
+            </summary>
+            <typeparam name="TUser">The type representing a user.</typeparam>
+            <typeparam name="TRole">The type representing a role.</typeparam>
+            <typeparam name="TContext">The type of the data context class used to access the store.</typeparam>
+            <typeparam name="TKey">The type of the primary key for a role.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`4.#ctor(`2,Microsoft.AspNetCore.Identity.IdentityErrorDescriber)">
+            <summary>
+            Constructs a new instance of <see cref="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`4"/>.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.</param>
+            <param name="describer">The <see cref="T:Microsoft.AspNetCore.Identity.IdentityErrorDescriber"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9">
+            <summary>
+            Represents a new instance of a persistence store for the specified user and role types.
+            </summary>
+            <typeparam name="TUser">The type representing a user.</typeparam>
+            <typeparam name="TRole">The type representing a role.</typeparam>
+            <typeparam name="TContext">The type of the data context class used to access the store.</typeparam>
+            <typeparam name="TKey">The type of the primary key for a role.</typeparam>
+            <typeparam name="TUserClaim">The type representing a claim.</typeparam>
+            <typeparam name="TUserRole">The type representing a user role.</typeparam>
+            <typeparam name="TUserLogin">The type representing a user external login.</typeparam>
+            <typeparam name="TUserToken">The type representing a user token.</typeparam>
+            <typeparam name="TRoleClaim">The type representing a role claim.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.#ctor(`2,Microsoft.AspNetCore.Identity.IdentityErrorDescriber)">
+            <summary>
+            Creates a new instance of the store.
+            </summary>
+            <param name="context">The context used to access the store.</param>
+            <param name="describer">The <see cref="T:Microsoft.AspNetCore.Identity.IdentityErrorDescriber"/> used to describe store errors.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.Context">
+            <summary>
+            Gets the database context for this store.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.AutoSaveChanges">
+            <summary>
+            Gets or sets a flag indicating if changes should be persisted after CreateAsync, UpdateAsync and DeleteAsync are called.
+            </summary>
+            <value>
+            True if changes should be automatically persisted, otherwise false.
+            </value>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.SaveChanges(System.Threading.CancellationToken)">
+            <summary>Saves the current store.</summary>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.CreateAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Creates the specified <paramref name="user"/> in the user store.
+            </summary>
+            <param name="user">The user to create.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation, containing the <see cref="T:Microsoft.AspNetCore.Identity.IdentityResult"/> of the creation operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.UpdateAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Updates the specified <paramref name="user"/> in the user store.
+            </summary>
+            <param name="user">The user to update.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation, containing the <see cref="T:Microsoft.AspNetCore.Identity.IdentityResult"/> of the update operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.DeleteAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Deletes the specified <paramref name="user"/> from the user store.
+            </summary>
+            <param name="user">The user to delete.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation, containing the <see cref="T:Microsoft.AspNetCore.Identity.IdentityResult"/> of the update operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.FindByIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Finds and returns a user, if any, who has the specified <paramref name="userId"/>.
+            </summary>
+            <param name="userId">The user ID to search for.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation, containing the user matching the specified <paramref name="userId"/> if it exists.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.FindByNameAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Finds and returns a user, if any, who has the specified normalized user name.
+            </summary>
+            <param name="normalizedUserName">The normalized user name to search for.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation, containing the user matching the specified <paramref name="normalizedUserName"/> if it exists.
+            </returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.Users">
+            <summary>
+            A navigation property for the users the store contains.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.FindRoleAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Return a role with the normalized name if it exists.
+            </summary>
+            <param name="normalizedRoleName">The normalized role name.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The role if it exists.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.FindUserRoleAsync(`3,`3,System.Threading.CancellationToken)">
+            <summary>
+            Return a user role for the userId and roleId if it exists.
+            </summary>
+            <param name="userId">The user's id.</param>
+            <param name="roleId">The role's id.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The user role if it exists.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.FindUserAsync(`3,System.Threading.CancellationToken)">
+            <summary>
+            Return a user with the matching userId if it exists.
+            </summary>
+            <param name="userId">The user's id.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The user if it exists.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.FindUserLoginAsync(`3,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Return a user login with the matching userId, provider, providerKey if it exists.
+            </summary>
+            <param name="userId">The user's id.</param>
+            <param name="loginProvider">The login provider name.</param>
+            <param name="providerKey">The key provided by the <paramref name="loginProvider"/> to identify a user.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The user login if it exists.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.FindUserLoginAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Return a user login with  provider, providerKey if it exists.
+            </summary>
+            <param name="loginProvider">The login provider name.</param>
+            <param name="providerKey">The key provided by the <paramref name="loginProvider"/> to identify a user.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The user login if it exists.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.AddToRoleAsync(`0,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Adds the given <paramref name="normalizedRoleName"/> to the specified <paramref name="user"/>.
+            </summary>
+            <param name="user">The user to add the role to.</param>
+            <param name="normalizedRoleName">The role to add.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.RemoveFromRoleAsync(`0,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Removes the given <paramref name="normalizedRoleName"/> from the specified <paramref name="user"/>.
+            </summary>
+            <param name="user">The user to remove the role from.</param>
+            <param name="normalizedRoleName">The role to remove.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.GetRolesAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves the roles the specified <paramref name="user"/> is a member of.
+            </summary>
+            <param name="user">The user whose roles should be retrieved.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> that contains the roles the user is a member of.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.IsInRoleAsync(`0,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Returns a flag indicating if the specified user is a member of the give <paramref name="normalizedRoleName"/>.
+            </summary>
+            <param name="user">The user whose role membership should be checked.</param>
+            <param name="normalizedRoleName">The role to check membership of</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> containing a flag indicating if the specified user is a member of the given group. If the 
+            user is a member of the group the returned value with be true, otherwise it will be false.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.GetClaimsAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Get the claims associated with the specified <paramref name="user"/> as an asynchronous operation.
+            </summary>
+            <param name="user">The user whose claims should be retrieved.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> that contains the claims granted to a user.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.AddClaimsAsync(`0,System.Collections.Generic.IEnumerable{System.Security.Claims.Claim},System.Threading.CancellationToken)">
+            <summary>
+            Adds the <paramref name="claims"/> given to the specified <paramref name="user"/>.
+            </summary>
+            <param name="user">The user to add the claim to.</param>
+            <param name="claims">The claim to add to the user.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.ReplaceClaimAsync(`0,System.Security.Claims.Claim,System.Security.Claims.Claim,System.Threading.CancellationToken)">
+            <summary>
+            Replaces the <paramref name="claim"/> on the specified <paramref name="user"/>, with the <paramref name="newClaim"/>.
+            </summary>
+            <param name="user">The user to replace the claim on.</param>
+            <param name="claim">The claim replace.</param>
+            <param name="newClaim">The new claim replacing the <paramref name="claim"/>.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.RemoveClaimsAsync(`0,System.Collections.Generic.IEnumerable{System.Security.Claims.Claim},System.Threading.CancellationToken)">
+            <summary>
+            Removes the <paramref name="claims"/> given from the specified <paramref name="user"/>.
+            </summary>
+            <param name="user">The user to remove the claims from.</param>
+            <param name="claims">The claim to remove.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.AddLoginAsync(`0,Microsoft.AspNetCore.Identity.UserLoginInfo,System.Threading.CancellationToken)">
+            <summary>
+            Adds the <paramref name="login"/> given to the specified <paramref name="user"/>.
+            </summary>
+            <param name="user">The user to add the login to.</param>
+            <param name="login">The login to add to the user.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.RemoveLoginAsync(`0,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Removes the <paramref name="loginProvider"/> given from the specified <paramref name="user"/>.
+            </summary>
+            <param name="user">The user to remove the login from.</param>
+            <param name="loginProvider">The login to remove from the user.</param>
+            <param name="providerKey">The key provided by the <paramref name="loginProvider"/> to identify a user.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.GetLoginsAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves the associated logins for the specified <param ref="user"/>.
+            </summary>
+            <param name="user">The user whose associated logins to retrieve.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> for the asynchronous operation, containing a list of <see cref="T:Microsoft.AspNetCore.Identity.UserLoginInfo"/> for the specified <paramref name="user"/>, if any.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.FindByLoginAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves the user associated with the specified login provider and login provider key.
+            </summary>
+            <param name="loginProvider">The login provider who provided the <paramref name="providerKey"/>.</param>
+            <param name="providerKey">The key provided by the <paramref name="loginProvider"/> to identify a user.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> for the asynchronous operation, containing the user, if any which matched the specified login provider and key.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.FindByEmailAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets the user, if any, associated with the specified, normalized email address.
+            </summary>
+            <param name="normalizedEmail">The normalized email address to return the user for.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>
+            The task object containing the results of the asynchronous lookup operation, the user if any associated with the specified normalized email address.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.GetUsersForClaimAsync(System.Security.Claims.Claim,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves all users with the specified claim.
+            </summary>
+            <param name="claim">The claim whose users should be retrieved.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> contains a list of users, if any, that contain the specified claim. 
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.GetUsersInRoleAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves all users in the specified role.
+            </summary>
+            <param name="normalizedRoleName">The role whose users should be retrieved.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> contains a list of users, if any, that are in the specified role. 
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.FindTokenAsync(`0,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Find a user token if it exists.
+            </summary>
+            <param name="user">The token owner.</param>
+            <param name="loginProvider">The login provider for the token.</param>
+            <param name="name">The name of the token.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+            <returns>The user token if it exists.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.AddUserTokenAsync(`7)">
+            <summary>
+            Add a new user token.
+            </summary>
+            <param name="token">The token to be added.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore`9.RemoveUserTokenAsync(`7)">
+            <summary>
+            Remove a new user token.
+            </summary>
+            <param name="token">The token to be removed.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions">
+            <summary>
+            Contains extension methods to <see cref="T:Microsoft.AspNetCore.Identity.IdentityBuilder"/> for adding entity framework stores.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores``1(Microsoft.AspNetCore.Identity.IdentityBuilder)">
+            <summary>
+            Adds an Entity Framework implementation of identity information stores.
+            </summary>
+            <typeparam name="TContext">The Entity Framework database context to use.</typeparam>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Identity.IdentityBuilder"/> instance this method extends.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Identity.IdentityBuilder"/> instance this method extends.</returns>
+        </member>
+    </members>
+</doc>

@@ -12,7 +12,7 @@ Simply clone the repository and follow the README.md to build out a feature-pack
 
 The solution works in:
 
-- [Visual Studio 2017](https://www.visualstudio.com/downloads/)
+- [Visual Studio 2019](https://www.visualstudio.com/downloads/)
 - [Visual Studio for Mac](https://www.visualstudio.com/vs/visual-studio-mac/)
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [JetBrains Rider](https://www.jetbrains.com/rider/)
@@ -25,17 +25,21 @@ If you find any bugs, please [send us a pull request](https://github.com/elastic
 
 Download and install:
 
- - [Elasticsearch 6.x - preferably latest](https://www.elastic.co/downloads/). If you are using Windows, take advantage of the MSI installer (you won't need to install any plugins).
+ - [Elasticsearch 7.x - preferably latest](https://www.elastic.co/downloads/). If you are using Windows, take advantage of the MSI installer (you won't need to install any plugins).
  
- - [Kibana 6.x - same version as Elasticsearch](https://www.elastic.co/downloads/kibana).
+ - [Kibana 7.x - same version as Elasticsearch](https://www.elastic.co/downloads/kibana).
 
- - [.NET Core SDK 2.1.300 64-Bit](https://www.microsoft.com/net/download/thank-you/dotnet-sdk-2.1.300-windows-x64-installer) for your platform
-
- - [Java - preferably latest](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html). Ensure `JAVA_HOME` environment variable points to the correct Java directory e.g. `C:\Program Files\Java\jdk1.8.0_172`.
+ - [.NET Core SDK 3.0.100 64-Bit](https://dotnet.microsoft.com/download/dotnet-core/3.0) for your platform
 
  - [NuGet Feed Data zip](https://nusearch.blob.core.windows.net/dump/nuget-data-jul-2017.zip).
  
- - [Fiddler](https://www.telerik.com/download/fiddler) - to see the requests to and responses from Elasticsearch (optional).
+ __Optional:__
+ 
+ - [Java - preferably latest](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html). Elasticsearch 7.x ships with a Java distribution so
+ does not need to be downloaded, but in case you want to run with a specific version of Java, you can install and ensure `JAVA_HOME` environment variable points to 
+ the correct Java directory e.g. `C:\Program Files\Java\jdk1.8.0_172`.
+
+ - [Fiddler](https://www.telerik.com/download/fiddler) - to see the requests to and responses from Elasticsearch.
  
 Once everything is installed, it's time to:
 
@@ -47,7 +51,7 @@ Once everything is installed, it's time to:
 
 Clone this repository and open the solution using any of
 
-- [Visual Studio 2017](https://www.visualstudio.com/downloads/)
+- [Visual Studio 2019](https://www.visualstudio.com/downloads/)
 - [Visual Studio for Mac](https://www.visualstudio.com/vs/visual-studio-mac/) 
 - [Visual Studio Code](https://code.visualstudio.com/) 
 - [JetBrains Rider](https://www.jetbrains.com/rider/)
@@ -203,7 +207,7 @@ _What happened?_
 
 We tried to index a document, but the client did not have enough information to infer all of the required parts that make up URI _path_ to a document. 
 
-Both `type` and `id` have a value set but `index` resolved to `NULL`. Why is that?
+`id` has a value set but `index` resolved to `NULL`. Why is that?
 
 Notice in our application, we never specified the index. We can specify it in several ways using NEST, but for now let's just set a default index for the entire client in the `ConnectionSettings` class:
 
@@ -249,7 +253,7 @@ You should get back a response similar to the following
       "hits": [
       {
         "_index": "nusearch",
-        "_type": "feedpackage",
+        "_type": "_doc",
         "_id": "635200370491429946",
         "_score": 1,
         "_source": {
@@ -281,36 +285,11 @@ You should get back a response similar to the following
 }
 ```
 
-Looking at the metadata within the `hits.hits` array - `_index` tells us what index the document belongs to, which in this case is `nusearch`, as expected since its our default index. However, we never specified a type and yet `_type` is returned as `feedpackage`.
+Looking at the metadata within the `hits.hits` array - `_index` tells us what index the document belongs to, which in this case is `nusearch`.
 
-_How did that happen?_
+We did not specify an Id for the document, but notice that `_id` is set to the NuGet package Id.  NEST is smart enough to infer the Id by convention, looking for an `Id` property on the POCO instance.
 
-Since we did not explicitly set a type for the index request, NEST automatically inferred the type `feedpackage` from the C# POCO type name.
-
-Additionally, we did not specify an Id for the document, but notice that `_id` is set to the NuGet package Id.  NEST is smart enough to infer the Id by convention, looking for an `Id` property on the POCO instance.
-
-Let's change the type name here to `package` instead.  We could do this explicitly in the index request itself:
-
-```csharp
-var result = Client.Index(package, i => i
-    .Type("package") // We could do this...
-);
-```
-
-This could be useful, but we'd have to remember to always specify the type when Elasticsearch requires it.  Most of the time you just want a specific POCO to map to a specific Elasticsearch type, so let's tell NEST to always use the Elasticsearch type `package` when dealing with a `FeedPackage` by adding it to the `ConnectionSettings`:
-
-```csharp
-static NuSearchConfiguration()
-{
-    _connectionSettings = new ConnectionSettings(CreateUri(9200))
-        .DefaultIndex("nusearch")
-        .DefaultMappingFor<FeedPackage>(i => i
-            .TypeName("package")
-        );
-}
-```
-
-Let's take this a step further and instead of relying on a default index, let's tell NEST to always route requests to the `nusearch` index when dealing with instances of `FeedPackage`
+Instead of relying on a default index, let's tell NEST to always route requests to the `nusearch` index when dealing with instances of `FeedPackage`
 
 ```csharp
 static NuSearchConfiguration()
@@ -318,7 +297,6 @@ static NuSearchConfiguration()
     _connectionSettings = new ConnectionSettings(CreateUri(9200))
         .DefaultIndex("nusearch")
         .DefaultMappingFor<FeedPackage>(i=>i
-            .TypeName("package")
             .IndexName("nusearch") // Add this.
         );
 }
@@ -362,7 +340,7 @@ Checking our results in Kibana Console again, our hits metadata should now look 
 
 ```json
 "_index": "nusearch",
-"_type": "package",
+"_type": "_doc",
 "_id": "01d60cc9-6e4d-4119-93d3-9634180b8e87",
 "_score": 1,
 ```
@@ -416,11 +394,11 @@ Let's take a look at the request that `Bulk()` generates in Fiddler. It builds a
 
 ```json
 ...
-{ "index" :  {"_index":"nusearch","_type":"package","_id":"NEST"} }
+{ "index" :  {"_index":"nusearch","_id":"NEST"} }
 {"id":"NEST","version":"1.4.3.0","authors":"Elasticsearch, Inc." }
-{ "index" :  {"_index":"nusearch","_type":"package","_id":"Elasticsearch.Net"} }
+{ "index" :  {"_index":"nusearch","_id":"Elasticsearch.Net"} }
 {"id":"nest","version":"1.4.3.0","authors":"Elasticsearch, Inc." }
-{ "index" :  {"_index":"nusearch","_type":"package","_id":"Newtonsoft.Json"} }
+{ "index" :  {"_index":"nusearch","_id":"Newtonsoft.Json"} }
 {"id":"Newtonsoft.Json","version":"1.4.3.0","authors":"James K. Newton" }
 ...
 ```
@@ -430,9 +408,9 @@ The response from the bulk API will be a collection of operation results, each w
 ```json
 ...
 "items": [
-    {"index":{"_index":"nusearch","_type":"package","_id":"NEST","_version":1,"status":201}},
-    {"index":{"_index":"nusearch","_type":"package","_id":"Elasticsearch.NET","_version":1,"status":201}},
-    {"index":{"_index":"nusearch","_type":"package","_id":"Newtonsoft.Json","_version":1,"status":201}}
+    {"index":{"_index":"nusearch","_type":"_doc","_id":"NEST","_version":1,"status":201}},
+    {"index":{"_index":"nusearch","_type":"_doc","_id":"Elasticsearch.NET","_version":1,"status":201}},
+    {"index":{"_index":"nusearch","_type":"_doc","_id":"Newtonsoft.Json","_version":1,"status":201}}
 ]
 ...
 ```
@@ -582,14 +560,13 @@ These classes are described below:
 
 - `PackageDependency` contains dependency information for a given package, the assembly name, version, and supported framework.
 
-To use these, we need to change the type name and index name mappings on our `ConnectionSettings` to use the new `Package` type (instead of `FeedPackage`):
+To use these, we need to change the index name mappings on our `ConnectionSettings` to use the new `Package` type (instead of `FeedPackage`):
 
 ```csharp
 static NuSearchConfiguration()
 {
     _connectionSettings = new ConnectionSettings(CreateUri(9200))
         .DefaultMappingFor<Package>(i => i
-            .TypeName("package")
             .IndexName("nusearch")
         );
 }
@@ -606,33 +583,32 @@ Let's add a `CreateIndex()` to `Program.cs` in `NuSearch.Indexer` with the follo
 ```csharp
 static void CreateIndex()
 {
-    Client.CreateIndex("nusearch", i => i
+    Client.Indices.Create("nusearch", i => i
         .Settings(s => s
             .NumberOfShards(2)
             .NumberOfReplicas(0)
+            .Setting("index.mapping.nested_objects.limit", 12000)
         )
-        .Mappings(m=>m
-            .Map<Package>(map => map
-                .AutoMap()
-                .Properties(ps => ps
-                    .Nested<PackageVersion>(n => n
-                        .Name(p => p.Versions.First())
-                        .AutoMap()
-                        .Properties(pps => pps
-                            .Nested<PackageDependency>(nn => nn
-                                .Name(pv => pv.Dependencies.First())
-                                .AutoMap()
-                            )
+        .Map<Package>(map => map
+            .AutoMap()
+            .Properties(ps => ps
+                .Nested<PackageVersion>(n => n
+                    .Name(p => p.Versions.First())
+                    .AutoMap()
+                    .Properties(pps => pps
+                        .Nested<PackageDependency>(nn => nn
+                            .Name(pv => pv.Dependencies.First())
+                            .AutoMap()
                         )
                     )
-                    .Nested<PackageAuthor>(n => n
-                        .Name(p => p.Authors.First())
-                        .AutoMap()
-                        .Properties(props => props
-                            .Text(t => t
-                                .Name(a => a.Name)
-                                .Fielddata()
-                            )
+                )
+                .Nested<PackageAuthor>(n => n
+                    .Name(p => p.Authors.First())
+                    .AutoMap()
+                    .Properties(props => props
+                        .Text(t => t
+                            .Name(a => a.Name)
+                            .Fielddata()
                         )
                     )
                 )
@@ -642,7 +618,7 @@ static void CreateIndex()
 }
 ```
 
-Let's break down the `CreateIndex()` call.
+Let's break down the `Indices.Create()` call.
 
 First, we're creating an index named `nusearch` with 2 primary shards and no replicas. Prior to this Elasticsearch, by default, created the `nusearch` index with 5 primary shards and 1 replica.
 
@@ -687,13 +663,20 @@ static void IndexDumps()
         .Size(1000)
     );
 
+    ExceptionDispatchInfo captureInfo = null;
+
     bulkAll.Subscribe(new BulkAllObserver(
         onNext: b => Console.Write("."),
-        onError: e => throw e,
+        onError: e =>
+        {
+            captureInfo = ExceptionDispatchInfo.Capture(e);
+        	waitHandle.Signal();
+        },
         onCompleted: () => waitHandle.Signal()
     ));
 
     waitHandle.Wait();
+    captureInfo?.Throw();
     Console.WriteLine("Done.");
 }
 ```
@@ -800,9 +783,9 @@ Let's now add some code in the `NuSearch.Indexer` project on the `Program` class
 ```csharp
 private static void SwapAlias()
 {
-    var indexExists = Client.IndexExists(NuSearchConfiguration.LiveIndexAlias).Exists;
+    var indexExists = Client.Indices.Exists(NuSearchConfiguration.LiveIndexAlias).Exists;
 
-    Client.Alias(aliases =>
+    Client.Indices.BulkAlias(aliases =>
     {
         if (indexExists)
             aliases.Add(a => a.Alias(NuSearchConfiguration.OldIndexAlias).Index(NuSearchConfiguration.LiveIndexAlias));
@@ -817,14 +800,14 @@ private static void SwapAlias()
         .Skip(2);
 
     foreach (var oldIndex in oldIndices)
-        Client.DeleteIndex(oldIndex);
+        Client.Indices.Delete(oldIndex);
 }
 ```
 
-We now need to edit `CreateIndex()` to use our new `CurrentIndexName`:
+We now need to edit `Indices.Create()` to use our new `CurrentIndexName`:
 
 ```csharp
-Client.CreateIndex(CurrentIndexName, i => i
+Client.Indices.Create(CurrentIndexName, i => i
     // ...
 )
 ```
@@ -906,7 +889,7 @@ You can start the web application by navigating to the `NuSearch.Web` directory 
 dotnet run
 ```
 
-You can then browse the NuSearch web application locally: [http://localhost:5000](http://localhost:5000) (this may be a different port if there is a conflict, the port number is outputted to the console).
+You can then browse the NuSearch web application locally: [http://localhost:64901](http://localhost:64901) (this may be a different port if there is a conflict, the port number is outputted to the console).
 
 If all is well you should now see the site with 'No results', if you have a problem see the [troubleshooting section](#Troubleshooting).
 
@@ -963,7 +946,6 @@ static NuSearchConfiguration()
 {
     _connectionSettings = new ConnectionSettings(CreateUri(9200))
         .DefaultMappingFor<Package>(i => i
-            .TypeName("package")
             .IndexName("nusearch")
         )
         .PrettyJson(); // Add this.
@@ -1052,7 +1034,7 @@ If you restart the web application you should see some search results:
 In `Search/Index.cshtml` there are two templates, for when we have and do not have search results:
 
 ```csharp
-@Html.Partial(Model.Total > 0 ? "Results" : "NoResults", Model)
+@await Html.PartialAsync(Model.Total > 0 ? "Results" : "NoResults", Model)
 ```
 
 As a final exercise let's explicitly ask for 25 items instead of the default 10 items, modify the search query to the following:
@@ -1374,7 +1356,7 @@ Elasticsearch allows you to build your own analysis chain to find the right term
 * [Tokenizer](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-tokenizers.html) an analysis chain can have only 1 tokenizer, which cuts the provided string up in to terms.
 * [Token filters](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-tokenfilters.html) operate on each individual token and unlike the name might imply, these `filter`s are not just able to remove terms but also replace or inject even more terms.
 
-Let's set up some analysis chains when we create the index. The following is specified as part of the call to `.Settings()` within the `CreateIndex()` method:
+Let's set up some analysis chains when we create the index. The following is specified as part of the call to `.Settings()` within the `Indices.Create()` method:
 
 ```csharp
 .Analysis(analysis => analysis
@@ -1701,7 +1683,7 @@ var result = _client.Search<Package>(new SearchRequest<Package>
 Let's now add pagination and sorting so we can easily browse the search results. Uncomment the following in `Views/Shared/SearchCriteria.cshtml`:
 
 ```cshtml
-    @* @Html.Partial("ControlHits", Model) *@
+    @* @await Html.PartialAsync("ControlHits", Model) *@
 ```
 
 In `SearchController`, lets update the model with the total number of pages:
@@ -1957,7 +1939,7 @@ var model = new SearchViewModel
 There is already a partial view for displaying these results, open up `Views/Shared/Results.cshtml` view and uncomment it:
 
 ```csharp
-@* @Html.Partial("Aggregations", Model) *@
+@* @await Html.PartialAsync("Aggregations", Model) *@
 ```
 
 Re-run the web application and you should now have a right-hand navigation that contains the results from our `author-names` aggregation. But wait, something strange is going on with the author names. There's are several lowercased first names, and other generic terms like 'inc' and 'software'. What is going on?
@@ -2194,7 +2176,7 @@ You should get back a response similar to:
           {
             "text" : "Newtonsoft",
             "_index" : "nusearch-26-10-2016-23-36-19",
-            "_type" : "package",
+            "_type" : "_doc",
             "_id" : "Newtonsoft.Json",
             "_score" : 1.2430751E7,
             "_source" : {
@@ -2206,7 +2188,7 @@ You should get back a response similar to:
           {
             "text" : "Newtonsoft",
             "_index" : "nusearch-26-10-2016-23-36-19",
-            "_type" : "package",
+            "_type" : "_doc",
             "_id" : "Newtonsoft.Json.Glimpse",
             "_score" : 10706.0,
             "_source" : {
@@ -2217,7 +2199,7 @@ You should get back a response similar to:
           {
             "text" : "NewtonsoftJson",
             "_index" : "nusearch-26-10-2016-23-36-19",
-            "_type" : "package",
+            "_type" : "_doc",
             "_id" : "Rebus.NewtonsoftJson",
             "_score" : 5787.0,
             "_source" : {
@@ -2228,7 +2210,7 @@ You should get back a response similar to:
           {
             "text" : "Newtonsoft",
             "_index" : "nusearch-26-10-2016-23-36-19",
-            "_type" : "package",
+            "_type" : "_doc",
             "_id" : "Newtonsoft.JsonResult",
             "_score" : 4266.0,
             "_source" : {
@@ -2239,7 +2221,7 @@ You should get back a response similar to:
           {
             "text" : "Newtonsoft",
             "_index" : "nusearch-26-10-2016-23-36-19",
-            "_type" : "package",
+            "_type" : "_doc",
             "_id" : "Newtonsoft.Msgpack",
             "_score" : 1649.0,
             "_source" : {

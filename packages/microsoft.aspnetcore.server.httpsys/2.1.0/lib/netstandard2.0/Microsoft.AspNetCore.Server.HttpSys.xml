@@ -1,0 +1,482 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Server.HttpSys</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager">
+            <summary>
+            Exposes the Http.Sys authentication configurations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.Helpers.GetChunkHeader(System.Int32)">
+            <summary>
+            A private utility routine to convert an integer to a chunk header,
+            which is an ASCII hex number followed by a CRLF.The header is returned
+            as a byte array.
+            Generates a right-aligned hex string and returns the start offset.
+            </summary>
+            <param name="size">Chunk size to be encoded</param>
+            <returns>A byte array with the header in int.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.HttpSys.Http503VerbosityLevel">
+            <summary>
+            Enum declaring the allowed values for the verbosity level when http.sys reject requests due to throttling.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Server.HttpSys.Http503VerbosityLevel.Basic">
+            <summary>
+            A 503 response is not sent; the connection is reset. This is the default HTTP Server API behavior.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Server.HttpSys.Http503VerbosityLevel.Limited">
+            <summary>
+            The HTTP Server API sends a 503 response with a "Service Unavailable" reason phrase.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Server.HttpSys.Http503VerbosityLevel.Full">
+            <summary>
+            The HTTP Server API sends a 503 response with a detailed reason phrase. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Server.HttpSys.HttpSysDefaults.AuthenticationScheme">
+            <summary>
+            The name of the authentication scheme used.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.HttpSys.HttpSysListener">
+            <summary>
+            An HTTP server wrapping the Http.Sys APIs that accepts requests.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.HttpSysListener.Start">
+            <summary>
+            Start accepting incoming requests.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.HttpSysListener.Dispose">
+            <summary>
+            Stop the server and clean up.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.HttpSysListener.AcceptAsync">
+            <summary>
+            Accept a request from the incoming request queue.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxAccepts">
+            <summary>
+            The maximum number of concurrent accepts.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.EnableResponseCaching">
+            <summary>
+            Attempts kernel mode caching for responses with eligible headers. The response may not include
+            Set-Cookie, Vary, or Pragma headers. It must include a Cache-Control header with Public and
+            either a Shared-Max-Age or Max-Age value, or an Expires header.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes">
+            <summary>
+            The url prefixes to register with Http.Sys. These may be modified at any time prior to disposing
+            the listener.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.Authentication">
+            <summary>
+            Http.Sys authentication settings. These may be modified at any time prior to disposing
+            the listener.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.Timeouts">
+            <summary>
+            Exposes the Http.Sys timeout configurations.  These may also be configured in the registry.
+            These may be modified at any time prior to disposing the listener.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.ThrowWriteExceptions">
+            <summary>
+            Gets or Sets if response body writes that fail due to client disconnects should throw exceptions or
+            complete normally. The default is false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections">
+            <summary>
+            Gets or sets the maximum number of concurrent connections to accept, -1 for infinite, or null to
+            use the machine wide setting from the registry. The default value is null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.RequestQueueLimit">
+            <summary>
+            Gets or sets the maximum number of requests that will be queued up in Http.Sys.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize">
+            <summary>
+            Gets or sets the maximum allowed size of any request body in bytes.
+            When set to null, the maximum request body size is unlimited.
+            This limit has no effect on upgraded connections which are always unlimited.
+            This can be overridden per-request via <see cref="T:Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature"/>.
+            </summary>
+            <remarks>
+            Defaults to 30,000,000 bytes, which is approximately 28.6MB.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.AllowSynchronousIO">
+            <summary>
+            Gets or sets a value that controls whether synchronous IO is allowed for the HttpContext.Request.Body and HttpContext.Response.Body.
+            The default is `true`.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.Http503Verbosity">
+            <summary>
+            Gets or sets a value that controls how http.sys reacts when rejecting requests due to throttling conditions - like when the request
+            queue limit is reached. The default in http.sys is "Basic" which means http.sys is just resetting the TCP connection. IIS uses Limited
+            as its default behavior which will result in sending back a 503 - Service Unavailable back to the client.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.HttpSys.TokenBindingUtil">
+            <summary>
+            Contains helpers for dealing with TLS token binding.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.TokenBindingUtil.GetProvidedTokenIdFromBindingInfo(Microsoft.AspNetCore.HttpSys.Internal.HttpApiTypes.HTTP_REQUEST_TOKEN_BINDING_INFO*,System.Byte[]@)">
+            <summary>
+            Returns the 'provided' token binding identifier, optionally also returning the
+            'referred' token binding identifier. Returns null on failure.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.Resources.Exception_ArrayTooSmall">
+            <summary>
+            The destination array is too small.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.Resources.FormatException_ArrayTooSmall">
+            <summary>
+            The destination array is too small.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.Resources.Exception_EndCalledMultipleTimes">
+            <summary>
+            End has already been called.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.Resources.FormatException_EndCalledMultipleTimes">
+            <summary>
+            End has already been called.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.Resources.Exception_InvalidStatusCode">
+            <summary>
+            The status code '{0}' is not supported.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.Resources.FormatException_InvalidStatusCode(System.Object)">
+            <summary>
+            The status code '{0}' is not supported.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.Resources.Exception_NoSeek">
+            <summary>
+            The stream is not seekable.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.Resources.FormatException_NoSeek">
+            <summary>
+            The stream is not seekable.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.Resources.Exception_PrefixAlreadyRegistered">
+            <summary>
+            The prefix '{0}' is already registered.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.Resources.FormatException_PrefixAlreadyRegistered(System.Object)">
+            <summary>
+            The prefix '{0}' is already registered.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.Resources.Exception_ReadOnlyStream">
+            <summary>
+            This stream only supports read operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.Resources.FormatException_ReadOnlyStream">
+            <summary>
+            This stream only supports read operations.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.Resources.Exception_TooMuchWritten">
+            <summary>
+            More data written than specified in the Content-Length header.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.Resources.FormatException_TooMuchWritten">
+            <summary>
+            More data written than specified in the Content-Length header.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.Resources.Exception_UnsupportedScheme">
+            <summary>
+            Only the http and https schemes are supported.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.Resources.FormatException_UnsupportedScheme">
+            <summary>
+            Only the http and https schemes are supported.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.Resources.Exception_WriteOnlyStream">
+            <summary>
+            This stream only supports write operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.Resources.FormatException_WriteOnlyStream">
+            <summary>
+            This stream only supports write operations.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.Resources.Exception_WrongIAsyncResult">
+            <summary>
+            The given IAsyncResult does not match this opperation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.Resources.FormatException_WrongIAsyncResult">
+            <summary>
+            The given IAsyncResult does not match this opperation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.Resources.Warning_ExceptionInOnResponseCompletedAction">
+            <summary>
+            An exception occured while running an action registered with {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.Resources.FormatWarning_ExceptionInOnResponseCompletedAction(System.Object)">
+            <summary>
+            An exception occured while running an action registered with {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.RequestContext.Dispose">
+            <summary>
+            Flushes and completes the response.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.RequestContext.Abort">
+            <summary>
+            Forcibly terminate and dispose the request, closing the connection if necessary.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.Response.AuthenticationChallenges">
+            <summary>
+            The authentication challenges that will be added to the response if the status code is 401.
+            This must be a subset of the AuthenticationSchemes enabled on the server.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.Response.CacheTtl">
+            <summary>
+            Enable kernel caching for the response with the given timeout. Http.Sys determines if the response
+            can be cached.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.Response.HasStarted">
+            <summary>
+            Indicates if the response status, reason, and headers are prepared to send and can
+            no longer be modified. This is caused by the first write or flush to the response body.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager">
+            <summary>
+            Exposes the Http.Sys timeout configurations.  These may also be configured in the registry.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.EntityBody">
+             <summary>
+             The time, in seconds, allowed for the request entity body to arrive.  The default timer is 2 minutes.
+             
+             The HTTP Server API turns on this timer when the request has an entity body. The timer expiration is 
+             initially set to the configured value. When the HTTP Server API receives additional data indications on the 
+             request, it resets the timer to give the connection another interval.
+            
+             Use TimeSpan.Zero to indicate that system defaults should be used.
+             </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.DrainEntityBody">
+             <summary>
+             The time, in seconds, allowed for the HTTP Server API to drain the entity body on a Keep-Alive connection. 
+             The default timer is 2 minutes.
+             
+             On a Keep-Alive connection, after the application has sent a response for a request and before the request 
+             entity body has completely arrived, the HTTP Server API starts draining the remainder of the entity body to 
+             reach another potentially pipelined request from the client. If the time to drain the remaining entity body 
+             exceeds the allowed period the connection is timed out.
+            
+             Use TimeSpan.Zero to indicate that system defaults should be used.
+             </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.RequestQueue">
+             <summary>
+             The time, in seconds, allowed for the request to remain in the request queue before the application picks 
+             it up.  The default timer is 2 minutes.
+            
+             Use TimeSpan.Zero to indicate that system defaults should be used.
+             </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.IdleConnection">
+             <summary>
+             The time, in seconds, allowed for an idle connection.  The default timer is 2 minutes.
+             
+             This timeout is only enforced after the first request on the connection is routed to the application.
+            
+             Use TimeSpan.Zero to indicate that system defaults should be used.
+             </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.HeaderWait">
+             <summary>
+             The time, in seconds, allowed for the HTTP Server API to parse the request header.  The default timer is 
+             2 minutes.
+              
+             This timeout is only enforced after the first request on the connection is routed to the application.
+            
+             Use TimeSpan.Zero to indicate that system defaults should be used.
+             </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.MinSendBytesPerSecond">
+             <summary>
+             The minimum send rate, in bytes-per-second, for the response. The default response send rate is 150 
+             bytes-per-second.
+             
+             Use 0 to indicate that system defaults should be used.
+            
+             To disable this timer set it to UInt32.MaxValue
+             </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.UrlPrefix.Create(System.String,System.String,System.String,System.String)">
+            <summary>
+            http://msdn.microsoft.com/en-us/library/windows/desktop/aa364698(v=vs.85).aspx
+            </summary>
+            <param name="scheme">http or https. Will be normalized to lower case.</param>
+            <param name="host">+, *, IPv4, [IPv6], or a dns name. Http.Sys does not permit punycode (xn--), use Unicode instead.</param>
+            <param name="port">If empty, the default port for the given scheme will be used (80 or 443).</param>
+            <param name="path">Should start and end with a '/', though a missing trailing slash will be added. This value must be un-escaped.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.HttpSys.UrlPrefix.Create(System.String,System.String,System.Nullable{System.Int32},System.String)">
+            <summary>
+            http://msdn.microsoft.com/en-us/library/windows/desktop/aa364698(v=vs.85).aspx
+            </summary>
+            <param name="scheme">http or https. Will be normalized to lower case.</param>
+            <param name="host">+, *, IPv4, [IPv6], or a dns name. Http.Sys does not permit punycode (xn--), use Unicode instead.</param>
+            <param name="portValue">If empty, the default port for the given scheme will be used (80 or 443).</param>
+            <param name="path">Should start and end with a '/', though a missing trailing slash will be added. This value must be un-escaped.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection">
+            <summary>
+            A collection or URL prefixes
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.WebHostBuilderHttpSysExtensions.UseHttpSys(Microsoft.AspNetCore.Hosting.IWebHostBuilder)">
+            <summary>
+            Specify HttpSys as the server to be used by the web host.
+            </summary>
+            <param name="hostBuilder">
+            The Microsoft.AspNetCore.Hosting.IWebHostBuilder to configure.
+            </param>
+            <returns>
+            The Microsoft.AspNetCore.Hosting.IWebHostBuilder.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.WebHostBuilderHttpSysExtensions.UseHttpSys(Microsoft.AspNetCore.Hosting.IWebHostBuilder,System.Action{Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions})">
+            <summary>
+            Specify HttpSys as the server to be used by the web host.
+            </summary>
+            <param name="hostBuilder">
+            The Microsoft.AspNetCore.Hosting.IWebHostBuilder to configure.
+            </param>
+            <param name="options">
+            A callback to configure HttpSys options.
+            </param>
+            <returns>
+            The Microsoft.AspNetCore.Hosting.IWebHostBuilder.
+            </returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.HttpSys.Internal.SocketAddress">
+            <devdoc>
+               <para>
+                  This class is used when subclassing EndPoint, and provides indication
+                  on how to format the memory buffers that winsock uses for network addresses.
+               </para>
+            </devdoc>
+        </member>
+        <member name="M:Microsoft.AspNetCore.HttpSys.Internal.SocketAddress.#ctor(System.Net.Sockets.AddressFamily,System.Int32)">
+            <devdoc>
+               <para>[To be supplied.]</para>
+            </devdoc>
+        </member>
+        <member name="P:Microsoft.AspNetCore.HttpSys.Internal.SocketAddress.Item(System.Int32)">
+            <devdoc>
+               <para>[To be supplied.]</para>
+            </devdoc>
+        </member>
+        <member name="M:Microsoft.AspNetCore.HttpSys.Internal.RawUrlHelper.GetPath(System.Byte[])">
+            <summary>
+            Find the segment of the URI byte array which represents the path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.HttpSys.Internal.RawUrlHelper.FindHttpOrHttps(System.Byte[])">
+            <summary>
+            Compare the beginning portion of the raw URL byte array to https:// and http://
+            </summary>
+            <param name="raw">The byte array represents the raw URI</param>
+            <returns>Length of the matched bytes, 0 if it is not matched.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.HttpSys.Internal.RequestUriBuilder.Unescape(System.ArraySegment{System.Byte})">
+            <summary>
+            Unescape a given path string in place. The given path string  may contain escaped char.
+            </summary>
+            <param name="rawPath">The raw path string to be unescaped</param>
+            <returns>The unescaped path string</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.HttpSys.Internal.RequestUriBuilder.DecodeCore(System.Int32@,System.Int32@,System.Int32,System.Byte[])">
+            <summary>
+            Unescape the percent-encodings
+            </summary>
+            <param name="reader">The iterator point to the first % char</param>
+            <param name="writer">The place to write to</param>
+            <param name="end">The end of the buffer</param>
+            <param name="buffer">The byte array</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.HttpSys.Internal.RequestUriBuilder.UnescapePercentEncoding(System.Int32@,System.Int32,System.Byte[])">
+            <summary>
+            Read the percent-encoding and try unescape it.
+            
+            The operation first peek at the character the <paramref name="scan"/> 
+            iterator points at. If it is % the <paramref name="scan"/> is then 
+            moved on to scan the following to characters. If the two following 
+            characters are hexadecimal literals they will be unescaped and the 
+            value will be returned.
+            
+            If the first character is not % the <paramref name="scan"/> iterator 
+            will be removed beyond the location of % and -1 will be returned.
+            
+            If the following two characters can't be successfully unescaped the 
+            <paramref name="scan"/> iterator will be move behind the % and -1 
+            will be returned.
+            </summary>
+            <param name="scan">The value to read</param>
+            <param name="end">The end of the buffer</param>
+            <param name="buffer">The byte array</param>
+            <returns>The unescaped byte if success. Otherwise return -1.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.HttpSys.Internal.RequestUriBuilder.ReadHex(System.Int32@,System.Int32,System.Byte[])">
+            <summary>
+            Read the next char and convert it into hexadecimal value.
+            
+            The <paramref name="scan"/> iterator will be moved to the next
+            byte no matter no matter whether the operation successes.
+            </summary>
+            <param name="scan">The value to read</param>
+            <param name="end">The end of the buffer</param>
+            <param name="buffer">The byte array</param>
+            <returns>The hexadecimal value if successes, otherwise -1.</returns>
+        </member>
+    </members>
+</doc>

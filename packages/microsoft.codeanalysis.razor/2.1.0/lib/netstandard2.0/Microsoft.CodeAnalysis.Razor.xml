@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.CodeAnalysis.Razor</name>
+    </assembly>
+    <members>
+        <member name="M:Microsoft.CodeAnalysis.Razor.DefaultTagHelperDescriptorFactory.CreateDescriptor(Microsoft.CodeAnalysis.INamedTypeSymbol)">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.Razor.Resources.TagHelper_CouldNotFindMatchingEndBrace">
+            <summary>
+            Could not find matching ']' for required attribute '{0}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CodeAnalysis.Razor.Resources.FormatTagHelper_CouldNotFindMatchingEndBrace(System.Object)">
+            <summary>
+            Could not find matching ']' for required attribute '{0}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.Razor.Resources.TagHelper_InvalidAttributePrefixNotNull">
+            <summary>
+            Invalid tag helper bound property '{1}' on tag helper '{0}'. '{2}.{3}' must be null unless property type implements '{4}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CodeAnalysis.Razor.Resources.FormatTagHelper_InvalidAttributePrefixNotNull(System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper bound property '{1}' on tag helper '{0}'. '{2}.{3}' must be null unless property type implements '{4}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.Razor.Resources.TagHelper_InvalidAttributeNameNotNullOrEmpty">
+            <summary>
+            Invalid tag helper bound property '{1}' on tag helper '{0}'. '{2}.{3}' must be null or empty if property has no public setter.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CodeAnalysis.Razor.Resources.FormatTagHelper_InvalidAttributeNameNotNullOrEmpty(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper bound property '{1}' on tag helper '{0}'. '{2}.{3}' must be null or empty if property has no public setter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.Razor.Resources.TagHelper_InvalidAttributePrefixNull">
+            <summary>
+            Invalid tag helper bound property '{1}' on tag helper '{0}'. '{2}.{3}' must not be null if property has no public setter and its type implements '{4}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CodeAnalysis.Razor.Resources.FormatTagHelper_InvalidAttributePrefixNull(System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper bound property '{1}' on tag helper '{0}'. '{2}.{3}' must not be null if property has no public setter and its type implements '{4}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.Razor.Resources.TagHelper_InvalidRequiredAttributeCharacter">
+            <summary>
+            Invalid required attribute character '{0}' in required attribute '{1}'. Separate required attributes with commas.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CodeAnalysis.Razor.Resources.FormatTagHelper_InvalidRequiredAttributeCharacter(System.Object,System.Object)">
+            <summary>
+            Invalid required attribute character '{0}' in required attribute '{1}'. Separate required attributes with commas.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.Razor.Resources.TagHelper_InvalidRequiredAttributeMismatchedQuotes">
+            <summary>
+            Required attribute '{0}' has mismatched quotes '{1}' around value.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CodeAnalysis.Razor.Resources.FormatTagHelper_InvalidRequiredAttributeMismatchedQuotes(System.Object,System.Object)">
+            <summary>
+            Required attribute '{0}' has mismatched quotes '{1}' around value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.Razor.Resources.TagHelper_InvalidRequiredAttributeOperator">
+            <summary>
+            Invalid character '{0}' in required attribute '{1}'. Expected supported CSS operator or ']'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CodeAnalysis.Razor.Resources.FormatTagHelper_InvalidRequiredAttributeOperator(System.Object,System.Object)">
+            <summary>
+            Invalid character '{0}' in required attribute '{1}'. Expected supported CSS operator or ']'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.Razor.Resources.TagHelper_PartialRequiredAttributeOperator">
+            <summary>
+            Required attribute '{0}' has a partial CSS operator. '{1}' must be followed by an equals.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CodeAnalysis.Razor.Resources.FormatTagHelper_PartialRequiredAttributeOperator(System.Object,System.Object)">
+            <summary>
+            Required attribute '{0}' has a partial CSS operator. '{1}' must be followed by an equals.
+            </summary>
+        </member>
+    </members>
+</doc>

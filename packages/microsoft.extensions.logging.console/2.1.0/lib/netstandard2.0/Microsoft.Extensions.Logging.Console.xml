@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Extensions.Logging.Console</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Extensions.Logging.Console.Internal.AnsiLogConsole">
+            <summary>
+            For non-Windows platform consoles which understand the ANSI escape code sequences to represent color
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.ConsoleLoggerExtensions.AddConsole(Microsoft.Extensions.Logging.ILoggingBuilder)">
+            <summary>
+            Adds a console logger named 'Console' to the factory.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.Logging.ILoggingBuilder"/> to use.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.ConsoleLoggerExtensions.AddConsole(Microsoft.Extensions.Logging.ILoggingBuilder,System.Action{Microsoft.Extensions.Logging.Console.ConsoleLoggerOptions})">
+            <summary>
+            Adds a console logger named 'Console' to the factory.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.Logging.ILoggingBuilder"/> to use.</param>
+            <param name="configure"></param>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.ConsoleLoggerExtensions.AddConsole(Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Adds a console logger that is enabled for <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.Information or higher.
+            </summary>
+            <param name="factory">The <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/> to use.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.ConsoleLoggerExtensions.AddConsole(Microsoft.Extensions.Logging.ILoggerFactory,System.Boolean)">
+            <summary>
+            Adds a console logger that is enabled for <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.Information or higher.
+            </summary>
+            <param name="factory">The <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/> to use.</param>
+            <param name="includeScopes">A value which indicates whether log scope information should be displayed
+            in the output.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.ConsoleLoggerExtensions.AddConsole(Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Logging.LogLevel)">
+            <summary>
+            Adds a console logger that is enabled for <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>s of minLevel or higher.
+            </summary>
+            <param name="factory">The <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/> to use.</param>
+            <param name="minLevel">The minimum <see cref="T:Microsoft.Extensions.Logging.LogLevel"/> to be logged</param>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.ConsoleLoggerExtensions.AddConsole(Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Logging.LogLevel,System.Boolean)">
+            <summary>
+            Adds a console logger that is enabled for <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>s of minLevel or higher.
+            </summary>
+            <param name="factory">The <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/> to use.</param>
+            <param name="minLevel">The minimum <see cref="T:Microsoft.Extensions.Logging.LogLevel"/> to be logged</param>
+            <param name="includeScopes">A value which indicates whether log scope information should be displayed
+            in the output.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.ConsoleLoggerExtensions.AddConsole(Microsoft.Extensions.Logging.ILoggerFactory,System.Func{System.String,Microsoft.Extensions.Logging.LogLevel,System.Boolean})">
+            <summary>
+            Adds a console logger that is enabled as defined by the filter function.
+            </summary>
+            <param name="factory">The <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/> to use.</param>
+            <param name="filter">The category filter to apply to logs.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.ConsoleLoggerExtensions.AddConsole(Microsoft.Extensions.Logging.ILoggerFactory,System.Func{System.String,Microsoft.Extensions.Logging.LogLevel,System.Boolean},System.Boolean)">
+            <summary>
+            Adds a console logger that is enabled as defined by the filter function.
+            </summary>
+            <param name="factory">The <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/> to use.</param>
+            <param name="filter">The category filter to apply to logs.</param>
+            <param name="includeScopes">A value which indicates whether log scope information should be displayed
+            in the output.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.ConsoleLoggerExtensions.AddConsole(Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Logging.Console.IConsoleLoggerSettings)">
+            <summary>
+            </summary>
+            <param name="factory">The <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/> to use.</param>
+            <param name="settings">The settings to apply to created <see cref="T:Microsoft.Extensions.Logging.Console.ConsoleLogger"/>'s.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.ConsoleLoggerExtensions.AddConsole(Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            </summary>
+            <param name="factory">The <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/> to use.</param>
+            <param name="configuration">The <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/> to use for <see cref="T:Microsoft.Extensions.Logging.Console.IConsoleLoggerSettings"/>.</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.AspNetCore.DataProtection</id>
+    <version>2.1.0</version>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/aspnet/Home/2.0.0/LICENSE.txt</licenseUrl>
+    <projectUrl>https://asp.net/</projectUrl>
+    <iconUrl>https://go.microsoft.com/fwlink/?LinkID=288859</iconUrl>
+    <description>ASP.NET Core logic to protect and unprotect data, similar to DPAPI.</description>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <tags>aspnetcore dataprotection</tags>
+    <serviceable>true</serviceable>
+    <repository type="git" url="https://github.com/aspnet/DataProtection" commit="8851048872a4a68e85cea61d2c4a310a48aedca0" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Microsoft.AspNetCore.Cryptography.Internal" version="2.1.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.DataProtection.Abstractions" version="2.1.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Hosting.Abstractions" version="2.1.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="2.1.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Logging.Abstractions" version="2.1.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Options" version="2.1.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Win32.Registry" version="4.5.0" exclude="Build,Analyzers" />
+        <dependency id="System.Security.Cryptography.Xml" version="4.5.0" exclude="Build,Analyzers" />
+        <dependency id="System.Security.Principal.Windows" version="4.5.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

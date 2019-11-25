@@ -1,0 +1,2429 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Server.Kestrel.Core</name>
+    </assembly>
+    <members>
+        <member name="T:System.Buffers.MemoryPoolBlock">
+            <summary>
+            Block tracking object used by the byte buffer memory pool. A slab is a large allocation which is divided into smaller blocks. The
+            individual blocks are then treated as independent array segments.
+            </summary>
+        </member>
+        <member name="M:System.Buffers.MemoryPoolBlock.#ctor(System.Buffers.SlabMemoryPool,System.Buffers.MemoryPoolSlab,System.Int32,System.Int32)">
+            <summary>
+            This object cannot be instantiated outside of the static Create method
+            </summary>
+        </member>
+        <member name="P:System.Buffers.MemoryPoolBlock.Pool">
+            <summary>
+            Back-reference to the memory pool which this block was allocated from. It may only be returned to this pool.
+            </summary>
+        </member>
+        <member name="P:System.Buffers.MemoryPoolBlock.Slab">
+            <summary>
+            Back-reference to the slab from which this block was taken, or null if it is one-time-use memory.
+            </summary>
+        </member>
+        <member name="T:System.Buffers.MemoryPoolSlab">
+            <summary>
+            Slab tracking object used by the byte buffer memory pool. A slab is a large allocation which is divided into smaller blocks. The
+            individual blocks are then treated as independant array segments.
+            </summary>
+        </member>
+        <member name="F:System.Buffers.MemoryPoolSlab._gcHandle">
+            <summary>
+            This handle pins the managed array in memory until the slab is disposed. This prevents it from being
+            relocated and enables any subsections of the array to be used as native memory pointers to P/Invoked API calls.
+            </summary>
+        </member>
+        <member name="P:System.Buffers.MemoryPoolSlab.IsActive">
+            <summary>
+            True as long as the blocks from this slab are to be considered returnable to the pool. In order to shrink the
+            memory pool size an entire slab must be removed. That is done by (1) setting IsActive to false and removing the
+            slab from the pool's _slabs collection, (2) as each block currently in use is Return()ed to the pool it will
+            be allowed to be garbage collected rather than re-pooled, and (3) when all block tracking objects are garbage
+            collected and the slab is no longer references the slab will be garbage collected and the memory unpinned will
+            be unpinned by the slab's Dispose.
+            </summary>
+        </member>
+        <member name="T:System.Buffers.SlabMemoryPool">
+            <summary>
+            Used to allocate and distribute re-usable blocks of memory.
+            </summary>
+        </member>
+        <member name="F:System.Buffers.SlabMemoryPool._blockSize">
+            <summary>
+            The size of a block. 4096 is chosen because most operating systems use 4k pages.
+            </summary>
+        </member>
+        <member name="F:System.Buffers.SlabMemoryPool._blockCount">
+            <summary>
+            Allocating 32 contiguous blocks per slab makes the slab size 128k. This is larger than the 85k size which will place the memory
+            in the large object heap. This means the GC will not try to relocate this array, so the fact it remains pinned does not negatively
+            affect memory management's compactification.
+            </summary>
+        </member>
+        <member name="P:System.Buffers.SlabMemoryPool.MaxBufferSize">
+            <summary>
+            Max allocation block size for pooled blocks,
+            larger values can be leased but they will be disposed after use rather than returned to the pool.
+            </summary>
+        </member>
+        <member name="F:System.Buffers.SlabMemoryPool._slabLength">
+            <summary>
+            4096 * 32 gives you a slabLength of 128k contiguous bytes allocated per slab
+            </summary>
+        </member>
+        <member name="F:System.Buffers.SlabMemoryPool._blocks">
+            <summary>
+            Thread-safe collection of blocks which are currently in the pool. A slab will pre-allocate all of the block tracking objects
+            and add them to this collection. When memory is requested it is taken from here first, and when it is returned it is re-added.
+            </summary>
+        </member>
+        <member name="F:System.Buffers.SlabMemoryPool._slabs">
+            <summary>
+            Thread-safe collection of slabs which have been allocated by this pool. As long as a slab is in this collection and slab.IsActive,
+            the blocks will be added to _blocks when returned.
+            </summary>
+        </member>
+        <member name="F:System.Buffers.SlabMemoryPool._disposedValue">
+            <summary>
+            This is part of implementing the IDisposable pattern.
+            </summary>
+        </member>
+        <member name="F:System.Buffers.SlabMemoryPool.AnySize">
+            <summary>
+            This default value passed in to Rent to use the default value for the pool.
+            </summary>
+        </member>
+        <member name="M:System.Buffers.SlabMemoryPool.Lease">
+            <summary>
+            Called to take a block from the pool.
+            </summary>
+            <returns>The block that is reserved for the called. It must be passed to Return when it is no longer being used.</returns>
+        </member>
+        <member name="M:System.Buffers.SlabMemoryPool.AllocateSlab">
+            <summary>
+            Internal method called when a block is requested and the pool is empty. It allocates one additional slab, creates all of the
+            block tracking objects, and adds them all to the pool.
+            </summary>
+        </member>
+        <member name="M:System.Buffers.SlabMemoryPool.Return(System.Buffers.MemoryPoolBlock)">
+            <summary>
+            Called to return a block to the pool. Once Return has been called the memory no longer belongs to the caller, and
+            Very Bad Things will happen if the memory is read of modified subsequently. If a caller fails to call Return and the
+            block tracking object is garbage collected, the block tracking object's finalizer will automatically re-create and return
+            a new tracking object into the pool. This will only happen if there is a bug in the server, however it is necessary to avoid
+            leaving "dead zones" in the slab due to lost block tracking objects.
+            </summary>
+            <param name="block">The block to return. It must have been acquired by calling Lease on the same memory pool instance.</param>
+        </member>
+        <member name="T:System.Diagnostics.StackTraceHiddenAttribute">
+            <summary>
+            Attribute to add to non-returning throw only methods, 
+            to restore the stack trace back to what it would be if the throw was in-place
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IConnectionTimeoutFeature">
+            <summary>
+            Feature for efficiently handling connection timeouts.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IConnectionTimeoutFeature.SetTimeout(System.TimeSpan)">
+            <summary>
+            Close the connection after the specified positive finite <see cref="T:System.TimeSpan"/>
+            unless the timeout is canceled or reset. This will fail if there is an ongoing timeout.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IConnectionTimeoutFeature.ResetTimeout(System.TimeSpan)">
+            <summary>
+            Close the connection after the specified positive finite <see cref="T:System.TimeSpan"/>
+            unless the timeout is canceled or reset. This will cancel any ongoing timeouts.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IConnectionTimeoutFeature.CancelTimeout">
+            <summary>
+            Prevent the connection from closing after a timeout specified by <see cref="M:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IConnectionTimeoutFeature.SetTimeout(System.TimeSpan)"/>
+            or <see cref="M:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IConnectionTimeoutFeature.ResetTimeout(System.TimeSpan)"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IDecrementConcurrentConnectionCountFeature">
+            <summary>
+            A connection feature allowing middleware to stop counting connections towards <see cref="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxConcurrentConnections"/>.
+            This is used by Kestrel internally to stop counting upgraded connections towards this limit.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IDecrementConcurrentConnectionCountFeature.ReleaseConnection">
+            <summary>
+            Idempotent method to stop counting a connection towards <see cref="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxConcurrentConnections"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IHttpMinRequestBodyDataRateFeature">
+            <summary>
+            Feature to set the minimum data rate at which the the request body must be sent by the client.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IHttpMinRequestBodyDataRateFeature.MinDataRate">
+            <summary>
+            The minimum data rate in bytes/second at which the request body must be sent by the client.
+            Setting this property to null indicates no minimum data rate should be enforced.
+            This limit has no effect on upgraded connections which are always unlimited.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IHttpMinResponseDataRateFeature">
+            <summary>
+            Feature to set the minimum data rate at which the response must be received by the client.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IHttpMinResponseDataRateFeature.MinDataRate">
+            <summary>
+            The minimum data rate in bytes/second at which the response must be received by the client.
+            Setting this property to null indicates no minimum data rate should be enforced.
+            This limit has no effect on upgraded connections which are always unlimited.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.TryCreateIPEndPoint(Microsoft.AspNetCore.Server.Kestrel.Core.ServerAddress,System.Net.IPEndPoint@)">
+            <summary>
+            Returns an <see cref="T:System.Net.IPEndPoint"/> for the given host an port.
+            If the host parameter isn't "localhost" or an IP address, use IPAddress.Any.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http2.HPack.Huffman.Decode(System.Byte[],System.Int32,System.Int32,System.Byte[])">
+            <summary>
+            Decodes a Huffman encoded string from a byte array.
+            </summary>
+            <param name="src">The source byte array containing the encoded data.</param>
+            <param name="offset">The offset in the byte array where the coded data starts.</param>
+            <param name="count">The number of bytes to decode.</param>
+            <param name="dst">The destination byte array to store the decoded data.</param>
+            <returns>The number of decoded symbols.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http2.HPack.Huffman.Decode(System.UInt32,System.Int32,System.Int32@)">
+            <summary>
+            Decodes a single symbol from a 32-bit word.
+            </summary>
+            <param name="data">A 32-bit word containing a Huffman encoded symbol.</param>
+            <param name="validBits">
+            The number of bits in <paramref name="data"/> that may contain an encoded symbol.
+            This is not the exact number of bits that encode the symbol. Instead, it prevents
+            decoding the lower bits of <paramref name="data"/> if they don't contain any
+            encoded data.
+            </param>
+            <param name="decodedBits">The number of bits decoded from <paramref name="data"/>.</param>
+            <returns>The decoded symbol.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.DateHeaderValueManager">
+            <summary>
+            Manages the generation of the date header value.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.DateHeaderValueManager.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.DateHeaderValueManager"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.DateHeaderValueManager.GetDateHeaderValues">
+            <summary>
+            Returns a value representing the current server date/time for use in the HTTP "Date" response header
+            in accordance with http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.18
+            </summary>
+            <returns>The value in string and byte[] format.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.DateHeaderValueManager.SetDateValues(System.DateTimeOffset)">
+            <summary>
+            Sets date values from a provided ticks value
+            </summary>
+            <param name="value">A DateTimeOffset value</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.Http1Connection.StopProcessingNextRequest">
+            <summary>
+            Stops the request processing loop between requests.
+            Called on all active connections when the server wants to initiate a shutdown
+            and after a keep-alive timeout.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.Http1MessageBody.ForChunkedEncoding">
+            <summary>
+              http://tools.ietf.org/html/rfc2616#section-3.6.1
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.TraceIdentifier">
+            <summary>
+            The request id. <seealso cref="P:Microsoft.AspNetCore.Http.HttpContext.TraceIdentifier"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.Abort(System.Exception)">
+            <summary>
+            Immediately kill the connection and poison the request and response streams with an error if there is one.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.Constants.DefaultServerAddress">
+            <summary>
+            The endpoint Kestrel will bind to if nothing else is specified.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.Constants.DefaultServerHttpsAddress">
+            <summary>
+            The endpoint Kestrel will bind to if nothing else is specified and a default certificate is available.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.Constants.UnixPipeHostPrefix">
+            <summary>
+            Prefix of host name used to specify Unix sockets in the configuration.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.Constants.PipeDescriptorPrefix">
+            <summary>
+            Prefix of host name used to specify pipe file descriptor in the configuration.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.Constants.SocketDescriptorPrefix">
+            <summary>
+            Prefix of host name used to specify socket descriptor in the configuration.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.Disposable">
+            <summary>
+            Summary description for Disposable
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.HttpConnectionManager.UpgradedConnectionCount">
+            <summary>
+            Connections that have been switched to a different protocol.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.HttpUtilities.GetKnownMethod(System.Span{System.Byte},Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpMethod@,System.Int32@)">
+            <summary>
+            Checks that up to 8 bytes from <paramref name="span"/> correspond to a known HTTP method.
+            </summary>
+            <remarks>
+            A "known HTTP method" can be an HTTP method name defined in the HTTP/1.1 RFC.
+            Since all of those fit in at most 8 bytes, they can be optimally looked up by reading those bytes as a long. Once
+            in that format, it can be checked against the known method.
+            The Known Methods (CONNECT, DELETE, GET, HEAD, PATCH, POST, PUT, OPTIONS, TRACE) are all less than 8 bytes
+            and will be compared with the required space. A mask is used if the Known method is less than 8 bytes.
+            To optimize performance the GET method will be checked first.
+            </remarks>
+            <returns><c>true</c> if the input matches a known string, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.HttpUtilities.GetKnownMethod(System.String)">
+            <summary>
+            Parses string <paramref name="value"/> for a known HTTP method.
+            </summary>
+            <remarks>
+            A "known HTTP method" can be an HTTP method name defined in the HTTP/1.1 RFC.
+            The Known Methods (CONNECT, DELETE, GET, HEAD, PATCH, POST, PUT, OPTIONS, TRACE)
+            </remarks>
+            <returns><see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpMethod"/></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.HttpUtilities.GetKnownVersion(System.Span{System.Byte},Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpVersion@,System.Byte@)">
+            <summary>
+            Checks 9 bytes from <paramref name="span"/>  correspond to a known HTTP version.
+            </summary>
+            <remarks>
+            A "known HTTP version" Is is either HTTP/1.0 or HTTP/1.1.
+            Since those fit in 8 bytes, they can be optimally looked up by reading those bytes as a long. Once
+            in that format, it can be checked against the known versions.
+            The Known versions will be checked with the required '\r'.
+            To optimize performance the HTTP/1.1 will be checked first.
+            </remarks>
+            <returns><c>true</c> if the input matches a known string, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.HttpUtilities.GetKnownVersion(System.Byte*,System.Int32)">
+            <summary>
+            Checks 9 bytes from <paramref name="location"/>  correspond to a known HTTP version.
+            </summary>
+            <remarks>
+            A "known HTTP version" Is is either HTTP/1.0 or HTTP/1.1.
+            Since those fit in 8 bytes, they can be optimally looked up by reading those bytes as a long. Once
+            in that format, it can be checked against the known versions.
+            The Known versions will be checked with the required '\r'.
+            To optimize performance the HTTP/1.1 will be checked first.
+            </remarks>
+            <returns><c>true</c> if the input matches a known string, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.HttpUtilities.GetKnownHttpScheme(System.Span{System.Byte},Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpScheme@)">
+            <summary>
+            Checks 8 bytes from <paramref name="span"/> that correspond to 'http://' or 'https://'
+            </summary>
+            <param name="span">The span</param>
+            <param name="knownScheme">A reference to the known scheme, if the input matches any</param>
+            <returns>True when memory starts with known http or https schema</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.ISystemClock">
+            <summary>
+            Abstracts the system clock to facilitate testing.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.ISystemClock.UtcNow">
+            <summary>
+            Retrieves the current system time in UTC.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.StringUtilities.ConcatAsHexSuffix(System.String,System.Char,System.UInt32)">
+            <summary>
+            A faster version of String.Concat(<paramref name="str"/>, <paramref name="separator"/>, <paramref name="number"/>.ToString("X8"))
+            </summary>
+            <param name="str"></param>
+            <param name="separator"></param>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.SystemClock">
+            <summary>
+            Provides access to the normal system clock.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.SystemClock.UtcNow">
+            <summary>
+            Retrieves the current system time in UTC.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.UriUtilities.IsValidAuthorityCharacter(System.Byte)">
+            <summary>
+            Returns true if character is valid in the 'authority' section of a URI.
+            <see href="https://tools.ietf.org/html/rfc3986#section-3.2"/>
+            </summary>
+            <param name="ch">The character</param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxResponseBufferSize">
+            <summary>
+            Gets or sets the maximum size of the response buffer before write
+            calls begin to block or return tasks that don't complete until the
+            buffer size drops below the configured limit.
+            Defaults to 65,536 bytes (64 KB).
+            </summary>
+            <remarks>
+            When set to null, the size of the response buffer is unlimited.
+            When set to zero, all write calls will block or return tasks that
+            don't complete until the entire response buffer is flushed.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxRequestBufferSize">
+            <summary>
+            Gets or sets the maximum size of the request buffer.
+            Defaults to 1,048,576 bytes (1 MB).
+            </summary>
+            <remarks>
+            When set to null, the size of the request buffer is unlimited.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxRequestLineSize">
+            <summary>
+            Gets or sets the maximum allowed size for the HTTP request line.
+            Defaults to 8,192 bytes (8 KB).
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxRequestHeadersTotalSize">
+            <summary>
+            Gets or sets the maximum allowed size for the HTTP request headers.
+            Defaults to 32,768 bytes (32 KB).
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxRequestHeaderCount">
+            <summary>
+            Gets or sets the maximum allowed number of headers per HTTP request.
+            Defaults to 100.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxRequestBodySize">
+            <summary>
+            Gets or sets the maximum allowed size of any request body in bytes.
+            When set to null, the maximum request body size is unlimited.
+            This limit has no effect on upgraded connections which are always unlimited.
+            This can be overridden per-request via <see cref="T:Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature"/>.
+            Defaults to 30,000,000 bytes, which is approximately 28.6MB.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.KeepAliveTimeout">
+            <summary>
+            Gets or sets the keep-alive timeout.
+            Defaults to 2 minutes.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.RequestHeadersTimeout">
+            <summary>
+            Gets or sets the maximum amount of time the server will spend receiving request headers.
+            Defaults to 30 seconds.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxConcurrentConnections">
+            <summary>
+            Gets or sets the maximum number of open connections. When set to null, the number of connections is unlimited.
+            <para>
+            Defaults to null.
+            </para>
+            </summary>
+            <remarks>
+            <para>
+            When a connection is upgraded to another protocol, such as WebSockets, its connection is counted against the
+            <see cref="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxConcurrentUpgradedConnections" /> limit instead of <see cref="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxConcurrentConnections" />.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxConcurrentUpgradedConnections">
+            <summary>
+            Gets or sets the maximum number of open, upgraded connections. When set to null, the number of upgraded connections is unlimited.
+            An upgraded connection is one that has been switched from HTTP to another protocol, such as WebSockets.
+            <para>
+            Defaults to null.
+            </para>
+            </summary>
+            <remarks>
+            <para>
+            When a connection is upgraded to another protocol, such as WebSockets, its connection is counted against the
+            <see cref="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxConcurrentUpgradedConnections" /> limit instead of <see cref="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxConcurrentConnections" />.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MinRequestBodyDataRate">
+            <summary>
+            Gets or sets the request body minimum data rate in bytes/second.
+            Setting this property to null indicates no minimum data rate should be enforced.
+            This limit has no effect on upgraded connections which are always unlimited.
+            This can be overridden per-request via <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IHttpMinRequestBodyDataRateFeature"/>.
+            Defaults to 240 bytes/second with a 5 second grace period.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MinResponseDataRate">
+            <summary>
+            Gets or sets the response minimum data rate in bytes/second.
+            Setting this property to null indicates no minimum data rate should be enforced.
+            This limit has no effect on upgraded connections which are always unlimited.
+            This can be overridden per-request via <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IHttpMinResponseDataRateFeature"/>.
+            <para>
+            Defaults to 240 bytes/second with a 5 second grace period.
+            </para>
+            </summary>
+            <remarks>
+            <para>
+            Contrary to the request body minimum data rate, this rate applies to the response status line and headers as well.
+            </para>
+            <para>
+            This rate is enforced per write operation instead of being averaged over the life of the response. Whenever the server
+            writes a chunk of data, a timer is set to the maximum of the grace period set in this property or the length of the write in
+            bytes divided by the data rate (i.e. the maximum amount of time that write should take to complete with the specified data rate).
+            The connection is aborted if the write has not completed by the time that timer expires.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions">
+            <summary>
+            Provides programmatic configuration of Kestrel-specific features.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenOptions">
+            <summary>
+            Configures the endpoints that Kestrel should listen to.
+            </summary>
+            <remarks>
+            If this list is empty, the server.urls setting (e.g. UseUrls) is used.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.AddServerHeader">
+            <summary>
+            Gets or sets whether the <c>Server</c> header should be included in each response.
+            </summary>
+            <remarks>
+            Defaults to true.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ApplicationSchedulingMode">
+            <summary>
+            Gets or sets a value that determines how Kestrel should schedule user callbacks.
+            </summary>
+            <remarks>The default mode is <see cref="F:Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions.Internal.SchedulingMode.Default"/></remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.AllowSynchronousIO">
+            <summary>
+            Gets or sets a value that controls whether synchronous IO is allowed for the <see cref="P:Microsoft.AspNetCore.Http.HttpContext.Request"/> and <see cref="P:Microsoft.AspNetCore.Http.HttpContext.Response"/> 
+            </summary>
+            <remarks>
+            Defaults to true.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ApplicationServices">
+            <summary>
+            Enables the Listen options callback to resolve and use services registered by the application during startup.
+            Typically initialized by UseKestrel()"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Limits">
+            <summary>
+            Provides access to request limit options.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigurationLoader">
+            <summary>
+            Provides a configuration source where endpoints will be loaded from on server start.
+            The default is null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.EndpointDefaults">
+            <summary>
+            A default configuration action for all endpoints. Use for Listen, configuration, the default url, and URLs.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.HttpsDefaults">
+            <summary>
+            A default configuration action for all https endpoints.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.DefaultCertificate">
+            <summary>
+            The default server certificate for https endpoints. This is applied lazily after HttpsDefaults and user options.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.IsDevCertLoaded">
+            <summary>
+            Has the default dev certificate load been attempted?
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureEndpointDefaults(System.Action{Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions})">
+            <summary>
+            Specifies a configuration Action to run for each newly created endpoint. Calling this again will replace
+            the prior action.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults(System.Action{Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions})">
+            <summary>
+            Specifies a configuration Action to run for each newly created https endpoint. Calling this again will replace
+            the prior action.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Configure">
+            <summary>
+            Creates a configuration loader for setting up Kestrel.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Configure(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Creates a configuration loader for setting up Kestrel that takes an IConfiguration as input.
+            This configuration must be scoped to the configuration section for Kestrel.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen(System.Net.IPAddress,System.Int32)">
+            <summary>
+            Bind to given IP address and port.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen(System.Net.IPAddress,System.Int32,System.Action{Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions})">
+            <summary>
+            Bind to given IP address and port.
+            The callback configures endpoint-specific settings.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen(System.Net.IPEndPoint)">
+            <summary>
+            Bind to given IP endpoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen(System.Net.IPEndPoint,System.Action{Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions})">
+            <summary>
+            Bind to given IP address and port.
+            The callback configures endpoint-specific settings.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenLocalhost(System.Int32)">
+            <summary>
+            Listens on ::1 and 127.0.0.1 with the given port. Requesting a dynamic port by specifying 0 is not supported
+            for this type of endpoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenLocalhost(System.Int32,System.Action{Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions})">
+            <summary>
+            Listens on ::1 and 127.0.0.1 with the given port. Requesting a dynamic port by specifying 0 is not supported
+            for this type of endpoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenAnyIP(System.Int32)">
+            <summary>
+            Listens on all IPs using IPv6 [::], or IPv4 0.0.0.0 if IPv6 is not supported.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenAnyIP(System.Int32,System.Action{Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions})">
+            <summary>
+            Listens on all IPs using IPv6 [::], or IPv4 0.0.0.0 if IPv6 is not supported.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket(System.String)">
+            <summary>
+            Bind to given Unix domain socket path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket(System.String,System.Action{Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions})">
+            <summary>
+            Bind to given Unix domain socket path.
+            Specify callback to configure endpoint-specific settings.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenHandle(System.UInt64)">
+            <summary>
+            Open a socket file descriptor.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenHandle(System.UInt64,System.Action{Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions})">
+            <summary>
+            Open a socket file descriptor.
+            The callback configures endpoint-specific settings.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions">
+            <summary>
+            Describes either an <see cref="P:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions.IPEndPoint"/>, Unix domain socket path, or a file descriptor for an already open
+            socket that Kestrel should bind to or open.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions.Type">
+            <summary>
+            The type of interface being described: either an <see cref="P:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions.IPEndPoint"/>, Unix domain socket path, or a file descriptor.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions.IPEndPoint">
+            <summary>
+            The <see cref="P:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions.IPEndPoint"/> to bind to.
+            Only set if the <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/> <see cref="P:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions.Type"/> is <see cref="F:Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions.Internal.ListenType.IPEndPoint"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions.SocketPath">
+            <summary>
+            The absolute path to a Unix domain socket to bind to.
+            Only set if the <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/> <see cref="P:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions.Type"/> is <see cref="F:Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions.Internal.ListenType.SocketPath"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions.FileHandle">
+            <summary>
+            A file descriptor for the socket to open.
+            Only set if the <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/> <see cref="P:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions.Type"/> is <see cref="F:Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions.Internal.ListenType.FileHandle"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions.KestrelServerOptions">
+            <summary>
+            Enables an <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.Adapter.Internal.IConnectionAdapter"/> to resolve and use services registered by the application during startup.
+            Only set if accessed from the callback of a <see cref="P:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions.KestrelServerOptions"/> Listen* method.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions.NoDelay">
+            <summary>
+            Set to false to enable Nagle's algorithm for all connections.
+            </summary>
+            <remarks>
+            Defaults to true.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions.Protocols">
+            <summary>
+            The protocols enabled on this endpoint.
+            </summary>
+            <remarks>Defaults to HTTP/1.x only.</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions.ConnectionAdapters">
+            <summary>
+            Gets the <see cref="T:System.Collections.Generic.List`1"/> that allows each connection <see cref="T:System.IO.Stream"/>
+            to be intercepted and transformed.
+            Configured by the <c>UseHttps()</c> and <see cref="M:Microsoft.AspNetCore.Hosting.ListenOptionsConnectionLoggingExtensions.UseConnectionLogging(Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions)"/>
+            extension methods.
+            </summary>
+            <remarks>
+            Defaults to empty.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions.GetDisplayName">
+            <summary>
+            Gets the name of this endpoint to display on command-line when the web server starts.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.LocalhostListenOptions.GetDisplayName">
+            <summary>
+            Gets the name of this endpoint to display on command-line when the web server starts.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.MinDataRate.#ctor(System.Double,System.TimeSpan)">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.MinDataRate"/>.
+            </summary>
+            <param name="bytesPerSecond">The minimum rate in bytes/second at which data should be processed.</param>
+            <param name="gracePeriod">The amount of time to delay enforcement of <paramref name="bytesPerSecond"/>,
+            starting at the time data is first read or written.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.MinDataRate.BytesPerSecond">
+            <summary>
+            The minimum rate in bytes/second at which data should be processed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.MinDataRate.GracePeriod">
+            <summary>
+            The amount of time to delay enforcement of <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.MinDataRate" />,
+            starting at the time data is first read or written.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest">
+            <summary>
+            Bad request.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest">
+            <summary>
+            Bad request.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_BadChunkSizeData">
+            <summary>
+            Bad chunk size data.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_BadChunkSizeData">
+            <summary>
+            Bad chunk size data.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_BadChunkSuffix">
+            <summary>
+            Bad chunk suffix.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_BadChunkSuffix">
+            <summary>
+            Bad chunk suffix.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_ChunkedRequestIncomplete">
+            <summary>
+            Chunked request incomplete.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_ChunkedRequestIncomplete">
+            <summary>
+            Chunked request incomplete.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_FinalTransferCodingNotChunked">
+            <summary>
+            The message body length cannot be determined because the final transfer coding was set to '{detail}' instead of 'chunked'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_FinalTransferCodingNotChunked(System.Object)">
+            <summary>
+            The message body length cannot be determined because the final transfer coding was set to '{detail}' instead of 'chunked'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_HeadersExceedMaxTotalSize">
+            <summary>
+            Request headers too long.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_HeadersExceedMaxTotalSize">
+            <summary>
+            Request headers too long.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_InvalidCharactersInHeaderName">
+            <summary>
+            Invalid characters in header name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_InvalidCharactersInHeaderName">
+            <summary>
+            Invalid characters in header name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_InvalidContentLength_Detail">
+            <summary>
+            Invalid content length: {detail}
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_InvalidContentLength_Detail(System.Object)">
+            <summary>
+            Invalid content length: {detail}
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_InvalidHostHeader">
+            <summary>
+            Invalid Host header.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_InvalidHostHeader">
+            <summary>
+            Invalid Host header.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_InvalidHostHeader_Detail">
+            <summary>
+            Invalid Host header: '{detail}'
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_InvalidHostHeader_Detail(System.Object)">
+            <summary>
+            Invalid Host header: '{detail}'
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_InvalidRequestHeadersNoCRLF">
+            <summary>
+            Invalid request headers: missing final CRLF in header fields.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_InvalidRequestHeadersNoCRLF">
+            <summary>
+            Invalid request headers: missing final CRLF in header fields.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_InvalidRequestHeader_Detail">
+            <summary>
+            Invalid request header: '{detail}'
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_InvalidRequestHeader_Detail(System.Object)">
+            <summary>
+            Invalid request header: '{detail}'
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_InvalidRequestLine">
+            <summary>
+            Invalid request line.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_InvalidRequestLine">
+            <summary>
+            Invalid request line.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_InvalidRequestLine_Detail">
+            <summary>
+            Invalid request line: '{detail}'
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_InvalidRequestLine_Detail(System.Object)">
+            <summary>
+            Invalid request line: '{detail}'
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_InvalidRequestTarget_Detail">
+            <summary>
+            Invalid request target: '{detail}'
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_InvalidRequestTarget_Detail(System.Object)">
+            <summary>
+            Invalid request target: '{detail}'
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_LengthRequired">
+            <summary>
+            {detail} request contains no Content-Length or Transfer-Encoding header.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_LengthRequired(System.Object)">
+            <summary>
+            {detail} request contains no Content-Length or Transfer-Encoding header.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_LengthRequiredHttp10">
+            <summary>
+            {detail} request contains no Content-Length header.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_LengthRequiredHttp10(System.Object)">
+            <summary>
+            {detail} request contains no Content-Length header.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_MalformedRequestInvalidHeaders">
+            <summary>
+            Malformed request: invalid headers.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_MalformedRequestInvalidHeaders">
+            <summary>
+            Malformed request: invalid headers.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_MethodNotAllowed">
+            <summary>
+            Method not allowed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_MethodNotAllowed">
+            <summary>
+            Method not allowed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_MissingHostHeader">
+            <summary>
+            Request is missing Host header.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_MissingHostHeader">
+            <summary>
+            Request is missing Host header.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_MultipleContentLengths">
+            <summary>
+            Multiple Content-Length headers.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_MultipleContentLengths">
+            <summary>
+            Multiple Content-Length headers.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_MultipleHostHeaders">
+            <summary>
+            Multiple Host headers.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_MultipleHostHeaders">
+            <summary>
+            Multiple Host headers.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_RequestLineTooLong">
+            <summary>
+            Request line too long.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_RequestLineTooLong">
+            <summary>
+            Request line too long.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_RequestHeadersTimeout">
+            <summary>
+            Reading the request headers timed out.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_RequestHeadersTimeout">
+            <summary>
+            Reading the request headers timed out.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_TooManyHeaders">
+            <summary>
+            Request contains too many headers.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_TooManyHeaders">
+            <summary>
+            Request contains too many headers.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_UnexpectedEndOfRequestContent">
+            <summary>
+            Unexpected end of request content.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_UnexpectedEndOfRequestContent">
+            <summary>
+            Unexpected end of request content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_UnrecognizedHTTPVersion">
+            <summary>
+            Unrecognized HTTP version: '{detail}'
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_UnrecognizedHTTPVersion(System.Object)">
+            <summary>
+            Unrecognized HTTP version: '{detail}'
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_UpgradeRequestCannotHavePayload">
+            <summary>
+            Requests with 'Connection: Upgrade' cannot have content in the request body.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_UpgradeRequestCannotHavePayload">
+            <summary>
+            Requests with 'Connection: Upgrade' cannot have content in the request body.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FallbackToIPv4Any">
+            <summary>
+            Failed to bind to http://[::]:{port} (IPv6Any). Attempting to bind to http://0.0.0.0:{port} instead.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatFallbackToIPv4Any(System.Object)">
+            <summary>
+            Failed to bind to http://[::]:{port} (IPv6Any). Attempting to bind to http://0.0.0.0:{port} instead.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.ResponseStreamWasUpgraded">
+            <summary>
+            Cannot write to response body after connection has been upgraded.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatResponseStreamWasUpgraded">
+            <summary>
+            Cannot write to response body after connection has been upgraded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BigEndianNotSupported">
+            <summary>
+            Kestrel does not support big-endian architectures.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBigEndianNotSupported">
+            <summary>
+            Kestrel does not support big-endian architectures.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.MaxRequestBufferSmallerThanRequestHeaderBuffer">
+            <summary>
+            Maximum request buffer size ({requestBufferSize}) must be greater than or equal to maximum request header size ({requestHeaderSize}).
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatMaxRequestBufferSmallerThanRequestHeaderBuffer(System.Object,System.Object)">
+            <summary>
+            Maximum request buffer size ({requestBufferSize}) must be greater than or equal to maximum request header size ({requestHeaderSize}).
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.MaxRequestBufferSmallerThanRequestLineBuffer">
+            <summary>
+            Maximum request buffer size ({requestBufferSize}) must be greater than or equal to maximum request line size ({requestLineSize}).
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatMaxRequestBufferSmallerThanRequestLineBuffer(System.Object,System.Object)">
+            <summary>
+            Maximum request buffer size ({requestBufferSize}) must be greater than or equal to maximum request line size ({requestLineSize}).
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.ServerAlreadyStarted">
+            <summary>
+            Server has already started.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatServerAlreadyStarted">
+            <summary>
+            Server has already started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.UnknownTransportMode">
+            <summary>
+            Unknown transport mode: '{mode}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatUnknownTransportMode(System.Object)">
+            <summary>
+            Unknown transport mode: '{mode}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.InvalidAsciiOrControlChar">
+            <summary>
+            Invalid non-ASCII or control character in header: {character}
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatInvalidAsciiOrControlChar(System.Object)">
+            <summary>
+            Invalid non-ASCII or control character in header: {character}
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.InvalidContentLength_InvalidNumber">
+            <summary>
+            Invalid Content-Length: "{value}". Value must be a positive integral number.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatInvalidContentLength_InvalidNumber(System.Object)">
+            <summary>
+            Invalid Content-Length: "{value}". Value must be a positive integral number.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.NonNegativeNumberOrNullRequired">
+            <summary>
+            Value must be null or a non-negative number.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatNonNegativeNumberOrNullRequired">
+            <summary>
+            Value must be null or a non-negative number.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.NonNegativeNumberRequired">
+            <summary>
+            Value must be a non-negative number.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatNonNegativeNumberRequired">
+            <summary>
+            Value must be a non-negative number.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.PositiveNumberRequired">
+            <summary>
+            Value must be a positive number.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatPositiveNumberRequired">
+            <summary>
+            Value must be a positive number.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.PositiveNumberOrNullRequired">
+            <summary>
+            Value must be null or a positive number.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatPositiveNumberOrNullRequired">
+            <summary>
+            Value must be null or a positive number.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.UnixSocketPathMustBeAbsolute">
+            <summary>
+            Unix socket path must be absolute.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatUnixSocketPathMustBeAbsolute">
+            <summary>
+            Unix socket path must be absolute.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.AddressBindingFailed">
+            <summary>
+            Failed to bind to address {address}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatAddressBindingFailed(System.Object)">
+            <summary>
+            Failed to bind to address {address}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BindingToDefaultAddress">
+            <summary>
+            No listening endpoints were configured. Binding to {address} by default.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBindingToDefaultAddress(System.Object)">
+            <summary>
+            No listening endpoints were configured. Binding to {address} by default.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.ConfigureHttpsFromMethodCall">
+            <summary>
+            HTTPS endpoints can only be configured using {methodName}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatConfigureHttpsFromMethodCall(System.Object)">
+            <summary>
+            HTTPS endpoints can only be configured using {methodName}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.ConfigurePathBaseFromMethodCall">
+            <summary>
+            A path base can only be configured using {methodName}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatConfigurePathBaseFromMethodCall(System.Object)">
+            <summary>
+            A path base can only be configured using {methodName}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.DynamicPortOnLocalhostNotSupported">
+            <summary>
+            Dynamic port binding is not supported when binding to localhost. You must either bind to 127.0.0.1:0 or [::1]:0, or both.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatDynamicPortOnLocalhostNotSupported">
+            <summary>
+            Dynamic port binding is not supported when binding to localhost. You must either bind to 127.0.0.1:0 or [::1]:0, or both.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.EndpointAlreadyInUse">
+            <summary>
+            Failed to bind to address {endpoint}: address already in use.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatEndpointAlreadyInUse(System.Object)">
+            <summary>
+            Failed to bind to address {endpoint}: address already in use.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.InvalidUrl">
+            <summary>
+            Invalid URL: '{url}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatInvalidUrl(System.Object)">
+            <summary>
+            Invalid URL: '{url}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.NetworkInterfaceBindingFailed">
+            <summary>
+            Unable to bind to {address} on the {interfaceName} interface: '{error}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatNetworkInterfaceBindingFailed(System.Object,System.Object,System.Object)">
+            <summary>
+            Unable to bind to {address} on the {interfaceName} interface: '{error}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.OverridingWithKestrelOptions">
+            <summary>
+            Overriding address(es) '{addresses}'. Binding to endpoints defined in {methodName} instead.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatOverridingWithKestrelOptions(System.Object,System.Object)">
+            <summary>
+            Overriding address(es) '{addresses}'. Binding to endpoints defined in {methodName} instead.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.OverridingWithPreferHostingUrls">
+            <summary>
+            Overriding endpoints defined in UseKestrel() because {settingName} is set to true. Binding to address(es) '{addresses}' instead.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatOverridingWithPreferHostingUrls(System.Object,System.Object)">
+            <summary>
+            Overriding endpoints defined in UseKestrel() because {settingName} is set to true. Binding to address(es) '{addresses}' instead.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.UnsupportedAddressScheme">
+            <summary>
+            Unrecognized scheme in server address '{address}'. Only 'http://' is supported.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatUnsupportedAddressScheme(System.Object)">
+            <summary>
+            Unrecognized scheme in server address '{address}'. Only 'http://' is supported.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.HeadersAreReadOnly">
+            <summary>
+            Headers are read-only, response has already started.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHeadersAreReadOnly">
+            <summary>
+            Headers are read-only, response has already started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.KeyAlreadyExists">
+            <summary>
+            An item with the same key has already been added.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatKeyAlreadyExists">
+            <summary>
+            An item with the same key has already been added.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.HeaderNotAllowedOnResponse">
+            <summary>
+            Setting the header {name} is not allowed on responses with status code {statusCode}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHeaderNotAllowedOnResponse(System.Object,System.Object)">
+            <summary>
+            Setting the header {name} is not allowed on responses with status code {statusCode}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.ParameterReadOnlyAfterResponseStarted">
+            <summary>
+            {name} cannot be set because the response has already started.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatParameterReadOnlyAfterResponseStarted(System.Object)">
+            <summary>
+            {name} cannot be set because the response has already started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.RequestProcessingAborted">
+            <summary>
+            Request processing didn't complete within the shutdown timeout.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatRequestProcessingAborted">
+            <summary>
+            Request processing didn't complete within the shutdown timeout.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.TooFewBytesWritten">
+            <summary>
+            Response Content-Length mismatch: too few bytes written ({written} of {expected}).
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatTooFewBytesWritten(System.Object,System.Object)">
+            <summary>
+            Response Content-Length mismatch: too few bytes written ({written} of {expected}).
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.TooManyBytesWritten">
+            <summary>
+            Response Content-Length mismatch: too many bytes written ({written} of {expected}).
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatTooManyBytesWritten(System.Object,System.Object)">
+            <summary>
+            Response Content-Length mismatch: too many bytes written ({written} of {expected}).
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.UnhandledApplicationException">
+            <summary>
+            The response has been aborted due to an unhandled application exception.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatUnhandledApplicationException">
+            <summary>
+            The response has been aborted due to an unhandled application exception.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.WritingToResponseBodyNotSupported">
+            <summary>
+            Writing to the response body is invalid for responses with status code {statusCode}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatWritingToResponseBodyNotSupported(System.Object)">
+            <summary>
+            Writing to the response body is invalid for responses with status code {statusCode}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.ConnectionShutdownError">
+            <summary>
+            Connection shutdown abnormally.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatConnectionShutdownError">
+            <summary>
+            Connection shutdown abnormally.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.RequestProcessingEndError">
+            <summary>
+            Connection processing ended abnormally.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatRequestProcessingEndError">
+            <summary>
+            Connection processing ended abnormally.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.CannotUpgradeNonUpgradableRequest">
+            <summary>
+            Cannot upgrade a non-upgradable request. Check IHttpUpgradeFeature.IsUpgradableRequest to determine if a request can be upgraded.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatCannotUpgradeNonUpgradableRequest">
+            <summary>
+            Cannot upgrade a non-upgradable request. Check IHttpUpgradeFeature.IsUpgradableRequest to determine if a request can be upgraded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.UpgradedConnectionLimitReached">
+            <summary>
+            Request cannot be upgraded because the server has already opened the maximum number of upgraded connections.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatUpgradedConnectionLimitReached">
+            <summary>
+            Request cannot be upgraded because the server has already opened the maximum number of upgraded connections.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.UpgradeCannotBeCalledMultipleTimes">
+            <summary>
+            IHttpUpgradeFeature.UpgradeAsync was already called and can only be called once per connection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatUpgradeCannotBeCalledMultipleTimes">
+            <summary>
+            IHttpUpgradeFeature.UpgradeAsync was already called and can only be called once per connection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_RequestBodyTooLarge">
+            <summary>
+            Request body too large.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_RequestBodyTooLarge">
+            <summary>
+            Request body too large.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.MaxRequestBodySizeCannotBeModifiedAfterRead">
+            <summary>
+            The maximum request body size cannot be modified after the app has already started reading from the request body.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatMaxRequestBodySizeCannotBeModifiedAfterRead">
+            <summary>
+            The maximum request body size cannot be modified after the app has already started reading from the request body.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.MaxRequestBodySizeCannotBeModifiedForUpgradedRequests">
+            <summary>
+            The maximum request body size cannot be modified after the request has been upgraded.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatMaxRequestBodySizeCannotBeModifiedForUpgradedRequests">
+            <summary>
+            The maximum request body size cannot be modified after the request has been upgraded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.PositiveTimeSpanRequired">
+            <summary>
+            Value must be a positive TimeSpan.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatPositiveTimeSpanRequired">
+            <summary>
+            Value must be a positive TimeSpan.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.NonNegativeTimeSpanRequired">
+            <summary>
+            Value must be a non-negative TimeSpan.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatNonNegativeTimeSpanRequired">
+            <summary>
+            Value must be a non-negative TimeSpan.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.MinimumGracePeriodRequired">
+            <summary>
+            The request body rate enforcement grace period must be greater than {heartbeatInterval} second.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatMinimumGracePeriodRequired(System.Object)">
+            <summary>
+            The request body rate enforcement grace period must be greater than {heartbeatInterval} second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.SynchronousReadsDisallowed">
+            <summary>
+            Synchronous operations are disallowed. Call ReadAsync or set AllowSynchronousIO to true instead.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatSynchronousReadsDisallowed">
+            <summary>
+            Synchronous operations are disallowed. Call ReadAsync or set AllowSynchronousIO to true instead.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.SynchronousWritesDisallowed">
+            <summary>
+            Synchronous operations are disallowed. Call WriteAsync or set AllowSynchronousIO to true instead.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatSynchronousWritesDisallowed">
+            <summary>
+            Synchronous operations are disallowed. Call WriteAsync or set AllowSynchronousIO to true instead.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.PositiveNumberOrNullMinDataRateRequired">
+            <summary>
+            Value must be a positive number. To disable a minimum data rate, use null where a MinDataRate instance is expected.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatPositiveNumberOrNullMinDataRateRequired">
+            <summary>
+            Value must be a positive number. To disable a minimum data rate, use null where a MinDataRate instance is expected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.ConcurrentTimeoutsNotSupported">
+            <summary>
+            Concurrent timeouts are not supported.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatConcurrentTimeoutsNotSupported">
+            <summary>
+            Concurrent timeouts are not supported.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.PositiveFiniteTimeSpanRequired">
+            <summary>
+            Timespan must be positive and finite.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatPositiveFiniteTimeSpanRequired">
+            <summary>
+            Timespan must be positive and finite.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.EndPointRequiresAtLeastOneProtocol">
+            <summary>
+            An endpoint must be configured to serve at least one protocol.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatEndPointRequiresAtLeastOneProtocol">
+            <summary>
+            An endpoint must be configured to serve at least one protocol.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.EndPointRequiresTlsForHttp1AndHttp2">
+            <summary>
+            Using both HTTP/1.x and HTTP/2 on the same endpoint requires the use of TLS.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatEndPointRequiresTlsForHttp1AndHttp2">
+            <summary>
+            Using both HTTP/1.x and HTTP/2 on the same endpoint requires the use of TLS.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.EndPointHttp2NotNegotiated">
+            <summary>
+            HTTP/2 over TLS was not negotiated on an HTTP/2-only endpoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatEndPointHttp2NotNegotiated">
+            <summary>
+            HTTP/2 over TLS was not negotiated on an HTTP/2-only endpoint.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.HPackErrorDynamicTableSizeUpdateTooLarge">
+            <summary>
+            A dynamic table size of {size} octets is greater than the configured maximum size of {maxSize} octets.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHPackErrorDynamicTableSizeUpdateTooLarge(System.Object,System.Object)">
+            <summary>
+            A dynamic table size of {size} octets is greater than the configured maximum size of {maxSize} octets.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.HPackErrorIndexOutOfRange">
+            <summary>
+            Index {index} is outside the bounds of the header field table.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHPackErrorIndexOutOfRange(System.Object)">
+            <summary>
+            Index {index} is outside the bounds of the header field table.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.HPackHuffmanErrorIncomplete">
+            <summary>
+            Input data could not be fully decoded.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHPackHuffmanErrorIncomplete">
+            <summary>
+            Input data could not be fully decoded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.HPackHuffmanErrorEOS">
+            <summary>
+            Input data contains the EOS symbol.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHPackHuffmanErrorEOS">
+            <summary>
+            Input data contains the EOS symbol.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.HPackHuffmanErrorDestinationTooSmall">
+            <summary>
+            The destination buffer is not large enough to store the decoded data.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHPackHuffmanErrorDestinationTooSmall">
+            <summary>
+            The destination buffer is not large enough to store the decoded data.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.HPackHuffmanError">
+            <summary>
+            Huffman decoding error.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHPackHuffmanError">
+            <summary>
+            Huffman decoding error.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.HPackStringLengthTooLarge">
+            <summary>
+            Decoded string length of {length} octets is greater than the configured maximum length of {maxStringLength} octets.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHPackStringLengthTooLarge(System.Object,System.Object)">
+            <summary>
+            Decoded string length of {length} octets is greater than the configured maximum length of {maxStringLength} octets.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.HPackErrorIncompleteHeaderBlock">
+            <summary>
+            The header block was incomplete and could not be fully decoded.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHPackErrorIncompleteHeaderBlock">
+            <summary>
+            The header block was incomplete and could not be fully decoded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorStreamIdEven">
+            <summary>
+            The client sent a {frameType} frame with even stream ID {streamId}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorStreamIdEven(System.Object,System.Object)">
+            <summary>
+            The client sent a {frameType} frame with even stream ID {streamId}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorPushPromiseReceived">
+            <summary>
+            The client sent a A PUSH_PROMISE frame.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorPushPromiseReceived">
+            <summary>
+            The client sent a A PUSH_PROMISE frame.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorHeadersInterleaved">
+            <summary>
+            The client sent a {frameType} frame to stream ID {streamId} before signaling of the header block for stream ID {headersStreamId}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorHeadersInterleaved(System.Object,System.Object,System.Object)">
+            <summary>
+            The client sent a {frameType} frame to stream ID {streamId} before signaling of the header block for stream ID {headersStreamId}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorStreamIdZero">
+            <summary>
+            The client sent a {frameType} frame with stream ID 0.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorStreamIdZero(System.Object)">
+            <summary>
+            The client sent a {frameType} frame with stream ID 0.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorStreamIdNotZero">
+            <summary>
+            The client sent a {frameType} frame with stream ID different than 0.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorStreamIdNotZero(System.Object)">
+            <summary>
+            The client sent a {frameType} frame with stream ID different than 0.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorPaddingTooLong">
+            <summary>
+            The client sent a {frameType} frame with padding longer than or with the same length as the sent data.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorPaddingTooLong(System.Object)">
+            <summary>
+            The client sent a {frameType} frame with padding longer than or with the same length as the sent data.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorStreamClosed">
+            <summary>
+            The client sent a {frameType} frame to closed stream ID {streamId}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorStreamClosed(System.Object,System.Object)">
+            <summary>
+            The client sent a {frameType} frame to closed stream ID {streamId}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorStreamHalfClosedRemote">
+            <summary>
+            The client sent a {frameType} frame to stream ID {streamId} which is in the "half-closed (remote) state".
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorStreamHalfClosedRemote(System.Object,System.Object)">
+            <summary>
+            The client sent a {frameType} frame to stream ID {streamId} which is in the "half-closed (remote) state".
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorStreamSelfDependency">
+            <summary>
+            The client sent a {frameType} frame with dependency information that would cause stream ID {streamId} to depend on itself.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorStreamSelfDependency(System.Object,System.Object)">
+            <summary>
+            The client sent a {frameType} frame with dependency information that would cause stream ID {streamId} to depend on itself.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorUnexpectedFrameLength">
+            <summary>
+            The client sent a {frameType} frame with length different than {expectedLength}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorUnexpectedFrameLength(System.Object,System.Object)">
+            <summary>
+            The client sent a {frameType} frame with length different than {expectedLength}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorSettingsLengthNotMultipleOfSix">
+            <summary>
+            The client sent a SETTINGS frame with a length that is not a multiple of 6.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorSettingsLengthNotMultipleOfSix">
+            <summary>
+            The client sent a SETTINGS frame with a length that is not a multiple of 6.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorSettingsAckLengthNotZero">
+            <summary>
+            The client sent a SETTINGS frame with ACK set and length different than 0.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorSettingsAckLengthNotZero">
+            <summary>
+            The client sent a SETTINGS frame with ACK set and length different than 0.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorSettingsParameterOutOfRange">
+            <summary>
+            The client sent a SETTINGS frame with a value for parameter {parameter} that is out of range.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorSettingsParameterOutOfRange(System.Object)">
+            <summary>
+            The client sent a SETTINGS frame with a value for parameter {parameter} that is out of range.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorWindowUpdateIncrementZero">
+            <summary>
+            The client sent a WINDOW_UPDATE frame with a window size increment of 0.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorWindowUpdateIncrementZero">
+            <summary>
+            The client sent a WINDOW_UPDATE frame with a window size increment of 0.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorContinuationWithNoHeaders">
+            <summary>
+            The client sent a CONTINUATION frame not preceded by a HEADERS frame.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorContinuationWithNoHeaders">
+            <summary>
+            The client sent a CONTINUATION frame not preceded by a HEADERS frame.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorStreamIdle">
+            <summary>
+            The client sent a {frameType} frame to idle stream ID {streamId}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorStreamIdle(System.Object,System.Object)">
+            <summary>
+            The client sent a {frameType} frame to idle stream ID {streamId}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorTrailersContainPseudoHeaderField">
+            <summary>
+            The client sent trailers containing one or more pseudo-header fields.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorTrailersContainPseudoHeaderField">
+            <summary>
+            The client sent trailers containing one or more pseudo-header fields.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorHeaderNameUppercase">
+            <summary>
+            The client sent a header with uppercase characters in its name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorHeaderNameUppercase">
+            <summary>
+            The client sent a header with uppercase characters in its name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorTrailerNameUppercase">
+            <summary>
+            The client sent a trailer with uppercase characters in its name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorTrailerNameUppercase">
+            <summary>
+            The client sent a trailer with uppercase characters in its name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorHeadersWithTrailersNoEndStream">
+            <summary>
+            The client sent a HEADERS frame containing trailers without setting the END_STREAM flag.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorHeadersWithTrailersNoEndStream">
+            <summary>
+            The client sent a HEADERS frame containing trailers without setting the END_STREAM flag.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorMissingMandatoryPseudoHeaderFields">
+            <summary>
+            Request headers missing one or more mandatory pseudo-header fields.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorMissingMandatoryPseudoHeaderFields">
+            <summary>
+            Request headers missing one or more mandatory pseudo-header fields.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorPseudoHeaderFieldAfterRegularHeaders">
+            <summary>
+            Pseudo-header field found in request headers after regular header fields.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorPseudoHeaderFieldAfterRegularHeaders">
+            <summary>
+            Pseudo-header field found in request headers after regular header fields.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorUnknownPseudoHeaderField">
+            <summary>
+            Request headers contain unknown pseudo-header field.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorUnknownPseudoHeaderField">
+            <summary>
+            Request headers contain unknown pseudo-header field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorResponsePseudoHeaderField">
+            <summary>
+            Request headers contain response-specific pseudo-header field.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorResponsePseudoHeaderField">
+            <summary>
+            Request headers contain response-specific pseudo-header field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorDuplicatePseudoHeaderField">
+            <summary>
+            Request headers contain duplicate pseudo-header field.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorDuplicatePseudoHeaderField">
+            <summary>
+            Request headers contain duplicate pseudo-header field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2ErrorConnectionSpecificHeaderField">
+            <summary>
+            Request headers contain connection-specific header field.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2ErrorConnectionSpecificHeaderField">
+            <summary>
+            Request headers contain connection-specific header field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.UnableToConfigureHttpsBindings">
+            <summary>
+            Unable to configure default https bindings because no IDefaultHttpsProvider service was provided.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatUnableToConfigureHttpsBindings">
+            <summary>
+            Unable to configure default https bindings because no IDefaultHttpsProvider service was provided.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.AuthenticationFailed">
+            <summary>
+            Failed to authenticate HTTPS connection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatAuthenticationFailed">
+            <summary>
+            Failed to authenticate HTTPS connection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.AuthenticationTimedOut">
+            <summary>
+            Authentication of the HTTPS connection timed out.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatAuthenticationTimedOut">
+            <summary>
+            Authentication of the HTTPS connection timed out.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.InvalidServerCertificateEku">
+            <summary>
+            Certificate {thumbprint} cannot be used as an SSL server certificate. It has an Extended Key Usage extension but the usages do not include Server Authentication (OID 1.3.6.1.5.5.7.3.1).
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatInvalidServerCertificateEku(System.Object)">
+            <summary>
+            Certificate {thumbprint} cannot be used as an SSL server certificate. It has an Extended Key Usage extension but the usages do not include Server Authentication (OID 1.3.6.1.5.5.7.3.1).
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.PositiveTimeSpanRequired1">
+            <summary>
+            Value must be a positive TimeSpan.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatPositiveTimeSpanRequired1">
+            <summary>
+            Value must be a positive TimeSpan.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.ServerCertificateRequired">
+            <summary>
+            The server certificate parameter is required.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatServerCertificateRequired">
+            <summary>
+            The server certificate parameter is required.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BindingToDefaultAddresses">
+            <summary>
+            No listening endpoints were configured. Binding to {address0} and {address1} by default.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBindingToDefaultAddresses(System.Object,System.Object)">
+            <summary>
+            No listening endpoints were configured. Binding to {address0} and {address1} by default.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.CertNotFoundInStore">
+            <summary>
+            The requested certificate {subject} could not be found in {storeLocation}/{storeName} with AllowInvalid setting: {allowInvalid}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatCertNotFoundInStore(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            The requested certificate {subject} could not be found in {storeLocation}/{storeName} with AllowInvalid setting: {allowInvalid}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.EndpointMissingUrl">
+            <summary>
+            The endpoint {endpointName} is missing the required 'Url' parameter.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatEndpointMissingUrl(System.Object)">
+            <summary>
+            The endpoint {endpointName} is missing the required 'Url' parameter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.NoCertSpecifiedNoDevelopmentCertificateFound">
+            <summary>
+            Unable to configure HTTPS endpoint. No server certificate was specified, and the default developer certificate could not be found.
+            To generate a developer certificate run 'dotnet dev-certs https'. To trust the certificate (Windows and macOS only) run 'dotnet dev-certs https --trust'.
+            For more information on configuring HTTPS see https://go.microsoft.com/fwlink/?linkid=848054.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatNoCertSpecifiedNoDevelopmentCertificateFound">
+            <summary>
+            Unable to configure HTTPS endpoint. No server certificate was specified, and the default developer certificate could not be found.
+            To generate a developer certificate run 'dotnet dev-certs https'. To trust the certificate (Windows and macOS only) run 'dotnet dev-certs https --trust'.
+            For more information on configuring HTTPS see https://go.microsoft.com/fwlink/?linkid=848054.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.MultipleCertificateSources">
+            <summary>
+            The endpoint {endpointName} specified multiple certificate sources.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatMultipleCertificateSources(System.Object)">
+            <summary>
+            The endpoint {endpointName} specified multiple certificate sources.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.Http2NotSupported">
+            <summary>
+            HTTP/2 support is experimental, see https://go.microsoft.com/fwlink/?linkid=866785 to enable it.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatHttp2NotSupported">
+            <summary>
+            HTTP/2 support is experimental, see https://go.microsoft.com/fwlink/?linkid=866785 to enable it.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.WritingToResponseBodyAfterResponseCompleted">
+            <summary>
+            Cannot write to the response body, the response has completed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatWritingToResponseBodyAfterResponseCompleted">
+            <summary>
+            Cannot write to the response body, the response has completed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.BadRequest_RequestBodyTimeout">
+            <summary>
+            Reading the request body timed out due to data arriving too slowly. See MinRequestBodyDataRate.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Core.CoreStrings.FormatBadRequest_RequestBodyTimeout">
+            <summary>
+            Reading the request body timed out due to data arriving too slowly. See MinRequestBodyDataRate.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.Kestrel.Https.ClientCertificateMode">
+            <summary>
+            Describes the client certificate requirements for a HTTPS connection.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Server.Kestrel.Https.ClientCertificateMode.NoCertificate">
+            <summary>
+            A client certificate is not required and will not be requested from clients.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Server.Kestrel.Https.ClientCertificateMode.AllowCertificate">
+            <summary>
+            A client certificate will be requested; however, authentication will not fail if a certificate is not provided by the client.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Server.Kestrel.Https.ClientCertificateMode.RequireCertificate">
+            <summary>
+            A client certificate will be requested, and the client must provide a valid certificate for authentication to succeed.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions">
+            <summary>
+            Settings for how Kestrel should handle HTTPS connections.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.ServerCertificate">
+            <summary>
+            <para>
+            Specifies the server certificate used to authenticate HTTPS connections. This is ignored if ServerCertificateSelector is set.
+            </para>
+            <para>
+            If the server certificate has an Extended Key Usage extension, the usages must include Server Authentication (OID 1.3.6.1.5.5.7.3.1).
+            </para>
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.ServerCertificateSelector">
+            <summary>
+            <para>
+            A callback that will be invoked to dynamically select a server certificate. This is higher priority than ServerCertificate.
+            If SNI is not avialable then the name parameter will be null.
+            </para>
+            <para>
+            If the server certificate has an Extended Key Usage extension, the usages must include Server Authentication (OID 1.3.6.1.5.5.7.3.1).
+            </para>
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.ClientCertificateMode">
+            <summary>
+            Specifies the client certificate requirements for a HTTPS connection. Defaults to <see cref="F:Microsoft.AspNetCore.Server.Kestrel.Https.ClientCertificateMode.NoCertificate"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.ClientCertificateValidation">
+            <summary>
+            Specifies a callback for additional client certificate validation that will be invoked during authentication.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.SslProtocols">
+            <summary>
+            Specifies allowable SSL protocols. Defaults to <see cref="F:System.Security.Authentication.SslProtocols.Tls12" /> and <see cref="F:System.Security.Authentication.SslProtocols.Tls11"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.HttpProtocols">
+            <summary>
+            The protocols enabled on this endpoint.
+            </summary>
+            <remarks>Defaults to HTTP/1.x only.</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.CheckCertificateRevocation">
+            <summary>
+            Specifies whether the certificate revocation list is checked during authentication.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.HandshakeTimeout">
+            <summary>
+            Specifies the maximum amount of time allowed for the TLS/SSL handshake. This must be positive and finite.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.KestrelConfigurationLoader.Endpoint(System.String,System.Action{Microsoft.AspNetCore.Server.Kestrel.EndpointConfiguration})">
+            <summary>
+            Specifies a configuration Action to run when an endpoint with the given name is loaded from configuration.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.KestrelConfigurationLoader.Endpoint(System.Net.IPAddress,System.Int32)">
+            <summary>
+            Bind to given IP address and port.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.KestrelConfigurationLoader.Endpoint(System.Net.IPAddress,System.Int32,System.Action{Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions})">
+            <summary>
+            Bind to given IP address and port.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.KestrelConfigurationLoader.Endpoint(System.Net.IPEndPoint)">
+            <summary>
+            Bind to given IP endpoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.KestrelConfigurationLoader.Endpoint(System.Net.IPEndPoint,System.Action{Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions})">
+            <summary>
+            Bind to given IP address and port.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.KestrelConfigurationLoader.LocalhostEndpoint(System.Int32)">
+            <summary>
+            Listens on ::1 and 127.0.0.1 with the given port. Requesting a dynamic port by specifying 0 is not supported
+            for this type of endpoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.KestrelConfigurationLoader.LocalhostEndpoint(System.Int32,System.Action{Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions})">
+            <summary>
+            Listens on ::1 and 127.0.0.1 with the given port. Requesting a dynamic port by specifying 0 is not supported
+            for this type of endpoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.KestrelConfigurationLoader.AnyIPEndpoint(System.Int32)">
+            <summary>
+            Listens on all IPs using IPv6 [::], or IPv4 0.0.0.0 if IPv6 is not supported.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.KestrelConfigurationLoader.AnyIPEndpoint(System.Int32,System.Action{Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions})">
+            <summary>
+            Listens on all IPs using IPv6 [::], or IPv4 0.0.0.0 if IPv6 is not supported.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.KestrelConfigurationLoader.UnixSocketEndpoint(System.String)">
+            <summary>
+            Bind to given Unix domain socket path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.KestrelConfigurationLoader.UnixSocketEndpoint(System.String,System.Action{Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions})">
+            <summary>
+            Bind to given Unix domain socket path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.KestrelConfigurationLoader.HandleEndpoint(System.UInt64)">
+            <summary>
+            Open a socket file descriptor.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Server.Kestrel.KestrelConfigurationLoader.HandleEndpoint(System.UInt64,System.Action{Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions})">
+            <summary>
+            Open a socket file descriptor.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.ListenOptionsConnectionLoggingExtensions.UseConnectionLogging(Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions)">
+            <summary>
+            Emits verbose logs for bytes read from and written to the connection.
+            </summary>
+            <returns>
+            The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.ListenOptionsConnectionLoggingExtensions.UseConnectionLogging(Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions,System.String)">
+            <summary>
+            Emits verbose logs for bytes read from and written to the connection.
+            </summary>
+            <returns>
+            The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/>.
+            </returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions">
+            <summary>
+            Extension methods for <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/> that configure Kestrel to use HTTPS for a given endpoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions.UseHttps(Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions)">
+            <summary>
+            Configure Kestrel to use HTTPS with the default certificate if available.
+            This will throw if no default certificate is configured.
+            </summary>
+            <param name="listenOptions">The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/> to configure.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions.UseHttps(Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions,System.String)">
+            <summary>
+            Configure Kestrel to use HTTPS.
+            </summary>
+            <param name="listenOptions">The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/> to configure.</param>
+            <param name="fileName">The name of a certificate file, relative to the directory that contains the application
+            content files.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions.UseHttps(Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions,System.String,System.String)">
+            <summary>
+            Configure Kestrel to use HTTPS.
+            </summary>
+            <param name="listenOptions">The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/> to configure.</param>
+            <param name="fileName">The name of a certificate file, relative to the directory that contains the application
+            content files.</param>
+            <param name="password">The password required to access the X.509 certificate data.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions.UseHttps(Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions,System.String,System.String,System.Action{Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions})">
+            <summary>
+            Configure Kestrel to use HTTPS.
+            </summary>
+            <param name="listenOptions">The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/> to configure.</param>
+            <param name="fileName">The name of a certificate file, relative to the directory that contains the application content files.</param>
+            <param name="password">The password required to access the X.509 certificate data.</param>
+            <param name="configureOptions">An Action to configure the <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions"/>.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions.UseHttps(Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions,System.Security.Cryptography.X509Certificates.StoreName,System.String)">
+            <summary>
+            Configure Kestrel to use HTTPS.
+            </summary>
+            <param name="listenOptions">The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/> to configure.</param>
+            <param name="storeName">The certificate store to load the certificate from.</param>
+            <param name="subject">The subject name for the certificate to load.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions.UseHttps(Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions,System.Security.Cryptography.X509Certificates.StoreName,System.String,System.Boolean)">
+            <summary>
+            Configure Kestrel to use HTTPS.
+            </summary>
+            <param name="listenOptions">The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/> to configure.</param>
+            <param name="storeName">The certificate store to load the certificate from.</param>
+            <param name="subject">The subject name for the certificate to load.</param>
+            <param name="allowInvalid">Indicates if invalid certificates should be considered, such as self-signed certificates.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions.UseHttps(Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions,System.Security.Cryptography.X509Certificates.StoreName,System.String,System.Boolean,System.Security.Cryptography.X509Certificates.StoreLocation)">
+            <summary>
+            Configure Kestrel to use HTTPS.
+            </summary>
+            <param name="listenOptions">The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/> to configure.</param>
+            <param name="storeName">The certificate store to load the certificate from.</param>
+            <param name="subject">The subject name for the certificate to load.</param>
+            <param name="allowInvalid">Indicates if invalid certificates should be considered, such as self-signed certificates.</param>
+            <param name="location">The store location to load the certificate from.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions.UseHttps(Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions,System.Security.Cryptography.X509Certificates.StoreName,System.String,System.Boolean,System.Security.Cryptography.X509Certificates.StoreLocation,System.Action{Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions})">
+            <summary>
+            Configure Kestrel to use HTTPS.
+            </summary>
+            <param name="listenOptions">The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/> to configure.</param>
+            <param name="storeName">The certificate store to load the certificate from.</param>
+            <param name="subject">The subject name for the certificate to load.</param>
+            <param name="allowInvalid">Indicates if invalid certificates should be considered, such as self-signed certificates.</param>
+            <param name="location">The store location to load the certificate from.</param>
+            <param name="configureOptions">An Action to configure the <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions"/>.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions.UseHttps(Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions,System.Security.Cryptography.X509Certificates.X509Certificate2)">
+            <summary>
+            Configure Kestrel to use HTTPS.
+            </summary>
+            <param name="listenOptions"> The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/> to configure.</param>
+            <param name="serverCertificate">The X.509 certificate.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions.UseHttps(Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions,System.Security.Cryptography.X509Certificates.X509Certificate2,System.Action{Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions})">
+            <summary>
+            Configure Kestrel to use HTTPS.
+            </summary>
+            <param name="listenOptions">The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/> to configure.</param>
+            <param name="serverCertificate">The X.509 certificate.</param>
+            <param name="configureOptions">An Action to configure the <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions"/>.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions.UseHttps(Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions,System.Action{Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions})">
+            <summary>
+            Configure Kestrel to use HTTPS.
+            </summary>
+            <param name="listenOptions">The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/> to configure.</param>
+            <param name="configureOptions">An action to configure options for HTTPS.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions.UseHttps(Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions,Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions)">
+            <summary>
+            Configure Kestrel to use HTTPS.
+            </summary>
+            <param name="listenOptions">The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/> to configure.</param>
+            <param name="httpsOptions">Options to configure HTTPS.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.KestrelServerOptionsSystemdExtensions.UseSystemd(Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions)">
+            <summary>
+            Open file descriptor (SD_LISTEN_FDS_START) initialized by systemd socket-based activation logic if available.
+            </summary>
+            <returns>
+            The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.KestrelServerOptionsSystemdExtensions.UseSystemd(Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions,System.Action{Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions})">
+            <summary>
+            Open file descriptor (SD_LISTEN_FDS_START) initialized by systemd socket-based activation logic if available.
+            Specify callback to configure endpoint-specific settings.
+            </summary>
+            <returns>
+            The <see cref="T:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Connections.Abstractions.UrlDecoder.Decode(System.ReadOnlySpan{System.Byte},System.Span{System.Byte})">
+            <summary>
+            Unescape a URL path
+            </summary>
+            <param name="source">The byte span represents a UTF8 encoding url path.</param>
+            <param name="destination">The byte span where unescaped url path is copied to.</param>
+            <returns>The length of the byte sequence of the unescaped url path.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Connections.Abstractions.UrlDecoder.DecodeInPlace(System.Span{System.Byte})">
+            <summary>
+            Unescape a URL path in place.
+            </summary>
+            <param name="buffer">The byte span represents a UTF8 encoding url path.</param>
+            <returns>The number of the bytes representing the result.</returns>
+            <remarks>
+            The unescape is done in place, which means after decoding the result is the subset of
+            the input span.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Connections.Abstractions.UrlDecoder.DecodeCore(System.Int32@,System.Int32@,System.Span{System.Byte})">
+            <summary>
+            Unescape the percent-encodings
+            </summary>
+            <param name="sourceIndex">The iterator point to the first % char</param>
+            <param name="destinationIndex">The place to write to</param>
+            <param name="buffer">The byte array</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Connections.Abstractions.UrlDecoder.UnescapePercentEncoding(System.Int32@,System.Span{System.Byte})">
+             <summary>
+             Read the percent-encoding and try unescape it.
+            
+             The operation first peek at the character the <paramref name="scan"/>
+             iterator points at. If it is % the <paramref name="scan"/> is then
+             moved on to scan the following to characters. If the two following
+             characters are hexadecimal literals they will be unescaped and the
+             value will be returned.
+            
+             If the first character is not % the <paramref name="scan"/> iterator
+             will be removed beyond the location of % and -1 will be returned.
+            
+             If the following two characters can't be successfully unescaped the
+             <paramref name="scan"/> iterator will be move behind the % and -1
+             will be returned.
+             </summary>
+             <param name="scan">The value to read</param>
+             <param name="buffer">The byte array</param>
+             <returns>The unescaped byte if success. Otherwise return -1.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Connections.Abstractions.UrlDecoder.ReadHex(System.Int32@,System.Span{System.Byte})">
+             <summary>
+             Read the next char and convert it into hexadecimal value.
+            
+             The <paramref name="scan"/> index will be moved to the next
+             byte no matter no matter whether the operation successes.
+             </summary>
+             <param name="scan">The index of the byte in the buffer to read</param>
+             <param name="buffer">The byte span from which the hex to be read</param>
+             <returns>The hexadecimal value if successes, otherwise -1.</returns>
+        </member>
+    </members>
+</doc>

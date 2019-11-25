@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.CookiePolicy</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Builder.CookiePolicyAppBuilderExtensions">
+            <summary>
+            Extension methods to add cookie policy capabilities to an HTTP application pipeline.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.CookiePolicyAppBuilderExtensions.UseCookiePolicy(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Adds the <see cref="T:Microsoft.AspNetCore.CookiePolicy.CookiePolicyMiddleware"/> handler to the specified <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>, which enables cookie policy capabilities.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to add the handler to.</param>
+            <returns>A reference to this instance after the operation has completed.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.CookiePolicyAppBuilderExtensions.UseCookiePolicy(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Builder.CookiePolicyOptions)">
+            <summary>
+            Adds the <see cref="T:Microsoft.AspNetCore.CookiePolicy.CookiePolicyMiddleware"/> handler to the specified <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>, which enables cookie policy capabilities.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to add the handler to.</param>
+            <param name="options">A <see cref="T:Microsoft.AspNetCore.Builder.CookiePolicyOptions"/> that specifies options for the handler.</param>
+            <returns>A reference to this instance after the operation has completed.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.CookiePolicyOptions">
+            <summary>
+            Provides programmatic configuration for the <see cref="T:Microsoft.AspNetCore.CookiePolicy.CookiePolicyMiddleware"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.CookiePolicyOptions.MinimumSameSitePolicy">
+            <summary>
+            Affects the cookie's same site attribute.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.CookiePolicyOptions.HttpOnly">
+            <summary>
+            Affects whether cookies must be HttpOnly.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.CookiePolicyOptions.Secure">
+            <summary>
+            Affects whether cookies must be Secure.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.CookiePolicyOptions.CheckConsentNeeded">
+            <summary>
+            Checks if consent policies should be evaluated on this request. The default is false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.CookiePolicyOptions.OnAppendCookie">
+            <summary>
+            Called when a cookie is appended.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.CookiePolicyOptions.OnDeleteCookie">
+            <summary>
+            Called when a cookie is deleted.
+            </summary>
+        </member>
+    </members>
+</doc>

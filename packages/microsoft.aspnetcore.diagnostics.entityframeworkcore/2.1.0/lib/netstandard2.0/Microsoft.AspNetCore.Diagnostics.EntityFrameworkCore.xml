@@ -1,0 +1,644 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Extensions.RazorViews.BaseView">
+            <summary>
+            Infrastructure
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.RazorViews.BaseView.Context">
+            <summary>
+            The request context
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.RazorViews.BaseView.Request">
+            <summary>
+            The request
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.RazorViews.BaseView.Response">
+            <summary>
+            The response
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.RazorViews.BaseView.Output">
+            <summary>
+            The output stream
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.RazorViews.BaseView.HtmlEncoder">
+            <summary>
+            Html encoder used to encode content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.RazorViews.BaseView.UrlEncoder">
+            <summary>
+            Url encoder used to encode content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.RazorViews.BaseView.JavaScriptEncoder">
+            <summary>
+            JavaScript encoder used to encode content.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.RazorViews.BaseView.ExecuteAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Execute an individual request
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Microsoft.Extensions.RazorViews.BaseView.ExecuteAsync">
+            <summary>
+            Execute an individual request
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.RazorViews.BaseView.WriteLiteral(System.Object)">
+            <summary>
+            Write the given value without HTML encoding directly to <see cref="P:Microsoft.Extensions.RazorViews.BaseView.Output"/>.
+            </summary>
+            <param name="value">The <see cref="T:System.Object"/> to write.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.RazorViews.BaseView.WriteLiteral(System.String)">
+            <summary>
+            Write the given value without HTML encoding directly to <see cref="P:Microsoft.Extensions.RazorViews.BaseView.Output"/>.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> to write.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.RazorViews.BaseView.WriteAttribute(System.String,System.String,System.String,Microsoft.Extensions.RazorViews.AttributeValue[])">
+            <summary>
+            Writes the given attribute to the given writer
+            </summary>
+            <param name="name">The name of the attribute to write</param>
+            <param name="leader">The value of the prefix</param>
+            <param name="trailer">The value of the suffix</param>
+            <param name="values">The <see cref="T:Microsoft.Extensions.RazorViews.AttributeValue"/>s to write.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.RazorViews.BaseView.Write(Microsoft.Extensions.RazorViews.HelperResult)">
+            <summary>
+            <see cref="M:Microsoft.Extensions.RazorViews.HelperResult.WriteTo(System.IO.TextWriter)"/> is invoked
+            </summary>
+            <param name="result">The <see cref="T:Microsoft.Extensions.RazorViews.HelperResult"/> to invoke</param>
+        </member>
+        <member name="M:Microsoft.Extensions.RazorViews.BaseView.Write(System.Object)">
+            <summary>
+            Writes the specified <paramref name="value"/> to <see cref="P:Microsoft.Extensions.RazorViews.BaseView.Output"/>.
+            </summary>
+            <param name="value">The <see cref="T:System.Object"/> to write.</param>
+            <remarks>
+            <see cref="M:Microsoft.Extensions.RazorViews.HelperResult.WriteTo(System.IO.TextWriter)"/> is invoked for <see cref="T:Microsoft.Extensions.RazorViews.HelperResult"/> types.
+            For all other types, the encoded result of <see cref="M:System.Object.ToString"/> is written to
+            <see cref="P:Microsoft.Extensions.RazorViews.BaseView.Output"/>.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.RazorViews.BaseView.Write(System.String)">
+            <summary>
+            Writes the specified <paramref name="value"/> with HTML encoding to <see cref="P:Microsoft.Extensions.RazorViews.BaseView.Output"/>.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> to write.</param>
+        </member>
+        <member name="T:Microsoft.Extensions.RazorViews.HelperResult">
+            <summary>
+            Represents a deferred write operation in a <see cref="T:Microsoft.Extensions.RazorViews.BaseView"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.RazorViews.HelperResult.#ctor(System.Action{System.IO.TextWriter})">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.Extensions.RazorViews.HelperResult"/>.
+            </summary>
+            <param name="action">The delegate to invoke when <see cref="M:Microsoft.Extensions.RazorViews.HelperResult.WriteTo(System.IO.TextWriter)"/> is called.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.RazorViews.HelperResult.WriteTo(System.IO.TextWriter)">
+            <summary>
+            Method invoked to produce content from the <see cref="T:Microsoft.Extensions.RazorViews.HelperResult"/>.
+            </summary>
+            <param name="writer">The <see cref="T:System.IO.TextWriter"/> instance to write to.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions">
+            <summary>
+            <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> extension methods for the <see cref="T:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Captures synchronous and asynchronous database related exceptions from the pipeline that may be resolved using Entity Framework
+            migrations. When these exceptions occur an HTML response with details of possible actions to resolve the issue is generated.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to register the middleware with.</param>
+            <returns>The same <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance so that multiple calls can be chained.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Builder.DatabaseErrorPageOptions)">
+            <summary>
+            Captures synchronous and asynchronous database related exceptions from the pipeline that may be resolved using Entity Framework
+            migrations. When these exceptions occur an HTML response with details of possible actions to resolve the issue is generated.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to register the middleware with.</param>
+            <param name="options">A <see cref="T:Microsoft.AspNetCore.Builder.DatabaseErrorPageOptions"/> that specifies options for the middleware.</param>
+            <returns>The same <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance so that multiple calls can be chained.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.DatabaseErrorPageOptions">
+            <summary>
+            Options for the <see cref="T:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.DatabaseErrorPageOptions.MigrationsEndPointPath">
+            <summary>
+            Gets or sets the path that <see cref="T:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware"/> will listen
+            for requests to execute migrations commands.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.MigrationsEndPointExtensions">
+            <summary>
+            <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> extension methods for the <see cref="T:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.MigrationsEndPointExtensions.UseMigrationsEndPoint(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Processes requests to execute migrations operations. The middleware will listen for requests made to <see cref="F:Microsoft.AspNetCore.Builder.MigrationsEndPointOptions.DefaultPath"/>.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to register the middleware with.</param>
+            <returns>The same <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance so that multiple calls can be chained.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.MigrationsEndPointExtensions.UseMigrationsEndPoint(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Builder.MigrationsEndPointOptions)">
+            <summary>
+            Processes requests to execute migrations operations. The middleware will listen for requests to the path configured in <paramref name="options"/>.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to register the middleware with.</param>
+            <param name="options">An action to set the options for the middleware.</param>
+            <returns>The same <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance so that multiple calls can be chained.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.MigrationsEndPointOptions">
+            <summary>
+            Options for the <see cref="T:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Builder.MigrationsEndPointOptions.DefaultPath">
+            <summary>
+            The default value for <see cref="P:Microsoft.AspNetCore.Builder.MigrationsEndPointOptions.Path"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.MigrationsEndPointOptions.Path">
+            <summary>
+            Gets or sets the path that the <see cref="T:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware"/> will listen
+            for requests to execute migrations commands.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware">
+            <summary>
+                Captures synchronous and asynchronous database related exceptions from the pipeline that may be resolved using Entity Framework
+                migrations. When these exceptions occur an HTML response with details of possible actions to resolve the issue is generated.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Builder.DatabaseErrorPageOptions})">
+            <summary>
+                Initializes a new instance of the <see cref="T:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware" /> class
+            </summary>
+            <param name="next">Delegate to execute the next piece of middleware in the request pipeline.</param>
+            <param name="loggerFactory">
+                The <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory" /> for the application. This middleware both produces logging messages and
+                consumes them to detect database related exception.
+            </param>
+            <param name="options">The options to control what information is displayed on the error page.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+                Process an individual request.
+            </summary>
+            <param name="httpContext">The HTTP context for the current request.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware">
+            <summary>
+            Processes requests to execute migrations operations. The middleware will listen for requests to the path configured in the supplied options.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware},Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Builder.MigrationsEndPointOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware"/> class
+            </summary>
+            <param name="next">Delegate to execute the next piece of middleware in the request pipeline.</param>
+            <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.Logger`1"/> to write messages to.</param>
+            <param name="options">The options to control the behavior of the middleware.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Process an individual request.
+            </summary>
+            <param name="context">The context for the current request.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPageMiddleware_ContextNotRegistered">
+            <summary>
+            The context type '{0}' was not found in services. This usually means the context was not registered in services during startup. You probably want to call AddScoped&lt;&gt;() inside the UseServices(...) call in your application startup code. Skipping display of the database error page.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPageMiddleware_ContextNotRegistered(System.Object)">
+            <summary>
+            The context type '{0}' was not found in services. This usually means the context was not registered in services during startup. You probably want to call AddScoped&lt;&gt;() inside the UseServices(...) call in your application startup code. Skipping display of the database error page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPageMiddleware_Exception">
+            <summary>
+            An exception occurred while calculating the database error page content. Skipping display of the database error page.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPageMiddleware_Exception">
+            <summary>
+            An exception occurred while calculating the database error page content. Skipping display of the database error page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_AddMigrationCommandCLI">
+            <summary>
+            &gt; dotnet ef migrations add [migration name]
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_AddMigrationCommandCLI">
+            <summary>
+            &gt; dotnet ef migrations add [migration name]
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_ApplyMigrationsButton">
+            <summary>
+            Apply Migrations
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_ApplyMigrationsButton">
+            <summary>
+            Apply Migrations
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_ApplyMigrationsButtonDone">
+            <summary>
+            Migrations Applied
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_ApplyMigrationsButtonDone">
+            <summary>
+            Migrations Applied
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_ApplyMigrationsButtonRunning">
+            <summary>
+            Applying Migrations...
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_ApplyMigrationsButtonRunning">
+            <summary>
+            Applying Migrations...
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_ApplyMigrationsFailed">
+            <summary>
+            An error occurred applying migrations, try applying them from the command line
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_ApplyMigrationsFailed">
+            <summary>
+            An error occurred applying migrations, try applying them from the command line
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_HowToApplyFromPMC">
+            <summary>
+            In Visual Studio, you can use the Package Manager Console to apply pending migrations to the database:
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_HowToApplyFromPMC">
+            <summary>
+            In Visual Studio, you can use the Package Manager Console to apply pending migrations to the database:
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_MigrationsAppliedRefresh">
+            <summary>
+            Try refreshing the page
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_MigrationsAppliedRefresh">
+            <summary>
+            Try refreshing the page
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_NoDbOrMigrationsInfoPMC">
+            <summary>
+            In Visual Studio, use the Package Manager Console to scaffold a new migration and apply it to the database:
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_NoDbOrMigrationsInfoPMC">
+            <summary>
+            In Visual Studio, use the Package Manager Console to scaffold a new migration and apply it to the database:
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_NoDbOrMigrationsTitle">
+            <summary>
+            Use migrations to create the database for {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_NoDbOrMigrationsTitle(System.Object)">
+            <summary>
+            Use migrations to create the database for {0}
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_PendingChangesInfoPMC">
+            <summary>
+            In Visual Studio, use the Package Manager Console to scaffold a new migration for these changes and apply them to the database:
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_PendingChangesInfoPMC">
+            <summary>
+            In Visual Studio, use the Package Manager Console to scaffold a new migration for these changes and apply them to the database:
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_PendingChangesTitle">
+            <summary>
+            There are pending model changes for {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_PendingChangesTitle(System.Object)">
+            <summary>
+            There are pending model changes for {0}
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_PendingMigrationsInfo">
+            <summary>
+            There are migrations for {0} that have not been applied to the database
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_PendingMigrationsInfo(System.Object)">
+            <summary>
+            There are migrations for {0} that have not been applied to the database
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_PendingMigrationsTitle">
+            <summary>
+            Applying existing migrations for {0} may resolve this issue
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_PendingMigrationsTitle(System.Object)">
+            <summary>
+            Applying existing migrations for {0} may resolve this issue
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_ApplyMigrationsCommandCLI">
+            <summary>
+            &gt; dotnet ef database update
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_ApplyMigrationsCommandCLI">
+            <summary>
+            &gt; dotnet ef database update
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.MigrationsEndPointMiddleware_ContextNotRegistered">
+            <summary>
+            The context type '{0}' was not found in services. This usually means the context was not registered in services during startup. You probably want to call AddScoped&lt;{0}&gt;() inside the UseServices(...) call in your application startup code.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatMigrationsEndPointMiddleware_ContextNotRegistered(System.Object)">
+            <summary>
+            The context type '{0}' was not found in services. This usually means the context was not registered in services during startup. You probably want to call AddScoped&lt;{0}&gt;() inside the UseServices(...) call in your application startup code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.MigrationsEndPointMiddleware_Exception">
+            <summary>
+            An error occurred while applying the migrations for '{0}'. See InnerException for details.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatMigrationsEndPointMiddleware_Exception(System.Object)">
+            <summary>
+            An error occurred while applying the migrations for '{0}'. See InnerException for details.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.MigrationsEndPointMiddleware_InvalidContextType">
+            <summary>
+            The context type '{0}' could not be loaded. Ensure this is the correct type name for the context you are trying to apply migrations for.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatMigrationsEndPointMiddleware_InvalidContextType(System.Object)">
+            <summary>
+            The context type '{0}' could not be loaded. Ensure this is the correct type name for the context you are trying to apply migrations for.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.MigrationsEndPointMiddleware_NoContextType">
+            <summary>
+            No context type was specified. Ensure the form data from the request includes a contextTypeName value, specifying the context to apply migrations for.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatMigrationsEndPointMiddleware_NoContextType">
+            <summary>
+            No context type was specified. Ensure the form data from the request includes a contextTypeName value, specifying the context to apply migrations for.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_Title">
+            <summary>
+            A database operation failed while processing the request.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_Title">
+            <summary>
+            A database operation failed while processing the request.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_NoRecordedException">
+            <summary>
+            Entity Framework did not record any exceptions due to failed database operations. This means the current exception is not a failed Entity Framework database operation, or the current exception occurred from a DbContext that was not obtained from request services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_NoRecordedException">
+            <summary>
+            Entity Framework did not record any exceptions due to failed database operations. This means the current exception is not a failed Entity Framework database operation, or the current exception occurred from a DbContext that was not obtained from request services.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_AddMigrationCommandPMC">
+            <summary>
+            PM&gt; Add-Migration [migration name]
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_AddMigrationCommandPMC">
+            <summary>
+            PM&gt; Add-Migration [migration name]
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_ApplyMigrationsCommandPMC">
+            <summary>
+            PM&gt; Update-Database
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_ApplyMigrationsCommandPMC">
+            <summary>
+            PM&gt; Update-Database
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_NoDbOrMigrationsInfoCLI">
+            <summary>
+            Alternatively, you can scaffold a new migration and apply it from a command prompt at your project directory:
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_NoDbOrMigrationsInfoCLI">
+            <summary>
+            Alternatively, you can scaffold a new migration and apply it from a command prompt at your project directory:
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_PendingChangesInfoCLI">
+            <summary>
+            Alternatively, you can scaffold a new migration and apply it from a command prompt at your project directory:
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_PendingChangesInfoCLI">
+            <summary>
+            Alternatively, you can scaffold a new migration and apply it from a command prompt at your project directory:
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.DatabaseErrorPage_HowToApplyFromCLI">
+            <summary>
+            Alternatively, you can apply pending migrations from a command prompt at your project directory:
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.Strings.FormatDatabaseErrorPage_HowToApplyFromCLI">
+            <summary>
+            Alternatively, you can apply pending migrations from a command prompt at your project directory:
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView">
+            <summary>
+            Infrastructure
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.Context">
+            <summary>
+            The request context
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.Request">
+            <summary>
+            The request
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.Response">
+            <summary>
+            The response
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.Output">
+            <summary>
+            The output stream
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.HtmlEncoder">
+            <summary>
+            Html encoder used to encode content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.UrlEncoder">
+            <summary>
+            Url encoder used to encode content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.JavaScriptEncoder">
+            <summary>
+            JavaScript encoder used to encode content.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.ExecuteAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Execute an individual request
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.ExecuteAsync">
+            <summary>
+            Execute an individual request
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.WriteLiteral(System.String)">
+            <summary>
+            Write the given value directly to the output
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.WriteLiteral(System.Object)">
+            <summary>
+            Write the given value directly to the output
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.WriteAttributeTo(System.IO.TextWriter,System.String,System.String,System.String,Microsoft.AspNetCore.DiagnosticsViewPage.Views.AttributeValue[])">
+            <summary>
+            Writes the given attribute to the given writer
+            </summary>
+            <param name="writer">The <see cref="T:System.IO.TextWriter"/> instance to write to.</param>
+            <param name="name">The name of the attribute to write</param>
+            <param name="leader">The value of the prefix</param>
+            <param name="trailer">The value of the suffix</param>
+            <param name="values">The <see cref="T:Microsoft.AspNetCore.DiagnosticsViewPage.Views.AttributeValue"/>s to write.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.Write(System.Object)">
+            <summary>
+            Convert to string and html encode
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.Write(System.String)">
+            <summary>
+            Html encode and write
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.Write(Microsoft.AspNetCore.DiagnosticsViewPage.Views.HelperResult)">
+            <summary>
+            <see cref="M:Microsoft.AspNetCore.DiagnosticsViewPage.Views.HelperResult.WriteTo(System.IO.TextWriter)"/> is invoked
+            </summary>
+            <param name="result">The <see cref="T:Microsoft.AspNetCore.DiagnosticsViewPage.Views.HelperResult"/> to invoke</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.WriteTo(System.IO.TextWriter,System.Object)">
+            <summary>
+            Writes the specified <paramref name="value"/> to <paramref name="writer"/>.
+            </summary>
+            <param name="writer">The <see cref="T:System.IO.TextWriter"/> instance to write to.</param>
+            <param name="value">The <see cref="T:System.Object"/> to write.</param>
+            <remarks>
+            <see cref="M:Microsoft.AspNetCore.DiagnosticsViewPage.Views.HelperResult.WriteTo(System.IO.TextWriter)"/> is invoked for <see cref="T:Microsoft.AspNetCore.DiagnosticsViewPage.Views.HelperResult"/> types.
+            For all other types, the encoded result of <see cref="M:System.Object.ToString"/> is written to the
+            <paramref name="writer"/>.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.WriteTo(System.IO.TextWriter,System.String)">
+            <summary>
+            Writes the specified <paramref name="value"/> with HTML encoding to <paramref name="writer"/>.
+            </summary>
+            <param name="writer">The <see cref="T:System.IO.TextWriter"/> instance to write to.</param>
+            <param name="value">The <see cref="T:System.String"/> to write.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.WriteLiteralTo(System.IO.TextWriter,System.Object)">
+            <summary>
+            Writes the specified <paramref name="value"/> without HTML encoding to the <paramref name="writer"/>.
+            </summary>
+            <param name="writer">The <see cref="T:System.IO.TextWriter"/> instance to write to.</param>
+            <param name="value">The <see cref="T:System.Object"/> to write.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.WriteLiteralTo(System.IO.TextWriter,System.String)">
+            <summary>
+            Writes the specified <paramref name="value"/> without HTML encoding to <see cref="P:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView.Output"/>.
+            </summary>
+            <param name="writer">The <see cref="T:System.IO.TextWriter"/> instance to write to.</param>
+            <param name="value">The <see cref="T:System.String"/> to write.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.DiagnosticsViewPage.Views.HelperResult">
+            <summary>
+            Represents a deferred write operation in a <see cref="T:Microsoft.AspNetCore.DiagnosticsViewPage.Views.BaseView"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.DiagnosticsViewPage.Views.HelperResult.#ctor(System.Action{System.IO.TextWriter})">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.AspNetCore.DiagnosticsViewPage.Views.HelperResult"/>.
+            </summary>
+            <param name="action">The delegate to invoke when <see cref="M:Microsoft.AspNetCore.DiagnosticsViewPage.Views.HelperResult.WriteTo(System.IO.TextWriter)"/> is called.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.DiagnosticsViewPage.Views.HelperResult.WriteTo(System.IO.TextWriter)">
+            <summary>
+            Method invoked to produce content from the <see cref="T:Microsoft.AspNetCore.DiagnosticsViewPage.Views.HelperResult"/>.
+            </summary>
+            <param name="writer">The <see cref="T:System.IO.TextWriter"/> instance to write to.</param>
+        </member>
+    </members>
+</doc>

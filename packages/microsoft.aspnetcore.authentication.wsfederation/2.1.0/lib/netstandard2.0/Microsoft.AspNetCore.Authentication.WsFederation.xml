@@ -1,0 +1,511 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Authentication.WsFederation</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Authentication.WsFederation.AuthenticationFailedContext">
+            <summary>
+            The context object used in for <see cref="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationEvents.AuthenticationFailed(Microsoft.AspNetCore.Authentication.WsFederation.AuthenticationFailedContext)"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.AuthenticationFailedContext.#ctor(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationScheme,Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions)">
+            <summary>
+            Creates a new context object
+            </summary>
+            <param name="context"></param>
+            <param name="scheme"></param>
+            <param name="options"></param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.AuthenticationFailedContext.ProtocolMessage">
+            <summary>
+            The <see cref="T:Microsoft.IdentityModel.Protocols.WsFederation.WsFederationMessage"/> from the request, if any.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.AuthenticationFailedContext.Exception">
+            <summary>
+            The <see cref="P:Microsoft.AspNetCore.Authentication.WsFederation.AuthenticationFailedContext.Exception"/> that triggered this event.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.WsFederation.MessageReceivedContext">
+            <summary>
+            The context object used for <see cref="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationEvents.MessageReceived(Microsoft.AspNetCore.Authentication.WsFederation.MessageReceivedContext)"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.MessageReceivedContext.#ctor(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationScheme,Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Creates a new context object.
+            </summary>
+            <param name="context"></param>
+            <param name="scheme"></param>
+            <param name="options"></param>
+            <param name="properties"></param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.MessageReceivedContext.ProtocolMessage">
+            <summary>
+            The <see cref="T:Microsoft.IdentityModel.Protocols.WsFederation.WsFederationMessage"/> received on this request.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.WsFederation.RedirectContext">
+            <summary>
+            When a user configures the <see cref="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler"/> to be notified prior to redirecting to an IdentityProvider
+            an instance of <see cref="T:Microsoft.AspNetCore.Authentication.WsFederation.RedirectContext"/> is passed to the 'RedirectToAuthenticationEndpoint' or 'RedirectToEndSessionEndpoint' events.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.RedirectContext.#ctor(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationScheme,Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Creates a new context object.
+            </summary>
+            <param name="context"></param>
+            <param name="scheme"></param>
+            <param name="options"></param>
+            <param name="properties"></param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.RedirectContext.ProtocolMessage">
+            <summary>
+            The <see cref="T:Microsoft.IdentityModel.Protocols.WsFederation.WsFederationMessage"/> used to compose the redirect.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.RedirectContext.Handled">
+            <summary>
+            If true, will skip any default logic for this redirect.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.RedirectContext.HandleResponse">
+            <summary>
+            Skips any default logic for this redirect.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.WsFederation.RemoteSignOutContext">
+            <summary>
+            An event context for RemoteSignOut.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.RemoteSignOutContext.#ctor(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationScheme,Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions,Microsoft.IdentityModel.Protocols.WsFederation.WsFederationMessage)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="scheme"></param>
+            <param name="options"></param>
+            <param name="message"></param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.RemoteSignOutContext.ProtocolMessage">
+            <summary>
+            The signout message.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.WsFederation.SecurityTokenReceivedContext">
+            <summary>
+            This Context can be used to be informed when an 'AuthorizationCode' is redeemed for tokens at the token endpoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.SecurityTokenReceivedContext.#ctor(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationScheme,Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Creates a <see cref="T:Microsoft.AspNetCore.Authentication.WsFederation.SecurityTokenReceivedContext"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.SecurityTokenReceivedContext.ProtocolMessage">
+            <summary>
+            The <see cref="T:Microsoft.IdentityModel.Protocols.WsFederation.WsFederationMessage"/> received on this request.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.WsFederation.SecurityTokenValidatedContext">
+            <summary>
+            The context object used for <see cref="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationEvents.SecurityTokenValidated(Microsoft.AspNetCore.Authentication.WsFederation.SecurityTokenValidatedContext)"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.SecurityTokenValidatedContext.#ctor(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationScheme,Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions,System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Creates a <see cref="T:Microsoft.AspNetCore.Authentication.WsFederation.SecurityTokenValidatedContext"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.SecurityTokenValidatedContext.ProtocolMessage">
+            <summary>
+            The <see cref="T:Microsoft.IdentityModel.Protocols.WsFederation.WsFederationMessage"/> received on this request.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.SecurityTokenValidatedContext.SecurityToken">
+            <summary>
+            The <see cref="P:Microsoft.AspNetCore.Authentication.WsFederation.SecurityTokenValidatedContext.SecurityToken"/> that was validated.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationEvents">
+            <summary>
+            Specifies events which the <see cref="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler"></see> invokes to enable developer control over the authentication process. />
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationEvents.OnAuthenticationFailed">
+            <summary>
+            Invoked if exceptions are thrown during request processing. The exceptions will be re-thrown after this event unless suppressed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationEvents.OnMessageReceived">
+            <summary>
+            Invoked when a protocol message is first received.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationEvents.OnRedirectToIdentityProvider">
+            <summary>
+            Invoked to manipulate redirects to the identity provider for SignIn, SignOut, or Challenge.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationEvents.OnRemoteSignOut">
+            <summary>
+            Invoked when a wsignoutcleanup request is received at the RemoteSignOutPath endpoint.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationEvents.OnSecurityTokenReceived">
+            <summary>
+            Invoked with the security token that has been extracted from the protocol message.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationEvents.OnSecurityTokenValidated">
+            <summary>
+            Invoked after the security token has passed validation and a ClaimsIdentity has been generated.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationEvents.AuthenticationFailed(Microsoft.AspNetCore.Authentication.WsFederation.AuthenticationFailedContext)">
+            <summary>
+            Invoked if exceptions are thrown during request processing. The exceptions will be re-thrown after this event unless suppressed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationEvents.MessageReceived(Microsoft.AspNetCore.Authentication.WsFederation.MessageReceivedContext)">
+            <summary>
+            Invoked when a protocol message is first received.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationEvents.RedirectToIdentityProvider(Microsoft.AspNetCore.Authentication.WsFederation.RedirectContext)">
+            <summary>
+            Invoked to manipulate redirects to the identity provider for SignIn, SignOut, or Challenge.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationEvents.RemoteSignOut(Microsoft.AspNetCore.Authentication.WsFederation.RemoteSignOutContext)">
+            <summary>
+            Invoked when a wsignoutcleanup request is received at the RemoteSignOutPath endpoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationEvents.SecurityTokenReceived(Microsoft.AspNetCore.Authentication.WsFederation.SecurityTokenReceivedContext)">
+            <summary>
+            Invoked with the security token that has been extracted from the protocol message.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationEvents.SecurityTokenValidated(Microsoft.AspNetCore.Authentication.WsFederation.SecurityTokenValidatedContext)">
+            <summary>
+            Invoked after the security token has passed validation and a ClaimsIdentity has been generated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.Resources.Exception_MissingDescriptor">
+            <summary>
+            The service descriptor is missing.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.Resources.FormatException_MissingDescriptor">
+            <summary>
+            The service descriptor is missing.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.Resources.Exception_NoTokenValidatorFound">
+            <summary>
+            No token validator was found for the given token.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.Resources.FormatException_NoTokenValidatorFound">
+            <summary>
+            No token validator was found for the given token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.Resources.Exception_OptionMustBeProvided">
+            <summary>
+            The '{0}' option must be provided.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.Resources.FormatException_OptionMustBeProvided(System.Object)">
+            <summary>
+            The '{0}' option must be provided.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.Resources.Exception_ValidatorHandlerMismatch">
+            <summary>
+            An ICertificateValidator cannot be specified at the same time as an HttpMessageHandler unless it is a WebRequestHandler.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.Resources.FormatException_ValidatorHandlerMismatch">
+            <summary>
+            An ICertificateValidator cannot be specified at the same time as an HttpMessageHandler unless it is a WebRequestHandler.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.Resources.SignInMessageTokenIsMissing">
+            <summary>
+            The sign in message does not contain a required token.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.Resources.FormatSignInMessageTokenIsMissing">
+            <summary>
+            The sign in message does not contain a required token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.Resources.SignInMessageWresultIsMissing">
+            <summary>
+            The sign in message does not contain a required wresult.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.Resources.FormatSignInMessageWresultIsMissing">
+            <summary>
+            The sign in message does not contain a required wresult.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationDefaults">
+            <summary>
+            Default values related to WsFederation authentication handler
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationDefaults.AuthenticationScheme">
+            <summary>
+            The default authentication type used when registering the WsFederationHandler.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationDefaults.DisplayName">
+            <summary>
+            The default display name used when registering the WsFederationHandler.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationDefaults.UserstatePropertiesKey">
+            <summary>
+            Constant used to identify userstate inside AuthenticationProperties that have been serialized in the 'wctx' parameter.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler">
+            <summary>
+            A per-request authentication handler for the WsFederation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler.#ctor(Microsoft.Extensions.Options.IOptionsMonitor{Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions},Microsoft.Extensions.Logging.ILoggerFactory,System.Text.Encodings.Web.UrlEncoder,Microsoft.AspNetCore.Authentication.ISystemClock)">
+            <summary>
+            Creates a new WsFederationAuthenticationHandler
+            </summary>
+            <param name="options"></param>
+            <param name="encoder"></param>
+            <param name="clock"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler.Events">
+            <summary>
+            The handler calls methods on the events which give the application control at certain points where processing is occurring.
+            If it is not provided a default instance is supplied which does nothing when the methods are called.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler.CreateEventsAsync">
+            <summary>
+            Creates a new instance of the events instance.
+            </summary>
+            <returns>A new instance of the events instance.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler.HandleRequestAsync">
+            <summary>
+            Overridden to handle remote signout requests
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler.HandleChallengeAsync(Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Handles Challenge
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler.HandleRemoteAuthenticateAsync">
+            <summary>
+            Invoked to process incoming authentication messages.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler.SignOutAsync(Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Handles Signout
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler.HandleRemoteSignOutAsync">
+            <summary>
+            Handles wsignoutcleanup1.0 messages sent to the RemoteSignOutPath
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler.BuildRedirectUriIfRelative(System.String)">
+            <summary>
+            Build a redirect path if the given path is a relative path.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions">
+            <summary>
+            Configuration options for <see cref="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.Validate">
+            <summary>
+            Check that the options are valid.  Should throw an exception if things are not ok.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.Configuration">
+            <summary>
+            Configuration provided directly by the developer. If provided, then MetadataAddress and the Backchannel properties
+            will not be used. This information should not be updated during request processing.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.MetadataAddress">
+            <summary>
+            Gets or sets the address to retrieve the wsFederation metadata
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.ConfigurationManager">
+            <summary>
+            Responsible for retrieving, caching, and refreshing the configuration from metadata.
+            If not provided, then one will be created using the MetadataAddress and Backchannel properties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.RefreshOnIssuerKeyNotFound">
+            <summary>
+            Gets or sets if a metadata refresh should be attempted after a SecurityTokenSignatureKeyNotFoundException. This allows for automatic
+            recovery in the event of a signature key rollover. This is enabled by default.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.SkipUnrecognizedRequests">
+            <summary>
+            Indicates if requests to the CallbackPath may also be for other components. If enabled the handler will pass
+            requests through that do not contain WsFederation authentication responses. Disabling this and setting the
+            CallbackPath to a dedicated endpoint may provide better error handling.
+            This is disabled by default.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.Events">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationEvents"/> to call when processing WsFederation messages.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.SecurityTokenHandlers">
+            <summary>
+            Gets or sets the collection of <see cref="T:Microsoft.IdentityModel.Tokens.ISecurityTokenValidator"/> used to read and validate the <see cref="T:Microsoft.IdentityModel.Tokens.SecurityToken"/>s.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.StateDataFormat">
+            <summary>
+            Gets or sets the type used to secure data handled by the middleware.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.TokenValidationParameters">
+            <summary>
+            Gets or sets the <see cref="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.TokenValidationParameters"/>
+            </summary>
+            <exception cref="T:System.ArgumentNullException"> if 'TokenValidationParameters' is null.</exception>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.Wreply">
+            <summary>
+            Gets or sets the 'wreply'. CallbackPath must be set to match or cleared so it can be generated dynamically.
+            This field is optional. If not set then it will be generated from the current request and the CallbackPath.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.SignOutWreply">
+            <summary>
+            Gets or sets the 'wreply' value used during sign-out.
+            If none is specified then the value from the Wreply field is used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.Wtrealm">
+            <summary>
+            Gets or sets the 'wtrealm'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.UseTokenLifetime">
+            <summary>
+            Indicates that the authentication session lifetime (e.g. cookies) should match that of the authentication token.
+            If the token does not provide lifetime information then normal session lifetimes will be used.
+            This is enabled by default.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.RequireHttpsMetadata">
+            <summary>
+            Gets or sets if HTTPS is required for the metadata address or authority.
+            The default is true. This should be disabled only in development environments.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.AllowUnsolicitedLogins">
+            <summary>
+            The Ws-Federation protocol allows the user to initiate logins without contacting the application for a Challenge first.
+            However, that flow is susceptible to XSRF and other attacks so it is disabled here by default.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.RemoteSignOutPath">
+            <summary>
+            Requests received on this path will cause the handler to invoke SignOut using the SignOutScheme.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions.SignOutScheme">
+            <summary>
+            The Authentication Scheme to use with SignOutAsync from RemoteSignOutPath. SignInScheme will be used if this
+            is not set.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationPostConfigureOptions">
+            <summary>
+            Used to setup defaults for all <see cref="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationPostConfigureOptions.#ctor(Microsoft.AspNetCore.DataProtection.IDataProtectionProvider)">
+            <summary>
+            
+            </summary>
+            <param name="dataProtection"></param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationPostConfigureOptions.PostConfigure(System.String,Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions)">
+            <summary>
+            Invoked to post configure a TOptions instance.
+            </summary>
+            <param name="name">The name of the options instance being configured.</param>
+            <param name="options">The options instance to configure.</param>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.WsFederationExtensions">
+            <summary>
+            Extensions for registering the <see cref="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WsFederationExtensions.AddWsFederation(Microsoft.AspNetCore.Authentication.AuthenticationBuilder)">
+            <summary>
+            Registers the <see cref="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler"/> using the default authentication scheme, display name, and options.
+            </summary>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WsFederationExtensions.AddWsFederation(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.Action{Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions})">
+            <summary>
+            Registers the <see cref="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler"/> using the default authentication scheme, display name, and the given options configuration.
+            </summary>
+            <param name="builder"></param>
+            <param name="configureOptions">A delegate that configures the <see cref="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WsFederationExtensions.AddWsFederation(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.String,System.Action{Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions})">
+            <summary>
+            Registers the <see cref="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler"/> using the given authentication scheme, default display name, and the given options configuration.
+            </summary>
+            <param name="builder"></param>
+            <param name="authenticationScheme"></param>
+            <param name="configureOptions">A delegate that configures the <see cref="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WsFederationExtensions.AddWsFederation(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.String,System.String,System.Action{Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions})">
+            <summary>
+            Registers the <see cref="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationHandler"/> using the given authentication scheme, display name, and options configuration.
+            </summary>
+            <param name="builder"></param>
+            <param name="authenticationScheme"></param>
+            <param name="displayName"></param>
+            <param name="configureOptions">A delegate that configures the <see cref="T:Microsoft.AspNetCore.Authentication.WsFederation.WsFederationOptions"/>.</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

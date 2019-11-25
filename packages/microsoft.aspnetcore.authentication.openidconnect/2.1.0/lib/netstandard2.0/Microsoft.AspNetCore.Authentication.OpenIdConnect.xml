@@ -1,0 +1,663 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Authentication.OpenIdConnect</name>
+    </assembly>
+    <members>
+        <member name="M:Microsoft.AspNetCore.Authentication.ClaimActionCollectionUniqueExtensions.MapUniqueJsonKey(Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection,System.String,System.String)">
+            <summary>
+            Selects a top level value from the json user data with the given key name and adds it as a Claim.
+            This no-ops if the ClaimsIdentity already contains a Claim with the given ClaimType.
+            This no-ops if the key is not found or the value is empty.
+            </summary>
+            <param name="collection"></param>
+            <param name="claimType">The value to use for Claim.Type when creating a Claim.</param>
+            <param name="jsonKey">The top level key to look for in the json user data.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.ClaimActionCollectionUniqueExtensions.MapUniqueJsonKey(Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection,System.String,System.String,System.String)">
+            <summary>
+            Selects a top level value from the json user data with the given key name and adds it as a Claim.
+            This no-ops if the ClaimsIdentity already contains a Claim with the given ClaimType.
+            This no-ops if the key is not found or the value is empty.
+            </summary>
+            <param name="collection"></param>
+            <param name="claimType">The value to use for Claim.Type when creating a Claim.</param>
+            <param name="jsonKey">The top level key to look for in the json user data.</param>
+            <param name="valueType">The value to use for Claim.ValueType when creating a Claim.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.Claims.UniqueJsonKeyClaimAction">
+            <summary>
+            A ClaimAction that selects a top level value from the json user data with the given key name and adds it as a Claim.
+            This no-ops if the ClaimsIdentity already contains a Claim with the given ClaimType.
+            This no-ops if the key is not found or the value is empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.Claims.UniqueJsonKeyClaimAction.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Creates a new UniqueJsonKeyClaimAction.
+            </summary>
+            <param name="claimType">The value to use for Claim.Type when creating a Claim.</param>
+            <param name="valueType">The value to use for Claim.ValueType when creating a Claim.</param>
+            <param name="jsonKey">The top level key to look for in the json user data.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.Claims.UniqueJsonKeyClaimAction.Run(Newtonsoft.Json.Linq.JObject,System.Security.Claims.ClaimsIdentity,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.AuthorizationCodeReceivedContext">
+            <summary>
+            This Context can be used to be informed when an 'AuthorizationCode' is received over the OpenIdConnect protocol.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.AuthorizationCodeReceivedContext.#ctor(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationScheme,Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Creates a <see cref="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.AuthorizationCodeReceivedContext"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.AuthorizationCodeReceivedContext.JwtSecurityToken">
+            <summary>
+            Gets or sets the <see cref="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.AuthorizationCodeReceivedContext.JwtSecurityToken"/> that was received in the authentication response, if any.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.AuthorizationCodeReceivedContext.TokenEndpointRequest">
+            <summary>
+            The request that will be sent to the token endpoint and is available for customization.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.AuthorizationCodeReceivedContext.Backchannel">
+            <summary>
+            The configured communication channel to the identity provider for use when making custom requests to the token endpoint.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.AuthorizationCodeReceivedContext.TokenEndpointResponse">
+            <summary>
+            If the developer chooses to redeem the code themselves then they can provide the resulting tokens here. This is the
+            same as calling HandleCodeRedemption. If set then the handler will not attempt to redeem the code. An IdToken
+            is required if one had not been previously received in the authorization response. An access token is optional
+            if the handler is to contact the user-info endpoint.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.AuthorizationCodeReceivedContext.HandledCodeRedemption">
+            <summary>
+            Indicates if the developer choose to handle (or skip) the code redemption. If true then the handler will not attempt
+            to redeem the code. See HandleCodeRedemption and TokenEndpointResponse.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.AuthorizationCodeReceivedContext.HandleCodeRedemption">
+            <summary>
+            Tells the handler to skip the code redemption process. The developer may have redeemed the code themselves, or
+            decided that the redemption was not required. If tokens were retrieved that are needed for further processing then
+            call one of the overloads that allows providing tokens. An IdToken is required if one had not been previously received
+            in the authorization response. An access token can optionally be provided for the handler to contact the
+            user-info endpoint. Calling this is the same as setting TokenEndpointResponse.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.AuthorizationCodeReceivedContext.HandleCodeRedemption(System.String,System.String)">
+            <summary>
+            Tells the handler to skip the code redemption process. The developer may have redeemed the code themselves, or
+            decided that the redemption was not required. If tokens were retrieved that are needed for further processing then
+            call one of the overloads that allows providing tokens. An IdToken is required if one had not been previously received
+            in the authorization response. An access token can optionally be provided for the handler to contact the
+            user-info endpoint. Calling this is the same as setting TokenEndpointResponse.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.AuthorizationCodeReceivedContext.HandleCodeRedemption(Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectMessage)">
+            <summary>
+            Tells the handler to skip the code redemption process. The developer may have redeemed the code themselves, or
+            decided that the redemption was not required. If tokens were retrieved that are needed for further processing then
+            call one of the overloads that allows providing tokens. An IdToken is required if one had not been previously received
+            in the authorization response. An access token can optionally be provided for the handler to contact the
+            user-info endpoint. Calling this is the same as setting TokenEndpointResponse.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.MessageReceivedContext.Token">
+            <summary>
+            Bearer Token. This will give the application an opportunity to retrieve a token from an alternative location.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents">
+            <summary>
+            Specifies events which the <see cref="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectHandler" />invokes to enable developer control over the authentication process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents.OnAuthenticationFailed">
+            <summary>
+            Invoked if exceptions are thrown during request processing. The exceptions will be re-thrown after this event unless suppressed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents.OnAuthorizationCodeReceived">
+            <summary>
+            Invoked after security token validation if an authorization code is present in the protocol message.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents.OnMessageReceived">
+            <summary>
+            Invoked when a protocol message is first received.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents.OnRedirectToIdentityProvider">
+            <summary>
+            Invoked before redirecting to the identity provider to authenticate. This can be used to set ProtocolMessage.State
+            that will be persisted through the authentication process. The ProtocolMessage can also be used to add or customize
+            parameters sent to the identity provider.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents.OnRedirectToIdentityProviderForSignOut">
+            <summary>
+            Invoked before redirecting to the identity provider to sign out.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents.OnSignedOutCallbackRedirect">
+            <summary>
+            Invoked before redirecting to the <see cref="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.SignedOutRedirectUri"/> at the end of a remote sign-out flow.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents.OnRemoteSignOut">
+            <summary>
+            Invoked when a request is received on the RemoteSignOutPath.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents.OnTokenResponseReceived">
+            <summary>
+            Invoked after "authorization code" is redeemed for tokens at the token endpoint.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents.OnTokenValidated">
+            <summary>
+            Invoked when an IdToken has been validated and produced an AuthenticationTicket.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents.OnUserInformationReceived">
+            <summary>
+            Invoked when user information is retrieved from the UserInfoEndpoint.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.RedirectContext">
+            <summary>
+            When a user configures the <see cref="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectHandler"/> to be notified prior to redirecting to an IdentityProvider
+            an instance of <see cref="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.RedirectContext"/> is passed to the 'RedirectToAuthenticationEndpoint' or 'RedirectToEndSessionEndpoint' events.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.RedirectContext.Handled">
+            <summary>
+            If true, will skip any default logic for this redirect.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.RedirectContext.HandleResponse">
+            <summary>
+            Skips any default logic for this redirect.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.TokenResponseReceivedContext">
+            <summary>
+            This Context can be used to be informed when an 'AuthorizationCode' is redeemed for tokens at the token endpoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.TokenResponseReceivedContext.#ctor(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationScheme,Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions,System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Creates a <see cref="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.TokenResponseReceivedContext"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.TokenResponseReceivedContext.TokenEndpointResponse">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectMessage"/> that contains the tokens received after redeeming the code at the token endpoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.TokenValidatedContext.#ctor(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationScheme,Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions,System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Creates a <see cref="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.TokenValidatedContext"/>
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectChallengeProperties.MaxAgeKey">
+            <summary>
+            The parameter key for the "max_age" argument being used for a challenge request.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectChallengeProperties.PromptKey">
+            <summary>
+            The parameter key for the "prompt" argument being used for a challenge request.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectChallengeProperties.MaxAge">
+            <summary>
+            The "max_age" parameter value being used for a challenge request.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectChallengeProperties.Prompt">
+            <summary>
+            The "prompt" parameter value being used for a challenge request.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectDefaults">
+            <summary>
+            Default values related to OpenIdConnect authentication handler
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectDefaults.AuthenticationPropertiesKey">
+            <summary>
+            Constant used to identify state in openIdConnect protocol message.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectDefaults.AuthenticationScheme">
+            <summary>
+            The default value used for OpenIdConnectOptions.AuthenticationScheme.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectDefaults.DisplayName">
+            <summary>
+            The default value for the display name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectDefaults.CookieNoncePrefix">
+            <summary>
+            The prefix used to for the nonce in the cookie.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectDefaults.RedirectUriForCodePropertiesKey">
+            <summary>
+            The property for the RedirectUri that was used when asking for a 'authorizationCode'.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectDefaults.UserstatePropertiesKey">
+            <summary>
+            Constant used to identify userstate inside AuthenticationProperties that have been serialized in the 'state' parameter.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectHandler">
+            <summary>
+            A per-request authentication handler for the OpenIdConnectAuthenticationMiddleware.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectHandler.Events">
+            <summary>
+            The handler calls methods on the events which give the application control at certain points where processing is occurring.
+            If it is not provided a default instance is supplied which does nothing when the methods are called.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectHandler.SignOutAsync(Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Redirect user to the identity provider for sign out
+            </summary>
+            <returns>A task executing the sign out procedure</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectHandler.HandleSignOutCallbackAsync">
+            <summary>
+            Response to the callback from OpenId provider after session ended.
+            </summary>
+            <returns>A task executing the callback procedure</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectHandler.HandleChallengeAsync(Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Responds to a 401 Challenge. Sends an OpenIdConnect message to the 'identity authority' to obtain an identity.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectHandler.HandleRemoteAuthenticateAsync">
+            <summary>
+            Invoked to process incoming OpenIdConnect messages.
+            </summary>
+            <returns>An <see cref="T:Microsoft.AspNetCore.Authentication.HandleRequestResult"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectHandler.RedeemAuthorizationCodeAsync(Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectMessage)">
+            <summary>
+            Redeems the authorization code for tokens at the token endpoint.
+            </summary>
+            <param name="tokenEndpointRequest">The request that will be sent to the token endpoint and is available for customization.</param>
+            <returns>OpenIdConnect message that has tokens inside it.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectHandler.GetUserInformationAsync(Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectMessage,System.IdentityModel.Tokens.Jwt.JwtSecurityToken,System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Goes to UserInfo endpoint to retrieve additional claims and add any unique claims to the given identity.
+            </summary>
+            <param name="message">message that is being processed</param>
+            <param name="jwt">The <see cref="T:System.IdentityModel.Tokens.Jwt.JwtSecurityToken"/>.</param>
+            <param name="principal">The claims principal and identities.</param>
+            <param name="properties">The authentication properties.</param>
+            <returns><see cref="T:Microsoft.AspNetCore.Authentication.HandleRequestResult"/> which is used to determine if the remote authentication was successful.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectHandler.SaveTokens(Microsoft.AspNetCore.Authentication.AuthenticationProperties,Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectMessage)">
+            <summary>
+            Save the tokens contained in the <see cref="T:Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectMessage"/> in the <see cref="T:System.Security.Claims.ClaimsPrincipal"/>.
+            </summary>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> in which tokens are saved.</param>
+            <param name="message">The OpenID Connect response.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectHandler.WriteNonceCookie(System.String)">
+            <summary>
+            Adds the nonce to <see cref="P:Microsoft.AspNetCore.Http.HttpResponse.Cookies"/>.
+            </summary>
+            <param name="nonce">the nonce to remember.</param>
+            <remarks><see cref="M:IResponseCookies.Append"/> of <see cref="P:Microsoft.AspNetCore.Http.HttpResponse.Cookies"/> is called to add a cookie with the name: 'OpenIdConnectAuthenticationDefaults.Nonce + <see cref="M:ISecureDataFormat{TData}.Protect"/>(nonce)' of <see cref="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.StringDataFormat"/>.
+            The value of the cookie is: "N".</remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectHandler.ReadNonceCookie(System.String)">
+            <summary>
+            Searches <see cref="P:Microsoft.AspNetCore.Http.HttpRequest.Cookies"/> for a matching nonce.
+            </summary>
+            <param name="nonce">the nonce that we are looking for.</param>
+            <returns>echos 'nonce' if a cookie is found that matches, null otherwise.</returns>
+            <remarks>Examine <see cref="P:Microsoft.AspNetCore.Http.IRequestCookieCollection.Keys"/> of <see cref="P:Microsoft.AspNetCore.Http.HttpRequest.Cookies"/> that start with the prefix: 'OpenIdConnectAuthenticationDefaults.Nonce'.
+            <see cref="M:ISecureDataFormat{TData}.Unprotect"/> of <see cref="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.StringDataFormat"/> is used to obtain the actual 'nonce'. If the nonce is found, then <see cref="M:IResponseCookies.Delete"/> of <see cref="P:Microsoft.AspNetCore.Http.HttpResponse.Cookies"/> is called.</remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectHandler.BuildRedirectUriIfRelative(System.String)">
+            <summary>
+            Build a redirect path if the given path is a relative path.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions">
+            <summary>
+            Configuration options for <see cref="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectHandler"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions"/>
+            </summary>
+            <remarks>
+            Defaults:
+            <para>AddNonceToRequest: true.</para>
+            <para>BackchannelTimeout: 1 minute.</para>
+            <para>ProtocolValidator: new <see cref="T:Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectProtocolValidator"/>.</para>
+            <para>RefreshOnIssuerKeyNotFound: true</para>
+            <para>ResponseType: <see cref="F:Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectResponseType.CodeIdToken"/></para>
+            <para>Scope: <see cref="F:Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectScope.OpenIdProfile"/>.</para>
+            <para>TokenValidationParameters: new <see cref="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.TokenValidationParameters"/> with AuthenticationScheme = authenticationScheme.</para>
+            <para>UseTokenLifetime: false.</para>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.Validate">
+            <summary>
+            Check that the options are valid.  Should throw an exception if things are not ok.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.Authority">
+            <summary>
+            Gets or sets the Authority to use when making OpenIdConnect calls.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.ClientId">
+            <summary>
+            Gets or sets the 'client_id'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.ClientSecret">
+            <summary>
+            Gets or sets the 'client_secret'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.Configuration">
+            <summary>
+            Configuration provided directly by the developer. If provided, then MetadataAddress and the Backchannel properties
+            will not be used. This information should not be updated during request processing.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.ConfigurationManager">
+            <summary>
+            Responsible for retrieving, caching, and refreshing the configuration from metadata.
+            If not provided, then one will be created using the MetadataAddress and Backchannel properties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.GetClaimsFromUserInfoEndpoint">
+            <summary>
+            Boolean to set whether the handler should go to user info endpoint to retrieve additional claims or not after creating an identity from id_token received from token endpoint.
+            The default is 'false'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.ClaimActions">
+            <summary>
+            A collection of claim actions used to select values from the json user data and create Claims.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.RequireHttpsMetadata">
+            <summary>
+            Gets or sets if HTTPS is required for the metadata address or authority.
+            The default is true. This should be disabled only in development environments.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.MetadataAddress">
+            <summary>
+            Gets or sets the discovery endpoint for obtaining metadata
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.Events">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents"/> to notify when processing OpenIdConnect messages.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.MaxAge">
+            <summary>
+            Gets or sets the 'max_age'. If set the 'max_age' parameter will be sent with the authentication request. If the identity
+            provider has not actively authenticated the user within the length of time specified, the user will be prompted to
+            re-authenticate. By default no max_age is specified.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.ProtocolValidator">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectProtocolValidator"/> that is used to ensure that the 'id_token' received
+            is valid per: http://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation
+            </summary>
+            <exception cref="T:System.ArgumentNullException">if 'value' is null.</exception>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.SignedOutCallbackPath">
+            <summary>
+            The request path within the application's base path where the user agent will be returned after sign out from the identity provider.
+            See post_logout_redirect_uri from http://openid.net/specs/openid-connect-session-1_0.html#RedirectionAfterLogout.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.SignedOutRedirectUri">
+            <summary>
+            The uri where the user agent will be redirected to after application is signed out from the identity provider.
+            The redirect will happen after the SignedOutCallbackPath is invoked.
+            </summary>
+            <remarks>This URI can be out of the application's domain. By default it points to the root.</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.RefreshOnIssuerKeyNotFound">
+            <summary>
+            Gets or sets if a metadata refresh should be attempted after a SecurityTokenSignatureKeyNotFoundException. This allows for automatic
+            recovery in the event of a signature key rollover. This is enabled by default.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.AuthenticationMethod">
+            <summary>
+            Gets or sets the method used to redirect the user agent to the identity provider.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.Resource">
+            <summary>
+            Gets or sets the 'resource'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.ResponseMode">
+            <summary>
+            Gets or sets the 'response_mode'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.ResponseType">
+            <summary>
+            Gets or sets the 'response_type'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.Prompt">
+            <summary>
+            Gets or sets the 'prompt'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.Scope">
+            <summary>
+            Gets the list of permissions to request.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.RemoteSignOutPath">
+            <summary>
+            Requests received on this path will cause the handler to invoke SignOut using the SignInScheme.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.SignOutScheme">
+            <summary>
+            The Authentication Scheme to use with SignOut on the SignOutPath. SignInScheme will be used if this
+            is not set.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.StateDataFormat">
+            <summary>
+            Gets or sets the type used to secure data handled by the handler.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.StringDataFormat">
+            <summary>
+            Gets or sets the type used to secure strings used by the handler.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.SecurityTokenValidator">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.IdentityModel.Tokens.ISecurityTokenValidator"/> used to validate identity tokens.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.TokenValidationParameters">
+            <summary>
+            Gets or sets the parameters used to validate identity tokens.
+            </summary>
+            <remarks>Contains the types and definitions required for validating a token.</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.UseTokenLifetime">
+            <summary>
+            Indicates that the authentication session lifetime (e.g. cookies) should match that of the authentication token.
+            If the token does not provide lifetime information then normal session lifetimes will be used.
+            This is disabled by default.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.SkipUnrecognizedRequests">
+            <summary>
+            Indicates if requests to the CallbackPath may also be for other components. If enabled the handler will pass
+            requests through that do not contain OpenIdConnect authentication responses. Disabling this and setting the
+            CallbackPath to a dedicated endpoint may provide better error handling.
+            This is disabled by default.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.DisableTelemetry">
+            <summary>
+            Indicates whether telemetry should be disabled. When this feature is enabled,
+            the assembly version of the Microsoft IdentityModel packages is sent to the
+            remote OpenID Connect provider as an authorization/logout request parameter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.NonceCookie">
+            <summary>
+            Determines the settings used to create the nonce cookie before the
+            cookie gets added to the response.
+            </summary>
+            <remarks>
+            The value of <see cref="P:Microsoft.AspNetCore.Http.CookieBuilder.Name"/> is treated as the prefix to the cookie name, and defaults to <seealso cref="F:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectDefaults.CookieNoncePrefix"/>.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectPostConfigureOptions">
+            <summary>
+            Used to setup defaults for all <see cref="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectPostConfigureOptions.PostConfigure(System.String,Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions)">
+            <summary>
+            Invoked to post configure a TOptions instance.
+            </summary>
+            <param name="name">The name of the options instance being configured.</param>
+            <param name="options">The options instance to configure.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectRedirectBehavior">
+            <summary>
+            Lists the different authentication methods used to
+            redirect the user agent to the identity provider.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectRedirectBehavior.RedirectGet">
+            <summary>
+            Emits a 302 response to redirect the user agent to
+            the OpenID Connect provider using a GET request.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectRedirectBehavior.FormPost">
+            <summary>
+            Emits an HTML form to redirect the user agent to
+            the OpenID Connect provider using a POST request.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.Resources.MessageStateIsNullOrEmpty">
+            <summary>
+            OpenIdConnectAuthenticationHandler: message.State is null or empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.Resources.FormatMessageStateIsNullOrEmpty">
+            <summary>
+            OpenIdConnectAuthenticationHandler: message.State is null or empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.Resources.MessageStateIsInvalid">
+            <summary>
+            Unable to unprotect the message.State.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.Resources.FormatMessageStateIsInvalid">
+            <summary>
+            Unable to unprotect the message.State.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.Resources.MessageContainsError">
+            <summary>
+            Message contains error: '{0}', error_description: '{1}', error_uri: '{2}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.Resources.FormatMessageContainsError(System.Object,System.Object,System.Object)">
+            <summary>
+            Message contains error: '{0}', error_description: '{1}', error_uri: '{2}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.Resources.ValidatedSecurityTokenNotJwt">
+            <summary>
+            The Validated Security Token must be of type JwtSecurityToken, but instead its type is: '{0}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.Resources.FormatValidatedSecurityTokenNotJwt(System.Object)">
+            <summary>
+            The Validated Security Token must be of type JwtSecurityToken, but instead its type is: '{0}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.Resources.UnableToValidateToken">
+            <summary>
+            Unable to validate the 'id_token', no suitable ISecurityTokenValidator was found for: '{0}'."
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.Resources.FormatUnableToValidateToken(System.Object)">
+            <summary>
+            Unable to validate the 'id_token', no suitable ISecurityTokenValidator was found for: '{0}'."
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OpenIdConnect.Resources.IdTokenCodeMissing">
+            <summary>
+            Cannot process the message. Both id_token and code are missing.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OpenIdConnect.Resources.FormatIdTokenCodeMissing">
+            <summary>
+            Cannot process the message. Both id_token and code are missing.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.OpenIdConnectAppBuilderExtensions">
+            <summary>
+            Extension methods to add OpenID Connect authentication capabilities to an HTTP application pipeline.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.OpenIdConnectAppBuilderExtensions.UseOpenIdConnectAuthentication(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            UseOpenIdConnectAuthentication is obsolete. Configure OpenIdConnect authentication with AddAuthentication().AddOpenIdConnect in ConfigureServices. See https://go.microsoft.com/fwlink/?linkid=845470 for more details.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to add the handler to.</param>
+            <returns>A reference to this instance after the operation has completed.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.OpenIdConnectAppBuilderExtensions.UseOpenIdConnectAuthentication(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions)">
+            <summary>
+            UseOpenIdConnectAuthentication is obsolete. Configure OpenIdConnect authentication with AddAuthentication().AddOpenIdConnect in ConfigureServices. See https://go.microsoft.com/fwlink/?linkid=845470 for more details.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to add the handler to.</param>
+            <param name="options">A <see cref="T:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions"/> that specifies options for the handler.</param>
+            <returns>A reference to this instance after the operation has completed.</returns>
+        </member>
+    </members>
+</doc>

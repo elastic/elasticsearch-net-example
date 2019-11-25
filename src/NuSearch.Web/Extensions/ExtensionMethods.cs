@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Reflection;
-using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using NuSearch.Web.Models;
 
 namespace NuSearch.Web.Extensions

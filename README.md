@@ -788,7 +788,10 @@ private static void SwapAlias()
     Client.Indices.BulkAlias(aliases =>
     {
         if (indexExists)
-            aliases.Add(a => a.Alias(NuSearchConfiguration.OldIndexAlias).Index(NuSearchConfiguration.LiveIndexAlias));
+            aliases.Add(a => a
+                .Alias(NuSearchConfiguration.OldIndexAlias)
+                .Index(Client.GetIndicesPointingToAlias(NuSearchConfiguration.LiveIndexAlias).First())
+            );
 
         return aliases
             .Remove(a => a.Alias(NuSearchConfiguration.LiveIndexAlias).Index("*"))

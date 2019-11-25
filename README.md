@@ -1,33 +1,20 @@
 ﻿# NuSearch
 
-A tutorial repository that helps you get started with Elasticsearch through NEST (the official elasticsearch .NET client). 
+A tutorial repository that helps you get started with Elasticsearch through [NEST, the official Elasticsearch .NET high level client](https://github.com/elastic/elasticsearch-net). 
 
-## Elasticsearch 6.x (.NET Core)
+This tutorial builds an ASP.NET Core web application that searches Nuget packages
+
+![nusearch](https://github.com/elastic/elasticsearch-net-example/blob/7.x/readme-images/0-one-i-built-earlier.PNG?raw=true)
+
+## Elasticsearch 7.x
+
+To follow the tutorial for the latest stable Elasticsearch version (7.x) use the [7.x branch](https://github.com/elastic/elasticsearch-net-example/tree/7.x)
+
+Or if you need to cheat/peek at the final solution checkout [7.x-codecomplete](https://github.com/elastic/elasticsearch-net-example/tree/7.x-codecomplete)
+
+
+## Elasticsearch 6.x
 
 To follow the tutorial for the latest stable Elasticsearch version (6.x) use the [6.x-netcore branch](https://github.com/elastic/elasticsearch-net-example/tree/6.x-netcore)
 
 Or if you need to cheat/peek at the final solution checkout [6.x-codecomplete-netcore](https://github.com/elastic/elasticsearch-net-example/tree/6.x-codecomplete-netcore)
-
-![nusearch](https://github.com/elastic/elasticsearch-net-example/blob/6.x-netcore/readme-images/0-one-i-built-earlier.PNG)
-
-## Elasticsearch 5.x (.NET Framework and .NET Core)
-
-### .NET Core
-
-To follow the tutorial for the latest stable Elasticsearch version (5.x) use the [5.x-netcore branch](https://github.com/elastic/elasticsearch-net-example/tree/5.x-netcore)
-
-Or if you need to cheat/peek at the final solution checkout [5.x-codecomplete-netcore](https://github.com/elastic/elasticsearch-net-example/tree/5.x-codecomplete-netcore)
-
-### .NET Framework
-
-To follow the tutorial for the latest stable Elasticsearch version (5.x) use the [5.x branch](https://github.com/elastic/elasticsearch-net-example/tree/5.x)
-
-Or if you need to cheat/peek at the final solution checkout [5.x-codecomplete](https://github.com/elastic/elasticsearch-net-example/tree/5.x-codecomplete)
-
-## Elasticsearch 2.x (.NET Framework)
-
-To follow the tutorial for the latest stable Elasticsearch version (2.x) use the [2.x branch](https://github.com/elastic/elasticsearch-net-example/tree/2.x)
-
-Or if you need to cheat/peek at the final solution checkout [2.x-codecomplete](https://github.com/elastic/elasticsearch-net-example/tree/2.x-codecomplete)
-
-![nusearch](nusearch.png)

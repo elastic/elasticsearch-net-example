@@ -4,7 +4,7 @@ A tutorial repository that helps you get started with Elasticsearch through [NES
 
 This tutorial builds an ASP.NET Core web application that searches Nuget packages
 
-![nusearch](https://github.com/elastic/elasticsearch-net-example/blob/7.x/readme-images/0-one-i-built-earlier.PNG?raw=true)
+![nusearch](https://github.com/elastic/elasticsearch-net-example/blob/7.x/readme-images/0-one-i-built-earlier.PNG)
 
 ## Elasticsearch 7.x
 

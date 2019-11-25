@@ -17,7 +17,6 @@ namespace NuSearch.Domain
 			_connectionSettings = new ConnectionSettings(CreateUri(9200))
 				.DefaultIndex("nusearch")
 				.DefaultMappingFor<Package>(i => i
-					.TypeName("package")
 					.IndexName("nusearch")
 				);
 		}

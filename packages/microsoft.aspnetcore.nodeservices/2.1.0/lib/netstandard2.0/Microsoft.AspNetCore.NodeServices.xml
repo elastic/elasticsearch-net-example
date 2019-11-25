@@ -1,0 +1,382 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.NodeServices</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.NodeServices.NodeServicesFactory">
+            <summary>
+            Supplies INodeServices instances.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.NodeServicesFactory.CreateNodeServices(Microsoft.AspNetCore.NodeServices.NodeServicesOptions)">
+            <summary>
+            Create an <see cref="T:Microsoft.AspNetCore.NodeServices.INodeServices"/> instance according to the supplied options.
+            </summary>
+            <param name="options">Options for creating the <see cref="T:Microsoft.AspNetCore.NodeServices.INodeServices"/> instance.</param>
+            <returns>An <see cref="T:Microsoft.AspNetCore.NodeServices.INodeServices"/> instance.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.NodeServices.NodeServicesOptions">
+            <summary>
+            Describes options used to configure an <see cref="T:Microsoft.AspNetCore.NodeServices.INodeServices"/> instance.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.NodeServicesOptions.#ctor(System.IServiceProvider)">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.AspNetCore.NodeServices.NodeServicesOptions"/>.
+            </summary>
+            <param name="serviceProvider">The <see cref="T:System.IServiceProvider"/>.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.NodeServices.NodeServicesOptions.NodeInstanceFactory">
+            <summary>
+            Specifies how to construct Node.js instances. An <see cref="T:Microsoft.AspNetCore.NodeServices.HostingModels.INodeInstance"/> encapsulates all details about
+            how Node.js instances are launched and communicated with. A new <see cref="T:Microsoft.AspNetCore.NodeServices.HostingModels.INodeInstance"/> will be created
+            automatically if the previous instance has terminated (e.g., because a source file changed).
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.NodeServices.NodeServicesOptions.ProjectPath">
+            <summary>
+            If set, overrides the path to the root of your application. This path is used when locating Node.js modules relative to your project.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.NodeServices.NodeServicesOptions.WatchFileExtensions">
+            <summary>
+            If set, the Node.js instance should restart when any matching file on disk within your project changes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.NodeServices.NodeServicesOptions.NodeInstanceOutputLogger">
+            <summary>
+            The Node.js instance's stdout/stderr will be redirected to this <see cref="T:Microsoft.Extensions.Logging.ILogger"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.NodeServices.NodeServicesOptions.LaunchWithDebugging">
+            <summary>
+            If true, the Node.js instance will accept incoming V8 debugger connections (e.g., from node-inspector).
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.NodeServices.NodeServicesOptions.DebuggingPort">
+            <summary>
+            If <see cref="P:Microsoft.AspNetCore.NodeServices.NodeServicesOptions.LaunchWithDebugging"/> is true, the Node.js instance will listen for V8 debugger connections on this port.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.NodeServices.NodeServicesOptions.EnvironmentVariables">
+            <summary>
+            If set, starts the Node.js instance with the specified environment variables.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.NodeServices.NodeServicesOptions.InvocationTimeoutMilliseconds">
+            <summary>
+            Specifies the maximum duration, in milliseconds, that your .NET code should wait for Node.js RPC calls to return.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.NodeServices.NodeServicesOptions.ApplicationStoppingToken">
+            <summary>
+            A token that indicates when the host application is stopping.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.NodeServices.HostingModels.HttpNodeInstance">
+             <summary>
+             A specialisation of the OutOfProcessNodeInstance base class that uses HTTP to perform RPC invocations.
+            
+             The Node child process starts an HTTP listener on an arbitrary available port (except where a nonzero
+             port number is specified as a constructor parameter), and signals which port was selected using the same
+             input/output-based mechanism that the base class uses to determine when the child process is ready to
+             accept RPC invocations.
+             </summary>
+             <seealso cref="T:Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance" />
+        </member>
+        <member name="T:Microsoft.AspNetCore.NodeServices.HostingModels.INodeInstance">
+            <summary>
+            Represents an instance of Node.js to which Remote Procedure Calls (RPC) may be sent.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.HostingModels.INodeInstance.InvokeExportAsync``1(System.Threading.CancellationToken,System.String,System.String,System.Object[])">
+            <summary>
+            Asynchronously invokes code in the Node.js instance.
+            </summary>
+            <typeparam name="T">The JSON-serializable data type that the Node.js code will asynchronously return.</typeparam>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to cancel the invocation.</param>
+            <param name="moduleName">The path to the Node.js module (i.e., JavaScript file) relative to your project root that contains the code to be invoked.</param>
+            <param name="exportNameOrNull">If set, specifies the CommonJS export to be invoked. If not set, the module's default CommonJS export itself must be a function to be invoked.</param>
+            <param name="args">Any sequence of JSON-serializable arguments to be passed to the Node.js function.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> representing the completion of the RPC call.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.NodeServices.HostingModels.NodeInvocationException">
+            <summary>
+            Represents an exception caused by invoking Node.js code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.NodeServices.HostingModels.NodeInvocationException.NodeInstanceUnavailable">
+            <summary>
+            If true, indicates that the invocation failed because the Node.js instance could not be reached. For example,
+            it might have already shut down or previously crashed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.NodeServices.HostingModels.NodeInvocationException.AllowConnectionDraining">
+            <summary>
+            If true, indicates that even though the invocation failed because the Node.js instance could not be reached
+            or needs to be restarted, that Node.js instance may remain alive for a period in order to complete any
+            outstanding requests.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.HostingModels.NodeInvocationException.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.AspNetCore.NodeServices.HostingModels.NodeInvocationException"/>.
+            </summary>
+            <param name="message">A description of the exception.</param>
+            <param name="details">Additional information, such as a Node.js stack trace, representing the exception.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.HostingModels.NodeInvocationException.#ctor(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.AspNetCore.NodeServices.HostingModels.NodeInvocationException"/>.
+            </summary>
+            <param name="message">A description of the exception.</param>
+            <param name="details">Additional information, such as a Node.js stack trace, representing the exception.</param>
+            <param name="nodeInstanceUnavailable">Specifies a value for the <see cref="P:Microsoft.AspNetCore.NodeServices.HostingModels.NodeInvocationException.NodeInstanceUnavailable"/> flag.</param>
+            <param name="allowConnectionDraining">Specifies a value for the <see cref="P:Microsoft.AspNetCore.NodeServices.HostingModels.NodeInvocationException.AllowConnectionDraining"/> flag.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.NodeServices.HostingModels.NodeInvocationInfo">
+            <summary>
+            Describes an RPC call sent from .NET code to Node.js code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.NodeServices.HostingModels.NodeInvocationInfo.ModuleName">
+            <summary>
+            Specifies the path to the Node.js module (i.e., .js file) relative to the project root.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.NodeServices.HostingModels.NodeInvocationInfo.ExportedFunctionName">
+            <summary>
+            If set, specifies the name of CommonJS function export to be invoked.
+            If not set, the Node.js module's default export must itself be a function to be invoked.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.NodeServices.HostingModels.NodeInvocationInfo.Args">
+            <summary>
+            A sequence of JSON-serializable arguments to be passed to the Node.js function being invoked.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.NodeServices.HostingModels.NodeServicesOptionsExtensions">
+            <summary>
+            Extension methods that help with populating a <see cref="T:Microsoft.AspNetCore.NodeServices.NodeServicesOptions"/> object.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.HostingModels.NodeServicesOptionsExtensions.UseHttpHosting(Microsoft.AspNetCore.NodeServices.NodeServicesOptions)">
+            <summary>
+            Configures the <see cref="T:Microsoft.AspNetCore.NodeServices.INodeServices"/> service so that it will use out-of-process
+            Node.js instances and perform RPC calls over HTTP.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance">
+             <summary>
+             Class responsible for launching a Node child process on the local machine, determining when it is ready to
+             accept invocations, detecting if it dies on its own, and finally terminating it on disposal.
+            
+             This abstract base class uses the input/output streams of the child process to perform a simple handshake
+             to determine when the child process is ready to accept invocations. This is agnostic to the mechanism that
+             derived classes use to actually perform the invocations (e.g., they could use HTTP-RPC, or a binary TCP
+             protocol, or any other RPC-type mechanism).
+             </summary>
+             <seealso cref="T:Microsoft.AspNetCore.NodeServices.HostingModels.INodeInstance" />
+        </member>
+        <member name="F:Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.OutputLogger">
+            <summary>
+            The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to which the Node.js instance's stdout/stderr is being redirected.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.#ctor(System.String,System.String,System.String[],System.String,System.Threading.CancellationToken,Microsoft.Extensions.Logging.ILogger,System.Collections.Generic.IDictionary{System.String,System.String},System.Int32,System.Boolean,System.Int32)">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance"/>.
+            </summary>
+            <param name="entryPointScript">The path to the entry point script that the Node instance should load and execute.</param>
+            <param name="projectPath">The root path of the current project. This is used when resolving Node.js module paths relative to the project root.</param>
+            <param name="watchFileExtensions">The filename extensions that should be watched within the project root. The Node instance will automatically shut itself down if any matching file changes.</param>
+            <param name="commandLineArguments">Additional command-line arguments to be passed to the Node.js instance.</param>
+            <param name="applicationStoppingToken">A token that indicates when the host application is stopping.</param>
+            <param name="nodeOutputLogger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to which the Node.js instance's stdout/stderr (and other log information) should be written.</param>
+            <param name="environmentVars">Environment variables to be set on the Node.js process.</param>
+            <param name="invocationTimeoutMilliseconds">The maximum duration, in milliseconds, to wait for RPC calls to complete.</param>
+            <param name="launchWithDebugging">If true, passes a flag to the Node.js process telling it to accept V8 debugger connections.</param>
+            <param name="debuggingPort">If debugging is enabled, the Node.js process should listen for V8 debugger connections on this port.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.InvokeExportAsync``1(System.Threading.CancellationToken,System.String,System.String,System.Object[])">
+            <summary>
+            Asynchronously invokes code in the Node.js instance.
+            </summary>
+            <typeparam name="T">The JSON-serializable data type that the Node.js code will asynchronously return.</typeparam>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to cancel the invocation.</param>
+            <param name="moduleName">The path to the Node.js module (i.e., JavaScript file) relative to your project root that contains the code to be invoked.</param>
+            <param name="exportNameOrNull">If set, specifies the CommonJS export to be invoked. If not set, the module's default CommonJS export itself must be a function to be invoked.</param>
+            <param name="args">Any sequence of JSON-serializable arguments to be passed to the Node.js function.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> representing the completion of the RPC call.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.Dispose">
+            <summary>
+            Disposes this instance.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.InvokeExportAsync``1(Microsoft.AspNetCore.NodeServices.HostingModels.NodeInvocationInfo,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously invokes code in the Node.js instance.
+            </summary>
+            <typeparam name="T">The JSON-serializable data type that the Node.js code will asynchronously return.</typeparam>
+            <param name="invocationInfo">Specifies the Node.js function to be invoked and arguments to be passed to it.</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to cancel the invocation.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> representing the completion of the RPC call.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.PrepareNodeProcessStartInfo(System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Boolean,System.Int32)">
+            <summary>
+            Configures a <see cref="T:System.Diagnostics.ProcessStartInfo"/> instance describing how to launch the Node.js process.
+            </summary>
+            <param name="entryPointFilename">The entrypoint JavaScript file that the Node.js process should execute.</param>
+            <param name="projectPath">The root path of the project. This is used when locating Node.js modules relative to the project root.</param>
+            <param name="commandLineArguments">Command-line arguments to be passed to the Node.js process.</param>
+            <param name="environmentVars">Environment variables to be set on the Node.js process.</param>
+            <param name="launchWithDebugging">If true, passes a flag to the Node.js process telling it to accept V8 Inspector connections.</param>
+            <param name="debuggingPort">If debugging is enabled, the Node.js process should listen for V8 Inspector connections on this port.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.OnOutputDataReceived(System.String)">
+            <summary>
+            Virtual method invoked whenever the Node.js process emits a line to its stdout.
+            </summary>
+            <param name="outputData">The line emitted to the Node.js process's stdout.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.OnErrorDataReceived(System.String)">
+            <summary>
+            Virtual method invoked whenever the Node.js process emits a line to its stderr.
+            </summary>
+            <param name="errorData">The line emitted to the Node.js process's stderr.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.Dispose(System.Boolean)">
+            <summary>
+            Disposes the instance.
+            </summary>
+            <param name="disposing">True if the object is disposing or false if it is finalizing.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.Finalize">
+            <summary>
+            Implements the finalization part of the IDisposable pattern by calling Dispose(false).
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.NodeServices.INodeServices">
+            <summary>
+            Represents the ability to invoke code in a Node.js environment. Although the underlying Node.js instance
+            might change over time (e.g., the process might be restarted), the <see cref="T:Microsoft.AspNetCore.NodeServices.INodeServices"/> instance
+            will remain constant.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.INodeServices.InvokeAsync``1(System.String,System.Object[])">
+            <summary>
+            Asynchronously invokes code in the Node.js instance.
+            </summary>
+            <typeparam name="T">The JSON-serializable data type that the Node.js code will asynchronously return.</typeparam>
+            <param name="moduleName">The path to the Node.js module (i.e., JavaScript file) relative to your project root whose default CommonJS export is the function to be invoked.</param>
+            <param name="args">Any sequence of JSON-serializable arguments to be passed to the Node.js function.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> representing the completion of the RPC call.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.INodeServices.InvokeAsync``1(System.Threading.CancellationToken,System.String,System.Object[])">
+            <summary>
+            Asynchronously invokes code in the Node.js instance.
+            </summary>
+            <typeparam name="T">The JSON-serializable data type that the Node.js code will asynchronously return.</typeparam>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to cancel the invocation.</param>
+            <param name="moduleName">The path to the Node.js module (i.e., JavaScript file) relative to your project root whose default CommonJS export is the function to be invoked.</param>
+            <param name="args">Any sequence of JSON-serializable arguments to be passed to the Node.js function.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> representing the completion of the RPC call.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.INodeServices.InvokeExportAsync``1(System.String,System.String,System.Object[])">
+            <summary>
+            Asynchronously invokes code in the Node.js instance.
+            </summary>
+            <typeparam name="T">The JSON-serializable data type that the Node.js code will asynchronously return.</typeparam>
+            <param name="moduleName">The path to the Node.js module (i.e., JavaScript file) relative to your project root that contains the code to be invoked.</param>
+            <param name="exportedFunctionName">Specifies the CommonJS export to be invoked.</param>
+            <param name="args">Any sequence of JSON-serializable arguments to be passed to the Node.js function.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> representing the completion of the RPC call.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.INodeServices.InvokeExportAsync``1(System.Threading.CancellationToken,System.String,System.String,System.Object[])">
+            <summary>
+            Asynchronously invokes code in the Node.js instance.
+            </summary>
+            <typeparam name="T">The JSON-serializable data type that the Node.js code will asynchronously return.</typeparam>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used to cancel the invocation.</param>
+            <param name="moduleName">The path to the Node.js module (i.e., JavaScript file) relative to your project root that contains the code to be invoked.</param>
+            <param name="exportedFunctionName">Specifies the CommonJS export to be invoked.</param>
+            <param name="args">Any sequence of JSON-serializable arguments to be passed to the Node.js function.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> representing the completion of the RPC call.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.NodeServices.NodeServicesImpl">
+             <summary>
+             Default implementation of INodeServices. This is the primary API surface through which developers
+             make use of this package. It provides simple "InvokeAsync" methods that dispatch calls to the
+             correct Node instance, creating and destroying those instances as needed.
+            
+             If a Node instance dies (or none was yet created), this class takes care of creating a new one.
+             If a Node instance signals that it needs to be restarted (e.g., because a file changed), then this
+             class will create a new instance and dispatch future calls to it, while keeping the old instance
+             alive for a defined period so that any in-flight RPC calls can complete. This latter feature is
+             analogous to the "connection draining" feature implemented by HTTP load balancers.
+             </summary>
+             <seealso cref="T:Microsoft.AspNetCore.NodeServices.INodeServices" />
+        </member>
+        <member name="T:Microsoft.AspNetCore.NodeServices.EmbeddedResourceReader">
+            <summary>
+            Contains methods for reading embedded resources.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.EmbeddedResourceReader.Read(System.Type,System.String)">
+            <summary>
+            Reads the specified embedded resource from a given assembly.
+            </summary>
+            <param name="assemblyContainingType">Any <see cref="T:System.Type"/> in the assembly whose resource is to be read.</param>
+            <param name="path">The path of the resource to be read.</param>
+            <returns>The contents of the resource.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.NodeServices.StringAsTempFile">
+            <summary>
+            Makes it easier to pass script files to Node in a way that's sure to clean up after the process exits.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.StringAsTempFile.#ctor(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Create a new instance of <see cref="T:Microsoft.AspNetCore.NodeServices.StringAsTempFile"/>.
+            </summary>
+            <param name="content">The contents of the temporary file to be created.</param>
+            <param name="applicationStoppingToken">A token that indicates when the host application is stopping.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.NodeServices.StringAsTempFile.FileName">
+            <summary>
+            Specifies the filename of the temporary file.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.StringAsTempFile.Dispose">
+            <summary>
+            Disposes the instance and deletes the associated temporary file.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.NodeServices.StringAsTempFile.Finalize">
+            <summary>
+            Implements the finalization part of the IDisposable pattern by calling Dispose(false).
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.NodeServicesServiceCollectionExtensions">
+            <summary>
+            Extension methods for setting up NodeServices in an <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.NodeServicesServiceCollectionExtensions.AddNodeServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds NodeServices support to the <paramref name="serviceCollection"/>.
+            </summary>
+            <param name="serviceCollection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.NodeServicesServiceCollectionExtensions.AddNodeServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.NodeServices.NodeServicesOptions})">
+            <summary>
+            Adds NodeServices support to the <paramref name="serviceCollection"/>.
+            </summary>
+            <param name="serviceCollection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
+            <param name="setupAction">A callback that will be invoked to populate the <see cref="T:Microsoft.AspNetCore.NodeServices.NodeServicesOptions"/>.</param>
+        </member>
+    </members>
+</doc>

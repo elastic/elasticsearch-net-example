@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Mvc.Razor.Extensions</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Mvc.Razor.Extensions.MvcRazorTemplateEngine">
+            <summary>
+            A <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine"/> for Mvc Razor views.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.MvcRazorTemplateEngine.#ctor(Microsoft.AspNetCore.Razor.Language.RazorEngine,Microsoft.AspNetCore.Razor.Language.RazorProject)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.Razor.Extensions.MvcRazorTemplateEngine"/>.
+            </summary>
+            <param name="engine">The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorEngine"/>.</param>
+            <param name="project">The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProject"/>.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.ArgumentCannotBeNullOrEmpty">
+            <summary>
+            Value cannot be null or empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatArgumentCannotBeNullOrEmpty">
+            <summary>
+            Value cannot be null or empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.InjectDirective_Description">
+            <summary>
+            Inject a service from the application's service container into a property.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatInjectDirective_Description">
+            <summary>
+            Inject a service from the application's service container into a property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.InjectDirective_MemberToken_Description">
+            <summary>
+            The name of the property.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatInjectDirective_MemberToken_Description">
+            <summary>
+            The name of the property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.InjectDirective_MemberToken_Name">
+            <summary>
+            PropertyName
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatInjectDirective_MemberToken_Name">
+            <summary>
+            PropertyName
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.InjectDirective_TypeToken_Description">
+            <summary>
+            The type of the service to inject.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatInjectDirective_TypeToken_Description">
+            <summary>
+            The type of the service to inject.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.InjectDirective_TypeToken_Name">
+            <summary>
+            TypeName
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatInjectDirective_TypeToken_Name">
+            <summary>
+            TypeName
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.ModelDirective_Description">
+            <summary>
+            Specify the view or page model for the page.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatModelDirective_Description">
+            <summary>
+            Specify the view or page model for the page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.ModelDirective_TypeToken_Description">
+            <summary>
+            The model type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatModelDirective_TypeToken_Description">
+            <summary>
+            The model type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.ModelDirective_TypeToken_Name">
+            <summary>
+            TypeName
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatModelDirective_TypeToken_Name">
+            <summary>
+            TypeName
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.MvcRazorCodeParser_CannotHaveModelAndInheritsKeyword">
+            <summary>
+            The 'inherits' keyword is not allowed when a '{0}' keyword is used.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatMvcRazorCodeParser_CannotHaveModelAndInheritsKeyword(System.Object)">
+            <summary>
+            The 'inherits' keyword is not allowed when a '{0}' keyword is used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.MvcRazorCodeParser_InjectDirectivePropertyNameRequired">
+            <summary>
+            A property name must be specified when using the '{0}' statement. Format for a '{0}' statement is '@{0} &lt;Type Name&gt; &lt;Property Name&gt;'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatMvcRazorCodeParser_InjectDirectivePropertyNameRequired(System.Object)">
+            <summary>
+            A property name must be specified when using the '{0}' statement. Format for a '{0}' statement is '@{0} &lt;Type Name&gt; &lt;Property Name&gt;'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.MvcRazorCodeParser_KeywordMustBeFollowedByTypeName">
+            <summary>
+            The '{0}' keyword must be followed by a type name on the same line.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatMvcRazorCodeParser_KeywordMustBeFollowedByTypeName(System.Object)">
+            <summary>
+            The '{0}' keyword must be followed by a type name on the same line.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.MvcRazorCodeParser_OnlyOneModelStatementIsAllowed">
+            <summary>
+            Only one '{0}' statement is allowed in a file.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatMvcRazorCodeParser_OnlyOneModelStatementIsAllowed(System.Object)">
+            <summary>
+            Only one '{0}' statement is allowed in a file.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.MvcRazorParser_InvalidPropertyType">
+            <summary>
+            Invalid tag helper property '{0}.{1}'. Dictionary values must not be of type '{2}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatMvcRazorParser_InvalidPropertyType(System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper property '{0}.{1}'. Dictionary values must not be of type '{2}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.NamespaceDirective_Description">
+            <summary>
+            Specify the base namespace for the page.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatNamespaceDirective_Description">
+            <summary>
+            Specify the base namespace for the page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.NamespaceDirective_NamespaceToken_Description">
+            <summary>
+            The namespace for the page.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatNamespaceDirective_NamespaceToken_Description">
+            <summary>
+            The namespace for the page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.NamespaceDirective_NamespaceToken_Name">
+            <summary>
+            Namespace
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatNamespaceDirective_NamespaceToken_Name">
+            <summary>
+            Namespace
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.PageDirectiveCannotBeImported">
+            <summary>
+            The '@{0}' directive specified in {1} file will not be imported. The directive must appear at the top of each Razor cshtml file.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatPageDirectiveCannotBeImported(System.Object,System.Object)">
+            <summary>
+            The '@{0}' directive specified in {1} file will not be imported. The directive must appear at the top of each Razor cshtml file.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.PageDirectiveMustExistAtTheTopOfFile">
+            <summary>
+            The '@{0}' directive must exist at the top of the file. Only comments and whitespace are allowed before the '@{0}' directive.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatPageDirectiveMustExistAtTheTopOfFile(System.Object)">
+            <summary>
+            The '@{0}' directive must exist at the top of the file. Only comments and whitespace are allowed before the '@{0}' directive.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.PageDirective_Description">
+            <summary>
+            Mark the page as a Razor Page.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatPageDirective_Description">
+            <summary>
+            Mark the page as a Razor Page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.PageDirective_RouteToken_Description">
+            <summary>
+            An optional route template for the page.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatPageDirective_RouteToken_Description">
+            <summary>
+            An optional route template for the page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.PageDirective_RouteToken_Name">
+            <summary>
+            RouteTemplate
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.Resources.FormatPageDirective_RouteToken_Name">
+            <summary>
+            RouteTemplate
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.ViewComponentResources.ViewComponent_AmbiguousMethods">
+            <summary>
+            View component '{0}' must have exactly one public method named '{1}' or '{2}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.ViewComponentResources.FormatViewComponent_AmbiguousMethods(System.Object,System.Object,System.Object)">
+            <summary>
+            View component '{0}' must have exactly one public method named '{1}' or '{2}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.ViewComponentResources.ViewComponent_AsyncMethod_ShouldReturnTask">
+            <summary>
+            Method '{0}' of view component '{1}' should be declared to return {2}&amp;lt;T&amp;gt;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.ViewComponentResources.FormatViewComponent_AsyncMethod_ShouldReturnTask(System.Object,System.Object,System.Object)">
+            <summary>
+            Method '{0}' of view component '{1}' should be declared to return {2}&amp;lt;T&amp;gt;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.ViewComponentResources.ViewComponent_CannotFindMethod">
+            <summary>
+            Could not find an '{0}' or '{1}' method for the view component '{2}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.ViewComponentResources.FormatViewComponent_CannotFindMethod(System.Object,System.Object,System.Object)">
+            <summary>
+            Could not find an '{0}' or '{1}' method for the view component '{2}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.ViewComponentResources.ViewComponent_SyncMethod_CannotReturnTask">
+            <summary>
+            Method '{0}' of view component '{1}' cannot return a {2}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.ViewComponentResources.FormatViewComponent_SyncMethod_CannotReturnTask(System.Object,System.Object,System.Object)">
+            <summary>
+            Method '{0}' of view component '{1}' cannot return a {2}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Razor.Extensions.ViewComponentResources.ViewComponent_SyncMethod_ShouldReturnValue">
+            <summary>
+            Method '{0}' of view component '{1}' should be declared to return a value.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.ViewComponentResources.FormatViewComponent_SyncMethod_ShouldReturnValue(System.Object,System.Object)">
+            <summary>
+            Method '{0}' of view component '{1}' should be declared to return a value.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Razor.Extensions.TagHelperDescriptorExtensions.IsViewComponentKind(Microsoft.AspNetCore.Razor.Language.TagHelperDescriptor)">
+            <summary>
+            Indicates whether a <see cref="T:Microsoft.AspNetCore.Razor.Language.TagHelperDescriptor"/> represents a view component.
+            </summary>
+            <param name="tagHelper">The <see cref="T:Microsoft.AspNetCore.Razor.Language.TagHelperDescriptor"/> to check.</param>
+            <returns>Whether a <see cref="T:Microsoft.AspNetCore.Razor.Language.TagHelperDescriptor"/> represents a view component.</returns>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Mvc.Razor.Extensions.ViewComponentTagHelperMetadata.Name">
+            <summary>
+            The key in a <see cref="P:Microsoft.AspNetCore.Razor.Language.TagHelperDescriptor.Metadata"/>  containing 
+            the short name of a view component.
+            </summary>
+        </member>
+    </members>
+</doc>

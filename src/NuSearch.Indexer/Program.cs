@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Threading;
 using Nest;
 using NuSearch.Domain;
@@ -33,15 +34,14 @@ namespace NuSearch.Indexer
 
 		private static void CreateIndex()
 		{
-			Client.CreateIndex(CurrentIndexName, i => i
+			Client.Indices.Create(CurrentIndexName, i => i
 				.Settings(s => s
 					.NumberOfShards(2)
 					.NumberOfReplicas(0)
+					.Setting("index.mapping.nested_objects.limit", 12000)
 					.Analysis(Analysis)
 				)
-				.Mappings(m => m
-					.Map<Package>(MapPackage)
-				)
+				.Map<Package>(MapPackage)
 			);
 		}
 
@@ -134,22 +134,29 @@ namespace NuSearch.Indexer
 				.MaxDegreeOfParallelism(4)
 				.Size(1000)
 			);
+
+			ExceptionDispatchInfo captureInfo = null;
 	
 			bulkAll.Subscribe(new BulkAllObserver(
 				onNext: b => Console.Write("."),
-				onError: e => throw e,
+				onError: e =>
+				{
+					captureInfo = ExceptionDispatchInfo.Capture(e);
+					waitHandle.Signal();
+				},
 				onCompleted: () => waitHandle.Signal()
 			));
 
 			waitHandle.Wait(TimeSpan.FromMinutes(30));
+			captureInfo?.Throw();
 			Console.WriteLine("Done.");
 		}
 
 		private static void SwapAlias()
 		{
-			var indexExists = Client.IndexExists(NuSearchConfiguration.LiveIndexAlias).Exists;
+			var indexExists = Client.Indices.Exists(NuSearchConfiguration.LiveIndexAlias).Exists;
 
-			Client.Alias(aliases =>
+			Client.Indices.BulkAlias(aliases =>
 			{
 				if (indexExists)
 					aliases.Add(a => a.Alias(NuSearchConfiguration.OldIndexAlias).Index(NuSearchConfiguration.LiveIndexAlias));
@@ -164,7 +171,7 @@ namespace NuSearch.Indexer
 				.Skip(2);
 
 			foreach (var oldIndex in oldIndices)
-				Client.DeleteIndex(oldIndex);
+				Client.Indices.Delete(oldIndex);
 		}
 	}
 }

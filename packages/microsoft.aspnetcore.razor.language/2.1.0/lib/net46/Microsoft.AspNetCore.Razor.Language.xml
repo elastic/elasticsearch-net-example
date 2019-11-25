@@ -1,0 +1,2910 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Razor.Language</name>
+    </assembly>
+    <members>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.AllowedChildTagDescriptorComparer.Default">
+            <summary>
+            A default instance of the <see cref="T:Microsoft.AspNetCore.Razor.Language.AllowedChildTagDescriptorComparer"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.AllowedChildTagDescriptorComparer.CaseSensitive">
+            <summary>
+            A default instance of the <see cref="T:Microsoft.AspNetCore.Razor.Language.AllowedChildTagDescriptorComparer"/> that does case-sensitive comparison.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.AllowedChildTagDescriptorComparer.Equals(Microsoft.AspNetCore.Razor.Language.AllowedChildTagDescriptor,Microsoft.AspNetCore.Razor.Language.AllowedChildTagDescriptor)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.AllowedChildTagDescriptorComparer.GetHashCode(Microsoft.AspNetCore.Razor.Language.AllowedChildTagDescriptor)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.BoundAttributeDescriptor">
+            <summary>
+            A metadata class describing a tag helper attribute.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.BoundAttributeDescriptorComparer.Default">
+            <summary>
+            A default instance of the <see cref="T:Microsoft.AspNetCore.Razor.Language.BoundAttributeDescriptorComparer"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.BoundAttributeDescriptorComparer.CaseSensitive">
+            <summary>
+            A default instance of the <see cref="T:Microsoft.AspNetCore.Razor.Language.BoundAttributeDescriptorComparer"/> that does case-sensitive comparison.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.DefaultRazorProjectItem.#ctor(System.String,System.String,System.String,System.IO.FileInfo)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Razor.Language.DefaultRazorProjectItem"/>.
+            </summary>
+            <param name="basePath">The base path.</param>
+            <param name="relativePhysicalPath">The physical path of the base path.</param>
+            <param name="filePath">The path.</param>
+            <param name="file">The <see cref="T:System.IO.FileInfo"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor">
+            <summary>
+            A descriptor type for a directive that can be parsed by the Razor parser.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.Description">
+            <summary>
+            Gets the description of the directive.
+            </summary>
+            <remarks>
+            The description is used for information purposes, and has no effect on parsing.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.Directive">
+            <summary>
+            Gets the directive keyword without the leading <c>@</c> token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.DisplayName">
+            <summary>
+            Gets the display name of the directive.
+            </summary>
+            <remarks>
+            The display name is used for information purposes, and has no effect on parsing.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.Kind">
+            <summary>
+            Gets the kind of the directive. The kind determines whether or not a directive has an associated block.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.Usage">
+            <summary>
+            Gets the way a directive can be used. The usage determines how many, and where directives can exist per document.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.Tokens">
+            <summary>
+            Gets the list of directive tokens that can follow the directive keyword.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.CreateDirective(System.String,Microsoft.AspNetCore.Razor.Language.DirectiveKind)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/>.
+            </summary>
+            <param name="directive">The directive keyword.</param>
+            <param name="kind">The directive kind.</param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/> for the created directive.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.CreateDirective(System.String,Microsoft.AspNetCore.Razor.Language.DirectiveKind,System.Action{Microsoft.AspNetCore.Razor.Language.IDirectiveDescriptorBuilder})">
+            <summary>
+            Creates a new <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/>.
+            </summary>
+            <param name="directive">The directive keyword.</param>
+            <param name="kind">The directive kind.</param>
+            <param name="configure">A configuration delegate for the directive.</param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/> for the created directive.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.CreateSingleLineDirective(System.String)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/> with <see cref="P:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.Kind"/> set to <see cref="F:Microsoft.AspNetCore.Razor.Language.DirectiveKind.SingleLine"/>
+            </summary>
+            <param name="directive">The directive keyword.</param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/> for the created directive.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.CreateSingleLineDirective(System.String,System.Action{Microsoft.AspNetCore.Razor.Language.IDirectiveDescriptorBuilder})">
+            <summary>
+            Creates a new <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/> with <see cref="P:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.Kind"/> set to <see cref="F:Microsoft.AspNetCore.Razor.Language.DirectiveKind.SingleLine"/>
+            </summary>
+            <param name="directive">The directive keyword.</param>
+            <param name="configure">A configuration delegate for the directive.</param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/> for the created directive.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.CreateRazorBlockDirective(System.String)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/> with <see cref="P:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.Kind"/> set to <see cref="F:Microsoft.AspNetCore.Razor.Language.DirectiveKind.RazorBlock"/>
+            </summary>
+            <param name="directive">The directive keyword.</param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/> for the created directive.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.CreateRazorBlockDirective(System.String,System.Action{Microsoft.AspNetCore.Razor.Language.IDirectiveDescriptorBuilder})">
+            <summary>
+            Creates a new <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/> with <see cref="P:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.Kind"/> set to <see cref="F:Microsoft.AspNetCore.Razor.Language.DirectiveKind.RazorBlock"/>
+            </summary>
+            <param name="directive">The directive keyword.</param>
+            <param name="configure">A configuration delegate for the directive.</param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/> for the created directive.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.CreateCodeBlockDirective(System.String)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/> with <see cref="P:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.Kind"/> set to <see cref="F:Microsoft.AspNetCore.Razor.Language.DirectiveKind.CodeBlock"/>
+            </summary>
+            <param name="directive">The directive keyword.</param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/> for the created directive.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.CreateCodeBlockDirective(System.String,System.Action{Microsoft.AspNetCore.Razor.Language.IDirectiveDescriptorBuilder})">
+            <summary>
+            Creates a new <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/> with <see cref="P:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor.Kind"/> set to <see cref="F:Microsoft.AspNetCore.Razor.Language.DirectiveKind.CodeBlock"/>
+            </summary>
+            <param name="directive">The directive keyword.</param>
+            <param name="configure">A configuration delegate for the directive.</param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/> for the created directive.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.DirectiveUsage">
+            <summary>
+            The way a directive can be used. The usage determines how many, and where directives can exist per file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.DirectiveUsage.Unrestricted">
+            <summary>
+            Directive can exist anywhere in the file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.DirectiveUsage.FileScopedSinglyOccurring">
+            <summary>
+            Directive must exist prior to any HTML or code and have no duplicates. When importing the directive, if it is 
+            <see cref="F:Microsoft.AspNetCore.Razor.Language.DirectiveKind.SingleLine"/>, the last occurrence of the directive is imported.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.DirectiveUsage.FileScopedMultipleOccurring">
+            <summary>
+            Directive must exist prior to any HTML or code.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.Extensions.RazorCompiledItemMetadataAttributeIntermediateNode">
+            <summary>
+            An <see cref="T:Microsoft.AspNetCore.Razor.Language.Intermediate.ExtensionIntermediateNode"/> that generates code for <c>RazorCompiledItemMetadataAttribute</c>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Extensions.RazorCompiledItemMetadataAttributeIntermediateNode.Key">
+            <summary>
+            Gets or sets the attribute key.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Extensions.RazorCompiledItemMetadataAttributeIntermediateNode.Value">
+            <summary>
+            Gets or sets the attribute value.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.HtmlConventions.ToHtmlCase(System.String)">
+            <summary>
+            Converts from pascal/camel case to lower kebab-case.
+            </summary>
+            <example>
+            SomeThing => some-thing
+            capsONInside => caps-on-inside
+            CAPSOnOUTSIDE => caps-on-outside
+            ALLCAPS => allcaps
+            One1Two2Three3 => one1-two2-three3
+            ONE1TWO2THREE3 => one1two2three3
+            First_Second_ThirdHi => first_second_third-hi
+            </example>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.IDirectiveDescriptorBuilder">
+            <summary>
+            A builder interface for configuring a <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.IDirectiveDescriptorBuilder.Description">
+            <summary>
+            Gets or sets the description of the directive.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.IDirectiveDescriptorBuilder.Directive">
+            <summary>
+            Gets the directive keyword.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.IDirectiveDescriptorBuilder.DisplayName">
+            <summary>
+            Gets or sets the display name of the directive.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.IDirectiveDescriptorBuilder.Kind">
+            <summary>
+            Gets the directive kind.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.IDirectiveDescriptorBuilder.Usage">
+            <summary>
+            Gets or sets the directive usage. The usage determines how many, and where directives can exist per document.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.IDirectiveDescriptorBuilder.Tokens">
+            <summary>
+            Gets a list of the directive tokens.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.IDirectiveDescriptorBuilder.Build">
+            <summary>
+            Creates a <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/> based on the current property values of the builder.
+            </summary>
+            <returns>The created <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor" />.</returns>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.IntermediateNodePassBase.DefaultFeatureOrder">
+            <summary>
+            The default implementation of the <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorEngineFeature"/>s that run in a
+            <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorEnginePhase"/> will use this value for its Order property.
+            </summary>
+            <remarks>
+            This value is chosen in such a way that the default implementation runs after the other
+            custom <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorEngineFeature"/> implementations for a particular <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorEnginePhase"/>.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.IRazorCSharpLoweringPhase">
+            <summary>
+            Generates C# code using the intermediate node document.
+            </summary>
+            <remarks>
+            After IR processing, the <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorCSharpLoweringPhase"/> transforms the intermediate node document into
+            generated C# code. At this time any directives or other constructs that cannot be understood by code generation
+            will result in an error.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.IRazorDirectiveClassifierPhase">
+            <summary>
+            Understands directive nodes and performs the necessary modifications to the document.
+            </summary>
+            <remarks>
+            <para>
+            The second phase of intermediate node processing is directive classification. Passes in this phase should interpret
+            directives and processing them accordingly by transforming nodes or adding diagnostics. At this time the document 
+            kind has been identified, so any directive that can't be applied should trigger
+            errors. If implementing a document kind that diverges from the standard structure of Razor documents
+            it may be necessary to reimplement processing of default directives.
+            </para>
+            <para>
+            <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorDirectiveClassifierPass"/> objects are executed according to an ascending ordering of the
+            <see cref="P:Microsoft.AspNetCore.Razor.Language.IRazorDirectiveClassifierPass.Order"/> property.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.IRazorDocumentClassifierPhase">
+            <summary>
+            Modifies the intermediate node document to a desired structure.
+            </summary>
+            <remarks>
+            <para>
+            The first phase of intermediate node procesing is document classification. Passes in this phase should classify the
+            document according to any relevant criteria (project configuration, file extension, directive) and modify
+            the intermediate node document to suit the desired document shape. Document classifiers should also set
+            <see cref="P:Microsoft.AspNetCore.Razor.Language.Intermediate.DocumentIntermediateNode.DocumentKind"/> to prevent other classifiers from running. If no classifier 
+            matches the document, then it will be classified as &quot;generic&quot; and processed according to set 
+            of reasonable defaults.
+            </para>
+            <para>
+            <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorDocumentClassifierPass"/> objects are executed according to an ascending ordering of the
+            <see cref="P:Microsoft.AspNetCore.Razor.Language.IRazorDocumentClassifierPass.Order"/> property.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.IRazorIntermediateNodeLoweringPhase">
+            <summary>
+            Generates the intermediate node document from <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSyntaxTree"/>.
+            </summary>
+            <remarks>
+            The document is first produced by <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorIntermediateNodeLoweringPhase"/>. At this point no intermediate node
+            passes have been executed. The default <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorIntermediateNodeLoweringPhase"/> will perform a mechanical
+            transformation of the syntax tree to intermediate nodes, resulting in a mostly flat structure. It is up to later phases 
+            to give the document structure and semantics according to a document kind. The default 
+            <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorIntermediateNodeLoweringPhase"/> is also responsible for merging nodes from imported documents.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.IRazorOptimizationPhase">
+            <summary>
+            Performs necessary modifications to the <see cref="T:Microsoft.AspNetCore.Razor.Language.Intermediate.DocumentIntermediateNode"/> to complete and
+            optimize code generation.
+            </summary>
+            <remarks>
+            <para>
+            The last phase of intermediate node document processing is optimization. Passes in this phase perform some 
+            kind of transformation on the intermediate node document that optimizes the generated code. The key distinction 
+            here is that information may be discarded during this phase.
+            </para>
+            <para>
+            <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorOptimizationPass"/> objects are executed according to an ascending ordering of the
+            <see cref="P:Microsoft.AspNetCore.Razor.Language.IRazorOptimizationPass.Order"/> property.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.AddTagHelperChunkGenerator.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.AddTagHelperChunkGenerator.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.Legacy.ErrorSink">
+            <summary>
+            Used to manage <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorDiagnostic"/>s encountered during the Razor parsing phase.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.ErrorSink.#ctor">
+            <summary>
+            Instantiates a new instance of <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.ErrorSink"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.ErrorSink.Errors">
+            <summary>
+            <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorDiagnostic"/>s collected.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.ErrorSink.OnError(Microsoft.AspNetCore.Razor.Language.RazorDiagnostic)">
+            <summary>
+            Tracks the given <paramref name="error"/>.
+            </summary>
+            <param name="error">The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorDiagnostic"/> to track.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.HtmlMarkupParser.IsCommentContentEndingInvalid(System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Razor.Language.Legacy.HtmlSymbol})">
+            <summary>
+            Verifies, that the sequence doesn't end with the "&lt;!-" HtmlSymbols. Note, the first symbol is an opening bracket symbol
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.HtmlMarkupParser.ScanTagInDocumentContext">
+            <summary>
+            Reads the content of a tag (if present) in the MarkupDocument (or MarkupSection) context,
+            where we don't care about maintaining a stack of tags.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.Legacy.PartialParseResultInternal">
+            <summary>
+            The result of attempting an incremental parse
+            </summary>
+            <remarks>
+            Either the Accepted or Rejected flag is ALWAYS set.
+            Additionally, Provisional may be set with Accepted and SpanContextChanged may be set with Rejected.
+            Provisional may NOT be set with Rejected and SpanContextChanged may NOT be set with Accepted.
+            </remarks>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.Legacy.PartialParseResultInternal.Rejected">
+            <summary>
+            Indicates that the edit could not be accepted and that a reparse is underway.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.Legacy.PartialParseResultInternal.Accepted">
+            <summary>
+            Indicates that the edit was accepted and has been added to the parse tree
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.Legacy.PartialParseResultInternal.Provisional">
+            <summary>
+            Indicates that the edit was accepted, but that a reparse should be forced when idle time is available
+            since the edit may be misclassified
+            </summary>
+            <remarks>
+            This generally occurs when a "." is typed in an Implicit Expression, since editors require that this
+            be assigned to Code in order to properly support features like IntelliSense.  However, if no further edits
+            occur following the ".", it should be treated as Markup.
+            </remarks>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.Legacy.PartialParseResultInternal.SpanContextChanged">
+            <summary>
+            Indicates that the edit caused a change in the span's context and that if any statement completions were active prior to starting this
+            partial parse, they should be reinitialized.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.Legacy.PartialParseResultInternal.AutoCompleteBlock">
+            <summary>
+            Indicates that the edit requires an auto completion to occur
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.RemoveTagHelperChunkGenerator.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.RemoveTagHelperChunkGenerator.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.Span.EquivalentTo(Microsoft.AspNetCore.Razor.Language.Legacy.SyntaxTreeNode)">
+            <summary>
+            Checks that the specified span is equivalent to the other in that it has the same start point and content.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.SpanEditHandler.IsEndDeletion(Microsoft.AspNetCore.Razor.Language.Legacy.Span,Microsoft.AspNetCore.Razor.Language.SourceChange)">
+            <summary>
+            Returns true if the specified change is an insertion of text at the end of this span.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.SpanEditHandler.IsEndReplace(Microsoft.AspNetCore.Razor.Language.Legacy.Span,Microsoft.AspNetCore.Razor.Language.SourceChange)">
+            <summary>
+            Returns true if the specified change is a replacement of text at the end of this span.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.SyntaxTreeBuilder.StartBlock(Microsoft.AspNetCore.Razor.Language.Legacy.BlockKindInternal)">
+            <summary>
+            Starts a block of the specified type
+            </summary>
+            <param name="blockType">The type of the block to start</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.SyntaxTreeBuilder.EndBlock">
+            <summary>
+            Ends the current block
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.SyntaxTreeNode.IsBlock">
+            <summary>
+            Returns true if this element is a block (to avoid casting)
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.SyntaxTreeNode.Length">
+            <summary>
+            The length of all the content contained in this node
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.SyntaxTreeNode.Start">
+            <summary>
+            The start point of this node
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.SyntaxTreeNode.EquivalentTo(Microsoft.AspNetCore.Razor.Language.Legacy.SyntaxTreeNode)">
+            <summary>
+            Determines if the specified node is equivalent to this node
+            </summary>
+            <param name="node">The node to compare this node with</param>
+            <returns>
+            true if the provided node has all the same content and metadata, though the specific quantity and type of
+            symbols may be different.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.SyntaxTreeNode.GetEquivalenceHash">
+            <summary>
+            Determines a hash code for the <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.SyntaxTreeNode"/> using only information relevant in
+            <see cref="M:Microsoft.AspNetCore.Razor.Language.Legacy.SyntaxTreeNode.EquivalentTo(Microsoft.AspNetCore.Razor.Language.Legacy.SyntaxTreeNode)"/> comparisons.
+            </summary>
+            <returns>
+            A hash code for the <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.SyntaxTreeNode"/> using only information relevant in
+            <see cref="M:Microsoft.AspNetCore.Razor.Language.Legacy.SyntaxTreeNode.EquivalentTo(Microsoft.AspNetCore.Razor.Language.Legacy.SyntaxTreeNode)"/> comparisons.
+            </returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock">
+            <summary>
+            A <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.Block"/> that reprents a special HTML element.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock.#ctor(Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder)">
+            <summary>
+            Instantiates a new instance of a <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock"/>.
+            </summary>
+            <param name="source">A <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder"/> used to construct a valid
+            <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock"/>.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock.SourceStartTag">
+            <summary>
+            Gets the unrewritten source start tag.
+            </summary>
+            <remarks>This is used by design time to properly format <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock"/>s.</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock.SourceEndTag">
+            <summary>
+            Gets the unrewritten source end tag.
+            </summary>
+            <remarks>This is used by design time to properly format <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock"/>s.</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock.TagMode">
+            <summary>
+            Gets the HTML syntax of the element in the Razor source.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock.Binding">
+            <summary>
+            <see cref="T:Microsoft.AspNetCore.Razor.Language.TagHelperDescriptor"/> bindings for the HTML element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock.Attributes">
+            <summary>
+            The HTML attributes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock.Start">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock.TagName">
+            <summary>
+            The HTML tag name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock.Equals(Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock)">
+            <summary>
+            Determines whether two <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock"/>s are equal by comparing the <see cref="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock.TagName"/>,
+            <see cref="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock.Attributes"/>, <see cref="P:Microsoft.AspNetCore.Razor.Language.Legacy.Block.Type"/>, <see cref="P:Microsoft.AspNetCore.Razor.Language.Legacy.Block.ChunkGenerator"/> and
+            <see cref="P:Microsoft.AspNetCore.Razor.Language.Legacy.Block.Children"/>.
+            </summary>
+            <param name="other">The <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock"/> to check equality against.</param>
+            <returns>
+            <c>true</c> if the current <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock"/> is equivalent to the given
+            <paramref name="other"/>, <c>false</c> otherwise.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder">
+            <summary>
+            A <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.BlockBuilder"/> used to create <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock"/>s.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder.#ctor(Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock)">
+            <summary>
+            Instantiates a new <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder"/> instance based on the given
+            <paramref name="original"/>.
+            </summary>
+            <param name="original">The original <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock"/> to copy data from.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder.#ctor(System.String,Microsoft.AspNetCore.Razor.Language.TagMode,Microsoft.AspNetCore.Razor.Language.SourceLocation,System.Collections.Generic.IList{Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperAttributeNode},Microsoft.AspNetCore.Razor.Language.TagHelperBinding)">
+            <summary>
+            Instantiates a new instance of the <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder"/> class
+            with the provided values.
+            </summary>
+            <param name="tagName">An HTML tag name.</param>
+            <param name="tagMode">HTML syntax of the element in the Razor source.</param>
+            <param name="start">Starting location of the <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock"/>.</param>
+            <param name="attributes">Attributes of the <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock"/>.</param>
+            <param name="bindingResult"></param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder.SourceStartTag">
+            <summary>
+            Gets or sets the unrewritten source start tag.
+            </summary>
+            <remarks>This is used by design time to properly format <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock"/>s.</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder.SourceEndTag">
+            <summary>
+            Gets or sets the unrewritten source end tag.
+            </summary>
+            <remarks>This is used by design time to properly format <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock"/>s.</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder.TagMode">
+            <summary>
+            Gets the HTML syntax of the element in the Razor source.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder.BindingResult">
+            <summary>
+            <see cref="T:Microsoft.AspNetCore.Razor.Language.TagHelperDescriptor"/>s for the HTML element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder.Attributes">
+            <summary>
+            The HTML attributes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder.TagName">
+            <summary>
+            The HTML tag name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder.Build">
+            <summary>
+            Constructs a new <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock"/>.
+            </summary>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlock"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder.Reset">
+            <inheritdoc />
+            <remarks>
+            Sets the <see cref="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder.TagName"/> to <c>null</c> and clears the <see cref="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder.Attributes"/>.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperBlockBuilder.Start">
+            <summary>
+            The starting <see cref="T:Microsoft.AspNetCore.Razor.Language.SourceLocation"/> of the tag helper.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperDirectiveType">
+            <summary>
+            The type of tag helper directive.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperDirectiveType.AddTagHelper">
+            <summary>
+            An <c>@addTagHelper</c> directive.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperDirectiveType.RemoveTagHelper">
+            <summary>
+            A <c>@removeTagHelper</c> directive.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperDirectiveType.TagHelperPrefix">
+            <summary>
+            A <c>@tagHelperPrefix</c> directive.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperPrefixDirectiveChunkGenerator.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.TagHelperPrefixDirectiveChunkGenerator.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.Tokenizer`2.Stop">
+            <summary>
+            Returns a result indicating that the machine should stop executing and return null output.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.Tokenizer`2.Transition(System.Int32)">
+            <summary>
+            Returns a result indicating that this state has no output and the machine should immediately invoke the specified state
+            </summary>
+            <remarks>
+            By returning no output, the state machine will invoke the next state immediately, before returning
+            controller to the caller of <see cref="M:Microsoft.AspNetCore.Razor.Language.Legacy.Tokenizer`2.Turn"/>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.Tokenizer`2.Transition(System.Int32,`0)">
+            <summary>
+            Returns a result containing the specified output and indicating that the next call to
+            <see cref="M:Microsoft.AspNetCore.Razor.Language.Legacy.Tokenizer`2.Turn"/> should invoke the provided state.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.Tokenizer`2.Stay">
+            <summary>
+            Returns a result indicating that this state has no output and the machine should remain in this state
+            </summary>
+            <remarks>
+            By returning no output, the state machine will re-invoke the current state again before returning
+            controller to the caller of <see cref="M:Microsoft.AspNetCore.Razor.Language.Legacy.Tokenizer`2.Turn"/>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.Tokenizer`2.Stay(`0)">
+            <summary>
+            Returns a result containing the specified output and indicating that the next call to
+            <see cref="M:Microsoft.AspNetCore.Razor.Language.Legacy.Tokenizer`2.Turn"/> should re-invoke the current state.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.Tokenizer`2.Lookahead(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Internal for unit testing
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.TokenizerBackedParser`3.LookaheadUntil(System.Func{`1,System.Collections.Generic.IEnumerable{`1},System.Boolean})">
+            <summary>
+            Looks forward until the specified condition is met.
+            </summary>
+            <param name="condition">A predicate accepting the symbol being evaluated and the list of symbols which have been looped through.</param>
+            <returns>true, if the condition was met. false - if the condition wasn't met and the last symbol has already been processed.</returns>
+            <remarks>The list of previous symbols is passed in the reverse order. So the last processed element will be the first one in the list.</remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Legacy.TokenizerBackedParser`3.PutBack(System.Collections.Generic.IEnumerable{`1})">
+            <summary>
+            Put the specified symbols back in the input stream. The provided list MUST be in the ORDER THE SYMBOLS WERE READ. The
+            list WILL be reversed and the Putback(TSymbol) will be called on each item.
+            </summary>
+            <remarks>
+            If a document contains symbols: a, b, c, d, e, f
+            and AcceptWhile or AcceptUntil is used to collect until d
+            the list returned by AcceptWhile/Until will contain: a, b, c IN THAT ORDER
+            that is the correct format for providing to this method. The caller of this method would,
+            in that case, want to put c, b and a back into the stream, so "a, b, c" is the CORRECT order
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.NotFoundProjectItem">
+            <summary>
+            A <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectItem"/> that does not exist.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.NotFoundProjectItem.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Razor.Language.NotFoundProjectItem"/>.
+            </summary>
+            <param name="basePath">The base path.</param>
+            <param name="path">The path.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.NotFoundProjectItem.BasePath">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.NotFoundProjectItem.FilePath">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.NotFoundProjectItem.Exists">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.NotFoundProjectItem.PhysicalPath">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.NotFoundProjectItem.Read">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.AddTagHelperDirective_Description">
+            <summary>
+            Register Tag Helpers for use in the current document.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatAddTagHelperDirective_Description">
+            <summary>
+            Register Tag Helpers for use in the current document.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.AddTagHelperDirective_StringToken_Description">
+            <summary>
+            Add tag helpers from the specified type name and assembly name. Specify '*' for the type name to include all tag helper types from the specified assembly.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatAddTagHelperDirective_StringToken_Description">
+            <summary>
+            Add tag helpers from the specified type name and assembly name. Specify '*' for the type name to include all tag helper types from the specified assembly.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.AddTagHelperDirective_StringToken_Name">
+            <summary>
+            TypeName, AssemblyName
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatAddTagHelperDirective_StringToken_Name">
+            <summary>
+            TypeName, AssemblyName
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ArgumentCannotBeNullOrEmpty">
+            <summary>
+            Value cannot be null or an empty string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatArgumentCannotBeNullOrEmpty">
+            <summary>
+            Value cannot be null or an empty string.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.Block_Type_Not_Specified">
+            <summary>
+            Block cannot be built because a Type has not been specified in the BlockBuilder
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatBlock_Type_Not_Specified">
+            <summary>
+            Block cannot be built because a Type has not been specified in the BlockBuilder
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.BlockDirectiveCannotBeImported">
+            <summary>
+            Block directive '{0}' cannot be imported.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatBlockDirectiveCannotBeImported(System.Object)">
+            <summary>
+            Block directive '{0}' cannot be imported.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.BlockName_Code">
+            <summary>
+            code
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatBlockName_Code">
+            <summary>
+            code
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.BlockName_ExplicitExpression">
+            <summary>
+            explicit expression
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatBlockName_ExplicitExpression">
+            <summary>
+            explicit expression
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.CodeWriter_InvalidNewLine">
+            <summary>
+            Invalid newline sequence '{0}'. Support newline sequences are '\r\n' and '\n'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatCodeWriter_InvalidNewLine(System.Object)">
+            <summary>
+            Invalid newline sequence '{0}'. Support newline sequences are '\r\n' and '\n'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.CSharpSymbol_CharacterLiteral">
+            <summary>
+            &lt;&lt;character literal&gt;&gt;
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatCSharpSymbol_CharacterLiteral">
+            <summary>
+            &lt;&lt;character literal&gt;&gt;
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.CSharpSymbol_Comment">
+            <summary>
+            &lt;&lt;comment&gt;&gt;
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatCSharpSymbol_Comment">
+            <summary>
+            &lt;&lt;comment&gt;&gt;
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.CSharpSymbol_Identifier">
+            <summary>
+            &lt;&lt;identifier&gt;&gt;
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatCSharpSymbol_Identifier">
+            <summary>
+            &lt;&lt;identifier&gt;&gt;
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.CSharpSymbol_IntegerLiteral">
+            <summary>
+            &lt;&lt;integer literal&gt;&gt;
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatCSharpSymbol_IntegerLiteral">
+            <summary>
+            &lt;&lt;integer literal&gt;&gt;
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.CSharpSymbol_Keyword">
+            <summary>
+            &lt;&lt;keyword&gt;&gt;
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatCSharpSymbol_Keyword">
+            <summary>
+            &lt;&lt;keyword&gt;&gt;
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.CSharpSymbol_Newline">
+            <summary>
+            &lt;&lt;newline sequence&gt;&gt;
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatCSharpSymbol_Newline">
+            <summary>
+            &lt;&lt;newline sequence&gt;&gt;
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.CSharpSymbol_RealLiteral">
+            <summary>
+            &lt;&lt;real literal&gt;&gt;
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatCSharpSymbol_RealLiteral">
+            <summary>
+            &lt;&lt;real literal&gt;&gt;
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.CSharpSymbol_StringLiteral">
+            <summary>
+            &lt;&lt;string literal&gt;&gt;
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatCSharpSymbol_StringLiteral">
+            <summary>
+            &lt;&lt;string literal&gt;&gt;
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.CSharpSymbol_Whitespace">
+            <summary>
+            &lt;&lt;white space&gt;&gt;
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatCSharpSymbol_Whitespace">
+            <summary>
+            &lt;&lt;white space&gt;&gt;
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.Diagnostic_CodeTarget_UnsupportedExtension">
+            <summary>
+            The document type '{0}' does not support the extension '{1}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatDiagnostic_CodeTarget_UnsupportedExtension(System.Object,System.Object)">
+            <summary>
+            The document type '{0}' does not support the extension '{1}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.DirectiveDescriptor_InvalidDirectiveKeyword">
+            <summary>
+            Invalid directive keyword '{0}'. Directives must have a non-empty keyword that consists only of letters.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatDirectiveDescriptor_InvalidDirectiveKeyword(System.Object)">
+            <summary>
+            Invalid directive keyword '{0}'. Directives must have a non-empty keyword that consists only of letters.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.DirectiveDescriptor_InvalidNonOptionalToken">
+            <summary>
+            A non-optional directive token cannot follow an optional directive token.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatDirectiveDescriptor_InvalidNonOptionalToken">
+            <summary>
+            A non-optional directive token cannot follow an optional directive token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.DirectiveExpectsIdentifier">
+            <summary>
+            The '{0}' directive expects an identifier.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatDirectiveExpectsIdentifier(System.Object)">
+            <summary>
+            The '{0}' directive expects an identifier.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.DirectiveExpectsNamespace">
+            <summary>
+            The '{0}' directive expects a namespace name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatDirectiveExpectsNamespace(System.Object)">
+            <summary>
+            The '{0}' directive expects a namespace name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.DirectiveExpectsQuotedStringLiteral">
+            <summary>
+            The '{0}' directive expects a string surrounded by double quotes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatDirectiveExpectsQuotedStringLiteral(System.Object)">
+            <summary>
+            The '{0}' directive expects a string surrounded by double quotes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.DirectiveExpectsTypeName">
+            <summary>
+            The '{0}' directive expects a type name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatDirectiveExpectsTypeName(System.Object)">
+            <summary>
+            The '{0}' directive expects a type name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.DirectiveMustAppearAtStartOfLine">
+            <summary>
+            The '{0}` directive must appear at the start of the line.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatDirectiveMustAppearAtStartOfLine(System.Object)">
+            <summary>
+            The '{0}` directive must appear at the start of the line.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.DirectiveTokensMustBeSeparatedByWhitespace">
+            <summary>
+            The '{0}' directives value(s) must be separated by whitespace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatDirectiveTokensMustBeSeparatedByWhitespace(System.Object)">
+            <summary>
+            The '{0}' directives value(s) must be separated by whitespace.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.DocumentMissingTarget">
+            <summary>
+            The document of kind '{0}' does not have a '{1}'. The document classifier must set a value for '{2}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatDocumentMissingTarget(System.Object,System.Object,System.Object)">
+            <summary>
+            The document of kind '{0}' does not have a '{1}'. The document classifier must set a value for '{2}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.DuplicateDirective">
+            <summary>
+            The '{0}' directive may only occur once per document.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatDuplicateDirective(System.Object)">
+            <summary>
+            The '{0}' directive may only occur once per document.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.EndBlock_Called_Without_Matching_StartBlock">
+            <summary>
+            "EndBlock" was called without a matching call to "StartBlock".
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatEndBlock_Called_Without_Matching_StartBlock">
+            <summary>
+            "EndBlock" was called without a matching call to "StartBlock".
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ErrorComponent_Newline">
+            <summary>
+            line break
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatErrorComponent_Newline">
+            <summary>
+            line break
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.FeatureDependencyMissing">
+            <summary>
+            The '{0}' feature requires a '{1}' provided by the '{2}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatFeatureDependencyMissing(System.Object,System.Object,System.Object)">
+            <summary>
+            The '{0}' feature requires a '{1}' provided by the '{2}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.FeatureMustBeInitialized">
+            <summary>
+            The feature must be initialized by setting the '{0}' property.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatFeatureMustBeInitialized(System.Object)">
+            <summary>
+            The feature must be initialized by setting the '{0}' property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.FunctionsDirective_Description">
+            <summary>
+            Specify a C# code block.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatFunctionsDirective_Description">
+            <summary>
+            Specify a C# code block.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.HtmlSymbol_NewLine">
+            <summary>
+            &lt;&lt;newline sequence&gt;&gt;
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatHtmlSymbol_NewLine">
+            <summary>
+            &lt;&lt;newline sequence&gt;&gt;
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.HtmlSymbol_RazorComment">
+            <summary>
+            &lt;&lt;razor comment&gt;&gt;
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatHtmlSymbol_RazorComment">
+            <summary>
+            &lt;&lt;razor comment&gt;&gt;
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.HtmlSymbol_Text">
+            <summary>
+            &lt;&lt;text&gt;&gt;
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatHtmlSymbol_Text">
+            <summary>
+            &lt;&lt;text&gt;&gt;
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.HtmlSymbol_WhiteSpace">
+            <summary>
+            &lt;&lt;white space&gt;&gt;
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatHtmlSymbol_WhiteSpace">
+            <summary>
+            &lt;&lt;white space&gt;&gt;
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.InheritsDirective_Description">
+            <summary>
+            Specify the base class for the current document.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatInheritsDirective_Description">
+            <summary>
+            Specify the base class for the current document.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.InheritsDirective_TypeToken_Description">
+            <summary>
+            The base type that the current page inherits.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatInheritsDirective_TypeToken_Description">
+            <summary>
+            The base type that the current page inherits.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.InheritsDirective_TypeToken_Name">
+            <summary>
+            TypeName
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatInheritsDirective_TypeToken_Name">
+            <summary>
+            TypeName
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.IntermediateNodeBuilder_PopInvalid">
+            <summary>
+            The '{0}' operation is not valid when the builder is empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatIntermediateNodeBuilder_PopInvalid(System.Object)">
+            <summary>
+            The '{0}' operation is not valid when the builder is empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.IntermediateNodeReference_CollectionIsReadOnly">
+            <summary>
+            The node '{0}' has a read-only child collection and cannot be modified.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatIntermediateNodeReference_CollectionIsReadOnly(System.Object)">
+            <summary>
+            The node '{0}' has a read-only child collection and cannot be modified.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.IntermediateNodeReference_NodeNotFound">
+            <summary>
+            The reference is invalid. The node '{0}' could not be found as a child of '{1}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatIntermediateNodeReference_NodeNotFound(System.Object,System.Object)">
+            <summary>
+            The reference is invalid. The node '{0}' could not be found as a child of '{1}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.IntermediateNodeReference_NotInitialized">
+            <summary>
+            The reference is invalid. References initialized with the default constructor cannot modify nodes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatIntermediateNodeReference_NotInitialized">
+            <summary>
+            The reference is invalid. References initialized with the default constructor cannot modify nodes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.IntermediateNodes_InvalidParentNode">
+            <summary>
+            The '{0}' node type can only be used as a direct child of a '{1}' node.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatIntermediateNodes_InvalidParentNode(System.Object,System.Object)">
+            <summary>
+            The '{0}' node type can only be used as a direct child of a '{1}' node.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.InvalidOperation_SpanIsNotChangeOwner">
+            <summary>
+            The node '{0}' is not the owner of change '{1}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatInvalidOperation_SpanIsNotChangeOwner(System.Object,System.Object)">
+            <summary>
+            The node '{0}' is not the owner of change '{1}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.InvalidTagHelperLookupText">
+            <summary>
+            Invalid tag helper directive look up text '{0}'. The correct look up text format is: "name, assemblyName".
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatInvalidTagHelperLookupText(System.Object)">
+            <summary>
+            Invalid tag helper directive look up text '{0}'. The correct look up text format is: "name, assemblyName".
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.InvalidTagHelperPrefixValue">
+            <summary>
+            Invalid tag helper directive '{0}' value. '{1}' is not allowed in prefix '{2}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatInvalidTagHelperPrefixValue(System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper directive '{0}' value. '{1}' is not allowed in prefix '{2}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.KeyMustNotBeNull">
+            <summary>
+            The key must not be null.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatKeyMustNotBeNull">
+            <summary>
+            The key must not be null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.Language_Does_Not_Support_RazorComment">
+            <summary>
+            Cannot use built-in RazorComment handler, language characteristics does not define the CommentStart, CommentStar and CommentBody known symbol types or parser does not override TokenizerBackedParser.OutputSpanBeforeRazorComment
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatLanguage_Does_Not_Support_RazorComment">
+            <summary>
+            Cannot use built-in RazorComment handler, language characteristics does not define the CommentStart, CommentStar and CommentBody known symbol types or parser does not override TokenizerBackedParser.OutputSpanBeforeRazorComment
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.MismatchedContentEncoding">
+            <summary>
+            The specified encoding '{0}' does not match the content's encoding '{1}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatMismatchedContentEncoding(System.Object,System.Object)">
+            <summary>
+            The specified encoding '{0}' does not match the content's encoding '{1}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_AtInCode_Must_Be_Followed_By_Colon_Paren_Or_Identifier_Start">
+            <summary>
+            The "@" character must be followed by a ":", "(", or a C# identifier.  If you intended to switch to markup, use an HTML start tag, for example:
+            
+            @if(isLoggedIn) {{
+                &lt;p&gt;Hello, @user!&lt;/p&gt;
+            }}
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_AtInCode_Must_Be_Followed_By_Colon_Paren_Or_Identifier_Start">
+            <summary>
+            The "@" character must be followed by a ":", "(", or a C# identifier.  If you intended to switch to markup, use an HTML start tag, for example:
+            
+            @if(isLoggedIn) {{
+                &lt;p&gt;Hello, @user!&lt;/p&gt;
+            }}
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_BlockComment_Not_Terminated">
+            <summary>
+            End of file was reached before the end of the block comment.  All comments started with "/*" sequence must be terminated with a matching "*/" sequence.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_BlockComment_Not_Terminated">
+            <summary>
+            End of file was reached before the end of the block comment.  All comments started with "/*" sequence must be terminated with a matching "*/" sequence.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_DirectiveMustHaveValue">
+            <summary>
+            Directive '{0}' must have a value.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_DirectiveMustHaveValue(System.Object)">
+            <summary>
+            Directive '{0}' must have a value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_Expected_CloseBracket_Before_EOF">
+            <summary>
+            An opening "{0}" is missing the corresponding closing "{1}".
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_Expected_CloseBracket_Before_EOF(System.Object,System.Object)">
+            <summary>
+            An opening "{0}" is missing the corresponding closing "{1}".
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_Expected_EndOfBlock_Before_EOF">
+            <summary>
+            The {0} block is missing a closing "{1}" character.  Make sure you have a matching "{1}" character for all the "{2}" characters within this block, and that none of the "{1}" characters are being interpreted as markup.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_Expected_EndOfBlock_Before_EOF(System.Object,System.Object,System.Object)">
+            <summary>
+            The {0} block is missing a closing "{1}" character.  Make sure you have a matching "{1}" character for all the "{2}" characters within this block, and that none of the "{1}" characters are being interpreted as markup.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_HelperDirectiveNotAvailable">
+            <summary>
+            The {0} directive is not supported.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_HelperDirectiveNotAvailable(System.Object)">
+            <summary>
+            The {0} directive is not supported.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_IncompleteQuotesAroundDirective">
+            <summary>
+            Optional quote around the directive '{0}' is missing the corresponding opening or closing quote.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_IncompleteQuotesAroundDirective(System.Object)">
+            <summary>
+            Optional quote around the directive '{0}' is missing the corresponding opening or closing quote.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_InlineMarkup_Blocks_Cannot_Be_Nested">
+            <summary>
+            Inline markup blocks (@&lt;p&gt;Content&lt;/p&gt;) cannot be nested.  Only one level of inline markup is allowed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_InlineMarkup_Blocks_Cannot_Be_Nested">
+            <summary>
+            Inline markup blocks (@&lt;p&gt;Content&lt;/p&gt;) cannot be nested.  Only one level of inline markup is allowed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_MarkupBlock_Must_Start_With_Tag">
+            <summary>
+            Markup in a code block must start with a tag and all start tags must be matched with end tags.  Do not use unclosed tags like "&lt;br&gt;".  Instead use self-closing tags like "&lt;br/&gt;".
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_MarkupBlock_Must_Start_With_Tag">
+            <summary>
+            Markup in a code block must start with a tag and all start tags must be matched with end tags.  Do not use unclosed tags like "&lt;br&gt;".  Instead use self-closing tags like "&lt;br/&gt;".
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_MissingEndTag">
+            <summary>
+            The "{0}" element was not closed.  All elements must be either self-closing or have a matching end tag.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_MissingEndTag(System.Object)">
+            <summary>
+            The "{0}" element was not closed.  All elements must be either self-closing or have a matching end tag.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_NamespaceImportAndTypeAlias_Cannot_Exist_Within_CodeBlock">
+            <summary>
+            Namespace imports and type aliases cannot be placed within code blocks.  They must immediately follow an "@" character in markup.  It is recommended that you put them at the top of the page, as in the following example:
+            
+            @using System.Drawing;
+            @{{
+                // OK here to use types from System.Drawing in the page.
+            }}
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_NamespaceImportAndTypeAlias_Cannot_Exist_Within_CodeBlock">
+            <summary>
+            Namespace imports and type aliases cannot be placed within code blocks.  They must immediately follow an "@" character in markup.  It is recommended that you put them at the top of the page, as in the following example:
+            
+            @using System.Drawing;
+            @{{
+                // OK here to use types from System.Drawing in the page.
+            }}
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_OuterTagMissingName">
+            <summary>
+            Outer tag is missing a name. The first character of a markup block must be an HTML tag with a valid name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_OuterTagMissingName">
+            <summary>
+            Outer tag is missing a name. The first character of a markup block must be an HTML tag with a valid name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_RazorComment_Not_Terminated">
+            <summary>
+            End of file was reached before the end of the block comment.  All comments that start with the "@*" sequence must be terminated with a matching "*@" sequence.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_RazorComment_Not_Terminated">
+            <summary>
+            End of file was reached before the end of the block comment.  All comments that start with the "@*" sequence must be terminated with a matching "*@" sequence.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_ReservedWord">
+            <summary>
+            "{0}" is a reserved word and cannot be used in implicit expressions.  An explicit expression ("@()") must be used.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_ReservedWord(System.Object)">
+            <summary>
+            "{0}" is a reserved word and cannot be used in implicit expressions.  An explicit expression ("@()") must be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_Sections_Cannot_Be_Nested">
+            <summary>
+            Section blocks ("{0}") cannot be nested.  Only one level of section blocks are allowed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_Sections_Cannot_Be_Nested(System.Object)">
+            <summary>
+            Section blocks ("{0}") cannot be nested.  Only one level of section blocks are allowed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_SingleLine_ControlFlowStatements_Not_Allowed">
+            <summary>
+            Expected a "{0}" but found a "{1}".  Block statements must be enclosed in "{{" and "}}".  You cannot use single-statement control-flow statements in CSHTML pages. For example, the following is not allowed:
+            
+            @if(isLoggedIn)
+                &lt;p&gt;Hello, @user&lt;/p&gt;
+            
+            Instead, wrap the contents of the block in "{{}}":
+            
+            @if(isLoggedIn) {{
+                &lt;p&gt;Hello, @user&lt;/p&gt;
+            }}
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_SingleLine_ControlFlowStatements_Not_Allowed(System.Object,System.Object)">
+            <summary>
+            Expected a "{0}" but found a "{1}".  Block statements must be enclosed in "{{" and "}}".  You cannot use single-statement control-flow statements in CSHTML pages. For example, the following is not allowed:
+            
+            @if(isLoggedIn)
+                &lt;p&gt;Hello, @user&lt;/p&gt;
+            
+            Instead, wrap the contents of the block in "{{}}":
+            
+            @if(isLoggedIn) {{
+                &lt;p&gt;Hello, @user&lt;/p&gt;
+            }}
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_TextTagCannotContainAttributes">
+            <summary>
+            "&lt;text&gt;" and "&lt;/text&gt;" tags cannot contain attributes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_TextTagCannotContainAttributes">
+            <summary>
+            "&lt;text&gt;" and "&lt;/text&gt;" tags cannot contain attributes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_Unexpected_Character_At_Start_Of_CodeBlock">
+            <summary>
+            "{0}" is not valid at the start of a code block.  Only identifiers, keywords, comments, "(" and "{{" are valid.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_Unexpected_Character_At_Start_Of_CodeBlock(System.Object)">
+            <summary>
+            "{0}" is not valid at the start of a code block.  Only identifiers, keywords, comments, "(" and "{{" are valid.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_Unexpected_EndOfFile_At_Start_Of_CodeBlock">
+            <summary>
+            End-of-file was found after the "@" character.  "@" must be followed by a valid code block.  If you want to output an "@", escape it using the sequence: "@@"
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_Unexpected_EndOfFile_At_Start_Of_CodeBlock">
+            <summary>
+            End-of-file was found after the "@" character.  "@" must be followed by a valid code block.  If you want to output an "@", escape it using the sequence: "@@"
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_Unexpected_Nested_CodeBlock">
+            <summary>
+            Unexpected "{{" after "@" character. Once inside the body of a code block (@if {{}}, @{{}}, etc.) you do not need to use "@{{" to switch to code.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_Unexpected_Nested_CodeBlock">
+            <summary>
+            Unexpected "{{" after "@" character. Once inside the body of a code block (@if {{}}, @{{}}, etc.) you do not need to use "@{{" to switch to code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_Unexpected_WhiteSpace_At_Start_Of_CodeBlock">
+            <summary>
+            A space or line break was encountered after the "@" character.  Only valid identifiers, keywords, comments, "(" and "{{" are valid at the start of a code block and they must occur immediately following "@" with no space in between.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_Unexpected_WhiteSpace_At_Start_Of_CodeBlock">
+            <summary>
+            A space or line break was encountered after the "@" character.  Only valid identifiers, keywords, comments, "(" and "{{" are valid at the start of a code block and they must occur immediately following "@" with no space in between.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_UnexpectedEndTag">
+            <summary>
+            Encountered end tag "{0}" with no matching start tag.  Are your start/end tags properly balanced?
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_UnexpectedEndTag(System.Object)">
+            <summary>
+            Encountered end tag "{0}" with no matching start tag.  Are your start/end tags properly balanced?
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_UnfinishedTag">
+            <summary>
+            End of file or an unexpected character was reached before the "{0}" tag could be parsed.  Elements inside markup blocks must be complete. They must either be self-closing ("&lt;br /&gt;") or have matching end tags ("&lt;p&gt;Hello&lt;/p&gt;").  If you intended to display a "&lt;" character, use the "&amp;lt;" HTML entity.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_UnfinishedTag(System.Object)">
+            <summary>
+            End of file or an unexpected character was reached before the "{0}" tag could be parsed.  Elements inside markup blocks must be complete. They must either be self-closing ("&lt;br /&gt;") or have matching end tags ("&lt;p&gt;Hello&lt;/p&gt;").  If you intended to display a "&lt;" character, use the "&amp;lt;" HTML entity.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParseError_Unterminated_String_Literal">
+            <summary>
+            Unterminated string literal.  Strings that start with a quotation mark (") must be terminated before the end of the line.  However, strings that start with @ and a quotation mark (@") can span multiple lines.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParseError_Unterminated_String_Literal">
+            <summary>
+            Unterminated string literal.  Strings that start with a quotation mark (") must be terminated before the end of the line.  However, strings that start with @ and a quotation mark (@") can span multiple lines.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.Parser_Context_Not_Set">
+            <summary>
+            Parser was started with a null Context property.  The Context property must be set BEFORE calling any methods on the parser.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParser_Context_Not_Set">
+            <summary>
+            Parser was started with a null Context property.  The Context property must be set BEFORE calling any methods on the parser.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParserContext_CannotCompleteTree_NoRootBlock">
+            <summary>
+            Cannot complete the tree, StartBlock must be called at least once.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParserContext_CannotCompleteTree_NoRootBlock">
+            <summary>
+            Cannot complete the tree, StartBlock must be called at least once.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParserContext_CannotCompleteTree_OutstandingBlocks">
+            <summary>
+            Cannot complete the tree, there are still open blocks.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParserContext_CannotCompleteTree_OutstandingBlocks">
+            <summary>
+            Cannot complete the tree, there are still open blocks.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.ParserContext_NoCurrentBlock">
+            <summary>
+            Cannot finish span, there is no current block. Call StartBlock at least once before finishing a span
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatParserContext_NoCurrentBlock">
+            <summary>
+            Cannot finish span, there is no current block. Call StartBlock at least once before finishing a span
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.PhaseDependencyMissing">
+            <summary>
+            The '{0}' phase requires a '{1}' provided by the '{2}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatPhaseDependencyMissing(System.Object,System.Object,System.Object)">
+            <summary>
+            The '{0}' phase requires a '{1}' provided by the '{2}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.PhaseMustBeInitialized">
+            <summary>
+            The phase must be initialized by setting the '{0}' property.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatPhaseMustBeInitialized(System.Object)">
+            <summary>
+            The phase must be initialized by setting the '{0}' property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.RazorProject_PathMustStartWithForwardSlash">
+            <summary>
+            Path must begin with a forward slash '/'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatRazorProject_PathMustStartWithForwardSlash">
+            <summary>
+            Path must begin with a forward slash '/'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.RazorTemplateEngine_ItemCouldNotBeFound">
+            <summary>
+            The item '{0}' could not be found.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatRazorTemplateEngine_ItemCouldNotBeFound(System.Object)">
+            <summary>
+            The item '{0}' could not be found.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.RemoveTagHelperDirective_Description">
+            <summary>
+            Remove Tag Helpers for use in the current document.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatRemoveTagHelperDirective_Description">
+            <summary>
+            Remove Tag Helpers for use in the current document.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.RemoveTagHelperDirective_StringToken_Description">
+            <summary>
+            Remove tag helpers from the specified type name and assembly name. Specify '*' for the type name to remove all tag helper types from the specified assembly.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatRemoveTagHelperDirective_StringToken_Description">
+            <summary>
+            Remove tag helpers from the specified type name and assembly name. Specify '*' for the type name to remove all tag helper types from the specified assembly.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.RemoveTagHelperDirective_StringToken_Name">
+            <summary>
+            TypeName, AssemblyName
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatRemoveTagHelperDirective_StringToken_Name">
+            <summary>
+            TypeName, AssemblyName
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.RenderingContextRequiresDelegate">
+            <summary>
+            The '{0}' requires a '{1}' delegate to be set.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatRenderingContextRequiresDelegate(System.Object,System.Object)">
+            <summary>
+            The '{0}' requires a '{1}' delegate to be set.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.RewriterError_EmptyTagHelperBoundAttribute">
+            <summary>
+            Attribute '{0}' on tag helper element '{1}' requires a value. Tag helper bound attributes of type '{2}' cannot be empty or contain only whitespace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatRewriterError_EmptyTagHelperBoundAttribute(System.Object,System.Object,System.Object)">
+            <summary>
+            Attribute '{0}' on tag helper element '{1}' requires a value. Tag helper bound attributes of type '{2}' cannot be empty or contain only whitespace.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.SectionDirective_Description">
+            <summary>
+            Define a section to be rendered in the configured layout page.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatSectionDirective_Description">
+            <summary>
+            Define a section to be rendered in the configured layout page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.SectionDirective_NameToken_Description">
+            <summary>
+            The name of the section.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatSectionDirective_NameToken_Description">
+            <summary>
+            The name of the section.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.SectionDirective_NameToken_Name">
+            <summary>
+            SectionName
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatSectionDirective_NameToken_Name">
+            <summary>
+            SectionName
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.SectionExample">
+            <summary>
+            @section Header { ... }
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatSectionExample">
+            <summary>
+            @section Header { ... }
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.Symbol_Unknown">
+            <summary>
+            &lt;&lt;unknown&gt;&gt;
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatSymbol_Unknown">
+            <summary>
+            &lt;&lt;unknown&gt;&gt;
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelper_InvalidBoundAttributeName">
+            <summary>
+            Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with name '{2}' because the name contains a '{3}' character.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelper_InvalidBoundAttributeName(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with name '{2}' because the name contains a '{3}' character.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelper_InvalidBoundAttributeNameStartsWith">
+            <summary>
+            Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with name '{2}' because the name starts with '{3}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelper_InvalidBoundAttributeNameStartsWith(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with name '{2}' because the name starts with '{3}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelper_InvalidBoundAttributeNullOrWhitespace">
+            <summary>
+            Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with a null or empty name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelper_InvalidBoundAttributeNullOrWhitespace(System.Object,System.Object)">
+            <summary>
+            Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with a null or empty name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelper_InvalidBoundAttributePrefix">
+            <summary>
+            Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with prefix '{2}' because the prefix contains a '{3}' character.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelper_InvalidBoundAttributePrefix(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with prefix '{2}' because the prefix contains a '{3}' character.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelper_InvalidBoundAttributePrefixStartsWith">
+            <summary>
+            Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with prefix '{2}' because the prefix starts with '{3}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelper_InvalidBoundAttributePrefixStartsWith(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with prefix '{2}' because the prefix starts with '{3}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelper_InvalidRestrictedChild">
+            <summary>
+            Invalid restricted child '{1}' for tag helper '{0}'. Tag helpers cannot restrict child elements that contain a '{2}' character.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelper_InvalidRestrictedChild(System.Object,System.Object,System.Object)">
+            <summary>
+            Invalid restricted child '{1}' for tag helper '{0}'. Tag helpers cannot restrict child elements that contain a '{2}' character.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelper_InvalidRestrictedChildNullOrWhitespace">
+            <summary>
+            Invalid restricted child for tag helper '{0}'. Name cannot be null or whitespace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelper_InvalidRestrictedChildNullOrWhitespace(System.Object)">
+            <summary>
+            Invalid restricted child for tag helper '{0}'. Name cannot be null or whitespace.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelper_InvalidTargetedAttributeName">
+            <summary>
+            Tag helpers cannot target attribute name '{0}' because it contains a '{1}' character.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelper_InvalidTargetedAttributeName(System.Object,System.Object)">
+            <summary>
+            Tag helpers cannot target attribute name '{0}' because it contains a '{1}' character.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelper_InvalidTargetedAttributeNameNullOrWhitespace">
+            <summary>
+            Targeted attribute name cannot be null or whitespace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelper_InvalidTargetedAttributeNameNullOrWhitespace">
+            <summary>
+            Targeted attribute name cannot be null or whitespace.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelper_InvalidTargetedParentTagName">
+            <summary>
+            Tag helpers cannot target parent tag name '{0}' because it contains a '{1}' character.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelper_InvalidTargetedParentTagName(System.Object,System.Object)">
+            <summary>
+            Tag helpers cannot target parent tag name '{0}' because it contains a '{1}' character.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelper_InvalidTargetedParentTagNameNullOrWhitespace">
+            <summary>
+            Targeted parent tag name cannot be null or whitespace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelper_InvalidTargetedParentTagNameNullOrWhitespace">
+            <summary>
+            Targeted parent tag name cannot be null or whitespace.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelper_InvalidTargetedTagName">
+            <summary>
+            Tag helpers cannot target tag name '{0}' because it contains a '{1}' character.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelper_InvalidTargetedTagName(System.Object,System.Object)">
+            <summary>
+            Tag helpers cannot target tag name '{0}' because it contains a '{1}' character.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelper_InvalidTargetedTagNameNullOrWhitespace">
+            <summary>
+            Targeted tag name cannot be null or whitespace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelper_InvalidTargetedTagNameNullOrWhitespace">
+            <summary>
+            Targeted tag name cannot be null or whitespace.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelperAssemblyNameCannotBeEmptyOrNull">
+            <summary>
+            Tag helper directive assembly name cannot be null or empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelperAssemblyNameCannotBeEmptyOrNull">
+            <summary>
+            Tag helper directive assembly name cannot be null or empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelperBlockRewriter_IndexerAttributeNameMustIncludeKey">
+            <summary>
+            The tag helper attribute '{0}' in element '{1}' is missing a key. The syntax is '&lt;{1} {0}{{ key }}="value"&gt;'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelperBlockRewriter_IndexerAttributeNameMustIncludeKey(System.Object,System.Object)">
+            <summary>
+            The tag helper attribute '{0}' in element '{1}' is missing a key. The syntax is '&lt;{1} {0}{{ key }}="value"&gt;'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelperBlockRewriter_TagHelperAttributeListMustBeWellFormed">
+            <summary>
+            TagHelper attributes must be well-formed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelperBlockRewriter_TagHelperAttributeListMustBeWellFormed">
+            <summary>
+            TagHelper attributes must be well-formed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelperParseTreeRewriter_CannotHaveNonTagContent">
+            <summary>
+            The parent &lt;{0}&gt; tag helper does not allow non-tag content. Only child tag helper(s) targeting tag name(s) '{1}' are allowed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelperParseTreeRewriter_CannotHaveNonTagContent(System.Object,System.Object)">
+            <summary>
+            The parent &lt;{0}&gt; tag helper does not allow non-tag content. Only child tag helper(s) targeting tag name(s) '{1}' are allowed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelperParseTreeRewriter_EndTagTagHelperMustNotHaveAnEndTag">
+            <summary>
+            Found an end tag (&lt;/{0}&gt;) for tag helper '{1}' with tag structure that disallows an end tag ('{2}').
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelperParseTreeRewriter_EndTagTagHelperMustNotHaveAnEndTag(System.Object,System.Object,System.Object)">
+            <summary>
+            Found an end tag (&lt;/{0}&gt;) for tag helper '{1}' with tag structure that disallows an end tag ('{2}').
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelperParseTreeRewriter_InconsistentTagStructure">
+            <summary>
+            Tag helpers '{0}' and '{1}' targeting element '{2}' must not expect different {3} values.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelperParseTreeRewriter_InconsistentTagStructure(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Tag helpers '{0}' and '{1}' targeting element '{2}' must not expect different {3} values.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelperParseTreeRewriter_InvalidNestedTag">
+            <summary>
+            The &lt;{0}&gt; tag is not allowed by parent &lt;{1}&gt; tag helper. Only child tags with name(s) '{2}' are allowed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelperParseTreeRewriter_InvalidNestedTag(System.Object,System.Object,System.Object)">
+            <summary>
+            The &lt;{0}&gt; tag is not allowed by parent &lt;{1}&gt; tag helper. Only child tags with name(s) '{2}' are allowed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelperPrefixDirective_Description">
+            <summary>
+            Specify a prefix that is required in an element name for it to be included in Tag Helper processing.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelperPrefixDirective_Description">
+            <summary>
+            Specify a prefix that is required in an element name for it to be included in Tag Helper processing.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelperPrefixDirective_PrefixToken_Description">
+            <summary>
+            The tag prefix to apply to tag helpers.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelperPrefixDirective_PrefixToken_Description">
+            <summary>
+            The tag prefix to apply to tag helpers.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelperPrefixDirective_PrefixToken_Name">
+            <summary>
+            Prefix
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelperPrefixDirective_PrefixToken_Name">
+            <summary>
+            Prefix
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelpers_AttributesMustHaveAName">
+            <summary>
+            Tag Helper '{0}'s attributes must have names.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelpers_AttributesMustHaveAName(System.Object)">
+            <summary>
+            Tag Helper '{0}'s attributes must have names.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelpers_CannotHaveCSharpInTagDeclaration">
+            <summary>
+            The tag helper '{0}' must not have C# in the element's attribute declaration area.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelpers_CannotHaveCSharpInTagDeclaration(System.Object)">
+            <summary>
+            The tag helper '{0}' must not have C# in the element's attribute declaration area.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelpers_CodeBlocks_NotSupported_InAttributes">
+            <summary>
+            Code blocks (e.g. @{{var variable = 23;}}) must not appear in non-string tag helper attribute values.
+             Already in an expression (code) context. If necessary an explicit expression (e.g. @(@readonly)) may be used.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelpers_CodeBlocks_NotSupported_InAttributes">
+            <summary>
+            Code blocks (e.g. @{{var variable = 23;}}) must not appear in non-string tag helper attribute values.
+             Already in an expression (code) context. If necessary an explicit expression (e.g. @(@readonly)) may be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelpers_InlineMarkupBlocks_NotSupported_InAttributes">
+            <summary>
+            Inline markup blocks (e.g. @&lt;p&gt;content&lt;/p&gt;) must not appear in non-string tag helper attribute values.
+             Expected a '{0}' attribute value, not a string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelpers_InlineMarkupBlocks_NotSupported_InAttributes(System.Object)">
+            <summary>
+            Inline markup blocks (e.g. @&lt;p&gt;content&lt;/p&gt;) must not appear in non-string tag helper attribute values.
+             Expected a '{0}' attribute value, not a string.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelpersParseTreeRewriter_FoundMalformedTagHelper">
+            <summary>
+            Found a malformed '{0}' tag helper. Tag helpers must have a start and end tag or be self closing.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelpersParseTreeRewriter_FoundMalformedTagHelper(System.Object)">
+            <summary>
+            Found a malformed '{0}' tag helper. Tag helpers must have a start and end tag or be self closing.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.TagHelpersParseTreeRewriter_MissingCloseAngle">
+            <summary>
+            Missing close angle for tag helper '{0}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatTagHelpersParseTreeRewriter_MissingCloseAngle(System.Object)">
+            <summary>
+            Missing close angle for tag helper '{0}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.UnexpectedDirectiveKind">
+            <summary>
+            Unreachable code. This can happen when a new {0} is introduced.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatUnexpectedDirectiveKind(System.Object)">
+            <summary>
+            Unreachable code. This can happen when a new {0} is introduced.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.UnexpectedDirectiveLiteral">
+            <summary>
+            Unexpected literal following the '{0}' directive. Expected '{1}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatUnexpectedDirectiveLiteral(System.Object,System.Object)">
+            <summary>
+            Unexpected literal following the '{0}' directive. Expected '{1}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.UnexpectedEOFAfterDirective">
+            <summary>
+            Unexpected end of file following the '{0}' directive. Expected '{1}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatUnexpectedEOFAfterDirective(System.Object,System.Object)">
+            <summary>
+            Unexpected end of file following the '{0}' directive. Expected '{1}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.UnsupportedChecksumAlgorithm">
+            <summary>
+            The hash algorithm '{0}' is not supported for checksum generation. Supported algorithms are: '{1}'. Set '{2}' to '{3}' to suppress automatic checksum generation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatUnsupportedChecksumAlgorithm(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            The hash algorithm '{0}' is not supported for checksum generation. Supported algorithms are: '{1}'. Set '{2}' to '{3}' to suppress automatic checksum generation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.PropertyMustNotBeNull">
+            <summary>
+            The '{0}.{1}' property must not be null.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatPropertyMustNotBeNull(System.Object,System.Object)">
+            <summary>
+            The '{0}.{1}' property must not be null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.RazorProjectEngineMissingFeatureDependency">
+            <summary>
+            The '{0}' is missing feature '{1}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatRazorProjectEngineMissingFeatureDependency(System.Object,System.Object)">
+            <summary>
+            The '{0}' is missing feature '{1}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.RazorLanguageVersion_InvalidVersion">
+            <summary>
+            The Razor language version '{0}' is unrecognized or not supported by this version of Razor.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatRazorLanguageVersion_InvalidVersion(System.Object)">
+            <summary>
+            The Razor language version '{0}' is unrecognized or not supported by this version of Razor.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.VirtualFileSystem_FileDoesNotBelongToDirectory">
+            <summary>
+            File path '{0}' does not belong to the directory '{1}'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatVirtualFileSystem_FileDoesNotBelongToDirectory(System.Object,System.Object)">
+            <summary>
+            File path '{0}' does not belong to the directory '{1}'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.Resources.VirtualFileSystem_InvalidRelativePath">
+            <summary>
+            The file path '{0}' is invalid. File path is the root relative path of the file starting with '/' and should not contain any '\' characters.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.Resources.FormatVirtualFileSystem_InvalidRelativePath(System.Object)">
+            <summary>
+            The file path '{0}' is invalid. File path is the root relative path of the file starting with '/' and should not contain any '\' characters.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorCodeGenerationOptions.SuppressChecksum">
+            <summary>
+            Gets a value that indicates whether to suppress the default <c>#pragma checksum</c> directive in the 
+            generated C# code. If <c>false</c> the checkum directive will be included, otherwise it will not be
+            generated. Defaults to <c>false</c>, meaning that the checksum will be included.
+            </summary>
+            <remarks>
+            The <c>#pragma checksum</c> is required to enable debugging and should only be supressed for testing
+            purposes.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorCodeGenerationOptions.SuppressMetadataAttributes">
+            <summary>
+            Gets a value that indicates whether to suppress the default metadata attributes in the generated 
+            C# code. If <c>false</c> the default attributes will be included, otherwise they will not be generated.
+            Defaults to <c>false</c> at run time, meaning that the attributes will be included. Defaults to
+            <c>true</c> at design time, meaning that the attributes will not be included.
+            </summary>
+            <remarks>
+            <para>
+            The <c>Microsoft.AspNetCore.Razor.Runtime</c> package includes a default set of attributes intended
+            for runtimes to discover metadata about the compiled code.
+            </para>
+            <para>
+            The default metadata attributes should be suppressed if code generation targets a runtime without
+            a reference to <c>Microsoft.AspNetCore.Razor.Runtime</c>, or for testing purposes.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorCodeGenerationOptionsBuilder.SuppressChecksum">
+            <summary>
+            Gets or sets a value that indicates whether to suppress the default <c>#pragma checksum</c> directive in the 
+            generated C# code. If <c>false</c> the checkum directive will be included, otherwise it will not be
+            generated. Defaults to <c>false</c>, meaning that the checksum will be included.
+            </summary>
+            <remarks>
+            The <c>#pragma checksum</c> is required to enable debugging and should only be supressed for testing
+            purposes.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorCodeGenerationOptionsBuilder.SuppressMetadataAttributes">
+            <summary>
+            Gets or setsa value that indicates whether to suppress the default metadata attributes in the generated 
+            C# code. If <c>false</c> the default attributes will be included, otherwise they will not be generated.
+            Defaults to <c>false</c> at run time, meaning that the attributes will be included. Defaults to
+            <c>true</c> at design time, meaning that the attributes will not be included.
+            </summary>
+            <remarks>
+            <para>
+            The <c>Microsoft.AspNetCore.Razor.Runtime</c> package includes a default set of attributes intended
+            for runtimes to discover metadata about the compiled code.
+            </para>
+            <para>
+            The default metadata attributes should be suppressed if code generation targets a runtime without
+            a reference to <c>Microsoft.AspNetCore.Razor.Runtime</c>, or for testing purposes.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.RazorEngineBuilderExtensions">
+            <summary>
+            Extension methods to <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorEngineBuilder" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorEngineBuilderExtensions.AddDirective(Microsoft.AspNetCore.Razor.Language.IRazorEngineBuilder,Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor)">
+            <summary>
+            Adds the specified <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/>.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorEngineBuilder"/>.</param>
+            <param name="directive">The <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/> to add.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorEngineBuilder"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorEngineBuilderExtensions.AddTargetExtension(Microsoft.AspNetCore.Razor.Language.IRazorEngineBuilder,Microsoft.AspNetCore.Razor.Language.CodeGeneration.ICodeTargetExtension)">
+            <summary>
+            Adds the specified <see cref="T:Microsoft.AspNetCore.Razor.Language.CodeGeneration.ICodeTargetExtension"/>.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorEngineBuilder"/>.</param>
+            <param name="extension">The <see cref="T:Microsoft.AspNetCore.Razor.Language.CodeGeneration.ICodeTargetExtension"/> to add.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorEngineBuilder"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorEngineBuilderExtensions.SetBaseType(Microsoft.AspNetCore.Razor.Language.IRazorEngineBuilder,System.String)">
+            <summary>
+            Sets the base type for generated types.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorEngineBuilder"/>.</param>
+            <param name="baseType">The name of the base type.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorEngineBuilder"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorEngineBuilderExtensions.ConfigureClass(Microsoft.AspNetCore.Razor.Language.IRazorEngineBuilder,System.Action{Microsoft.AspNetCore.Razor.Language.RazorCodeDocument,Microsoft.AspNetCore.Razor.Language.Intermediate.ClassDeclarationIntermediateNode})">
+            <summary>
+            Registers a class configuration delegate that gets invoked during code generation.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorEngineBuilder"/>.</param>
+            <param name="configureClass"><see cref="T:System.Action"/> invoked to configure 
+            <see cref="T:Microsoft.AspNetCore.Razor.Language.Intermediate.ClassDeclarationIntermediateNode"/> during code generation.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorEngineBuilder"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorEngineBuilderExtensions.SetNamespace(Microsoft.AspNetCore.Razor.Language.IRazorEngineBuilder,System.String)">
+            <summary>
+            Sets the namespace for generated types.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorEngineBuilder"/>.</param>
+            <param name="namespaceName">The name of the namespace.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.IRazorEngineBuilder"/>.</returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorParserOptions.ParseLeadingDirectives">
+            <summary>
+            Gets a value which indicates whether the parser will parse only the leading directives. If <c>true</c>
+            the parser will halt at the first HTML content or C# code block. If <c>false</c> the whole document is parsed.
+            </summary>
+            <remarks>
+            Currently setting this option to <c>true</c> will result in only the first line of directives being parsed.
+            In a future release this may be updated to include all leading directive content.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.RazorProject">
+            <summary>
+            An abstraction for working with a project containing Razor files.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorProject.EnumerateItems(System.String)">
+            <summary>
+            Gets a sequence of <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectItem"/> under the specific path in the project.
+            </summary>
+            <param name="basePath">The base path.</param>
+            <returns>The sequence of <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectItem"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorProject.GetItem(System.String)">
+            <summary>
+            Gets a <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectItem"/> for the specified path.
+            </summary>
+            <param name="path">The path.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectItem"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorProject.FindHierarchicalItems(System.String,System.String)">
+            <summary>
+            Gets the sequence of files named <paramref name="fileName"/> that are applicable to the specified path.
+            </summary>
+            <param name="path">The path of a project item.</param>
+            <param name="fileName">The file name to seek.</param>
+            <returns>A sequence of applicable <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectItem"/> instances.</returns>
+            <remarks>
+            This method returns paths starting from the directory of <paramref name="path"/> and
+            traverses to the project root.
+            e.g.
+            /Views/Home/View.cshtml -> [ /Views/Home/FileName.cshtml, /Views/FileName.cshtml, /FileName.cshtml ]
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorProject.FindHierarchicalItems(System.String,System.String,System.String)">
+            <summary>
+            Gets the sequence of files named <paramref name="fileName"/> that are applicable to the specified path.
+            </summary>
+            <param name="basePath">The base path.</param>
+            <param name="path">The path of a project item.</param>
+            <param name="fileName">The file name to seek.</param>
+            <returns>A sequence of applicable <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectItem"/> instances.</returns>
+            <remarks>
+            This method returns paths starting from the directory of <paramref name="path"/> and
+            traverses to the <paramref name="basePath"/>.
+            e.g.
+            (/Views, /Views/Home/View.cshtml) -> [ /Views/Home/FileName.cshtml, /Views/FileName.cshtml ]
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorProject.NormalizeAndEnsureValidPath(System.String)">
+            <summary>
+            Performs validation for paths passed to methods of <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProject"/>.
+            </summary>
+            <param name="path">The path to validate.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorProject.Create(System.String)">
+            <summary>
+            Create a Razor project based on a physical file system.
+            </summary>
+            <param name="rootDirectoryPath">The directory to root the file system at.</param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProject"/></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilderExtensions.ConfigureClass(Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder,System.Action{Microsoft.AspNetCore.Razor.Language.RazorCodeDocument,Microsoft.AspNetCore.Razor.Language.Intermediate.ClassDeclarationIntermediateNode})">
+            <summary>
+            Registers a class configuration delegate that gets invoked during code generation.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder"/>.</param>
+            <param name="configureClass"><see cref="T:System.Action"/> invoked to configure 
+            <see cref="T:Microsoft.AspNetCore.Razor.Language.Intermediate.ClassDeclarationIntermediateNode"/> during code generation.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilderExtensions.SetBaseType(Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder,System.String)">
+            <summary>
+            Sets the base type for generated types.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder"/>.</param>
+            <param name="baseType">The name of the base type.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilderExtensions.SetNamespace(Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder,System.String)">
+            <summary>
+            Sets the namespace for generated types.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder"/>.</param>
+            <param name="namespaceName">The name of the namespace.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilderExtensions.AddTargetExtension(Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder,Microsoft.AspNetCore.Razor.Language.CodeGeneration.ICodeTargetExtension)">
+            <summary>
+            Adds the specified <see cref="T:Microsoft.AspNetCore.Razor.Language.CodeGeneration.ICodeTargetExtension"/>.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder"/>.</param>
+            <param name="extension">The <see cref="T:Microsoft.AspNetCore.Razor.Language.CodeGeneration.ICodeTargetExtension"/> to add.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilderExtensions.AddDirective(Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder,Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor)">
+            <summary>
+            Adds the specified <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/>.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder"/>.</param>
+            <param name="directive">The <see cref="T:Microsoft.AspNetCore.Razor.Language.DirectiveDescriptor"/> to add.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilderExtensions.AddDefaultImports(Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder,System.String[])">
+            <summary>
+            Adds the provided <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectItem" />s as imports to all project items processed
+            by the <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectEngine"/>.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder"/>.</param>
+            <param name="imports">The collection of imports.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectEngineBuilder"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorProjectFileSystem.Create(System.String)">
+            <summary>
+            Create a Razor project file system based off of a root directory.
+            </summary>
+            <param name="rootDirectoryPath">The directory to root the file system at.</param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectFileSystem"/></returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.RazorProjectItem">
+            <summary>
+            An item in a <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectFileSystem"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorProjectItem.BasePath">
+            <summary>
+            Path specified in <see cref="M:Microsoft.AspNetCore.Razor.Language.RazorProject.EnumerateItems(System.String)"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorProjectItem.FilePath">
+            <summary>
+            File path relative to <see cref="P:Microsoft.AspNetCore.Razor.Language.RazorProjectItem.BasePath"/>. This property uses the project path syntax,
+            using <c>/</c> as a path separator and does not follow the operating system's file system
+            conventions.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorProjectItem.PhysicalPath">
+            <summary>
+            The absolute physical (file system) path to the file, including the file name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorProjectItem.RelativePhysicalPath">
+            <summary>
+            The relative physical (file system) path to the file, including the file name. Relative to the
+            physical path of the <see cref="P:Microsoft.AspNetCore.Razor.Language.RazorProjectItem.BasePath"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorProjectItem.Read">
+            <summary>
+            Gets the file contents as readonly <see cref="T:System.IO.Stream"/>.
+            </summary>
+            <returns>The <see cref="T:System.IO.Stream"/>.</returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorProjectItem.Exists">
+            <summary>
+            Gets a value that determines if the file exists.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorProjectItem.CombinedPath">
+            <summary>
+            The root relative path of the item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorProjectItem.Extension">
+            <summary>
+            The extension of the file.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorProjectItem.FileName">
+            <summary>
+            The name of the file including the extension.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorProjectItem.FilePathWithoutExtension">
+            <summary>
+            File path relative to <see cref="P:Microsoft.AspNetCore.Razor.Language.RazorProjectItem.BasePath"/> without the extension.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument">
+            <summary>
+            The Razor template source.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.Encoding">
+            <summary>
+            Gets the encoding of the text in the original source document.
+            </summary>
+            <remarks>
+            Depending on the method used to create a <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/> the encoding may be used to
+            read the file contents, or it may be solely informational. Refer to the documentation on the method
+            used to create the <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/> for details.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.FilePath">
+            <summary>
+            Gets the file path of the orginal source document.
+            </summary>
+            <remarks>
+            The file path may be either an absolute path or project-relative path. An absolute path is required
+            to generate debuggable assemblies.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.RelativePath">
+            <summary>
+            Gets the project-relative path to the source file. May be <c>null</c>.
+            </summary>
+            <remarks>
+            The relative path (if provided) is used for display (error messages). The project-relative path may also
+            be used to embed checksums of the original source documents to support runtime recompilation of Razor code.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.Item(System.Int32)">
+            <summary>
+            Gets a character at given position.
+            </summary>
+            <param name="position">The position to get the character from.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.Length">
+            <summary>
+            Gets the length of the text in characters.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.Lines">
+            <summary>
+            Gets the <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceLineCollection"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.CopyTo(System.Int32,System.Char[],System.Int32,System.Int32)">
+            <summary>
+            Copies a range of characters from the <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/> to the specified <paramref name="destination"/>.
+            </summary>
+            <param name="sourceIndex">The index of the first character in this instance to copy.</param>
+            <param name="destination">The destination buffer.</param>
+            <param name="destinationIndex">The index in destination at which the copy operation begins.</param>
+            <param name="count">The number of characters in this instance to copy to destination.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.GetChecksum">
+            <summary>
+            Calculates the checksum for the <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/>.
+            </summary>
+            <returns>The checksum.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.GetChecksumAlgorithm">
+            <summary>
+            Gets the name of the algorithm used to compute the checksum returned by <see cref="M:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.GetChecksum"/>.
+            </summary>
+            <remarks>
+            This member did not exist in the 2.0 release, so it is possible for an implementation to return
+            the wrong value (or <c>null</c>). Implementations of <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/> should
+            override this member and specify their choice of hash algorithm even if it is the same as the
+            default (<c>SHA1</c>).
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.GetFilePathForDisplay">
+            <summary>
+            Gets the file path in a format that should be used for display.
+            </summary>
+            <returns>The <see cref="P:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.RelativePath"/> if set, or the <see cref="P:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.FilePath"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.ReadFrom(System.IO.Stream,System.String)">
+            <summary>
+            Reads the <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/> from the specified <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to read from.</param>
+            <param name="fileName">The file name of the template.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.ReadFrom(System.IO.Stream,System.String,System.Text.Encoding)">
+            <summary>
+            Reads the <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/> from the specified <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to read from.</param>
+            <param name="fileName">The file name of the template.</param>
+            <param name="encoding">The <see cref="T:System.Text.Encoding"/> to use to read the <paramref name="stream"/>.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.ReadFrom(System.IO.Stream,System.Text.Encoding,Microsoft.AspNetCore.Razor.Language.RazorSourceDocumentProperties)">
+            <summary>
+            Reads the <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/> from the specified <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to read from.</param>
+            <param name="encoding">The <see cref="T:System.Text.Encoding"/> to use to read the <paramref name="stream"/>.</param>
+            <param name="properties">Properties to configure the <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/>.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.ReadFrom(Microsoft.AspNetCore.Razor.Language.RazorProjectItem)">
+            <summary>
+            Reads the <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/> from the specified <paramref name="projectItem"/>.
+            </summary>
+            <param name="projectItem">The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectItem"/> to read from.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.Create(System.String,System.String)">
+            <summary>
+            Creates a <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/> from the specified <paramref name="content"/>.
+            </summary>
+            <param name="content">The source document content.</param>
+            <param name="fileName">The file name of the <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/>.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/>.</returns>
+            <remarks>Uses <see cref="P:System.Text.Encoding.UTF8" /></remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.Create(System.String,Microsoft.AspNetCore.Razor.Language.RazorSourceDocumentProperties)">
+            <summary>
+            Creates a <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/> from the specified <paramref name="content"/>.
+            </summary>
+            <param name="content">The source document content.</param>
+            <param name="properties">Properties to configure the <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/>.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/>.</returns>
+            <remarks>Uses <see cref="P:System.Text.Encoding.UTF8" /></remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.Create(System.String,System.String,System.Text.Encoding)">
+            <summary>
+            Creates a <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/> from the specified <paramref name="content"/>.
+            </summary>
+            <param name="content">The source document content.</param>
+            <param name="fileName">The file name of the <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/>.</param>
+            <param name="encoding">The <see cref="T:System.Text.Encoding"/> of the file <paramref name="content"/> was read from.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument.Create(System.String,System.Text.Encoding,Microsoft.AspNetCore.Razor.Language.RazorSourceDocumentProperties)">
+            <summary>
+            Creates a <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/> from the specified <paramref name="content"/>.
+            </summary>
+            <param name="content">The source document content.</param>
+            <param name="encoding">The encoding of the source document.</param>
+            <param name="properties">Properties to configure the <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/>.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocumentProperties">
+            <summary>
+            Use to configure optional properties for creating a <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.RazorSourceDocumentProperties.Default">
+            <summary>
+            A <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocumentProperties"/> with default values.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorSourceDocumentProperties.#ctor">
+            <summary>
+            Creates a new <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocumentProperties"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorSourceDocumentProperties.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocumentProperties"/>.
+            </summary>
+            <param name="filePath">
+            The path to the source file. Provide an rooted path if possible. May be <c>null</c>.
+            </param>
+            <param name="relativePath">
+            The project-relative path to the source file. May be <c>null</c>. Must be a non-rooted path.
+            </param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorSourceDocumentProperties.FilePath">
+            <summary>
+            Gets the path to the source file. May be an absolute or project-relative path. May be <c>null</c>.
+            </summary>
+            <remarks>
+            An absolute path must be provided to generate debuggable assemblies.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorSourceDocumentProperties.RelativePath">
+            <summary>
+            Gets the project-relative path to the source file. May be <c>null</c>.
+            </summary>
+            <remarks>
+            The relative path (if provided) is used for display (error messages). The project-relative path may also
+            be used to embed checksums of the original source documents to support runtime recompilation of Razor code.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine">
+            <summary>
+            Entry point to parse Razor files and generate code.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine.#ctor(Microsoft.AspNetCore.Razor.Language.RazorEngine,Microsoft.AspNetCore.Razor.Language.RazorProject)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine"/>.
+            </summary>
+            <param name="engine">The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorEngine"/>.</param>
+            <param name="project">The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProject"/>.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine.Engine">
+            <summary>
+            Gets the <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorEngine"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine.Project">
+            <summary>
+            Gets the <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProject"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine.Options">
+            <summary>
+            Options to configure <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine.GenerateCode(System.String)">
+            <summary>
+            Parses the template specified by the project item <paramref name="path"/>.
+            </summary>
+            <param name="path">The template path.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorCSharpDocument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine.GenerateCode(Microsoft.AspNetCore.Razor.Language.RazorProjectItem)">
+            <summary>
+            Parses the template specified by <paramref name="projectItem"/>.
+            </summary>
+            <param name="projectItem">The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectItem"/>.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorCSharpDocument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine.GenerateCode(Microsoft.AspNetCore.Razor.Language.RazorCodeDocument)">
+            <summary>
+            Parses the template specified by <paramref name="codeDocument"/>.
+            </summary>
+            <param name="codeDocument">The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectItem"/>.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorCSharpDocument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine.CreateCodeDocument(System.String)">
+            <summary>
+            Generates a <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorCodeDocument"/> for the specified <paramref name="path"/>.
+            </summary>
+            <param name="path">The template path.</param>
+            <returns>The created <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorCodeDocument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine.CreateCodeDocument(Microsoft.AspNetCore.Razor.Language.RazorProjectItem)">
+            <summary>
+            Generates a <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorCodeDocument"/> for the specified <paramref name="projectItem"/>.
+            </summary>
+            <param name="projectItem">The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectItem"/>.</param>
+            <returns>The created <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorCodeDocument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine.GetImports(System.String)">
+            <summary>
+            Gets <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/> that are applicable to the specified <paramref name="path"/>.
+            </summary>
+            <param name="path">The template path.</param>
+            <returns>The sequence of applicable <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine.GetImports(Microsoft.AspNetCore.Razor.Language.RazorProjectItem)">
+            <summary>
+            Gets <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/> that are applicable to the specified <paramref name="projectItem"/>.
+            </summary>
+            <param name="projectItem">The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectItem"/>.</param>
+            <returns>The sequence of applicable <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorSourceDocument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine.GetImportItems(System.String)">
+            <summary>
+            Gets the sequence of imports with the name specified by <see cref="P:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngineOptions.ImportsFileName" />
+            that apply to <paramref name="path"/>.
+            </summary>
+            <param name="path">The path to look up import items for.</param>
+            <returns>A sequence of <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectItem"/> instances that apply to the
+            <paramref name="path"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine.GetImportItems(Microsoft.AspNetCore.Razor.Language.RazorProjectItem)">
+            <summary>
+            Gets the sequence of imports with the name specified by <see cref="P:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngineOptions.ImportsFileName" />
+            that apply to <paramref name="projectItem"/>.
+            </summary>
+            <param name="projectItem">The <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectItem"/> to look up import items for.</param>
+            <returns>A sequence of <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorProjectItem"/> instances that apply to the
+            <paramref name="projectItem"/>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngineOptions">
+            <summary>
+            Options for code generation in the <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngine"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngineOptions.ImportsFileName">
+            <summary>
+            Gets or sets the file name of the imports file (e.g. _ViewImports.cshtml).
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.RazorTemplateEngineOptions.DefaultImports">
+            <summary>
+            Gets or sets the default set of imports.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor.NameComparisonMode">
+            <summary>
+            Acceptable <see cref="P:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor.Name"/> comparison modes.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor.NameComparisonMode.FullMatch">
+            <summary>
+            HTML attribute name case insensitively matches <see cref="P:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor.Name"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor.NameComparisonMode.PrefixMatch">
+            <summary>
+            HTML attribute name case insensitively starts with <see cref="P:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor.Name"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor.ValueComparisonMode">
+            <summary>
+            Acceptable <see cref="P:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor.Value"/> comparison modes.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor.ValueComparisonMode.None">
+            <summary>
+            HTML attribute value always matches <see cref="P:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor.Value"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor.ValueComparisonMode.FullMatch">
+            <summary>
+            HTML attribute value case sensitively matches <see cref="P:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor.Value"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor.ValueComparisonMode.PrefixMatch">
+            <summary>
+            HTML attribute value case sensitively starts with <see cref="P:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor.Value"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor.ValueComparisonMode.SuffixMatch">
+            <summary>
+            HTML attribute value case sensitively ends with <see cref="P:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor.Value"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptorComparer">
+            <summary>
+            An <see cref="T:System.Collections.Generic.IEqualityComparer`1"/> used to check equality between
+            two <see cref="T:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor"/>s.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptorComparer.Default">
+            <summary>
+            A default instance of the <see cref="T:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptorComparer"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptorComparer.CaseSensitive">
+            <summary>
+            A default instance of the <see cref="T:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptorComparer"/> that does case-sensitive comparison.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptorComparer.Equals(Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor,Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptorComparer.GetHashCode(Microsoft.AspNetCore.Razor.Language.RequiredAttributeDescriptor)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.SourceLocation">
+            <summary>
+            A location in a Razor file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.SourceLocation.Undefined">
+            <summary>
+            An undefined <see cref="T:Microsoft.AspNetCore.Razor.Language.SourceLocation"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.SourceLocation.Zero">
+            <summary>
+            A <see cref="T:Microsoft.AspNetCore.Razor.Language.SourceLocation"/> with <see cref="P:Microsoft.AspNetCore.Razor.Language.SourceLocation.AbsoluteIndex"/>, <see cref="P:Microsoft.AspNetCore.Razor.Language.SourceLocation.LineIndex"/>, and
+            <see cref="P:Microsoft.AspNetCore.Razor.Language.SourceLocation.CharacterIndex"/> initialized to 0.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.SourceLocation.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Razor.Language.SourceLocation"/>.
+            </summary>
+            <param name="absoluteIndex">The absolute index.</param>
+            <param name="lineIndex">The line index.</param>
+            <param name="characterIndex">The character index.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.SourceLocation.#ctor(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Razor.Language.SourceLocation"/>.
+            </summary>
+            <param name="filePath">The file path.</param>
+            <param name="absoluteIndex">The absolute index.</param>
+            <param name="lineIndex">The line index.</param>
+            <param name="characterIndex">The character index.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.SourceLocation.FilePath">
+            <summary>
+            Path of the file.
+            </summary>
+            <remarks>
+            <para>
+            When <c>null</c>, the parser assumes the location is in the file currently being processed.
+            </para>
+            <para>Set property is only accessible for deserialization purposes.</para>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.SourceLocation.AbsoluteIndex">
+            <remarks>Set property is only accessible for deserialization purposes.</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.SourceLocation.LineIndex">
+            <remarks>Set property is only accessible for deserialization purposes.</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Razor.Language.SourceLocation.CharacterIndex">
+            <remarks>Set property is only accessible for deserialization purposes.</remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.SourceLocation.FromSpan(System.Nullable{Microsoft.AspNetCore.Razor.Language.SourceSpan})">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.AspNetCore.Razor.Language.SourceLocation"/> from the provided span.
+            </summary>
+            <param name="span">
+            The souce span. If <c>null</c>, <see cref="F:Microsoft.AspNetCore.Razor.Language.SourceLocation.Undefined"/> will be returned.
+            </param>
+            <remarks>A <see cref="T:Microsoft.AspNetCore.Razor.Language.SourceLocation"/> that corresponds to the beginning of the span.</remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.SourceLocation.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.SourceLocation.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.SourceLocation.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.SourceLocation.Equals(Microsoft.AspNetCore.Razor.Language.SourceLocation)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.TagHelperBinder">
+            <summary>
+            Enables retrieval of <see cref="T:Microsoft.AspNetCore.Razor.Language.TagHelperBinding"/>'s.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.TagHelperBinder.#ctor(System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Razor.Language.TagHelperDescriptor})">
+            <summary>
+            Instantiates a new instance of the <see cref="T:Microsoft.AspNetCore.Razor.Language.TagHelperBinder"/>.
+            </summary>
+            <param name="tagHelperPrefix">The tag helper prefix being used by the document.</param>
+            <param name="descriptors">The descriptors that the <see cref="T:Microsoft.AspNetCore.Razor.Language.TagHelperBinder"/> will pull from.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.TagHelperBinder.GetBinding(System.String,System.Collections.Generic.IReadOnlyList{System.Collections.Generic.KeyValuePair{System.String,System.String}},System.String,System.Boolean)">
+            <summary>
+            Gets all tag helpers that match the given HTML tag criteria.
+            </summary>
+            <param name="tagName">The name of the HTML tag to match. Providing a '*' tag name
+            retrieves catch-all <see cref="T:Microsoft.AspNetCore.Razor.Language.TagHelperDescriptor"/>s (descriptors that target every tag).</param>
+            <param name="attributes">Attributes on the HTML tag.</param>
+            <param name="parentTagName">The parent tag name of the given <paramref name="tagName"/> tag.</param>
+            <param name="parentIsTagHelper">Is the parent tag of the given <paramref name="tagName"/> tag a tag helper.</param>
+            <returns><see cref="T:Microsoft.AspNetCore.Razor.Language.TagHelperDescriptor"/>s that apply to the given HTML tag criteria.
+            Will return <c>null</c> if no <see cref="T:Microsoft.AspNetCore.Razor.Language.TagHelperDescriptor"/>s are a match.</returns>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.TagHelperDescriptorComparer.Default">
+            <summary>
+            A default instance of the <see cref="T:Microsoft.AspNetCore.Razor.Language.TagHelperDescriptorComparer"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.TagHelperDescriptorComparer.CaseSensitive">
+            <summary>
+            A default instance of the <see cref="T:Microsoft.AspNetCore.Razor.Language.TagHelperDescriptorComparer"/> that does case-sensitive comparison.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Razor.Language.TagHelperDescriptorComparer.GetHashCode(Microsoft.AspNetCore.Razor.Language.TagHelperDescriptor)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.TagHelperDocumentContext">
+            <summary>
+            The binding information for Tag Helpers resulted to a <see cref="T:Microsoft.AspNetCore.Razor.Language.RazorCodeDocument"/>. Represents the
+            Tag Helper information after processing by directives.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.TagMatchingRuleDescriptorComparer.Default">
+            <summary>
+            A default instance of the <see cref="T:Microsoft.AspNetCore.Razor.Language.TagMatchingRuleDescriptorComparer"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.TagMatchingRuleDescriptorComparer.CaseSensitive">
+            <summary>
+            A default instance of the <see cref="T:Microsoft.AspNetCore.Razor.Language.TagMatchingRuleDescriptorComparer"/> that does case-sensitive comparison.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.TagMode">
+            <summary>
+            The mode in which an element should render.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.TagMode.StartTagAndEndTag">
+            <summary>
+            Include both start and end tags.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.TagMode.SelfClosing">
+            <summary>
+            A self-closed tag.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.TagMode.StartTagOnly">
+            <summary>
+            Only a start tag.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Razor.Language.TagStructure">
+            <summary>
+            The structure the element should be written in.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.TagStructure.Unspecified">
+            <summary>
+            If no other tag helper applies to the same element and specifies a <see cref="T:Microsoft.AspNetCore.Razor.Language.TagStructure"/>,
+            <see cref="F:Microsoft.AspNetCore.Razor.Language.TagStructure.NormalOrSelfClosing"/> will be used.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.TagStructure.NormalOrSelfClosing">
+            <summary>
+            Element can be written as &lt;my-tag-helper&gt;&lt;/my-tag-helper&gt; or &lt;my-tag-helper /&gt;.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Razor.Language.TagStructure.WithoutEndTag">
+            <summary>
+            Element can be written as &lt;my-tag-helper&gt; or &lt;my-tag-helper /&gt;.
+            </summary>
+            <remarks>Elements with a <see cref="F:Microsoft.AspNetCore.Razor.Language.TagStructure.WithoutEndTag"/> structure will never have any content.</remarks>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Extensions.Caching.SqlServer</name>
+    </assembly>
+    <members>
+        <member name="F:Microsoft.Extensions.Caching.SqlServer.DatabaseOperations.DuplicateKeyErrorId">
+            <summary>
+            Since there is no specific exception type representing a 'duplicate key' error, we are relying on
+            the following message number which represents the following text in Microsoft SQL Server database.
+                "Violation of %ls constraint '%.*ls'. Cannot insert duplicate key in object '%.*ls'.
+                The duplicate key value is %ls."
+            You can find the list of system messages by executing the following query:
+            "SELECT * FROM sys.messages WHERE [text] LIKE '%duplicate%'"
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.Caching.SqlServer.SqlServerCache">
+            <summary>
+            Distributed cache implementation using Microsoft SQL Server database.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions">
+            <summary>
+            Configuration options for <see cref="T:Microsoft.Extensions.Caching.SqlServer.SqlServerCache"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.SystemClock">
+            <summary>
+            An abstraction to represent the clock of a machine in order to enable unit testing.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.ExpiredItemsDeletionInterval">
+            <summary>
+            The periodic interval to scan and delete expired items in the cache. Default is 30 minutes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.ConnectionString">
+            <summary>
+            The connection string to the database.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.SchemaName">
+            <summary>
+            The schema name of the table.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.TableName">
+            <summary>
+            Name of the table where the cache items are stored.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.DefaultSlidingExpiration">
+            <summary>
+            The default sliding expiration set for a cache entry if neither Absolute or SlidingExpiration has been set explicitly.
+            By default, its 20 minutes.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.SqlServerCachingServicesExtensions">
+            <summary>
+            Extension methods for setting up Microsoft SQL Server distributed cache services in an <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.SqlServerCachingServicesExtensions.AddDistributedSqlServerCache(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions})">
+            <summary>
+            Adds Microsoft SQL Server distributed caching services to the specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" /> to add services to.</param>
+            <param name="setupAction">An <see cref="T:System.Action`1"/> to configure the provided <see cref="T:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> so that additional calls can be chained.</returns>
+        </member>
+    </members>
+</doc>

@@ -1,7 +1,7 @@
 ﻿@model SearchViewModel
 
 <div class="container-fluid bound-container page-header">
-	@Html.Partial(Model.Total > 0 ? "Results" : "NoResults", Model)
+	@await Html.PartialAsync(Model.Total > 0 ? "Results" : "NoResults", Model)
 </div>
 
 @section HeaderSub {
@@ -9,9 +9,9 @@
 		<div class="col-lg-12" id="search-criteria">
 			@using (Html.BeginForm(FormMethod.Get, new {id = "search-criteria"}))
 			{
-				@Html.Partial("RememberQuery", Model.Form)
-				@Html.Partial("RememberAuthor", Model.Form)			
-				@Html.Partial("SearchCriteria", Model)
+				@await Html.PartialAsync("RememberQuery", Model.Form)
+				@await Html.PartialAsync("RememberAuthor", Model.Form)
+				@await Html.PartialAsync("SearchCriteria", Model)
 			}
 		</div>
 	</div>

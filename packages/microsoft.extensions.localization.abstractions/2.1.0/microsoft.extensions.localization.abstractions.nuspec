@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.Extensions.Localization.Abstractions</id>
+    <version>2.1.0</version>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/aspnet/Home/2.0.0/LICENSE.txt</licenseUrl>
+    <projectUrl>https://asp.net/</projectUrl>
+    <iconUrl>https://go.microsoft.com/fwlink/?LinkID=288859</iconUrl>
+    <description>Abstractions of application localization services.
+Commonly used types:
+Microsoft.Extensions.Localization.IStringLocalizer
+Microsoft.Extensions.Localization.IStringLocalizer&lt;T&gt;</description>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <tags>localization</tags>
+    <serviceable>true</serviceable>
+    <repository type="git" url="https://github.com/aspnet/Localization" commit="8815ba1b92567c8f8eeab571c426df38990ff7d4" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+  </metadata>
+</package>

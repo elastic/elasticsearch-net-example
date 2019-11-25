@@ -1,0 +1,312 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.SpaServices.Extensions</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliBuilder">
+            <summary>
+            Provides an implementation of <see cref="T:Microsoft.AspNetCore.SpaServices.Prerendering.ISpaPrerendererBuilder"/> that can build
+            an Angular application by invoking the Angular CLI.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliBuilder.#ctor(System.String)">
+            <summary>
+            Constructs an instance of <see cref="T:Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliBuilder"/>.
+            </summary>
+            <param name="npmScript">The name of the script in your package.json file that builds the server-side bundle for your Angular application.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliBuilder.Build(Microsoft.AspNetCore.SpaServices.ISpaBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddlewareExtensions">
+            <summary>
+            Extension methods for enabling Angular CLI middleware support.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddlewareExtensions.UseAngularCliServer(Microsoft.AspNetCore.SpaServices.ISpaBuilder,System.String)">
+             <summary>
+             Handles requests by passing them through to an instance of the Angular CLI server.
+             This means you can always serve up-to-date CLI-built resources without having
+             to run the Angular CLI server manually.
+            
+             This feature should only be used in development. For production deployments, be
+             sure not to enable the Angular CLI server.
+             </summary>
+             <param name="spaBuilder">The <see cref="T:Microsoft.AspNetCore.SpaServices.ISpaBuilder"/>.</param>
+             <param name="npmScript">The name of the script in your package.json file that launches the Angular CLI process.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.SpaServices.ISpaBuilder">
+            <summary>
+            Defines a class that provides mechanisms for configuring the hosting
+            of a Single Page Application (SPA) and attaching middleware.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.ISpaBuilder.ApplicationBuilder">
+            <summary>
+            The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> representing the middleware pipeline
+            in which the SPA is being hosted.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.ISpaBuilder.Options">
+            <summary>
+            Describes configuration options for hosting a SPA.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.SpaServices.Prerendering.ISpaPrerendererBuilder">
+            <summary>
+            Represents the ability to build a Single Page Application (SPA) on demand
+            so that it can be prerendered. This is only intended to be used at development
+            time. In production, a SPA should already have been built during publishing.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SpaServices.Prerendering.ISpaPrerendererBuilder.Build(Microsoft.AspNetCore.SpaServices.ISpaBuilder)">
+            <summary>
+            Builds the Single Page Application so that a JavaScript entrypoint file
+            exists on disk. Prerendering middleware can then execute that file in
+            a Node environment.
+            </summary>
+            <param name="spaBuilder">The <see cref="T:Microsoft.AspNetCore.SpaServices.ISpaBuilder"/>.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing completion of the build process.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer.ReactDevelopmentServerMiddlewareExtensions">
+            <summary>
+            Extension methods for enabling React development server middleware support.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer.ReactDevelopmentServerMiddlewareExtensions.UseReactDevelopmentServer(Microsoft.AspNetCore.SpaServices.ISpaBuilder,System.String)">
+             <summary>
+             Handles requests by passing them through to an instance of the create-react-app server.
+             This means you can always serve up-to-date CLI-built resources without having
+             to run the create-react-app server manually.
+            
+             This feature should only be used in development. For production deployments, be
+             sure not to enable the create-react-app server.
+             </summary>
+             <param name="spaBuilder">The <see cref="T:Microsoft.AspNetCore.SpaServices.ISpaBuilder"/>.</param>
+             <param name="npmScript">The name of the script in your package.json file that launches the create-react-app server.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.SpaServices.SpaOptions">
+            <summary>
+            Describes options for hosting a Single Page Application (SPA).
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SpaServices.SpaOptions.#ctor">
+            <summary>
+            Constructs a new instance of <see cref="T:Microsoft.AspNetCore.SpaServices.SpaOptions"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SpaServices.SpaOptions.#ctor(Microsoft.AspNetCore.SpaServices.SpaOptions)">
+            <summary>
+            Constructs a new instance of <see cref="T:Microsoft.AspNetCore.SpaServices.SpaOptions"/>.
+            </summary>
+            <param name="copyFromOptions">An instance of <see cref="T:Microsoft.AspNetCore.SpaServices.SpaOptions"/> from which values should be copied.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.SpaOptions.DefaultPage">
+            <summary>
+            Gets or sets the URL of the default page that hosts your SPA user interface.
+            The default value is <c>"/index.html"</c>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.SpaOptions.DefaultPageStaticFileOptions">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.AspNetCore.Builder.StaticFileOptions"/> that supplies content
+            for serving the SPA's default page.
+            
+            If not set, a default file provider will read files from the
+            <see cref="P:Microsoft.AspNetCore.Hosting.IHostingEnvironment.WebRootPath"/>, which by default is
+            the <c>wwwroot</c> directory.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.SpaOptions.SourcePath">
+            <summary>
+            Gets or sets the path, relative to the application working directory,
+            of the directory that contains the SPA source files during
+            development. The directory may not exist in published applications.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.SpaOptions.StartupTimeout">
+            <summary>
+            Gets or sets the maximum duration that a request will wait for the SPA
+            to become ready to serve to the client.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.SpaServices.StaticFiles.DefaultSpaStaticFileProvider">
+            <summary>
+            Provides an implementation of <see cref="T:Microsoft.AspNetCore.SpaServices.StaticFiles.ISpaStaticFileProvider"/> that supplies
+            physical files at a location configured using <see cref="T:Microsoft.AspNetCore.SpaServices.StaticFiles.SpaStaticFilesOptions"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.SpaServices.StaticFiles.ISpaStaticFileProvider">
+            <summary>
+            Represents a service that can provide static files to be served for a Single Page
+            Application (SPA).
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.StaticFiles.ISpaStaticFileProvider.FileProvider">
+            <summary>
+            Gets the file provider, if available, that supplies the static files for the SPA.
+            The value is <c>null</c> if no file provider is available.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.SpaServices.StaticFiles.SpaStaticFilesOptions">
+            <summary>
+            Represents options for serving static files for a Single Page Application (SPA).
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.StaticFiles.SpaStaticFilesOptions.RootPath">
+            <summary>
+            Gets or sets the path, relative to the application root, of the directory in which
+            the physical files are located.
+            
+            If the specified directory does not exist, then the
+            <see cref="M:Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.UseSpaStaticFiles(Microsoft.AspNetCore.Builder.IApplicationBuilder)"/>
+            middleware will not serve any static files.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.NodeServices.Npm.NpmScriptRunner">
+            <summary>
+            Executes the <c>script</c> entries defined in a <c>package.json</c> file,
+            capturing any output written to stdio.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.NodeServices.Util.EventedStreamReader">
+            <summary>
+            Wraps a <see cref="T:System.IO.StreamReader"/> to expose an evented API, issuing notifications
+            when the stream emits partial lines, completed lines, or finally closes.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.NodeServices.Util.EventedStreamStringReader">
+            <summary>
+            Captures the completed-line notifications from a <see cref="T:Microsoft.AspNetCore.NodeServices.Util.EventedStreamReader"/>,
+            combining the data into a single <see cref="T:System.String"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.SpaPrerenderingExtensions">
+            <summary>
+            Extension methods for configuring prerendering of a Single Page Application.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.SpaPrerenderingExtensions.UseSpaPrerendering(Microsoft.AspNetCore.SpaServices.ISpaBuilder,System.Action{Microsoft.AspNetCore.Builder.SpaPrerenderingOptions})">
+            <summary>
+            Enables server-side prerendering middleware for a Single Page Application.
+            </summary>
+            <param name="spaBuilder">The <see cref="T:Microsoft.AspNetCore.SpaServices.ISpaBuilder"/>.</param>
+            <param name="configuration">Supplies configuration for the prerendering middleware.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.SpaPrerenderingOptions">
+            <summary>
+            Represents options for the SPA prerendering middleware.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.SpaPrerenderingOptions.BootModuleBuilder">
+            <summary>
+            Gets or sets an <see cref="T:Microsoft.AspNetCore.SpaServices.Prerendering.ISpaPrerendererBuilder"/> that the prerenderer will invoke before
+            looking for the boot module file.
+            
+            This is only intended to be used during development as a way of generating the JavaScript boot
+            file automatically when the application runs. This property should be left as <c>null</c> in
+            production applications.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.SpaPrerenderingOptions.BootModulePath">
+            <summary>
+            Gets or sets the path, relative to your application root, of the JavaScript file
+            containing prerendering logic.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.SpaPrerenderingOptions.ExcludeUrls">
+            <summary>
+            Gets or sets an array of URL prefixes for which prerendering should not run.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.SpaPrerenderingOptions.SupplyData">
+            <summary>
+            Gets or sets a callback that will be invoked during prerendering, allowing you to pass additional
+            data to the prerendering entrypoint code.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.SpaProxyingExtensions">
+            <summary>
+            Extension methods for proxying requests to a local SPA development server during
+            development. Not for use in production applications.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.SpaProxyingExtensions.UseProxyToSpaDevelopmentServer(Microsoft.AspNetCore.SpaServices.ISpaBuilder,System.String)">
+            <summary>
+            Configures the application to forward incoming requests to a local Single Page
+            Application (SPA) development server. This is only intended to be used during
+            development. Do not enable this middleware in production applications.
+            </summary>
+            <param name="spaBuilder">The <see cref="T:Microsoft.AspNetCore.SpaServices.ISpaBuilder"/>.</param>
+            <param name="baseUri">The target base URI to which requests should be proxied.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.SpaProxyingExtensions.UseProxyToSpaDevelopmentServer(Microsoft.AspNetCore.SpaServices.ISpaBuilder,System.Uri)">
+            <summary>
+            Configures the application to forward incoming requests to a local Single Page
+            Application (SPA) development server. This is only intended to be used during
+            development. Do not enable this middleware in production applications.
+            </summary>
+            <param name="spaBuilder">The <see cref="T:Microsoft.AspNetCore.SpaServices.ISpaBuilder"/>.</param>
+            <param name="baseUri">The target base URI to which requests should be proxied.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.SpaProxyingExtensions.UseProxyToSpaDevelopmentServer(Microsoft.AspNetCore.SpaServices.ISpaBuilder,System.Func{System.Threading.Tasks.Task{System.Uri}})">
+            <summary>
+            Configures the application to forward incoming requests to a local Single Page
+            Application (SPA) development server. This is only intended to be used during
+            development. Do not enable this middleware in production applications.
+            </summary>
+            <param name="spaBuilder">The <see cref="T:Microsoft.AspNetCore.SpaServices.ISpaBuilder"/>.</param>
+            <param name="baseUriTaskFactory">A callback that will be invoked on each request to supply a <see cref="T:System.Threading.Tasks.Task"/> that resolves with the target base URI to which requests should be proxied.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.SpaApplicationBuilderExtensions">
+            <summary>
+            Provides extension methods used for configuring an application to
+            host a client-side Single Page Application (SPA).
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.SpaApplicationBuilderExtensions.UseSpa(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action{Microsoft.AspNetCore.SpaServices.ISpaBuilder})">
+            <summary>
+            Handles all requests from this point in the middleware chain by returning
+            the default page for the Single Page Application (SPA).
+            
+            This middleware should be placed late in the chain, so that other middleware
+            for serving static files, MVC actions, etc., takes precedence.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</param>
+            <param name="configuration">
+            This callback will be invoked so that additional middleware can be registered within
+            the context of this SPA.
+            </param>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions">
+            <summary>
+            Extension methods for configuring an application to serve static files for a
+            Single Page Application (SPA).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.AddSpaStaticFiles(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.SpaServices.StaticFiles.SpaStaticFilesOptions})">
+            <summary>
+            Registers an <see cref="T:Microsoft.AspNetCore.SpaServices.StaticFiles.ISpaStaticFileProvider"/> service that can provide static
+            files to be served for a Single Page Application (SPA).
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
+            <param name="configuration">If specified, this callback will be invoked to set additional configuration options.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.UseSpaStaticFiles(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Configures the application to serve static files for a Single Page Application (SPA).
+            The files will be located using the registered <see cref="T:Microsoft.AspNetCore.SpaServices.StaticFiles.ISpaStaticFileProvider"/> service.
+            </summary>
+            <param name="applicationBuilder">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.UseSpaStaticFiles(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Builder.StaticFileOptions)">
+            <summary>
+            Configures the application to serve static files for a Single Page Application (SPA).
+            The files will be located using the registered <see cref="T:Microsoft.AspNetCore.SpaServices.StaticFiles.ISpaStaticFileProvider"/> service.
+            </summary>
+            <param name="applicationBuilder">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</param>
+            <param name="options">Specifies options for serving the static files.</param>
+        </member>
+    </members>
+</doc>

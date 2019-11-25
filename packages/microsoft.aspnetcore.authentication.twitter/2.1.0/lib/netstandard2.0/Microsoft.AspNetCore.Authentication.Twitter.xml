@@ -1,0 +1,264 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Authentication.Twitter</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Authentication.Twitter.TwitterCreatingTicketContext">
+            <summary>
+            Contains information about the login session as well as the user <see cref="T:System.Security.Claims.ClaimsIdentity"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Twitter.TwitterCreatingTicketContext.#ctor(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationScheme,Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions,System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties,System.String,System.String,System.String,System.String,Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            Initializes a <see cref="T:Microsoft.AspNetCore.Authentication.Twitter.TwitterCreatingTicketContext"/>
+            </summary>
+            <param name="context">The HTTP environment</param>
+            <param name="scheme">The scheme data</param>
+            <param name="options">The options for Twitter</param>
+            <param name="principal">The <see cref="T:System.Security.Claims.ClaimsPrincipal"/>.</param>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/>.</param>
+            <param name="userId">Twitter user ID</param>
+            <param name="screenName">Twitter screen name</param>
+            <param name="accessToken">Twitter access token</param>
+            <param name="accessTokenSecret">Twitter access token secret</param>
+            <param name="user">User details</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.TwitterCreatingTicketContext.UserId">
+            <summary>
+            Gets the Twitter user ID
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.TwitterCreatingTicketContext.ScreenName">
+            <summary>
+            Gets the Twitter screen name
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.TwitterCreatingTicketContext.AccessToken">
+            <summary>
+            Gets the Twitter access token
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.TwitterCreatingTicketContext.AccessTokenSecret">
+            <summary>
+            Gets the Twitter access token secret
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.TwitterCreatingTicketContext.User">
+            <summary>
+            Gets the JSON-serialized user or an empty
+            <see cref="T:Newtonsoft.Json.Linq.JObject"/> if it is not available.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Twitter.TwitterEvents">
+            <summary>
+            Default <see cref="T:Microsoft.AspNetCore.Authentication.Twitter.TwitterEvents"/> implementation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.TwitterEvents.OnCreatingTicket">
+            <summary>
+            Gets or sets the function that is invoked when the Authenticated method is invoked.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.TwitterEvents.OnRedirectToAuthorizationEndpoint">
+            <summary>
+            Gets or sets the delegate that is invoked when the ApplyRedirect method is invoked.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Twitter.TwitterEvents.CreatingTicket(Microsoft.AspNetCore.Authentication.Twitter.TwitterCreatingTicketContext)">
+            <summary>
+            Invoked whenever Twitter successfully authenticates a user
+            </summary>
+            <param name="context">Contains information about the login session as well as the user <see cref="T:System.Security.Claims.ClaimsIdentity"/>.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completed operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Twitter.TwitterEvents.RedirectToAuthorizationEndpoint(Microsoft.AspNetCore.Authentication.RedirectContext{Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions})">
+            <summary>
+            Called when a Challenge causes a redirect to authorize endpoint in the Twitter handler
+            </summary>
+            <param name="context">Contains redirect URI and <see cref="T:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties"/> of the challenge </param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Twitter.AccessToken">
+            <summary>
+            The Twitter access token retrieved from the access token endpoint.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.AccessToken.UserId">
+            <summary>
+            Gets or sets the Twitter User ID.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.AccessToken.ScreenName">
+            <summary>
+            Gets or sets the Twitter screen name.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Twitter.RequestToken">
+            <summary>
+            The Twitter request token obtained from the request token endpoint.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.RequestToken.Token">
+            <summary>
+            Gets or sets the Twitter request token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.RequestToken.TokenSecret">
+            <summary>
+            Gets or sets the Twitter token secret.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.RequestToken.Properties">
+            <summary>
+            Gets or sets a property bag for common authentication properties.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Twitter.RequestTokenSerializer">
+            <summary>
+            Serializes and deserializes Twitter request and access tokens so that they can be used by other application components.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Twitter.RequestTokenSerializer.Serialize(Microsoft.AspNetCore.Authentication.Twitter.RequestToken)">
+            <summary>
+            Serialize a request token.
+            </summary>
+            <param name="model">The token to serialize</param>
+            <returns>A byte array containing the serialized token</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Twitter.RequestTokenSerializer.Deserialize(System.Byte[])">
+            <summary>
+            Deserializes a request token.
+            </summary>
+            <param name="data">A byte array containing the serialized token</param>
+            <returns>The Twitter request token</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Twitter.RequestTokenSerializer.Write(System.IO.BinaryWriter,Microsoft.AspNetCore.Authentication.Twitter.RequestToken)">
+            <summary>
+            Writes a Twitter request token as a series of bytes. Used by the <see cref="M:Microsoft.AspNetCore.Authentication.Twitter.RequestTokenSerializer.Serialize(Microsoft.AspNetCore.Authentication.Twitter.RequestToken)"/> method.
+            </summary>
+            <param name="writer">The writer to use in writing the token</param>
+            <param name="token">The token to write</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Twitter.RequestTokenSerializer.Read(System.IO.BinaryReader)">
+            <summary>
+            Reads a Twitter request token from a series of bytes. Used by the <see cref="M:Microsoft.AspNetCore.Authentication.Twitter.RequestTokenSerializer.Deserialize(System.Byte[])"/> method.
+            </summary>
+            <param name="reader">The reader to use in reading the token bytes</param>
+            <returns>The token</returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.Resources.Exception_OptionMustBeProvided">
+            <summary>
+            The '{0}' option must be provided.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Twitter.Resources.FormatException_OptionMustBeProvided(System.Object)">
+            <summary>
+            The '{0}' option must be provided.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.Resources.Exception_ValidatorHandlerMismatch">
+            <summary>
+            An ICertificateValidator cannot be specified at the same time as an HttpMessageHandler unless it is a WebRequestHandler.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Twitter.Resources.FormatException_ValidatorHandlerMismatch">
+            <summary>
+            An ICertificateValidator cannot be specified at the same time as an HttpMessageHandler unless it is a WebRequestHandler.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.TwitterHandler.Events">
+            <summary>
+            The handler calls methods on the events which give the application control at certain points where processing is occurring.
+            If it is not provided a default instance is supplied which does nothing when the methods are called.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions">
+            <summary>
+            Options for the Twitter authentication handler.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions"/> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions.ConsumerKey">
+            <summary>
+            Gets or sets the consumer key used to communicate with Twitter.
+            </summary>
+            <value>The consumer key used to communicate with Twitter.</value>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions.ConsumerSecret">
+            <summary>
+            Gets or sets the consumer secret used to sign requests to Twitter.
+            </summary>
+            <value>The consumer secret used to sign requests to Twitter.</value>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions.RetrieveUserDetails">
+            <summary>
+            Enables the retrieval user details during the authentication process, including
+            e-mail addresses. Retrieving e-mail addresses requires special permissions
+            from Twitter Support on a per application basis. The default is false.
+            See https://dev.twitter.com/rest/reference/get/account/verify_credentials
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions.ClaimActions">
+            <summary>
+            A collection of claim actions used to select values from the json user data and create Claims.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions.StateDataFormat">
+            <summary>
+            Gets or sets the type used to secure data handled by the handler.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions.Events">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.AspNetCore.Authentication.Twitter.TwitterEvents"/> used to handle authentication events.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions.StateCookie">
+            <summary>
+            Determines the settings used to create the state cookie before the
+            cookie gets added to the response.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions.Validate">
+            <summary>
+            Added the validate method to ensure that the customer key and customer secret values are not not empty for the twitter authentication middleware
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Twitter.TwitterPostConfigureOptions">
+            <summary>
+            Used to setup defaults for all <see cref="T:Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Twitter.TwitterPostConfigureOptions.PostConfigure(System.String,Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions)">
+            <summary>
+            Invoked to post configure a TOptions instance.
+            </summary>
+            <param name="name">The name of the options instance being configured.</param>
+            <param name="options">The options instance to configure.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.TwitterAppBuilderExtensions">
+            <summary>
+            Extension methods to add Twitter authentication capabilities to an HTTP application pipeline.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.TwitterAppBuilderExtensions.UseTwitterAuthentication(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            UseTwitterAuthentication is obsolete. Configure Twitter authentication with AddAuthentication().AddTwitter in ConfigureServices. See https://go.microsoft.com/fwlink/?linkid=845470 for more details.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to add the handler to.</param>
+            <returns>A reference to this instance after the operation has completed.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.TwitterAppBuilderExtensions.UseTwitterAuthentication(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions)">
+            <summary>
+            UseTwitterAuthentication is obsolete. Configure Twitter authentication with AddAuthentication().AddTwitter in ConfigureServices. See https://go.microsoft.com/fwlink/?linkid=845470 for more details.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to add the handler to.</param>
+            <param name="options">An action delegate to configure the provided <see cref="T:Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions"/>.</param>
+            <returns>A reference to this instance after the operation has completed.</returns>
+        </member>
+    </members>
+</doc>

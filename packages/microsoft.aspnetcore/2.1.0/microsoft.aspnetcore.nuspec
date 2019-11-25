@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.AspNetCore</id>
+    <version>2.1.0</version>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/aspnet/Home/2.0.0/LICENSE.txt</licenseUrl>
+    <projectUrl>https://asp.net/</projectUrl>
+    <iconUrl>https://go.microsoft.com/fwlink/?LinkID=288859</iconUrl>
+    <description>Microsoft.AspNetCore</description>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <tags>aspnetcore</tags>
+    <serviceable>true</serviceable>
+    <repository type="git" url="https://github.com/aspnet/MetaPackages" commit="4e1b90774367d96595eb5e990510b6ba1300ee4e" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Microsoft.AspNetCore.Diagnostics" version="2.1.0" include="All" />
+        <dependency id="Microsoft.AspNetCore.HostFiltering" version="2.1.0" include="All" />
+        <dependency id="Microsoft.AspNetCore.Hosting" version="2.1.0" include="All" />
+        <dependency id="Microsoft.AspNetCore.Routing" version="2.1.0" include="All" />
+        <dependency id="Microsoft.AspNetCore.Server.IISIntegration" version="2.1.0" include="All" />
+        <dependency id="Microsoft.AspNetCore.Server.Kestrel" version="2.1.0" include="All" />
+        <dependency id="Microsoft.AspNetCore.Server.Kestrel.Https" version="2.1.0" include="All" />
+        <dependency id="Microsoft.Extensions.Configuration.CommandLine" version="2.1.0" include="All" />
+        <dependency id="Microsoft.Extensions.Configuration.EnvironmentVariables" version="2.1.0" include="All" />
+        <dependency id="Microsoft.Extensions.Configuration.FileExtensions" version="2.1.0" include="All" />
+        <dependency id="Microsoft.Extensions.Configuration.Json" version="2.1.0" include="All" />
+        <dependency id="Microsoft.Extensions.Configuration.UserSecrets" version="2.1.0" include="All" />
+        <dependency id="Microsoft.Extensions.Logging" version="2.1.0" include="All" />
+        <dependency id="Microsoft.Extensions.Logging.Configuration" version="2.1.0" include="All" />
+        <dependency id="Microsoft.Extensions.Logging.Console" version="2.1.0" include="All" />
+        <dependency id="Microsoft.Extensions.Logging.Debug" version="2.1.0" include="All" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Connections.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Extensions.Internal.ActivatorUtilities">
+            <summary>
+            Helper code for the various activator services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.ActivatorUtilities.CreateInstance(System.IServiceProvider,System.Type,System.Object[])">
+            <summary>
+            Instantiate a type with constructor arguments provided directly and/or from an <see cref="T:System.IServiceProvider"/>.
+            </summary>
+            <param name="provider">The service provider used to resolve dependencies</param>
+            <param name="instanceType">The type to activate</param>
+            <param name="parameters">Constructor arguments not provided by the <paramref name="provider"/>.</param>
+            <returns>An activated object of type instanceType</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.ActivatorUtilities.CreateFactory(System.Type,System.Type[])">
+            <summary>
+            Create a delegate that will instantiate a type with constructor arguments provided directly
+            and/or from an <see cref="T:System.IServiceProvider"/>.
+            </summary>
+            <param name="instanceType">The type to activate</param>
+            <param name="argumentTypes">
+            The types of objects, in order, that will be passed to the returned function as its second parameter
+            </param>
+            <returns>
+            A factory that will instantiate instanceType using an <see cref="T:System.IServiceProvider"/>
+            and an argument array containing objects matching the types defined in argumentTypes
+            </returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.ActivatorUtilities.CreateInstance``1(System.IServiceProvider,System.Object[])">
+            <summary>
+            Instantiate a type with constructor arguments provided directly and/or from an <see cref="T:System.IServiceProvider"/>.
+            </summary>
+            <typeparam name="T">The type to activate</typeparam>
+            <param name="provider">The service provider used to resolve dependencies</param>
+            <param name="parameters">Constructor arguments not provided by the <paramref name="provider"/>.</param>
+            <returns>An activated object of type T</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.ActivatorUtilities.GetServiceOrCreateInstance``1(System.IServiceProvider)">
+            <summary>
+            Retrieve an instance of the given type from the service provider. If one is not found then instantiate it directly.
+            </summary>
+            <typeparam name="T">The type of the service</typeparam>
+            <param name="provider">The service provider used to resolve dependencies</param>
+            <returns>The resolved service or created instance</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.ActivatorUtilities.GetServiceOrCreateInstance(System.IServiceProvider,System.Type)">
+            <summary>
+            Retrieve an instance of the given type from the service provider. If one is not found then instantiate it directly.
+            </summary>
+            <param name="provider">The service provider</param>
+            <param name="type">The type of the service</param>
+            <returns>The resolved service or created instance</returns>
+        </member>
+        <member name="T:Microsoft.Extensions.Internal.ActivatorUtilitiesConstructorAttribute">
+            <summary>
+            Marks the constructor to be used when activating type using <see cref="T:Microsoft.Extensions.Internal.ActivatorUtilities"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.Internal.ObjectFactory">
+            <summary>
+            The result of <see cref="M:Microsoft.Extensions.Internal.ActivatorUtilities.CreateFactory(System.Type,System.Type[])"/>.
+            </summary>
+            <param name="serviceProvider">The <see cref="T:System.IServiceProvider"/> to get service arguments from.</param>
+            <param name="arguments">Additional constructor arguments.</param>
+            <returns>The instantiated type.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Connections.ConnectionHandler">
+            <summary>
+            Represents an end point that multiple connections connect to. For HTTP, endpoints are URLs, for non HTTP it can be a TCP listener (or similar)
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Connections.ConnectionHandler.OnConnectedAsync(Microsoft.AspNetCore.Connections.ConnectionContext)">
+            <summary>
+            Called when a new connection is accepted to the endpoint
+            </summary>
+            <param name="connection">The new <see cref="T:Microsoft.AspNetCore.Connections.ConnectionContext"/></param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that represents the connection lifetime. When the task completes, the connection is complete.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Connections.DefaultConnectionContext.#ctor(System.String)">
+            <summary>
+            Creates the DefaultConnectionContext without Pipes to avoid upfront allocations.
+            The caller is expected to set the <see cref="P:Microsoft.AspNetCore.Connections.DefaultConnectionContext.Transport"/> and <see cref="P:Microsoft.AspNetCore.Connections.DefaultConnectionContext.Application"/> pipes manually.
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Connections.Features.IConnectionInherentKeepAliveFeature">
+            <summary>
+            Indicates if the connection transport has an "inherent keep-alive", which means that the transport will automatically
+            inform the client that it is still present.
+            </summary>
+            <remarks>
+            The most common example of this feature is the Long Polling HTTP transport, which must (due to HTTP limitations) terminate
+            each poll within a particular interval and return a signal indicating "the server is still here, but there is no data yet".
+            This feature allows applications to add keep-alive functionality, but limit it only to transports that don't have some kind
+            of inherent keep-alive.
+            </remarks>
+        </member>
+    </members>
+</doc>

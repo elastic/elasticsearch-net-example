@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Http.Connections.Common</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Http.Connections.HttpTransports">
+            <summary>
+            Constants related to HTTP transports.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Http.Connections.HttpTransports.All">
+            <summary>
+            A bitmask comprised of all available <see cref="T:Microsoft.AspNetCore.Http.Connections.HttpTransportType"/> values.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Http.Connections.HttpTransportType">
+            <summary>
+            Specifies transports that the client can use to send HTTP requests.
+            </summary>
+            <remarks>
+            This enumeration has a <see cref="T:System.FlagsAttribute"/> attribute that allows a bitwise combination of its member values.
+            </remarks>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Http.Connections.HttpTransportType.None">
+            <summary>
+            Specifies that no transport is used.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Http.Connections.HttpTransportType.WebSockets">
+            <summary>
+            Specifies that the web sockets transport is used.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Http.Connections.HttpTransportType.ServerSentEvents">
+            <summary>
+            Specifies that the server sent events transport is used.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Http.Connections.HttpTransportType.LongPolling">
+            <summary>
+            Specifies that the long polling transport is used.
+            </summary>
+        </member>
+    </members>
+</doc>

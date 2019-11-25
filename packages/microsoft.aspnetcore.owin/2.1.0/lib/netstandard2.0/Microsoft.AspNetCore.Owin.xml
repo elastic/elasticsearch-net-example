@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Owin</name>
+    </assembly>
+    <members>
+        <member name="P:Microsoft.AspNetCore.Owin.OwinFeatureCollection.SupportsWebSockets">
+            <summary>
+            Gets or sets if the underlying server supports WebSockets. This is enabled by default.
+            The value should be consistent across requests.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Owin.OwinWebSocketAcceptAdapter">
+            <summary>
+            This adapts the OWIN WebSocket accept flow to match the ASP.NET Core WebSocket Accept flow.
+            This enables ASP.NET Core components to use WebSockets on OWIN based servers.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Owin.WebSocketAcceptAdapter">
+            <summary>
+            This adapts the ASP.NET Core WebSocket Accept flow to match the OWIN WebSocket accept flow.
+            This enables OWIN based components to use WebSockets on ASP.NET Core servers.
+            </summary>
+        </member>
+    </members>
+</doc>

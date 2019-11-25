@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Authentication.MicrosoftAccount</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Builder.MicrosoftAccountAppBuilderExtensions">
+            <summary>
+            Extension methods to add Microsoft Account authentication capabilities to an HTTP application pipeline.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.MicrosoftAccountAppBuilderExtensions.UseMicrosoftAccountAuthentication(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            UseMicrosoftAccountAuthentication is obsolete. Configure MicrosoftAccount authentication with AddAuthentication().AddMicrosoftAccount in ConfigureServices. See https://go.microsoft.com/fwlink/?linkid=845470 for more details.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to add the handler to.</param>
+            <returns>A reference to this instance after the operation has completed.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.MicrosoftAccountAppBuilderExtensions.UseMicrosoftAccountAuthentication(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Authentication.MicrosoftAccount.MicrosoftAccountOptions)">
+            <summary>
+            UseMicrosoftAccountAuthentication is obsolete. Configure MicrosoftAccount authentication with AddAuthentication().AddMicrosoftAccount in ConfigureServices. See https://go.microsoft.com/fwlink/?linkid=845470 for more details.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to add the handler to.</param>
+            <param name="options">A <see cref="T:Microsoft.AspNetCore.Authentication.MicrosoftAccount.MicrosoftAccountOptions"/> that specifies options for the handler.</param>
+            <returns>A reference to this instance after the operation has completed.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.MicrosoftAccount.MicrosoftAccountOptions">
+            <summary>
+            Configuration options for <see cref="T:Microsoft.AspNetCore.Authentication.MicrosoftAccount.MicrosoftAccountHandler"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.MicrosoftAccount.MicrosoftAccountOptions.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Microsoft.AspNetCore.Authentication.MicrosoftAccount.MicrosoftAccountOptions"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.MicrosoftAccount.Resources.Exception_MissingId">
+            <summary>
+            The user does not have an id.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.MicrosoftAccount.Resources.FormatException_MissingId">
+            <summary>
+            The user does not have an id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.MicrosoftAccount.Resources.Exception_OptionMustBeProvided">
+            <summary>
+            The '{0}' option must be provided.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.MicrosoftAccount.Resources.FormatException_OptionMustBeProvided(System.Object)">
+            <summary>
+            The '{0}' option must be provided.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.MicrosoftAccount.Resources.Exception_ValidatorHandlerMismatch">
+            <summary>
+            An ICertificateValidator cannot be specified at the same time as an HttpMessageHandler unless it is a WebRequestHandler.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.MicrosoftAccount.Resources.FormatException_ValidatorHandlerMismatch">
+            <summary>
+            An ICertificateValidator cannot be specified at the same time as an HttpMessageHandler unless it is a WebRequestHandler.
+            </summary>
+        </member>
+    </members>
+</doc>

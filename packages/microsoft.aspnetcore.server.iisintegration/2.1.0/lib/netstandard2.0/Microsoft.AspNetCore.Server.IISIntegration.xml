@@ -1,0 +1,248 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Server.IISIntegration</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Extensions.Internal.SecurityHelper">
+            <summary>
+            Helper code used when implementing authentication middleware
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.SecurityHelper.MergeUserPrincipal(System.Security.Claims.ClaimsPrincipal,System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            Add all ClaimsIdentities from an additional ClaimPrincipal to the ClaimsPrincipal
+            Merges a new claims principal, placing all new identities first, and eliminating
+            any empty unauthenticated identities from context.User
+            </summary>
+            <param name="existingPrincipal">The <see cref="T:System.Security.Claims.ClaimsPrincipal"/> containing existing <see cref="T:System.Security.Claims.ClaimsIdentity"/>.</param>
+            <param name="additionalPrincipal">The <see cref="T:System.Security.Claims.ClaimsPrincipal"/> containing <see cref="T:System.Security.Claims.ClaimsIdentity"/> to be added.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.HttpSys.Internal.SocketAddress">
+            <devdoc>
+               <para>
+                  This class is used when subclassing EndPoint, and provides indication
+                  on how to format the memory buffers that winsock uses for network addresses.
+               </para>
+            </devdoc>
+        </member>
+        <member name="M:Microsoft.AspNetCore.HttpSys.Internal.SocketAddress.#ctor(System.Net.Sockets.AddressFamily,System.Int32)">
+            <devdoc>
+               <para>[To be supplied.]</para>
+            </devdoc>
+        </member>
+        <member name="P:Microsoft.AspNetCore.HttpSys.Internal.SocketAddress.Item(System.Int32)">
+            <devdoc>
+               <para>[To be supplied.]</para>
+            </devdoc>
+        </member>
+        <member name="M:Microsoft.AspNetCore.HttpSys.Internal.RawUrlHelper.GetPath(System.Byte[])">
+            <summary>
+            Find the segment of the URI byte array which represents the path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.HttpSys.Internal.RawUrlHelper.FindHttpOrHttps(System.Byte[])">
+            <summary>
+            Compare the beginning portion of the raw URL byte array to https:// and http://
+            </summary>
+            <param name="raw">The byte array represents the raw URI</param>
+            <returns>Length of the matched bytes, 0 if it is not matched.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.HttpSys.Internal.RequestUriBuilder.Unescape(System.ArraySegment{System.Byte})">
+            <summary>
+            Unescape a given path string in place. The given path string  may contain escaped char.
+            </summary>
+            <param name="rawPath">The raw path string to be unescaped</param>
+            <returns>The unescaped path string</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.HttpSys.Internal.RequestUriBuilder.DecodeCore(System.Int32@,System.Int32@,System.Int32,System.Byte[])">
+            <summary>
+            Unescape the percent-encodings
+            </summary>
+            <param name="reader">The iterator point to the first % char</param>
+            <param name="writer">The place to write to</param>
+            <param name="end">The end of the buffer</param>
+            <param name="buffer">The byte array</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.HttpSys.Internal.RequestUriBuilder.UnescapePercentEncoding(System.Int32@,System.Int32,System.Byte[])">
+            <summary>
+            Read the percent-encoding and try unescape it.
+            
+            The operation first peek at the character the <paramref name="scan"/> 
+            iterator points at. If it is % the <paramref name="scan"/> is then 
+            moved on to scan the following to characters. If the two following 
+            characters are hexadecimal literals they will be unescaped and the 
+            value will be returned.
+            
+            If the first character is not % the <paramref name="scan"/> iterator 
+            will be removed beyond the location of % and -1 will be returned.
+            
+            If the following two characters can't be successfully unescaped the 
+            <paramref name="scan"/> iterator will be move behind the % and -1 
+            will be returned.
+            </summary>
+            <param name="scan">The value to read</param>
+            <param name="end">The end of the buffer</param>
+            <param name="buffer">The byte array</param>
+            <returns>The unescaped byte if success. Otherwise return -1.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.HttpSys.Internal.RequestUriBuilder.ReadHex(System.Int32@,System.Int32,System.Byte[])">
+            <summary>
+            Read the next char and convert it into hexadecimal value.
+            
+            The <paramref name="scan"/> iterator will be moved to the next
+            byte no matter no matter whether the operation successes.
+            </summary>
+            <param name="scan">The value to read</param>
+            <param name="end">The end of the buffer</param>
+            <param name="buffer">The byte array</param>
+            <returns>The hexadecimal value if successes, otherwise -1.</returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.IISOptions.AutomaticAuthentication">
+            <summary>
+            If true the middleware should set HttpContext.User. If false the middleware will only provide an
+            identity when explicitly requested by the AuthenticationScheme.
+            Note Windows Authentication must also be enabled in IIS for this to work.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.IISOptions.AuthenticationDisplayName">
+            <summary>
+            Sets the display name shown to users on login pages. The default is null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.IISOptions.ForwardWindowsAuthentication">
+            <summary>
+            Used to indicate if the authentication handler should be registered. This is only done if ANCM indicates
+            IIS has a non-anonymous authentication enabled, or for back compat with ANCMs that did not provide this information.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Builder.IISOptions.ForwardClientCertificate">
+            <summary>
+            Populates the ITLSConnectionFeature if the MS-ASPNETCORE-CLIENTCERT request header is present.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration(Microsoft.AspNetCore.Hosting.IWebHostBuilder)">
+            <summary>
+            Configures the port and base path the server should listen on when running behind AspNetCoreModule.
+            The app will also be configured to capture startup errors.
+            </summary>
+            <param name="hostBuilder"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Buffers.MemoryPoolBlock">
+            <summary>
+            Block tracking object used by the byte buffer memory pool. A slab is a large allocation which is divided into smaller blocks. The
+            individual blocks are then treated as independent array segments.
+            </summary>
+        </member>
+        <member name="M:System.Buffers.MemoryPoolBlock.#ctor(System.Buffers.SlabMemoryPool,System.Buffers.MemoryPoolSlab,System.Int32,System.Int32)">
+            <summary>
+            This object cannot be instantiated outside of the static Create method
+            </summary>
+        </member>
+        <member name="P:System.Buffers.MemoryPoolBlock.Pool">
+            <summary>
+            Back-reference to the memory pool which this block was allocated from. It may only be returned to this pool.
+            </summary>
+        </member>
+        <member name="P:System.Buffers.MemoryPoolBlock.Slab">
+            <summary>
+            Back-reference to the slab from which this block was taken, or null if it is one-time-use memory.
+            </summary>
+        </member>
+        <member name="T:System.Buffers.MemoryPoolSlab">
+            <summary>
+            Slab tracking object used by the byte buffer memory pool. A slab is a large allocation which is divided into smaller blocks. The
+            individual blocks are then treated as independant array segments.
+            </summary>
+        </member>
+        <member name="F:System.Buffers.MemoryPoolSlab._gcHandle">
+            <summary>
+            This handle pins the managed array in memory until the slab is disposed. This prevents it from being
+            relocated and enables any subsections of the array to be used as native memory pointers to P/Invoked API calls.
+            </summary>
+        </member>
+        <member name="P:System.Buffers.MemoryPoolSlab.IsActive">
+            <summary>
+            True as long as the blocks from this slab are to be considered returnable to the pool. In order to shrink the
+            memory pool size an entire slab must be removed. That is done by (1) setting IsActive to false and removing the
+            slab from the pool's _slabs collection, (2) as each block currently in use is Return()ed to the pool it will
+            be allowed to be garbage collected rather than re-pooled, and (3) when all block tracking objects are garbage
+            collected and the slab is no longer references the slab will be garbage collected and the memory unpinned will
+            be unpinned by the slab's Dispose.
+            </summary>
+        </member>
+        <member name="T:System.Buffers.SlabMemoryPool">
+            <summary>
+            Used to allocate and distribute re-usable blocks of memory.
+            </summary>
+        </member>
+        <member name="F:System.Buffers.SlabMemoryPool._blockSize">
+            <summary>
+            The size of a block. 4096 is chosen because most operating systems use 4k pages.
+            </summary>
+        </member>
+        <member name="F:System.Buffers.SlabMemoryPool._blockCount">
+            <summary>
+            Allocating 32 contiguous blocks per slab makes the slab size 128k. This is larger than the 85k size which will place the memory
+            in the large object heap. This means the GC will not try to relocate this array, so the fact it remains pinned does not negatively
+            affect memory management's compactification.
+            </summary>
+        </member>
+        <member name="P:System.Buffers.SlabMemoryPool.MaxBufferSize">
+            <summary>
+            Max allocation block size for pooled blocks,
+            larger values can be leased but they will be disposed after use rather than returned to the pool.
+            </summary>
+        </member>
+        <member name="F:System.Buffers.SlabMemoryPool._slabLength">
+            <summary>
+            4096 * 32 gives you a slabLength of 128k contiguous bytes allocated per slab
+            </summary>
+        </member>
+        <member name="F:System.Buffers.SlabMemoryPool._blocks">
+            <summary>
+            Thread-safe collection of blocks which are currently in the pool. A slab will pre-allocate all of the block tracking objects
+            and add them to this collection. When memory is requested it is taken from here first, and when it is returned it is re-added.
+            </summary>
+        </member>
+        <member name="F:System.Buffers.SlabMemoryPool._slabs">
+            <summary>
+            Thread-safe collection of slabs which have been allocated by this pool. As long as a slab is in this collection and slab.IsActive,
+            the blocks will be added to _blocks when returned.
+            </summary>
+        </member>
+        <member name="F:System.Buffers.SlabMemoryPool._disposedValue">
+            <summary>
+            This is part of implementing the IDisposable pattern.
+            </summary>
+        </member>
+        <member name="F:System.Buffers.SlabMemoryPool.AnySize">
+            <summary>
+            This default value passed in to Rent to use the default value for the pool.
+            </summary>
+        </member>
+        <member name="M:System.Buffers.SlabMemoryPool.Lease">
+            <summary>
+            Called to take a block from the pool.
+            </summary>
+            <returns>The block that is reserved for the called. It must be passed to Return when it is no longer being used.</returns>
+        </member>
+        <member name="M:System.Buffers.SlabMemoryPool.AllocateSlab">
+            <summary>
+            Internal method called when a block is requested and the pool is empty. It allocates one additional slab, creates all of the
+            block tracking objects, and adds them all to the pool.
+            </summary>
+        </member>
+        <member name="M:System.Buffers.SlabMemoryPool.Return(System.Buffers.MemoryPoolBlock)">
+            <summary>
+            Called to return a block to the pool. Once Return has been called the memory no longer belongs to the caller, and
+            Very Bad Things will happen if the memory is read of modified subsequently. If a caller fails to call Return and the
+            block tracking object is garbage collected, the block tracking object's finalizer will automatically re-create and return
+            a new tracking object into the pool. This will only happen if there is a bug in the server, however it is necessary to avoid
+            leaving "dead zones" in the slab due to lost block tracking objects.
+            </summary>
+            <param name="block">The block to return. It must have been acquired by calling Lease on the same memory pool instance.</param>
+        </member>
+    </members>
+</doc>

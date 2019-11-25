@@ -13,7 +13,7 @@ namespace NuSearch.Web
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -27,17 +27,14 @@ namespace NuSearch.Web
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-            services.AddMvc();
-
+			services.AddControllersWithViews();
+			
 			// register the client as a singleton
-			services.Add(ServiceDescriptor.Singleton<IElasticClient>(NuSearchConfiguration.GetClient()));
+			services.AddSingleton<IElasticClient>(NuSearchConfiguration.GetClient());
 		}
 
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-			loggerFactory.AddDebug();
-
 			app.UseDeveloperExceptionPage();
 			app.UseStatusCodePages();
 			app.UseStaticFiles(new StaticFileOptions
@@ -52,10 +49,12 @@ namespace NuSearch.Web
 				}
 			});
 
-			app.UseMvc(routes =>
+			app.UseRouting();
+			
+			app.UseEndpoints(endpoints =>
 			{
-				routes
-					.MapRoute(name: "default", template:"{controller=Search}/{action=Index}"); 
+				endpoints.MapControllers();
+				endpoints.MapControllerRoute("default", "{controller=Search}/{action=Index}");
 			});
 		}
     }

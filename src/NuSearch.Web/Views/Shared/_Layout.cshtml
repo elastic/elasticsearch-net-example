@@ -12,14 +12,14 @@
 			<h1>nusear.ch</h1>
 			@using (Html.BeginForm("Index", "Search", FormMethod.Get))
 			{
-				@Html.Partial("RememberForm", Model.Form)
-				@Html.Partial("QueryBox", Model.Form)
+				@await Html.PartialAsync("RememberForm", Model.Form)
+				@await Html.PartialAsync("QueryBox", Model.Form)
 			}
 		</div>
 	</nav>
 	<nav class="navbar header-site-sub">
 		<div class="container-fluid bound-container ">
-			@RenderSection("HeaderSub", required: false)
+			@await RenderSectionAsync("HeaderSub", required: false)
 		</div>
 	</nav>
 	@RenderBody()

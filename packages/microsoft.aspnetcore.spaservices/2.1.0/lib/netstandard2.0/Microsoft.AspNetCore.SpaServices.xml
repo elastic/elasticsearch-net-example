@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.SpaServices</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.SpaServices.Prerendering.DefaultSpaPrerenderer">
+            <summary>
+            Default implementation of a DI service that provides convenient access to
+            server-side prerendering APIs. This is an alternative to prerendering via
+            the asp-prerender-module tag helper.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.SpaServices.Prerendering.ISpaPrerenderer">
+            <summary>
+            Represents a service that can perform server-side prerendering for
+            JavaScript-based Single Page Applications. This is an alternative
+            to using the 'asp-prerender-module' tag helper.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SpaServices.Prerendering.ISpaPrerenderer.RenderToString(System.String,System.String,System.Object,System.Int32)">
+            <summary>
+            Invokes JavaScript code to perform server-side prerendering for a
+            Single-Page Application. This is an alternative to using the
+            'asp-prerender-module' tag helper.
+            </summary>
+            <param name="moduleName">The JavaScript module that exports a prerendering function.</param>
+            <param name="exportName">The name of the export from the JavaScript module, if it is not the default export.</param>
+            <param name="customDataParameter">An optional JSON-serializable object to pass to the JavaScript prerendering function.</param>
+            <param name="timeoutMilliseconds">If specified, the prerendering task will time out after this duration if not already completed.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.SpaServices.Prerendering.JavaScriptModuleExport">
+            <summary>
+            Describes how to find the JavaScript code that performs prerendering.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SpaServices.Prerendering.JavaScriptModuleExport.#ctor(System.String)">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.AspNetCore.SpaServices.Prerendering.JavaScriptModuleExport"/>.
+            </summary>
+            <param name="moduleName">The path to the JavaScript module containing prerendering code.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Prerendering.JavaScriptModuleExport.ModuleName">
+            <summary>
+            Specifies the path to the JavaScript module containing prerendering code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Prerendering.JavaScriptModuleExport.ExportName">
+            <summary>
+            If set, specifies the name of the CommonJS export that is the prerendering function to execute.
+            If not set, the JavaScript module's default CommonJS export must itself be the prerendering function.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.SpaServices.Prerendering.Prerenderer">
+            <summary>
+            Performs server-side prerendering by invoking code in Node.js.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SpaServices.Prerendering.Prerenderer.RenderToString(System.String,Microsoft.AspNetCore.NodeServices.INodeServices,System.Threading.CancellationToken,Microsoft.AspNetCore.SpaServices.Prerendering.JavaScriptModuleExport,System.String,System.String,System.Object,System.Int32,System.String)">
+            <summary>
+            Performs server-side prerendering by invoking code in Node.js.
+            </summary>
+            <param name="applicationBasePath">The root path to your application. This is used when resolving project-relative paths.</param>
+            <param name="nodeServices">The instance of <see cref="T:Microsoft.AspNetCore.NodeServices.INodeServices"/> that will be used to invoke JavaScript code.</param>
+            <param name="applicationStoppingToken">A token that indicates when the host application is stopping.</param>
+            <param name="bootModule">The path to the JavaScript file containing the prerendering logic.</param>
+            <param name="requestAbsoluteUrl">The URL of the currently-executing HTTP request. This is supplied to the prerendering code.</param>
+            <param name="requestPathAndQuery">The path and query part of the URL of the currently-executing HTTP request. This is supplied to the prerendering code.</param>
+            <param name="customDataParameter">An optional JSON-serializable parameter to be supplied to the prerendering code.</param>
+            <param name="timeoutMilliseconds">The maximum duration to wait for prerendering to complete.</param>
+            <param name="requestPathBase">The PathBase for the currently-executing HTTP request.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.SpaServices.Prerendering.PrerenderTagHelper">
+            <summary>
+            A tag helper for prerendering JavaScript applications on the server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SpaServices.Prerendering.PrerenderTagHelper.#ctor(System.IServiceProvider)">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.AspNetCore.SpaServices.Prerendering.PrerenderTagHelper"/>.
+            </summary>
+            <param name="serviceProvider">The <see cref="T:System.IServiceProvider"/>.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Prerendering.PrerenderTagHelper.ModuleName">
+            <summary>
+            Specifies the path to the JavaScript module containing prerendering code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Prerendering.PrerenderTagHelper.ExportName">
+            <summary>
+            If set, specifies the name of the CommonJS export that is the prerendering function to execute.
+            If not set, the JavaScript module's default CommonJS export must itself be the prerendering function.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Prerendering.PrerenderTagHelper.CustomDataParameter">
+            <summary>
+            An optional JSON-serializable parameter to be supplied to the prerendering code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Prerendering.PrerenderTagHelper.TimeoutMillisecondsParameter">
+            <summary>
+            The maximum duration to wait for prerendering to complete.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Prerendering.PrerenderTagHelper.ViewContext">
+            <summary>
+            The <see cref="P:Microsoft.AspNetCore.SpaServices.Prerendering.PrerenderTagHelper.ViewContext"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SpaServices.Prerendering.PrerenderTagHelper.ProcessAsync(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext,Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput)">
+            <summary>
+            Executes the tag helper to perform server-side prerendering.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext"/>.</param>
+            <param name="output">The <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput"/>.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.SpaServices.Prerendering.RenderToStringResult">
+            <summary>
+            Describes the prerendering result returned by JavaScript code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Prerendering.RenderToStringResult.Globals">
+            <summary>
+            If set, specifies JSON-serializable data that should be added as a set of global JavaScript variables in the document.
+            This can be used to transfer arbitrary data from server-side prerendering code to client-side code (for example, to
+            transfer the state of a Redux store).
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Prerendering.RenderToStringResult.Html">
+            <summary>
+            The HTML generated by the prerendering logic.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Prerendering.RenderToStringResult.RedirectUrl">
+            <summary>
+            If set, specifies that instead of rendering HTML, the response should be an HTTP redirection to this URL.
+            This can be used if the prerendering code determines that the requested URL would lead to a redirection according
+            to the SPA's routing configuration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Prerendering.RenderToStringResult.StatusCode">
+            <summary>
+            If set, specifies the HTTP status code that should be sent back with the server response.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.SpaServices.Prerendering.RenderToStringResult.CreateGlobalsAssignmentScript">
+            <summary>
+            Constructs a block of JavaScript code that assigns data from the
+            <see cref="P:Microsoft.AspNetCore.SpaServices.Prerendering.RenderToStringResult.Globals"/> property to the global namespace.
+            </summary>
+            <returns>A block of JavaScript code.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.SpaServices.Webpack.ConditionalProxyMiddleware">
+            <summary>
+            Based on https://github.com/aspnet/Proxy/blob/dev/src/Microsoft.AspNetCore.Proxy/ProxyMiddleware.cs
+            Differs in that, if the proxied request returns a 404, we pass through to the next middleware in the chain
+            This is useful for Webpack middleware, because it lets you fall back on prebuilt files on disk for
+            chunks not exposed by the current Webpack config (e.g., DLL/vendor chunks).
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.SpaServices.Webpack.WebpackDevMiddlewareOptions">
+            <summary>
+            Options for configuring a Webpack dev middleware compiler.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Webpack.WebpackDevMiddlewareOptions.HotModuleReplacement">
+            <summary>
+            If true, hot module replacement (HMR) will be enabled. This automatically updates Webpack-built
+            resources (such as JavaScript, CSS, or images) in your web browser whenever source files are changed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Webpack.WebpackDevMiddlewareOptions.HotModuleReplacementEndpoint">
+            <summary>
+            If set, overrides the URL that Webpack's client-side code will connect to when listening for updates.
+            This must be a root-relative URL similar to "/__webpack_hmr" (which is the default endpoint).
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Webpack.WebpackDevMiddlewareOptions.HotModuleReplacementServerPort">
+            <summary>
+            Overrides the internal port number that client-side HMR code will connect to.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Webpack.WebpackDevMiddlewareOptions.ReactHotModuleReplacement">
+            <summary>
+            If true, enables React-specific extensions to Webpack's hot module replacement (HMR) feature.
+            This enables React components to be updated without losing their in-memory state.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Webpack.WebpackDevMiddlewareOptions.HotModuleReplacementClientOptions">
+            <summary> 
+            Specifies additional options to be passed to the Webpack Hot Middleware client, if used.
+            </summary> 
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Webpack.WebpackDevMiddlewareOptions.ConfigFile">
+            <summary>
+            Specifies the Webpack configuration file to be used. If not set, defaults to 'webpack.config.js'.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Webpack.WebpackDevMiddlewareOptions.ProjectPath">
+            <summary>
+            The root path of your project. Webpack runs in this context.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Webpack.WebpackDevMiddlewareOptions.EnvironmentVariables">
+            <summary>
+            Specifies additional environment variables to be passed to the Node instance hosting
+            the webpack compiler.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.SpaServices.Webpack.WebpackDevMiddlewareOptions.EnvParam">
+            <summary>
+            Specifies a value for the "env" parameter to be passed into the Webpack configuration
+            function. The value must be JSON-serializable, and will only be used if the Webpack
+            configuration is exported as a function.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.SpaRouteExtensions">
+            <summary>
+            Extension methods useful for configuring routing in a single-page application (SPA).
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.SpaRouteExtensions.MapSpaFallbackRoute(Microsoft.AspNetCore.Routing.IRouteBuilder,System.String,System.Object,System.Object,System.Object)">
+            <summary>
+            Configures a route that is automatically bypassed if the requested URL appears to be for a static file
+            (e.g., if it has a filename extension).
+            </summary>
+            <param name="routeBuilder">The <see cref="T:Microsoft.AspNetCore.Routing.IRouteBuilder"/>.</param>
+            <param name="name">The route name.</param>
+            <param name="defaults">Default route parameters.</param>
+            <param name="constraints">Route constraints.</param>
+            <param name="dataTokens">Route data tokens.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.SpaRouteExtensions.MapSpaFallbackRoute(Microsoft.AspNetCore.Routing.IRouteBuilder,System.String,System.String,System.Object,System.Object,System.Object)">
+            <summary>
+            Configures a route that is automatically bypassed if the requested URL appears to be for a static file
+            (e.g., if it has a filename extension).
+            </summary>
+            <param name="routeBuilder">The <see cref="T:Microsoft.AspNetCore.Routing.IRouteBuilder"/>.</param>
+            <param name="name">The route name.</param>
+            <param name="templatePrefix">The template prefix.</param>
+            <param name="defaults">Default route parameters.</param>
+            <param name="constraints">Route constraints.</param>
+            <param name="dataTokens">Route data tokens.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.WebpackDevMiddleware">
+            <summary>
+            Extension methods that can be used to enable Webpack dev middleware support.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.WebpackDevMiddleware.UseWebpackDevMiddleware(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.SpaServices.Webpack.WebpackDevMiddlewareOptions)">
+             <summary>
+             Enables Webpack dev middleware support. This hosts an instance of the Webpack compiler in memory
+             in your application so that you can always serve up-to-date Webpack-built resources without having
+             to run the compiler manually. Since the Webpack compiler instance is retained in memory, incremental
+             compilation is vastly faster that re-running the compiler from scratch.
+            
+             Incoming requests that match Webpack-built files will be handled by returning the Webpack compiler
+             output directly, regardless of files on disk. If compilation is in progress when the request arrives,
+             the response will pause until updated compiler output is ready.
+             </summary>
+             <param name="appBuilder">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</param>
+             <param name="options">Options for configuring the Webpack compiler instance.</param>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.PrerenderingServiceCollectionExtensions">
+            <summary>
+            Extension methods for setting up prerendering features in an <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.PrerenderingServiceCollectionExtensions.AddSpaPrerenderer(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configures the dependency injection system to supply an implementation
+            of <see cref="T:Microsoft.AspNetCore.SpaServices.Prerendering.ISpaPrerenderer"/>.
+            </summary>
+            <param name="serviceCollection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
+        </member>
+    </members>
+</doc>

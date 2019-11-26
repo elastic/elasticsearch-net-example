@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -13,9 +12,7 @@ namespace NuSearch.Web
             var host = Host.CreateDefaultBuilder(args)
 	            .ConfigureWebHostDefaults(webBuilder =>
 	            {
-		            webBuilder.UseKestrel()
-			            .UseIISIntegration()
-			            .UseSetting("detailedErrors", "true")
+		            webBuilder.UseSetting("detailedErrors", "true")
 			            .CaptureStartupErrors(true)
 			            .UseContentRoot(Directory.GetCurrentDirectory())
 			            .UseStartup<Startup>();

@@ -134,7 +134,7 @@ Now that we're familiar with the code in our indexer, let'start indexing data in
 
 ### Running the indexer
 
-First, we'll take the simplest approach and just iterate over each `FeedPackage` in a NuGet Feed Data xml file and index them individually into an index named `nusearch`.  We can do this by using the `ElasticClient.Index()` method.
+First, we'll take the simplest approach and just iterate over each `FeedPackage` in a NuGet Feed Data xml file and index them individually into an index named `nusearch`.  We can do this by using the `ElasticClient.IndexDocument()` method.
 
 Replace the `Console.WriteLine("Done.");` in `IndexDumps()` with the following:
 
@@ -147,7 +147,7 @@ static void IndexDumps()
 
     foreach (var package in packages)
     {
-        var result = Client.Index(package);
+        var result = Client.IndexDocument(package);
 
         if (!result.IsValid)
         {
@@ -163,12 +163,12 @@ static void IndexDumps()
 
 > **NOTE:** We did `.First()` to read only a single file. This is to save us time by not indexing everything, since we will be refining our indexing code later.
 
-The `Index()` method accepts two parameters:
+The `IndexDocument()` method accepts a single parameter, the document to index. There's also `Index()` method that accepts two parameters,
 
 1. The document to index.
 2. An optional lambda expression which enables us to further define the index request (more on that later).
 
-`Index()` returns an `IIndexResponse` (assigned to `result`) that holds all of the relevant response information returned by Elasticsearch. All response types in NEST including `IIndexResponse` implement `IResponse`, and `IResponse` contains a boolean `IsValid` property. This property tells us whether or not the request was considered valid for the target endpoint.
+`IndexDocument()` and `Index()` return an `IndexResponse` (assigned to `result`) that holds all of the relevant response information returned by Elasticsearch. All response types in NEST including `IndexResponse` implement `IResponse`, and `IResponse` contains a boolean `IsValid` property. This property tells us whether or not the request was considered valid for the target endpoint.
 
 `IResponse` also contains an `ApiCall` property which holds all of the details about the request such as:
 
@@ -388,7 +388,7 @@ static void IndexDumps()
 
 Here we are using a multi-line lambda expression within the `Bulk()` method call to iterate over our `packages` collection, passing each package to the bulk `Index()` method.  
 
-> **NOTE:** We have to explicitly state the type of the object we are indexing. Unlike the regular `Client.Index()` method, `Bulk()` can deal with more than one different type in the same request. For example, we could have easily had a `b.Index<Foo>(i => i.Document(myFoo))` in the same foreach loop. In fact, the bulk API supports several operations incuding delete and update in the same bulk call, we could also have a `b.Delete<FeedPackage>(d => d.Id(123))` in our call too.
+> **NOTE:** We have to explicitly state the type of the object we are indexing. Unlike the regular `Client.Index()` method, `Bulk()` can deal with more than one different type in the same request. For example, we could have easily had a `b.Index<Foo>(i => i.Document(myFoo))` in the same foreach loop. In fact, the bulk API supports several operations incuding delete, update and create in the same bulk call, so we could also have operations like `b.Delete<FeedPackage>(d => d.Id(123))` in our call.
 
 Let's take a look at the request that `Bulk()` generates in Fiddler. It builds a request that consists of the operation (in our case all `index`) and the document:
 

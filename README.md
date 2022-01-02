@@ -308,8 +308,8 @@ Now we could re-index our packages using our new settings, but first we'll need 
 // Add this method.
 static void DeleteIndexIfExists()
 {
-    if (Client.IndexExists("nusearch").Exists)
-        Client.DeleteIndex("nusearch");
+    if (Client.Indices.Exists("nusearch").Exists)
+        Client.Indices.Delete("nusearch");
 }
 
 static void Main(string[] args)

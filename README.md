@@ -1106,7 +1106,7 @@ If you do not specify a field name explicitly in a search request, the queries w
 
 Another thing to note about the [`query_string` query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html) we've used is that it exposes the [Lucene query syntax](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-string-syntax) to the user.
 
-Try some of the following querie:
+Try some of the following queries:
 
 * `id:hello*`
 * `id:hello* OR id:autofac^1000`

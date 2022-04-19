@@ -1694,10 +1694,10 @@ In `SearchController`, lets update the model with the total number of pages:
 ```csharp
 var model = new SearchViewModel
 {
-    Packages = result.Documents,
-    Total = result.Total,
-    Form = form,
-    TotalPages = (int)Math.Ceiling(result.Total / (double)form.PageSize)
+    Hits = result.Hits,
+	Total = result.Total,
+	Form = form,
+	TotalPages = (int)Math.Ceiling(result.Total / (double)form.PageSize)
 };
 ```
 
